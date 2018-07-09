@@ -33,9 +33,14 @@ namespace BackgroundTask
                                     if (parsedDefconStatus > 0 && parsedDefconStatus < 6)
                                     {
                                         ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-                                        roamingSettings.Values["defconStatus"] = defconStatus;
-                                        ShowToast("DEFCON " + defconStatus);
-                                        LiveTileService.SetLiveTile(int.Parse(defconStatus), LoadUseTransparentTileSetting());
+                                        int savedDefconStatus = 0;
+                                        if (roamingSettings.Values.ContainsKey("defconStatus")) savedDefconStatus = Convert.ToInt16(roamingSettings.Values["defconStatus"].ToString());                                        
+                                        if (parsedDefconStatus != savedDefconStatus)
+                                        {
+                                            roamingSettings.Values["defconStatus"] = defconStatus;
+                                            ShowToast("DEFCON " + defconStatus);
+                                            LiveTileService.SetLiveTile(int.Parse(defconStatus), LoadUseTransparentTileSetting());
+                                        }
                                     }
                                 };
                             await datagramSocket.CancelIOAsync();
