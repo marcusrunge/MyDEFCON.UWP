@@ -1,0 +1,392 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behaviors="using:Template10.Behaviors"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:dependencies="using:MyDEFCON_UWP.Dependencies"
+    xmlns:local="using:MyDEFCON_UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:MyDEFCON_UWP.ViewModels"
+    xmlns:Media="using:Microsoft.Xaml.Interactions.Media"
+    xmlns:views="using:MyDEFCON_UWP.Views"
+    xmlns:Converters="using:MyDEFCON_UWP.Converters"
+    xmlns:System="using:System" x:Name="page"
+    x:Class="MyDEFCON_UWP.Views.CheckListPage"
+    mc:Ignorable="d" >
+
+    <Page.Resources>
+        <Converters:SelectedItemsToListConverter x:Key="SelectedItemsToListConverter"/>
+        <DataTemplate x:Name="CheckListEntry" >
+            <RelativePanel>
+                <TextBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemTextBox" TextWrapping="Wrap" RelativePanel.RightOf="checkListItemCheckBox" Text="{Binding Item, Mode=TwoWay, UpdateSourceTrigger=Explicit}" LostFocus="TextBox_LostFocus" FontSize="{Binding FontSize}" Width="{Binding Width}" RequestedTheme="Dark" PlaceholderText="New item">
+                    <TextBox.Resources>
+                        <ResourceDictionary Source="/Styles/CheckListItemTextBoxStyle.xaml"/>
+                    </TextBox.Resources>
+                    <TextBox.Style>
+                        <StaticResource ResourceKey="CheckListItemTextBoxStyle"/>
+                    </TextBox.Style>
+                </TextBox>
+                <CheckBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemCheckBox" RelativePanel.AlignLeftWithPanel="True" IsChecked="{Binding Checked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                    <CheckBox.Resources>
+                        <ResourceDictionary Source="/Styles/CheckListItemCheckBoxStyle.xaml"/>
+                    </CheckBox.Resources>
+                    <CheckBox.Style>
+                        <StaticResource ResourceKey="CheckListItemCheckBoxStyle"/>
+                    </CheckBox.Style>
+                </CheckBox>
+            </RelativePanel>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Page.DataContext>
+        <vm:CheckListPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Interactivity:Interaction.Behaviors>
+        <dependencies:VisualStateDependencyProperty VisualStateProperty="{x:Bind ViewModel.DefconVisualState}"/>
+    </Interactivity:Interaction.Behaviors>
+
+    <Grid Background="Black">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="DefconVisualStateGroup">
+                <VisualState x:Name="Defcon1VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon1rectangle.(Shape.Fill).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>White</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="defcon1textBlock.(TextBlock.Foreground).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF404040</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="defcon2ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon3ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon4ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon5ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon2VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon2textBlock.(TextBlock.Foreground).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF400C00</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="defcon2rectangle.(Shape.Fill).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FFFF7100</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="defcon1ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon3ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon4ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon5ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon3VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon3rectangle.(Shape.Fill).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>Yellow</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="defcon3textBlock.(TextBlock.Foreground).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF404000</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="defcon1ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon2ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon4ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon5ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon4VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon4textBlock.(TextBlock.Foreground).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF003500</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="defcon4rectangle.(Shape.Fill).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF00F200</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="defcon1ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon2ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon3ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon5ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon5VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon5textBlock.(TextBlock.Foreground).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF002340</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="defcon5rectangle.(Shape.Fill).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF0064FF</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="defcon1ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon2ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon3ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="defcon4ListView.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <controls:PageHeader Content="NON-NORMAL CHECKLIST" FontWeight="Bold" Frame="{x:Bind Frame}"/>
+        <Grid Grid.Row="1">
+            <Grid.RenderTransform>
+                <CompositeTransform SkewX="-45"/>
+            </Grid.RenderTransform>
+            <Grid Background="Black" Margin="0,0,-1134,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Background="#FFE8FF00"/>
+                <StackPanel Grid.Column="2" Background="#FFE8FF00"/>
+                <StackPanel Grid.Column="4" Background="#FFE8FF00"/>
+                <StackPanel Grid.Column="6" Background="#FFE8FF00"/>
+                <StackPanel Grid.Column="8" Background="#FFE8FF00"/>
+                <StackPanel Grid.Column="10" Background="#FFE8FF00"/>
+                <StackPanel Grid.Column="12" Background="#FFE8FF00"/>
+                <StackPanel Grid.Column="14" Background="#FFE8FF00"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="CheckListGrid" Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="grid" Grid.Row="0" >
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="SizeChanged">
+                        <Core:InvokeCommandAction Command="{x:Bind ViewModel.WindowSizeChangedCommand}"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="52"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Rectangle x:Name="defcon1rectangle" Grid.Column="0" Fill="#FF404040" Margin="3">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Tapped">
+                            <Core:GoToStateAction StateName="Defcon1VisualState"/>
+                            <Core:InvokeCommandAction CommandParameter="1" Command="{x:Bind ViewModel.UpdateDefconVisualStateCommand, Mode=OneWay}"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+
+                </Rectangle>
+                <Rectangle x:Name="defcon2rectangle" Grid.Column="1" Fill="#FF400C00" Margin="3">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Tapped">
+                            <Core:GoToStateAction StateName="Defcon2VisualState"/>
+                            <Core:InvokeCommandAction CommandParameter="2" Command="{x:Bind ViewModel.UpdateDefconVisualStateCommand, Mode=OneWay}"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+
+                </Rectangle>
+                <Rectangle x:Name="defcon3rectangle" Grid.Column="2" Fill="#FF404000" Margin="3">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Tapped">
+                            <Core:GoToStateAction StateName="Defcon3VisualState"/>
+                            <Core:InvokeCommandAction CommandParameter="3" Command="{x:Bind ViewModel.UpdateDefconVisualStateCommand, Mode=OneWay}"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+
+                </Rectangle>
+                <Rectangle x:Name="defcon4rectangle" Grid.Column="3" Fill="#FF003500" Margin="3">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Tapped">
+                            <Core:GoToStateAction StateName="Defcon4VisualState"/>
+                            <Core:InvokeCommandAction CommandParameter="4" Command="{x:Bind ViewModel.UpdateDefconVisualStateCommand, Mode=OneWay}"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+
+                </Rectangle>
+                <Rectangle x:Name="defcon5rectangle" Grid.Column="4" Fill="#FF002340" Margin="3">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Tapped">
+                            <Core:GoToStateAction StateName="Defcon5VisualState"/>
+                            <Core:InvokeCommandAction CommandParameter="5" Command="{x:Bind ViewModel.UpdateDefconVisualStateCommand, Mode=OneWay}"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+
+                </Rectangle>
+                <TextBlock x:Name="defcon1textBlock" Text="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="48" Foreground="#FFFFFFFF" Margin="3">
+        			<Interactivity:Interaction.Behaviors>
+        				<Core:EventTriggerBehavior EventName="Tapped">
+        					<Core:GoToStateAction StateName="Defcon1VisualState"/>
+        					<Core:InvokeCommandAction CommandParameter="1" Command="{x:Bind ViewModel.UpdateDefconVisualStateCommand, Mode=OneWay}"/>
+        				</Core:EventTriggerBehavior>
+        			</Interactivity:Interaction.Behaviors>
+
+                </TextBlock>
+                <TextBlock x:Name="defcon2textBlock" Text="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="48" Foreground="#FFFF7100" Margin="3">
+        			<Interactivity:Interaction.Behaviors>
+        				<Core:EventTriggerBehavior EventName="Tapped">
+        					<Core:GoToStateAction StateName="Defcon2VisualState"/>
+        					<Core:InvokeCommandAction Command="{x:Bind ViewModel.UpdateDefconVisualStateCommand, Mode=OneWay}" CommandParameter="2"/>
+        				</Core:EventTriggerBehavior>
+        			</Interactivity:Interaction.Behaviors>
+
+                </TextBlock>
+                <TextBlock x:Name="defcon3textBlock" Text="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="48" Foreground="#FFFF00" Margin="3">
+        			<Interactivity:Interaction.Behaviors>
+        				<Core:EventTriggerBehavior EventName="Tapped">
+        					<Core:GoToStateAction StateName="Defcon3VisualState"/>
+        					<Core:InvokeCommandAction Command="{x:Bind ViewModel.UpdateDefconVisualStateCommand, Mode=OneWay}" CommandParameter="3"/>
+        				</Core:EventTriggerBehavior>
+        			</Interactivity:Interaction.Behaviors>
+
+                </TextBlock>
+                <TextBlock x:Name="defcon4textBlock" Text="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="48" Foreground="#FF00F200" Margin="3">
+        			<Interactivity:Interaction.Behaviors>
+        				<Core:EventTriggerBehavior EventName="Tapped">
+        					<Core:GoToStateAction StateName="Defcon4VisualState"/>
+        					<Core:InvokeCommandAction Command="{x:Bind ViewModel.UpdateDefconVisualStateCommand, Mode=OneWay}" CommandParameter="4"/>
+        				</Core:EventTriggerBehavior>
+        			</Interactivity:Interaction.Behaviors>
+
+                </TextBlock>
+                <TextBlock x:Name="defcon5textBlock" Text="5" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI" FontSize="48" Foreground="#FF0066FF" Margin="3">
+        			<Interactivity:Interaction.Behaviors>
+        				<Core:EventTriggerBehavior EventName="Tapped">
+        					<Core:GoToStateAction StateName="Defcon5VisualState"/>
+        					<Core:InvokeCommandAction Command="{x:Bind ViewModel.UpdateDefconVisualStateCommand, Mode=OneWay}" CommandParameter="5"/>
+        				</Core:EventTriggerBehavior>
+        			</Interactivity:Interaction.Behaviors>
+
+                </TextBlock>
+                <Rectangle Grid.Row="1" Grid.Column="0" Margin="3,0" Fill="{Binding Defcon1CheckRectangleFill}" />
+                <TextBlock Grid.Row="1" Grid.Column="0" FontFamily="Segoe UI" FontSize="18.667" HorizontalAlignment="Center" Text="{Binding Defcon1UnCheckedItems}" Foreground="#FFFFFFFF"/>
+                <Rectangle Grid.Row="1" Grid.Column="1" Margin="3,0" Fill="{Binding Defcon2CheckRectangleFill}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" FontFamily="Segoe UI" FontSize="18.667" HorizontalAlignment="Center" Text="{Binding Defcon2UnCheckedItems}" Foreground="#FFFFFFFF"/>
+                <Rectangle Grid.Row="1" Grid.Column="2" Margin="3,0" Fill="{Binding Defcon3CheckRectangleFill}"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" FontFamily="Segoe UI" FontSize="18.667" HorizontalAlignment="Center" Text="{Binding Defcon3UnCheckedItems}" Foreground="#FFFFFFFF"/>
+                <Rectangle Grid.Row="1" Grid.Column="3" Margin="3,0" Fill="{Binding Defcon4CheckRectangleFill}"/>
+                <TextBlock Grid.Row="1" Grid.Column="3" FontFamily="Segoe UI" FontSize="18.667" HorizontalAlignment="Center" Text="{Binding Defcon4UnCheckedItems}" Foreground="#FFFFFFFF"/>
+                <Rectangle Grid.Row="1" Grid.Column="4" Margin="3,0" Fill="{Binding Defcon5CheckRectangleFill}"/>
+                <TextBlock Grid.Row="1" Grid.Column="4" FontFamily="Segoe UI" FontSize="18.667" HorizontalAlignment="Center" Text="{Binding Defcon5UnCheckedItems}" Foreground="#FFFFFFFF"/>
+            </Grid>
+            <ListView RequestedTheme="Dark" x:Name="defcon1ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon1CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3"  >
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="SelectionChanged">
+                        <Core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" InputConverter="{StaticResource SelectedItemsToListConverter}" InputConverterParameter="{Binding ElementName=defcon1ListView}"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </ListView>
+            <ListView RequestedTheme="Dark"  x:Name="defcon2ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon2CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="SelectionChanged">
+                        <Core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" InputConverter="{StaticResource SelectedItemsToListConverter}" InputConverterParameter="{Binding ElementName=defcon2ListView}"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </ListView>
+            <ListView RequestedTheme="Dark"  x:Name="defcon3ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon3CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="SelectionChanged">
+                        <Core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" InputConverter="{StaticResource SelectedItemsToListConverter}" InputConverterParameter="{Binding ElementName=defcon3ListView}"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </ListView>
+            <ListView RequestedTheme="Dark"  x:Name="defcon4ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon4CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="SelectionChanged">
+                        <Core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" InputConverter="{StaticResource SelectedItemsToListConverter}" InputConverterParameter="{Binding ElementName=defcon4ListView}"/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </ListView>
+            <ListView RequestedTheme="Dark"  x:Name="defcon5ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon5CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="4,3,3,3">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:EventTriggerBehavior EventName="SelectionChanged">
+                        <Core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" InputConverter="{StaticResource SelectedItemsToListConverter}" InputConverterParameter="{Binding ElementName=defcon5ListView}"/>
+                        <Core:CallMethodAction/>
+                    </Core:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </ListView>
+        </Grid>
+        <CommandBar Grid.Row="2" RequestedTheme="Light" Background="#FFE8FF00" Foreground="Red" BorderBrush="Red" >
+            <CommandBar.Resources>
+                <ResourceDictionary Source="/Styles/RedAppBarButtonStyle.xaml"/>
+            </CommandBar.Resources>
+            <AppBarButton Icon="Bullets" Label="Select" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Command="{x:Bind ViewModel.EnableSelectionModeCommand, Mode=OneWay}"/>
+            <AppBarButton Icon="FontDecrease" Label="Smaller" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Command="{x:Bind ViewModel.FontDecreaseCommand}"/>
+            <AppBarButton Icon="FontIncrease" Label="Larger" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Command="{x:Bind ViewModel.FontIncreaseCommand}"/>
+            <AppBarButton x:Name="appBarButton" Label="Add" Foreground="Red" RequestedTheme="Dark" Icon="Add" Visibility="{Binding AddIconVisibility}" Margin="0" UseSystemFocusVisuals="False" Command="{x:Bind ViewModel.AddItemCommand, Mode=OneWay}">
+                <AppBarButton.Resources>
+                    <ResourceDictionary Source="/Styles/AddItemFlyoutPresenterStyle.xaml"/>
+                </AppBarButton.Resources>
+                <AppBarButton.Style>
+                    <StaticResource ResourceKey="RedAppBarButtonStyle"/>
+                </AppBarButton.Style>
+                <!--<AppBarButton.Flyout>
+                    <Flyout x:Name="flyout"  FlyoutPresenterStyle="{StaticResource AddItemFlyoutPresenterStyle}" Placement="Top">
+                        <Interactivity:Interaction.Behaviors>
+                            <dependencies:FlyoutBehavior>
+                                <dependencies:FlyoutBehavior.OpenActions>
+                                    <Core:InvokeCommandAction Command="{x:Bind ViewModel.AddItemFlyoutOpenCommand, Mode=OneWay}"/>
+                                </dependencies:FlyoutBehavior.OpenActions>
+                                <dependencies:FlyoutBehavior.CloseActions>
+                                    <Core:InvokeCommandAction Command="{x:Bind ViewModel.AddItemFlyoutCloseCommand, Mode=OneWay}"/>
+                                </dependencies:FlyoutBehavior.CloseActions>
+                            </dependencies:FlyoutBehavior>
+                        </Interactivity:Interaction.Behaviors>
+                        <Grid x:Name="flyoutGrid" Width="{x:Bind ViewModel.ScreenWidth}" Margin="0,0,0,0" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" Padding="8,0,24,0" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="textBox" Grid.Column="0" Margin="0" VerticalAlignment="Center" Text="{x:Bind ViewModel.TextBox, Mode=TwoWay}" Width="Auto" FontSize="24"/>
+                            <AppBarButton Grid.Column="1" Label="Accept" Icon="Accept" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind ViewModel.AddItemCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=textBox}">
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:EventTriggerBehavior EventName="Click">
+                                        <Behaviors:CloseFlyoutAction/>
+                                    </Core:EventTriggerBehavior>
+                                </Interactivity:Interaction.Behaviors>
+                            </AppBarButton>
+                        </Grid>
+                    </Flyout>
+                </AppBarButton.Flyout>-->
+            </AppBarButton>
+            <!--<AppBarButton Icon="Cancel"  Label="Cancel" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Visibility="{Binding CancelIconVisibility}"/>-->
+            <AppBarButton Icon="Delete" Label="Delete" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Visibility="{Binding DeleteIconVisibility}" Command="{x:Bind ViewModel.DeleteSelectionCommand, Mode=OneWay}"/>
+        </CommandBar>
+    </Grid>
+</Page>

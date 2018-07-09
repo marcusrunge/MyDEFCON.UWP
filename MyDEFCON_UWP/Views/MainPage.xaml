@@ -1,0 +1,297 @@
+<Page x:Class="MyDEFCON_UWP.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Behaviors="using:Template10.Behaviors"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:dependencies="using:MyDEFCON_UWP.Dependencies"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:Template10.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:MyDEFCON_UWP.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="using:MyDEFCON_UWP.ViewModels" mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:MainPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <ResourceDictionary Source="/Styles/ToggleButtonStyles.xaml"/>
+    </Page.Resources>
+
+    <Grid Background="Black">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
+                <VisualState x:Name="VisualStateNarrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--  TODO: change properties for narrow view  -->
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateNormal">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--  TODO: change properties for normal view  -->
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateWide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--  TODO: change properties for wide view  -->
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="DefconVisualStateGroup">
+                <VisualState x:Name="Defcon1VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon1ToggleButton.(ToggleButton.IsChecked)" Value="True"/>
+                        <Setter Target="defcon2ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon3ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon4ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon5ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon2VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon2ToggleButton.(ToggleButton.IsChecked)" Value="True"/>
+                        <Setter Target="defcon1ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon3ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon4ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon5ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon3VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon3ToggleButton.(ToggleButton.IsChecked)" Value="True"/>
+                        <Setter Target="defcon1ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon2ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon4ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon5ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon4VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon4ToggleButton.(ToggleButton.IsChecked)" Value="True"/>
+                        <Setter Target="defcon1ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon2ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon3ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon5ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon5VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon5ToggleButton.(ToggleButton.IsChecked)" Value="True"/>
+                        <Setter Target="defcon1ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon2ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon3ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                        <Setter Target="defcon4ToggleButton.(ToggleButton.IsChecked)" Value="False"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="AdaptiveTextSizeVisualStateGroup">
+                <VisualState x:Name="_34ptVisualState">
+                    <VisualState.Setters>
+                        <Setter Target="defcon1ToggleButton.(Control.FontSize)" Value="32"/>
+                        <Setter Target="defcon2ToggleButton.(Control.FontSize)" Value="32"/>
+                        <Setter Target="defcon3ToggleButton.(Control.FontSize)" Value="32"/>
+                        <Setter Target="defcon4ToggleButton.(Control.FontSize)" Value="32"/>
+                        <Setter Target="defcon5ToggleButton.(Control.FontSize)" Value="32"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="500"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="_48ptVisualState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="1000" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="defcon1ToggleButton.(Control.FontSize)" Value="96"/>
+                        <Setter Target="defcon2ToggleButton.(Control.FontSize)" Value="96"/>
+                        <Setter Target="defcon3ToggleButton.(Control.FontSize)" Value="96"/>
+                        <Setter Target="defcon4ToggleButton.(Control.FontSize)" Value="96"/>
+                        <Setter Target="defcon5ToggleButton.(Control.FontSize)" Value="96"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="_108ptVisualState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="1500" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="defcon1ToggleButton.(Control.FontSize)" Value="144"/>
+                        <Setter Target="defcon2ToggleButton.(Control.FontSize)" Value="144"/>
+                        <Setter Target="defcon3ToggleButton.(Control.FontSize)" Value="144"/>
+                        <Setter Target="defcon4ToggleButton.(Control.FontSize)" Value="144"/>
+                        <Setter Target="defcon5ToggleButton.(Control.FontSize)" Value="144"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  page header  -->
+        <controls:PageHeader Content="DEFCON STATUS" FontWeight="Bold">
+        </controls:PageHeader>
+
+        <!--  page content  -->
+        <Grid Grid.Row="1" Margin="0">
+            <Grid x:Name="backgroundGrid">
+                <Grid.RenderTransform>
+                    <CompositeTransform SkewX="-45"/>
+                </Grid.RenderTransform>
+                <Grid Background="Black" Margin="0,0,-1134,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Background="#FFE8FF00"/>
+                    <StackPanel Grid.Column="2" Background="#FFE8FF00"/>
+                    <StackPanel Grid.Column="4" Background="#FFE8FF00"/>
+                    <StackPanel Grid.Column="6" Background="#FFE8FF00"/>
+                    <StackPanel Grid.Column="8" Background="#FFE8FF00"/>
+                    <StackPanel Grid.Column="10" Background="#FFE8FF00"/>
+                    <StackPanel Grid.Column="12" Background="#FFE8FF00"/>
+                    <StackPanel Grid.Column="14" Background="#FFE8FF00"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="defconToggleButtonGrid" Grid.Row="1" Grid.Column="1" Padding="12,8">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ToggleButton x:Name="defcon1ToggleButton" Grid.Row="0" Content="DEFCON 1" Background="#FF404040" Foreground="#FFFFFF" Style="{StaticResource Defcon1ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="21.333" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" BorderBrush="White" IsChecked="{Binding Defcon1ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Checked">
+                            <Core:GoToStateAction StateName="Defcon1VisualState"/>
+                            <Core:InvokeCommandAction Command="{x:Bind ViewModel.SetDefcon1Command}"/>
+                        </Core:EventTriggerBehavior>
+                        <Core:EventTriggerBehavior EventName="Unchecked">
+                            <Core:InvokeCommandAction Command="{x:Bind ViewModel.SetDefcon1Command}"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                </ToggleButton>
+                <ToggleButton x:Name="defcon2ToggleButton" Grid.Row="1" Content="DEFCON 2" Style="{StaticResource Defcon2ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="21.333" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF400C00" BorderBrush="#FFFF7100" Foreground="#FFFF7100" IsChecked="{Binding Defcon2ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Checked">
+                            <Core:GoToStateAction StateName="Defcon2VisualState"/>
+                            <Core:InvokeCommandAction Command="{x:Bind ViewModel.SetDefcon2Command}"/>
+                        </Core:EventTriggerBehavior>
+                        <Core:EventTriggerBehavior EventName="Unchecked">
+                            <Core:InvokeCommandAction Command="{x:Bind ViewModel.SetDefcon2Command}"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                </ToggleButton>
+                <ToggleButton x:Name="defcon3ToggleButton" Grid.Row="2" Content="DEFCON 3" Style="{StaticResource Defcon3ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="21.333" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF404000" BorderBrush="Yellow" Foreground="Yellow" IsChecked="{Binding Defcon3ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Checked">
+                            <Core:GoToStateAction StateName="Defcon3VisualState"/>
+                            <Core:InvokeCommandAction Command="{x:Bind ViewModel.SetDefcon3Command}"/>
+                        </Core:EventTriggerBehavior>
+                        <Core:EventTriggerBehavior EventName="Unchecked">
+                            <Core:InvokeCommandAction Command="{x:Bind ViewModel.SetDefcon3Command}"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                </ToggleButton>
+                <ToggleButton x:Name="defcon4ToggleButton" Grid.Row="3" Content="DEFCON 4" Style="{StaticResource Defcon4ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="21.333" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF003500" BorderBrush="#FF00F200" Foreground="#FF00F200" IsChecked="{Binding Defcon4ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Checked">
+                            <Core:GoToStateAction StateName="Defcon4VisualState"/>
+                            <Core:InvokeCommandAction Command="{x:Bind ViewModel.SetDefcon4Command}"/>
+                        </Core:EventTriggerBehavior>
+                        <Core:EventTriggerBehavior EventName="Unchecked">
+                            <Core:InvokeCommandAction Command="{x:Bind ViewModel.SetDefcon4Command}"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                </ToggleButton>
+                <ToggleButton x:Name="defcon5ToggleButton" Grid.Row="4" Content="DEFCON 5" Style="{StaticResource Defcon5ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="21.333" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF002340" BorderBrush="#FF0066FF" Foreground="#FF0066FF" IsChecked="{Binding Defcon5ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <Interactivity:Interaction.Behaviors>
+                        <Core:EventTriggerBehavior EventName="Checked">
+                            <Core:GoToStateAction StateName="Defcon5VisualState"/>
+                            <Core:InvokeCommandAction Command="{x:Bind ViewModel.SetDefcon5Command}"/>
+                        </Core:EventTriggerBehavior>
+                        <Core:EventTriggerBehavior EventName="Unchecked">
+                            <Core:InvokeCommandAction Command="{x:Bind ViewModel.SetDefcon5Command}"/>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                </ToggleButton>
+            </Grid>
+        </Grid>
+        <CommandBar Grid.Row="2" x:Name="commandBar" RequestedTheme="Light" Background="#FFE8FF00" Foreground="Red" BorderBrush="Red" d:LayoutOverrides="TopPosition, BottomPosition">
+            <CommandBar.Resources>
+                <ResourceDictionary Source="/Styles/RedAppBarButtonStyle.xaml"/>
+            </CommandBar.Resources>
+            <AppBarButton x:Name="appBarButton" Label="Share" Foreground="Red" RequestedTheme="Dark" Icon="ReShare" Visibility="{Binding ShareIconVisibility}" Margin="0" UseSystemFocusVisuals="False">
+                <AppBarButton.Resources>
+                    <ResourceDictionary Source="/Styles/AddItemFlyoutPresenterStyle.xaml"/>
+                </AppBarButton.Resources>
+                <AppBarButton.Style>
+                    <StaticResource ResourceKey="RedAppBarButtonStyle"/>
+                </AppBarButton.Style>
+                <AppBarButton.Flyout>
+                    <Flyout x:Name="flyout"  FlyoutPresenterStyle="{StaticResource AddItemFlyoutPresenterStyle}" Placement="Top">
+                        <Interactivity:Interaction.Behaviors>
+                            <dependencies:FlyoutBehavior>
+                                <dependencies:FlyoutBehavior.OpenActions>
+                                    <Core:InvokeCommandAction Command="{x:Bind ViewModel.ShareFlyoutOpenCommand, Mode=OneWay}"/>
+                                </dependencies:FlyoutBehavior.OpenActions>
+                                <dependencies:FlyoutBehavior.CloseActions>
+                                    <Core:InvokeCommandAction Command="{x:Bind ViewModel.ShareFlyoutCloseCommand, Mode=OneWay}"/>
+                                </dependencies:FlyoutBehavior.CloseActions>
+                            </dependencies:FlyoutBehavior>
+                        </Interactivity:Interaction.Behaviors>
+                        <Grid x:Name="flyoutGrid" Width="{x:Bind ViewModel.ScreenWidth}" Margin="0,0,0,0" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" Padding="8,0,24,0" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Message to pass along or leave blank:"/>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="textBox" Grid.Column="0" FontSize="24" Margin="0" VerticalAlignment="Center" Text="{Binding TextBox, Mode=TwoWay}"/>
+                                <AppBarButton Grid.Column="1" Label="Send" Icon="Send" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ShareCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=textBox}">
+                                    <Interactivity:Interaction.Behaviors>
+                                        <Core:EventTriggerBehavior EventName="Click">
+                                            <Behaviors:CloseFlyoutAction/>
+                                        </Core:EventTriggerBehavior>
+                                    </Interactivity:Interaction.Behaviors>
+                                </AppBarButton>
+                            </Grid>
+                        </Grid>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton x:Name="appBarCancelButton" Icon="Cancel"  Label="Cancel" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Visibility="{Binding CancelIconVisibility}" />
+        </CommandBar>
+    </Grid>
+</Page>
+

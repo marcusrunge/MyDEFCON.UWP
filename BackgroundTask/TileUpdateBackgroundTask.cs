@@ -1,0 +1,46 @@
+﻿using Services;
+using System;
+using Windows.ApplicationModel.Background;
+
+namespace BackgroundTask
+{
+    public sealed class TileUpdateBackgroundTask : IBackgroundTask
+    {
+        public void Run(IBackgroundTaskInstance taskInstance)
+        {
+            var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
+            if (backgroundWorkCost == BackgroundWorkCostValue.High)
+            {
+                return;
+            }
+            else
+            {
+                var deferral = taskInstance.GetDeferral();
+                LiveTileService.SetLiveTile(LoadDefconStatusFromRoamingSettings(), LoadUseTransparentTileSetting());
+                LiveTileService.UpdateTileBadge(BadgeNumber());
+                deferral.Complete();
+            }
+        }
+
+        public int LoadDefconStatusFromRoamingSettings()
+        {
+            Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            if (roamingSettings.Values.ContainsKey("defconStatus")) return Convert.ToInt16(roamingSettings.Values["defconStatus"].ToString());
+            else return 5;
+        }
+
+        private bool LoadUseTransparentTileSetting()
+        {
+            Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (localSettings.Values.ContainsKey("useTransparentTile")) return (bool)localSettings.Values["useTransparentTile"];
+            else return false;
+        }
+
+        private int BadgeNumber()
+        {
+            Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            if (roamingSettings.Values.ContainsKey("badgeNumber")) return Convert.ToInt16(roamingSettings.Values["badgeNumber"]);
+            else return 0;
+        }
+    }
+}
