@@ -1,4 +1,5 @@
 ﻿using DatagramLibrary;
+using MyDEFCON_UWP.Services.SettingsServices;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace MyDEFCON_UWP.ViewModels
     {
         DatagramService _datagramService;
         bool _useTransparentTile = default(bool);
+        bool _isFullScreen = default(bool);
         int _defconStatus;
         public int DefconStatus { get { return _defconStatus; } set { Set(ref _defconStatus, value); } }
         double _fontSize;
@@ -23,7 +25,10 @@ namespace MyDEFCON_UWP.ViewModels
         public VisualState DefconVisualState { get { return _defconVisualState; } set { Set(ref _defconVisualState, value); } }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
-        {            
+        {
+            SettingsService.Instance.IsFullScreen = true;
+            SettingsService.Instance.ShowHamburgerButton = false;
+            _isFullScreen = true;
             await LoadDefconStatusFromRoamingSettings();
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             if (localSettings.Values.ContainsKey("useTransparentTile")) _useTransparentTile = (bool)localSettings.Values["useTransparentTile"];
@@ -102,6 +107,27 @@ namespace MyDEFCON_UWP.ViewModels
         public override async Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
         {
             if (_datagramService != null) await _datagramService.Dispose();
+            SettingsService.Instance.IsFullScreen = false;
+            SettingsService.Instance.ShowHamburgerButton = true;
+            _isFullScreen = false;
         }
+
+        DelegateCommand _fullScreenCommand;
+        public DelegateCommand FullScreenCommand
+            => _fullScreenCommand ?? (_fullScreenCommand = new DelegateCommand(() =>
+            {
+                if (_isFullScreen)
+                {
+                    SettingsService.Instance.IsFullScreen = false;
+                    SettingsService.Instance.ShowHamburgerButton = true;
+                    _isFullScreen = false;
+                }
+                else
+                {
+                    SettingsService.Instance.IsFullScreen = true;
+                    SettingsService.Instance.ShowHamburgerButton = false;
+                    _isFullScreen = true;
+                }
+            }, () => true));
     }
 }

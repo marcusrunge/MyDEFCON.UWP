@@ -30,6 +30,6 @@ namespace MyDEFCON_UWP.Views
         private void border_LayoutUpdated(object sender, object e)
         {
 
-        }        
+        }
     }
 }
