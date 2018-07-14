@@ -167,7 +167,7 @@ namespace MyDEFCON_UWP.ViewModels
 
         private void ToggleScreenBacklight(bool isScreenBacklightOn)
         {
-            byte brightness = isScreenBacklightOn ? (byte)255 : (byte)8;
+            byte brightness = isScreenBacklightOn ? (byte)255 : (byte)7;
             try
             {
                 _i2CDevice?.Write(new byte[] { 0x86, brightness });
