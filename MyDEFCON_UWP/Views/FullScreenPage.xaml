@@ -19,6 +19,19 @@
         <Core:EventTriggerBehavior EventName="Tapped">
             <Core:InvokeCommandAction Command="{x:Bind ViewModel.FullScreenCommand, Mode=OneWay}"/>
         </Core:EventTriggerBehavior>
+        <!--Gesture Recognizer-->
+        <Core:EventTriggerBehavior EventName="PointerPressed">
+            <Core:InvokeCommandAction Command="{x:Bind ViewModel.OnPointerPressedCommand, Mode=OneWay}"/>
+        </Core:EventTriggerBehavior>
+        <!--<Core:EventTriggerBehavior EventName="PointerMoved">
+            <Core:InvokeCommandAction Command="{x:Bind ViewModel.OnPointerMovedCommand, Mode=OneWay}"/>
+        </Core:EventTriggerBehavior>-->
+        <Core:EventTriggerBehavior EventName="PointerReleased">
+            <Core:InvokeCommandAction Command="{x:Bind ViewModel.OnPointerReleasedCommand, Mode=OneWay}"/>
+        </Core:EventTriggerBehavior>
+        <!--<Core:EventTriggerBehavior EventName="PointerCanceled">
+            <Core:InvokeCommandAction Command="{x:Bind ViewModel.OnPointerCanceledCommand, Mode=OneWay}"/>
+        </Core:EventTriggerBehavior>-->
     </Interactivity:Interaction.Behaviors>    
     <Grid>
         <VisualStateManager.VisualStateGroups>
