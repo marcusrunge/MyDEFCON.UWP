@@ -167,6 +167,20 @@ namespace MyDEFCON_UWP.ViewModels
                 return _removeBackgroundTasksCommand;
             }
         }
+
+        DelegateCommand _shutdownCommand;
+        public DelegateCommand ShutdownCommand
+            => _shutdownCommand ?? (_shutdownCommand = new DelegateCommand(() =>
+            {
+                ShutdownManager.BeginShutdown(ShutdownKind.Shutdown, TimeSpan.FromSeconds(0));
+            }, () => true));
+
+        DelegateCommand _restartCommand;
+        public DelegateCommand RestartCommand
+            => _restartCommand ?? (_restartCommand = new DelegateCommand(() =>
+            {
+                ShutdownManager.BeginShutdown(ShutdownKind.Restart, TimeSpan.FromSeconds(0));
+            }, () => true));
         #endregion
     }
 

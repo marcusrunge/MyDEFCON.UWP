@@ -167,16 +167,12 @@ namespace MyDEFCON_UWP.ViewModels
 
         private void ToggleScreenBacklight(bool isScreenBacklightOn)
         {
-            byte brightness = isScreenBacklightOn ? (byte)255 : (byte)16;
+            byte brightness = isScreenBacklightOn ? (byte)255 : (byte)8;
             try
             {
-                //TODO "The transfer could not be performed due to a clock stretch timeout. Make sure the clock line is not being held low by a slave device."
-                //_i2CDevice?.Write(new byte[] { 0x86, brightness });
+                _i2CDevice?.Write(new byte[] { 0x86, brightness });
             }
-            catch (Exception e)
-            {
-                //System.Diagnostics.Debug.WriteLine(e.Source + ", " + e.Message);
-            }                        
+            catch (Exception) { }
         }
     }
 }

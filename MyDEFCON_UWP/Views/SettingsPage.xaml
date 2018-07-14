@@ -267,6 +267,18 @@
                                 Content="Remove Background Tasks"
                                 RelativePanel.Below="BroadcastToggleSwitch" Margin="0,6,0,0"
                                 Command="{x:Bind ViewModel.SettingsPartViewModel.RemoveBackgroundTasksCommand}"/>
+                        <Button x:Name="DeviceRestartButton"
+                                Style="{StaticResource RedTransparentButtonStyle}"
+                                Content="Device Restart"
+                                Width="{Binding ElementName=BackgroundTasksRemovalButton, Path=ActualWidth}"
+                                RelativePanel.Below="BackgroundTasksRemovalButton" Margin="0,24,0,0" RelativePanel.AlignHorizontalCenterWith="BackgroundTasksRemovalButton"
+                                Command="{x:Bind ViewModel.SettingsPartViewModel.RestartCommand}"/>
+                        <Button x:Name="DeviceShutdownButton"
+                                Width="{Binding ElementName=BackgroundTasksRemovalButton, Path=ActualWidth}"
+                                Style="{StaticResource RedTransparentButtonStyle}"
+                                Content="Device Shutdown"
+                                RelativePanel.Below="DeviceRestartButton" Margin="0,6,0,0" RelativePanel.AlignHorizontalCenterWith="DeviceRestartButton"
+                                Command="{x:Bind ViewModel.SettingsPartViewModel.ShutdownCommand}"/>
                     </RelativePanel>
                 </ScrollViewer>
             </PivotItem>
