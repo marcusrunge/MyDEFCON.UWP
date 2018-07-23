@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Media;
 using Services;
 using Windows.UI.Core;
 using Windows.Storage;
-using DatagramLibrary;
+using SocketLibrary;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -60,7 +60,7 @@ namespace MyDEFCON_UWP.ViewModels
         string _textBox;
         private bool selectionModeEnabled;
         bool _useTransparentTile = default(bool);
-        DatagramService _datagramService;
+        DatagramSocketService _datagramService;
         #endregion
 
         #region Properties
@@ -154,7 +154,7 @@ namespace MyDEFCON_UWP.ViewModels
             if (localSettings.Values.ContainsKey("useTransparentTile")) _useTransparentTile = (bool)localSettings.Values["useTransparentTile"];
             if (localSettings.Values.ContainsKey("lanBroadcastIsOn") && (bool)localSettings.Values["lanBroadcastIsOn"])
             {
-                _datagramService = new DatagramService();
+                _datagramService = new DatagramSocketService();
                 await _datagramService.StartListener();
                 _datagramService.IncomingMessageReceived += (s, e) =>
                 {

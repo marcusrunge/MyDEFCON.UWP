@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundTask", "Backgroun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{D6950A90-D30C-4C9E-96AA-45FEAAD1F2C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatagramLibrary", "DatagramLibrary\DatagramLibrary.csproj", "{0B9D8150-ACBB-4E63-B485-8D48164B9816}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketLibrary", "DatagramLibrary\SocketLibrary.csproj", "{0B9D8150-ACBB-4E63-B485-8D48164B9816}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundLibrary", "BackgroundLibrary\BackgroundLibrary.csproj", "{C1D13303-8EA5-48C4-8C58-44DAE8A7BB85}"
 EndProject

@@ -12,7 +12,7 @@ using Windows.UI.Xaml;
 using Windows.UI.ViewManagement;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using DatagramLibrary;
+using SocketLibrary;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -37,7 +37,7 @@ namespace MyDEFCON_UWP.ViewModels
         ItemObservableCollection<CheckListItem> _defcon4CheckList;
         ItemObservableCollection<CheckListItem> _defcon5CheckList;
         bool loadFromRoaming = false;
-        DatagramService _datagramService;
+        DatagramSocketService _datagramService;
         bool lanBroadcastIsOn = false;
         #endregion
 
@@ -91,7 +91,7 @@ namespace MyDEFCON_UWP.ViewModels
             if (localSettings.Values.ContainsKey("lanBroadcastIsOn") && (bool)localSettings.Values["lanBroadcastIsOn"])
             {
                 lanBroadcastIsOn = true;
-                _datagramService = new DatagramService();
+                _datagramService = new DatagramSocketService();
                 await _datagramService.StartListener();
                 _datagramService.IncomingMessageReceived += (s, e) =>
                 {

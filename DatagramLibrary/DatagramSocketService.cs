@@ -11,9 +11,9 @@ using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 
-namespace DatagramLibrary
+namespace SocketLibrary
 {
-    public class DatagramService
+    public class DatagramSocketService
     {
         public string IncomingMessage { get; set; }
         public event EventHandler<string> IncomingMessageReceived;
@@ -30,8 +30,14 @@ namespace DatagramLibrary
             {
                 uint stringLength = e.GetDataReader().UnconsumedBufferLength;
                 IncomingMessage = e.GetDataReader().ReadString(stringLength);
-                await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
+                if(int.TryParse(IncomingMessage, out int parsedValue) && parsedValue == 0) await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(async () => await HandleStreamSocketConnection(e.RemoteAddress)));
+                else await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
             };
+        }
+
+        private async Task HandleStreamSocketConnection(HostName remoteHostName)
+        {
+            var streamSocketService = new StreamSocketService();
         }
 
         public async Task SendMessage(string message)

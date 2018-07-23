@@ -1,4 +1,4 @@
-﻿using DatagramLibrary;
+﻿using SocketLibrary;
 using MyDEFCON_UWP.Services.SettingsServices;
 using Services;
 using System;
@@ -18,7 +18,7 @@ namespace MyDEFCON_UWP.ViewModels
 {
     public class FullScreenPageViewModel : ViewModelBase
     {
-        DatagramService _datagramService;
+        DatagramSocketService _datagramService;
         UIElement _uIElement;
         I2cDevice _i2CDevice;
         double _onPointerPressedY, _onPointerReleasedY;
@@ -48,7 +48,7 @@ namespace MyDEFCON_UWP.ViewModels
 
             if (localSettings.Values.ContainsKey("lanBroadcastIsOn") && (bool)localSettings.Values["lanBroadcastIsOn"])
             {
-                _datagramService = new DatagramService();
+                _datagramService = new DatagramSocketService();
                 await _datagramService.StartListener();
                 _datagramService.IncomingMessageReceived += async (s, e) =>
                 {

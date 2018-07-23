@@ -7,8 +7,8 @@
     <ProjectGuid>{0B9D8150-ACBB-4E63-B485-8D48164B9816}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DatagramLibrary</RootNamespace>
-    <AssemblyName>DatagramLibrary</AssemblyName>
+    <RootNamespace>SocketLibrary</RootNamespace>
+    <AssemblyName>SocketLibrary</AssemblyName>
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
@@ -106,8 +106,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DatagramService.cs" />
+    <Compile Include="DatagramSocketService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamSocketService.cs" />
     <EmbeddedResource Include="Properties\DatagramLibrary.rd.xml" />
   </ItemGroup>
   <ItemGroup>
