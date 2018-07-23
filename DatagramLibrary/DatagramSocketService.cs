@@ -1,5 +1,7 @@
 ﻿using BackgroundLibrary;
 using BackgroundTask;
+using MyDEFCON_UWP.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +40,8 @@ namespace SocketLibrary
         private async Task HandleStreamSocketConnection(HostName remoteHostName)
         {
             var streamSocketService = new StreamSocketService();
+            string jsonString = await streamSocketService.ReceiveStringData(remoteHostName);
+            List<CheckListItem> checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(jsonString);
         }
 
         public async Task SendMessage(string message)

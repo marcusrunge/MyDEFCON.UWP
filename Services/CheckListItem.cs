@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace MyDEFCON_UWP.Models
 {
-    /*public class CheckListItem : INotifyPropertyChanged
+    public class CheckListItem : INotifyPropertyChanged
     {
         #region Fields
         string _item = default(string);
@@ -11,6 +11,7 @@ namespace MyDEFCON_UWP.Models
         double _fontSize = default(double);
         double _width = default(double);
         long _unixTimeStamp;
+        short _defconStatus;
         #endregion
 
         #region Properties
@@ -19,6 +20,7 @@ namespace MyDEFCON_UWP.Models
         public double FontSize { get { return _fontSize; } set { Set(ref _fontSize, value); } }
         public double Width { get { return _width; } set { Set(ref _width, value); } }
         public long UnixTimeStamp { get { return _unixTimeStamp; } set { Set(ref _unixTimeStamp, value); } }
+        public short DefconStatus { get { return _defconStatus; } set { Set(ref _defconStatus, value); } }
         #endregion
 
         #region NotifyPropertyChanged
@@ -38,5 +40,5 @@ namespace MyDEFCON_UWP.Models
             return true;
         }
         #endregion
-    }*/
+    }
 }

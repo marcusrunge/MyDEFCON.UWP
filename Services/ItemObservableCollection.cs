@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace MyDEFCON_UWP.Models
-{/*
+{
     public class ItemObservableCollection<T> : ObservableCollection<T> where T : INotifyPropertyChanged
     {
         #region Constructor
@@ -38,5 +38,5 @@ namespace MyDEFCON_UWP.Models
             OnCollectionChanged(args);
         }
         #endregion
-    }*/
+    }
 }

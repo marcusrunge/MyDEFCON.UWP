@@ -115,6 +115,9 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.5</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BackgroundLibrary\BackgroundLibrary.csproj">
@@ -124,6 +127,10 @@
     <ProjectReference Include="..\BackgroundTask\BackgroundTask.csproj">
       <Project>{094a1694-d8c7-43bb-8ac8-e6f6b03ea4f1}</Project>
       <Name>BackgroundTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{d6950a90-d30c-4c9e-96aa-45feaad1f2c6}</Project>
+      <Name>Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

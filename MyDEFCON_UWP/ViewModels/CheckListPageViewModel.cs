@@ -439,19 +439,19 @@ namespace MyDEFCON_UWP.ViewModels
                             switch (DefconVisualState)
                             {
                                 case VisualState.Defcon1VisualState:
-                                    Defcon1CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth });
+                                    Defcon1CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds() });
                                     break;
                                 case VisualState.Defcon2VisualState:
-                                    Defcon2CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth });
+                                    Defcon2CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds() });
                                     break;
                                 case VisualState.Defcon3VisualState:
-                                    Defcon3CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth });
+                                    Defcon3CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds() });
                                     break;
                                 case VisualState.Defcon4VisualState:
-                                    Defcon4CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth });
+                                    Defcon4CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds() });
                                     break;
                                 case VisualState.Defcon5VisualState:
-                                    Defcon5CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth });
+                                    Defcon5CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds() });
                                     break;
                                 default:
                                     break;

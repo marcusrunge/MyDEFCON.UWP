@@ -32,13 +32,13 @@ namespace SocketLibrary
             }
         }
 
-        public async Task SendStringData(string hostName, string data)
+        public async Task SendStringData(HostName hostName, string data)
         {
             try
             {
                 using (var streamSocket = new StreamSocket())
                 {
-                    await streamSocket.ConnectAsync(new HostName(hostName), "4537");
+                    await streamSocket.ConnectAsync(hostName, "4537");
                     using (Stream outputStream = streamSocket.OutputStream.AsStreamForWrite())
                     {
                         using (var streamWriter = new StreamWriter(outputStream))
@@ -53,6 +53,31 @@ namespace SocketLibrary
             {
                 SocketErrorStatus webErrorStatus = SocketError.GetStatus(ex.GetBaseException().HResult);
             }
+        }
+
+        public async Task<string> ReceiveStringData(HostName hostName)
+        {
+            string response = String.Empty;
+            try
+            {
+                using (var streamSocket = new StreamSocket())
+                {
+                    await streamSocket.ConnectAsync(hostName, "4537");
+                    
+                    using (Stream inputStream = streamSocket.InputStream.AsStreamForRead())
+                    {
+                        using (StreamReader streamReader = new StreamReader(inputStream))
+                        {
+                            response = await streamReader.ReadLineAsync();
+                        }
+                    }                    
+                }
+            }
+            catch (Exception ex)
+            {
+                SocketErrorStatus webErrorStatus = SocketError.GetStatus(ex.GetBaseException().HResult);
+            }
+            return response;
         }
     }
 }
