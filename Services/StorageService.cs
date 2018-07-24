@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace MyDEFCON_UWP.Services
+namespace Services
 {
     using System.Threading.Tasks;
 

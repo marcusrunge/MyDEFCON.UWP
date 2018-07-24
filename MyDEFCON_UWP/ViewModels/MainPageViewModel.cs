@@ -5,7 +5,6 @@ using Template10.Services.NavigationService;
 using Windows.UI.Xaml.Navigation;
 using System;
 using Services;
-using MyDEFCON_UWP.Models;
 using MyDEFCON_UWP.Services;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
@@ -13,6 +12,7 @@ using Windows.UI.ViewManagement;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using SocketLibrary;
+using Models;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -71,11 +71,11 @@ namespace MyDEFCON_UWP.ViewModels
             LoadDefconStatusFromRoamingSettings();
             LoadTransparentTileSetting();
             LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
-            _defcon1CheckList = await CheckListService.LoadCheckList(1);
-            _defcon2CheckList = await CheckListService.LoadCheckList(2);
-            _defcon3CheckList = await CheckListService.LoadCheckList(3);
-            _defcon4CheckList = await CheckListService.LoadCheckList(4);
-            _defcon5CheckList = await CheckListService.LoadCheckList(5);
+            _defcon1CheckList = await CheckListService.LoadCheckList(1, true);
+            _defcon2CheckList = await CheckListService.LoadCheckList(2, true);
+            _defcon3CheckList = await CheckListService.LoadCheckList(3, true);
+            _defcon4CheckList = await CheckListService.LoadCheckList(4, true);
+            _defcon5CheckList = await CheckListService.LoadCheckList(5, true);
             DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
             ScreenWidth = ApplicationView.GetForCurrentView().VisibleBounds.Width;
             CancelIconVisibility = Visibility.Collapsed;
@@ -281,8 +281,7 @@ namespace MyDEFCON_UWP.ViewModels
                         await CheckListService.SaveCheckList(_defcon2CheckList, 2);
                         await CheckListService.SaveCheckList(_defcon3CheckList, 3);
                         await CheckListService.SaveCheckList(_defcon4CheckList, 4);
-                    }
-                    
+                    }                    
                     break;
                 default:
                     break;

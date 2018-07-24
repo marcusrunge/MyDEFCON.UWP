@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using Models;
+using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace MyDEFCON_UWP.Models
+namespace Services
 {
     public class ItemObservableCollection<T> : ObservableCollection<T> where T : INotifyPropertyChanged
     {
@@ -36,6 +38,11 @@ namespace MyDEFCON_UWP.Models
         {
             NotifyCollectionChangedEventArgs args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, sender, sender, IndexOf((T)sender));
             OnCollectionChanged(args);
+        }
+
+        public static implicit operator ItemObservableCollection<T>(ItemObservableCollection<CheckListItem> v)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

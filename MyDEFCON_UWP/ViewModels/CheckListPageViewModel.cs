@@ -5,17 +5,18 @@ using Template10.Services.NavigationService;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.ViewManagement;
 using Windows.UI;
-using MyDEFCON_UWP.Models;
 using MyDEFCON_UWP.Services;
 using System;
 using Windows.Graphics.Display;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
-using Services;
 using Windows.UI.Core;
 using Windows.Storage;
 using SocketLibrary;
+using Services;
+using System.Linq;
+using Models;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -122,11 +123,11 @@ namespace MyDEFCON_UWP.ViewModels
 
             FontSize = LoadFontSizeFromLocalSettings();
 
-            Defcon1CheckList = await CheckListService.LoadCheckList(1);
-            Defcon2CheckList = await CheckListService.LoadCheckList(2);
-            Defcon3CheckList = await CheckListService.LoadCheckList(3);
-            Defcon4CheckList = await CheckListService.LoadCheckList(4);
-            Defcon5CheckList = await CheckListService.LoadCheckList(5);
+            Defcon1CheckList = await CheckListService.LoadCheckList(1, true);
+            Defcon2CheckList = await CheckListService.LoadCheckList(2, true);
+            Defcon3CheckList = await CheckListService.LoadCheckList(3, true);
+            Defcon4CheckList = await CheckListService.LoadCheckList(4, true);
+            Defcon5CheckList = await CheckListService.LoadCheckList(5, true);
             SetTextBoxWidth(_textBoxWidth);
             SetFontSize(FontSize);
 
@@ -439,19 +440,19 @@ namespace MyDEFCON_UWP.ViewModels
                             switch (DefconVisualState)
                             {
                                 case VisualState.Defcon1VisualState:
-                                    Defcon1CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds() });
+                                    Defcon1CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds(), DefconStatus = 1, Deleted = false });
                                     break;
                                 case VisualState.Defcon2VisualState:
-                                    Defcon2CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds() });
+                                    Defcon2CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds(), DefconStatus = 2, Deleted = false });
                                     break;
                                 case VisualState.Defcon3VisualState:
-                                    Defcon3CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds() });
+                                    Defcon3CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds(), DefconStatus = 3, Deleted = false });
                                     break;
                                 case VisualState.Defcon4VisualState:
-                                    Defcon4CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds() });
+                                    Defcon4CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds(), DefconStatus = 4, Deleted = false });
                                     break;
                                 case VisualState.Defcon5VisualState:
-                                    Defcon5CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds() });
+                                    Defcon5CheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, FontSize = FontSize, Width = _textBoxWidth, UnixTimeStamp = DateTimeOffset.Now.ToUnixTimeMilliseconds(), DefconStatus = 5, Deleted = false });
                                     break;
                                 default:
                                     break;
@@ -565,7 +566,8 @@ namespace MyDEFCON_UWP.ViewModels
                                 case VisualState.Defcon1VisualState:
                                     foreach (var item in selectedItems)
                                     {
-                                        Defcon1CheckList.Remove(item);
+                                        Defcon1CheckList.Where((c) => c.UnixTimeStamp == item.UnixTimeStamp).FirstOrDefault().Deleted = true;
+                                        //Defcon1CheckList.Remove(item);
                                     }
                                     _noUpdate = false;
                                     Defcon1CheckList_CollectionChanged(null, null);
@@ -573,7 +575,8 @@ namespace MyDEFCON_UWP.ViewModels
                                 case VisualState.Defcon2VisualState:
                                     foreach (var item in selectedItems)
                                     {
-                                        Defcon2CheckList.Remove(item);
+                                        Defcon2CheckList.Where((c) => c.UnixTimeStamp == item.UnixTimeStamp).FirstOrDefault().Deleted = true;
+                                        //Defcon2CheckList.Remove(item);
                                     }
                                     _noUpdate = false;
                                     Defcon2CheckList_CollectionChanged(null, null);
@@ -581,7 +584,8 @@ namespace MyDEFCON_UWP.ViewModels
                                 case VisualState.Defcon3VisualState:
                                     foreach (var item in selectedItems)
                                     {
-                                        Defcon3CheckList.Remove(item);
+                                        Defcon3CheckList.Where((c) => c.UnixTimeStamp == item.UnixTimeStamp).FirstOrDefault().Deleted = true;
+                                        //Defcon3CheckList.Remove(item);
                                     }
                                     _noUpdate = false;
                                     Defcon3CheckList_CollectionChanged(null, null);
@@ -589,7 +593,8 @@ namespace MyDEFCON_UWP.ViewModels
                                 case VisualState.Defcon4VisualState:
                                     foreach (var item in selectedItems)
                                     {
-                                        Defcon4CheckList.Remove(item);
+                                        Defcon4CheckList.Where((c) => c.UnixTimeStamp == item.UnixTimeStamp).FirstOrDefault().Deleted = true;
+                                        //Defcon4CheckList.Remove(item);
                                     }
                                     _noUpdate = false;
                                     Defcon4CheckList_CollectionChanged(null, null);
@@ -597,7 +602,8 @@ namespace MyDEFCON_UWP.ViewModels
                                 case VisualState.Defcon5VisualState:
                                     foreach (var item in selectedItems)
                                     {
-                                        Defcon5CheckList.Remove(item);
+                                        Defcon5CheckList.Where((c) => c.UnixTimeStamp == item.UnixTimeStamp).FirstOrDefault().Deleted = true;
+                                        //Defcon5CheckList.Remove(item);
                                     }
                                     _noUpdate = false;
                                     Defcon5CheckList_CollectionChanged(null, null);
@@ -666,11 +672,11 @@ namespace MyDEFCON_UWP.ViewModels
                         {
                             if (Defcon1CheckList == null || Defcon2CheckList == null || Defcon3CheckList == null || Defcon4CheckList == null || Defcon5CheckList == null)
                             {
-                                Defcon1CheckList = await CheckListService.LoadCheckList(1);
-                                Defcon2CheckList = await CheckListService.LoadCheckList(2);
-                                Defcon3CheckList = await CheckListService.LoadCheckList(3);
-                                Defcon4CheckList = await CheckListService.LoadCheckList(4);
-                                Defcon5CheckList = await CheckListService.LoadCheckList(5);
+                                Defcon1CheckList = await CheckListService.LoadCheckList(1, true);
+                                Defcon2CheckList = await CheckListService.LoadCheckList(2, true);
+                                Defcon3CheckList = await CheckListService.LoadCheckList(3, true);
+                                Defcon4CheckList = await CheckListService.LoadCheckList(4, true);
+                                Defcon5CheckList = await CheckListService.LoadCheckList(5, true);
                             }
                             SetTextBoxWidth(args.NewSize.Width - 52);
                             _textBoxWidth = (args.NewSize.Width - 52);

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Models;
+using Newtonsoft.Json;
+using Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Networking;
 using Windows.Networking.Sockets;
@@ -63,14 +64,93 @@ namespace SocketLibrary
                 using (var streamSocket = new StreamSocket())
                 {
                     await streamSocket.ConnectAsync(hostName, "4537");
-                    
+
                     using (Stream inputStream = streamSocket.InputStream.AsStreamForRead())
                     {
                         using (StreamReader streamReader = new StreamReader(inputStream))
                         {
                             response = await streamReader.ReadLineAsync();
+                            var checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(response);
+                            var defcon1CheckListItems = await CheckListService.LoadCheckList(1, false);
+                            var defcon2CheckListItems = await CheckListService.LoadCheckList(2, false);
+                            var defcon3CheckListItems = await CheckListService.LoadCheckList(3, false);
+                            var defcon4CheckListItems = await CheckListService.LoadCheckList(4, false);
+                            var defcon5CheckListItems = await CheckListService.LoadCheckList(5, false);
+                            foreach (var item in checkListItems)
+                            {
+                                bool itemFound = false;                                
+                                if (item.DefconStatus == 1)
+                                {                                    
+                                    for (int i = 0; i < defcon1CheckListItems.Count; i++)
+                                    {
+                                        if (defcon1CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
+                                        {
+                                            itemFound = true;
+                                            if(defcon1CheckListItems[i].Deleted != item.Deleted) defcon1CheckListItems[i].Deleted = true;
+                                        }
+                                    }
+                                    if (!itemFound) defcon1CheckListItems.Add(item);
+                                }
+
+                                else if (item.DefconStatus == 2)
+                                {
+                                    for (int i = 0; i < defcon2CheckListItems.Count; i++)
+                                    {
+                                        if (defcon2CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
+                                        {
+                                            itemFound = true;
+                                            if (defcon2CheckListItems[i].Deleted != item.Deleted) defcon2CheckListItems[i].Deleted = true;
+                                        }
+                                    }
+                                    if (!itemFound) defcon2CheckListItems.Add(item);
+                                }
+
+                                else if (item.DefconStatus == 3)
+                                {
+                                    for (int i = 0; i < defcon3CheckListItems.Count; i++)
+                                    {
+                                        if (defcon3CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
+                                        {
+                                            itemFound = true;
+                                            if (defcon3CheckListItems[i].Deleted != item.Deleted) defcon3CheckListItems[i].Deleted = true;
+                                        }
+                                    }
+                                    if (!itemFound) defcon3CheckListItems.Add(item);
+                                }
+
+                                else if (item.DefconStatus == 4)
+                                {
+                                    for (int i = 0; i < defcon4CheckListItems.Count; i++)
+                                    {
+                                        if (defcon4CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
+                                        {
+                                            itemFound = true;
+                                            if (defcon4CheckListItems[i].Deleted != item.Deleted) defcon4CheckListItems[i].Deleted = true;
+                                        }
+                                    }
+                                    if (!itemFound) defcon4CheckListItems.Add(item);
+                                }
+
+                                else if (item.DefconStatus == 5)
+                                {
+                                    for (int i = 0; i < defcon5CheckListItems.Count; i++)
+                                    {
+                                        if (defcon5CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
+                                        {
+                                            itemFound = true;
+                                            if (defcon5CheckListItems[i].Deleted != item.Deleted) defcon5CheckListItems[i].Deleted = true;
+                                        }
+                                    }
+                                    if (!itemFound) defcon5CheckListItems.Add(item);
+                                }
+                            }
+                            await CheckListService.SaveCheckList(defcon1CheckListItems, 1);
+                            await CheckListService.SaveCheckList(defcon2CheckListItems, 2);
+                            await CheckListService.SaveCheckList(defcon3CheckListItems, 3);
+                            await CheckListService.SaveCheckList(defcon4CheckListItems, 4);
+                            await CheckListService.SaveCheckList(defcon5CheckListItems, 5);
                         }
-                    }                    
+                    }
                 }
             }
             catch (Exception ex)

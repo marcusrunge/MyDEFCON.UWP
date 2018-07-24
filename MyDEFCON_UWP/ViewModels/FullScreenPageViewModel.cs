@@ -9,7 +9,6 @@ using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
 using Windows.Storage;
 using Windows.UI.Core;
-using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;

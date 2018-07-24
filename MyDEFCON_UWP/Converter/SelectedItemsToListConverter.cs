@@ -1,5 +1,4 @@
-﻿using MyDEFCON_UWP.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;

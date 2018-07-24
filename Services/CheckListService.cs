@@ -1,12 +1,11 @@
-﻿using MyDEFCON_UWP.Models;
-using System;
+﻿using Models;
 using System.Threading.Tasks;
 
-namespace MyDEFCON_UWP.Services
+namespace Services
 {
     public static class CheckListService
     {
-        public static async Task<ItemObservableCollection<CheckListItem>> LoadCheckList(int defcon)
+        public static async Task<ItemObservableCollection<CheckListItem>> LoadCheckList(int defcon, bool filterDeletedItems)
         {
             var itemObservableCollection = new ItemObservableCollection<CheckListItem>();
             switch (defcon)
@@ -27,10 +26,17 @@ namespace MyDEFCON_UWP.Services
                     itemObservableCollection = await StorageService.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon5.json", StorageService.StorageStrategies.Roaming);
                     break;
                 default:
-                    return itemObservableCollection;
+                    break;
+            }
+            if (itemObservableCollection != null && filterDeletedItems)
+            {
+                for (int i = 0; i < itemObservableCollection.Count; i++)
+                {
+                    if (itemObservableCollection[i].Deleted) itemObservableCollection.RemoveAt(i);
+                }
             }
             if (itemObservableCollection != null) return itemObservableCollection;
-            return new ItemObservableCollection<CheckListItem>();
+            else return new ItemObservableCollection<CheckListItem>();
         }
 
         public static async Task SaveCheckList(ItemObservableCollection<CheckListItem> checkList, int defcon)

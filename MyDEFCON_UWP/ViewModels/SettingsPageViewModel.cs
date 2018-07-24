@@ -5,9 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Template10.Mvvm;
-using Template10.Services.NavigationService;
 using Windows.ApplicationModel.Background;
-using Windows.Networking.Sockets;
 using Windows.System;
 using Windows.UI.Xaml.Navigation;
 

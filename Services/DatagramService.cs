@@ -1,12 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Networking;
-using Windows.Networking.Sockets;
-using Windows.Storage.Streams;
-using Windows.UI.Core;
-
-namespace Services
+﻿namespace Services
 {
     //public sealed class DatagramService
     //{
@@ -42,7 +34,7 @@ namespace Services
     //            };
     //            await datagramSocket.BindServiceNameAsync("4537");
     //        }).AsAsyncAction();
-            
+
     //    }
 
     //    public IAsyncAction SendMessage(string message)
@@ -75,7 +67,7 @@ namespace Services
     //    }
 
     //    private void OnIncomingMessageReceived(string s) => IncomingMessageReceived?.Invoke(this, s);
-        
+
     //    public void Dispose()
     //    {
     //        datagramSocket?.Dispose();
