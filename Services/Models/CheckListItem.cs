@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Windows.UI.Xaml;
 
 namespace Models
 {
@@ -14,6 +15,7 @@ namespace Models
         long _unixTimeStamp;
         short _defconStatus;
         int _id;
+        Visibility _visibility;
         #endregion
 
         #region Properties
@@ -25,6 +27,7 @@ namespace Models
         public long UnixTimeStamp { get { return _unixTimeStamp; } set { Set(ref _unixTimeStamp, value); } }
         public short DefconStatus { get { return _defconStatus; } set { Set(ref _defconStatus, value); } }
         public int Id { get { return _id; } set { Set(ref _id, value); } }
+        public Visibility Visibility { get { return _visibility; } set { Set(ref _visibility, value); } }
         #endregion
 
         #region NotifyPropertyChanged

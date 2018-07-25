@@ -20,7 +20,7 @@
     <Page.Resources>
         <Converters:SelectedItemsToListConverter x:Key="SelectedItemsToListConverter"/>
         <DataTemplate x:Name="CheckListEntry" >
-            <RelativePanel>
+            <RelativePanel Visibility="{Binding Visibility, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}">
                 <TextBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemTextBox" TextWrapping="Wrap" RelativePanel.RightOf="checkListItemCheckBox" Text="{Binding Item, Mode=TwoWay, UpdateSourceTrigger=Explicit}" LostFocus="TextBox_LostFocus" FontSize="{Binding FontSize}" Width="{Binding Width}" RequestedTheme="Dark" PlaceholderText="New item">
                     <TextBox.Resources>
                         <ResourceDictionary Source="/Styles/CheckListItemTextBoxStyle.xaml"/>

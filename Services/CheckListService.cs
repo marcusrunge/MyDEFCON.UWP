@@ -5,7 +5,7 @@ namespace Services
 {
     public static class CheckListService
     {
-        public static async Task<ItemObservableCollection<CheckListItem>> LoadCheckList(int defcon, bool filterDeletedItems)
+        public static async Task<ItemObservableCollection<CheckListItem>> LoadCheckList(int defcon)
         {
             var itemObservableCollection = new ItemObservableCollection<CheckListItem>();
             switch (defcon)
@@ -28,13 +28,13 @@ namespace Services
                 default:
                     break;
             }
-            if (itemObservableCollection != null && filterDeletedItems)
+            /*if (itemObservableCollection != null && filterDeletedItems)
             {
                 for (int i = 0; i < itemObservableCollection.Count; i++)
                 {
                     if (itemObservableCollection[i].Deleted) itemObservableCollection.RemoveAt(i);
                 }
-            }
+            }*/
             if (itemObservableCollection != null) return itemObservableCollection;
             else return new ItemObservableCollection<CheckListItem>();
         }

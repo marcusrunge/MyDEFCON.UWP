@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Windows.Networking;
 using Windows.Networking.Sockets;
+using Windows.UI.Xaml;
 
 namespace SocketLibrary
 {
@@ -71,11 +72,11 @@ namespace SocketLibrary
                         {
                             response = await streamReader.ReadLineAsync();
                             var checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(response);
-                            var defcon1CheckListItems = await CheckListService.LoadCheckList(1, false);
-                            var defcon2CheckListItems = await CheckListService.LoadCheckList(2, false);
-                            var defcon3CheckListItems = await CheckListService.LoadCheckList(3, false);
-                            var defcon4CheckListItems = await CheckListService.LoadCheckList(4, false);
-                            var defcon5CheckListItems = await CheckListService.LoadCheckList(5, false);
+                            var defcon1CheckListItems = await CheckListService.LoadCheckList(1);
+                            var defcon2CheckListItems = await CheckListService.LoadCheckList(2);
+                            var defcon3CheckListItems = await CheckListService.LoadCheckList(3);
+                            var defcon4CheckListItems = await CheckListService.LoadCheckList(4);
+                            var defcon5CheckListItems = await CheckListService.LoadCheckList(5);
                             foreach (var item in checkListItems)
                             {
                                 bool itemFound = false;                                
@@ -86,7 +87,11 @@ namespace SocketLibrary
                                         if (defcon1CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
                                         {
                                             itemFound = true;
-                                            if(defcon1CheckListItems[i].Deleted != item.Deleted) defcon1CheckListItems[i].Deleted = true;
+                                            if (defcon1CheckListItems[i].Deleted != item.Deleted)
+                                            {
+                                                defcon1CheckListItems[i].Deleted = true;
+                                                defcon1CheckListItems[i].Visibility = Visibility.Collapsed;
+                                            }
                                         }
                                     }
                                     if (!itemFound) defcon1CheckListItems.Add(item);
@@ -99,7 +104,11 @@ namespace SocketLibrary
                                         if (defcon2CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
                                         {
                                             itemFound = true;
-                                            if (defcon2CheckListItems[i].Deleted != item.Deleted) defcon2CheckListItems[i].Deleted = true;
+                                            if (defcon2CheckListItems[i].Deleted != item.Deleted)
+                                            {
+                                                defcon2CheckListItems[i].Deleted = true;
+                                                defcon2CheckListItems[i].Visibility = Visibility.Collapsed;
+                                            }
                                         }
                                     }
                                     if (!itemFound) defcon2CheckListItems.Add(item);
@@ -112,7 +121,11 @@ namespace SocketLibrary
                                         if (defcon3CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
                                         {
                                             itemFound = true;
-                                            if (defcon3CheckListItems[i].Deleted != item.Deleted) defcon3CheckListItems[i].Deleted = true;
+                                            if (defcon3CheckListItems[i].Deleted != item.Deleted)
+                                            {
+                                                defcon3CheckListItems[i].Deleted = true;
+                                                defcon3CheckListItems[i].Visibility = Visibility.Collapsed;
+                                            }
                                         }
                                     }
                                     if (!itemFound) defcon3CheckListItems.Add(item);
@@ -125,7 +138,11 @@ namespace SocketLibrary
                                         if (defcon4CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
                                         {
                                             itemFound = true;
-                                            if (defcon4CheckListItems[i].Deleted != item.Deleted) defcon4CheckListItems[i].Deleted = true;
+                                            if (defcon4CheckListItems[i].Deleted != item.Deleted)
+                                            {
+                                                defcon4CheckListItems[i].Deleted = true;
+                                                defcon4CheckListItems[i].Visibility = Visibility.Collapsed;
+                                            }
                                         }
                                     }
                                     if (!itemFound) defcon4CheckListItems.Add(item);
@@ -138,7 +155,11 @@ namespace SocketLibrary
                                         if (defcon5CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
                                         {
                                             itemFound = true;
-                                            if (defcon5CheckListItems[i].Deleted != item.Deleted) defcon5CheckListItems[i].Deleted = true;
+                                            if (defcon5CheckListItems[i].Deleted != item.Deleted)
+                                            {
+                                                defcon5CheckListItems[i].Deleted = true;
+                                                defcon5CheckListItems[i].Visibility = Visibility.Collapsed;
+                                            }
                                         }
                                     }
                                     if (!itemFound) defcon5CheckListItems.Add(item);
