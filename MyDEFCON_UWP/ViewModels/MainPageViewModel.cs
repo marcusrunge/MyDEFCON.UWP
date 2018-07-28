@@ -71,11 +71,11 @@ namespace MyDEFCON_UWP.ViewModels
             LoadDefconStatusFromRoamingSettings();
             LoadTransparentTileSetting();
             LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
-            _defcon1CheckList = await CheckListService.LoadCheckList(1, true);
-            _defcon2CheckList = await CheckListService.LoadCheckList(2, true);
-            _defcon3CheckList = await CheckListService.LoadCheckList(3, true);
-            _defcon4CheckList = await CheckListService.LoadCheckList(4, true);
-            _defcon5CheckList = await CheckListService.LoadCheckList(5, true);
+            _defcon1CheckList = await CheckListService.LoadCheckList(1);
+            _defcon2CheckList = await CheckListService.LoadCheckList(2);
+            _defcon3CheckList = await CheckListService.LoadCheckList(3);
+            _defcon4CheckList = await CheckListService.LoadCheckList(4);
+            _defcon5CheckList = await CheckListService.LoadCheckList(5);
             DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
             ScreenWidth = ApplicationView.GetForCurrentView().VisibleBounds.Width;
             CancelIconVisibility = Visibility.Collapsed;
