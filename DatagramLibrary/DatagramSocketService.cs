@@ -16,6 +16,7 @@ namespace SocketLibrary
     public class DatagramSocketService
     {
         public string IncomingMessage { get; set; }
+        public HostName RemoteAddress { get; set; }
         public event EventHandler<string> IncomingMessageReceived;
         private DatagramSocket datagramSocket = null;
         public async Task StartListener()
@@ -28,19 +29,20 @@ namespace SocketLibrary
             await datagramSocket.BindServiceNameAsync("4536");
             datagramSocket.MessageReceived += async (s, e) =>
             {
+                RemoteAddress = e.RemoteAddress;
                 uint stringLength = e.GetDataReader().UnconsumedBufferLength;
                 IncomingMessage = e.GetDataReader().ReadString(stringLength);
-                if(int.TryParse(IncomingMessage, out int parsedValue) && parsedValue == 0) await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(async () => await HandleStreamSocketConnection(e.RemoteAddress)));
-                else await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
+                //if(int.TryParse(IncomingMessage, out int parsedValue) && parsedValue == 0) await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(async () => await HandleStreamSocketConnection(e.RemoteAddress)));
+                /*else*/ await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
             };
         }
 
-        private async Task HandleStreamSocketConnection(HostName remoteHostName)
+        /*private async Task HandleStreamSocketConnection(HostName remoteHostName)
         {
             var streamSocketService = new StreamSocketService();
             string jsonString = await streamSocketService.ReceiveStringData(remoteHostName);
             List<CheckListItem> checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(jsonString);
-        }
+        }*/
 
         public async Task SendMessage(string message)
         {

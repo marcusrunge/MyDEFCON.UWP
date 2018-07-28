@@ -62,6 +62,7 @@ namespace MyDEFCON_UWP.ViewModels
         private bool selectionModeEnabled;
         bool _useTransparentTile = default(bool);
         DatagramSocketService _datagramService;
+        StreamSocketService _streamSocketService;
         #endregion
 
         #region Properties
@@ -103,7 +104,6 @@ namespace MyDEFCON_UWP.ViewModels
             //_noUpdate = false;
             selectedItems = new List<CheckListItem>();
             selectionModeEnabled = false;
-
         }
         #endregion
 
@@ -157,7 +157,7 @@ namespace MyDEFCON_UWP.ViewModels
             {
                 _datagramService = new DatagramSocketService();
                 await _datagramService.StartListener();
-                _datagramService.IncomingMessageReceived += (s, e) =>
+                _datagramService.IncomingMessageReceived += async (s, e) =>
                 {
                     int.TryParse(e, out int defconStatus);
                     if (defconStatus > 0 && defconStatus < 6)
@@ -167,6 +167,23 @@ namespace MyDEFCON_UWP.ViewModels
                         roamingSettings.Values["defconStatus"] = e;
                         LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
                     }
+                    if (defconStatus == 0)
+                    {
+                        await _streamSocketService?.ReceiveStringData(_datagramService.RemoteAddress);
+                    }
+                };
+            }
+            if (localSettings.Values.ContainsKey("lanMulticastIsOn") && (bool)localSettings.Values["lanMulticastIsOn"])
+            {
+                _streamSocketService = new StreamSocketService();
+                await _streamSocketService.StartListener();
+                _streamSocketService.IncomingChecklistReceived += async (s, e) => 
+                {
+                    Defcon1CheckList = await CheckListService.LoadCheckList(1);
+                    Defcon2CheckList = await CheckListService.LoadCheckList(2);
+                    Defcon3CheckList = await CheckListService.LoadCheckList(3);
+                    Defcon4CheckList = await CheckListService.LoadCheckList(4);
+                    Defcon5CheckList = await CheckListService.LoadCheckList(5);
                 };
             }
         }
@@ -462,46 +479,25 @@ namespace MyDEFCON_UWP.ViewModels
                     );
                 return _addItemCommand;
             }
+        }        
+
+        private DelegateCommand _shareCheckListCommand;
+        public DelegateCommand ShareCheckListCommand
+        {
+            get
+            {
+                if (_shareCheckListCommand != null)
+                    return _shareCheckListCommand;
+                _shareCheckListCommand = new DelegateCommand
+                    (
+                        async () =>
+                        {
+                            await _datagramService.SendMessage("0");
+                        }
+                    );
+                return _shareCheckListCommand;
+            }
         }
-
-        //private DelegateCommand _AddItemFlyoutOpenCommand;
-        //public DelegateCommand AddItemFlyoutOpenCommand
-        //{
-        //    get
-        //    {
-        //        if (_AddItemFlyoutOpenCommand != null)
-        //            return _AddItemFlyoutOpenCommand;
-        //        _AddItemFlyoutOpenCommand = new DelegateCommand
-        //            (
-        //                () =>
-        //                {
-        //                    AddIconVisibility = Visibility.Collapsed;
-        //                    CancelIconVisibility = Visibility.Visible;
-        //                }
-        //            );
-        //        return _AddItemFlyoutOpenCommand;
-        //    }
-        //}
-
-        //private DelegateCommand _addItemFlyoutCloseCommand;
-        //public DelegateCommand AddItemFlyoutCloseCommand
-        //{
-        //    get
-        //    {
-        //        if (_addItemFlyoutCloseCommand != null)
-        //            return _addItemFlyoutCloseCommand;
-        //        _addItemFlyoutCloseCommand = new DelegateCommand
-        //            (
-        //                () =>
-        //                {
-        //                    CancelIconVisibility = Visibility.Collapsed;
-        //                    AddIconVisibility = Visibility.Visible;
-        //                    TextBox = string.Empty;
-        //                }
-        //            );
-        //        return _addItemFlyoutCloseCommand;
-        //    }
-        //}
 
         private DelegateCommand<List<CheckListItem>> _selectionChangedCommand;
         public DelegateCommand<List<CheckListItem>> SelectionChangedCommand

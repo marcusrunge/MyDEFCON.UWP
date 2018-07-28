@@ -13,17 +13,18 @@ namespace SocketLibrary
 {
     public class StreamSocketService
     {
+        public event EventHandler IncomingChecklistReceived;
         public async Task StartListener()
         {
             try
             {
                 var streamSocketListener = new StreamSocketListener();
                 streamSocketListener.ConnectionReceived += async (s, e) =>
-                                {
-                                    string request;
-                                    using (var streamReader = new StreamReader(e.Socket.InputStream.AsStreamForRead()))
+                                {                                    
+                                    using (var streamWriter = new StreamWriter(e.Socket.OutputStream.AsStreamForWrite()))
                                     {
-                                        request = await streamReader.ReadLineAsync();
+                                        await streamWriter.WriteLineAsync(await GetJsonSerializedChecklistItems());
+                                        await streamWriter.FlushAsync();
                                     }
                                 };
                 await streamSocketListener.BindServiceNameAsync("4537");
@@ -178,7 +179,42 @@ namespace SocketLibrary
             {
                 SocketErrorStatus webErrorStatus = SocketError.GetStatus(ex.GetBaseException().HResult);
             }
+            OnIncomingChecklistReceived();
             return response;
+        }
+
+        private void OnIncomingChecklistReceived() => IncomingChecklistReceived?.Invoke(this, new EventArgs());
+
+        public async Task<string> GetJsonSerializedChecklistItems()
+        {
+            var checkListItems = new List<CheckListItem>();
+            var defcon1CheckListItems = await CheckListService.LoadCheckList(1);
+            var defcon2CheckListItems = await CheckListService.LoadCheckList(2);
+            var defcon3CheckListItems = await CheckListService.LoadCheckList(3);
+            var defcon4CheckListItems = await CheckListService.LoadCheckList(4);
+            var defcon5CheckListItems = await CheckListService.LoadCheckList(5);
+            foreach (var checkListItem in defcon1CheckListItems)
+            {
+                checkListItems.Add(checkListItem);
+            }
+            foreach (var checkListItem in defcon2CheckListItems)
+            {
+                checkListItems.Add(checkListItem);
+            }
+            foreach (var checkListItem in defcon3CheckListItems)
+            {
+                checkListItems.Add(checkListItem);
+            }
+            foreach (var checkListItem in defcon4CheckListItems)
+            {
+                checkListItems.Add(checkListItem);
+            }
+            foreach (var checkListItem in defcon5CheckListItems)
+            {
+                checkListItems.Add(checkListItem);
+            }
+
+            return JsonConvert.SerializeObject(checkListItems);
         }
     }
 }

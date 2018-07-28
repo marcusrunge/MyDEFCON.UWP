@@ -31,6 +31,7 @@ namespace MyDEFCON_UWP.ViewModels
         bool _showUncheckedItems = default(bool);
         bool _backgroundTask = default(bool);
         bool _lanBroadcastIsOn = default(bool);
+        bool _lanMulticastIsOn = default(bool);
         List<string> _intervall = default(List<string>);
         bool _pageInitialize = default(bool);
         int _selectedTimeIntervallIndex = default(int);
@@ -43,6 +44,7 @@ namespace MyDEFCON_UWP.ViewModels
         public bool ShowUncheckedItems { get { return _showUncheckedItems; } set { Set(ref _showUncheckedItems, value); SaveShowUncheckedItemsSetting(); } }
         public bool BackgroundTask { get { return _backgroundTask; } set { Set(ref _backgroundTask, value); } }
         public bool LanBroadcastIsOn { get { return _lanBroadcastIsOn; } set { Set(ref _lanBroadcastIsOn, value); } }
+        public bool LanMulticastIsOn { get { return _lanMulticastIsOn; } set { Set(ref _lanMulticastIsOn, value); } }
         public List<string> Intervall { get { return _intervall; } set { Set(ref _intervall, value); } }
         public int SelectedTimeIntervallIndex { get { return _selectedTimeIntervallIndex; } set { Set(ref _selectedTimeIntervallIndex, value); UpdateTimeIntervall(); } }
         #endregion
@@ -57,6 +59,7 @@ namespace MyDEFCON_UWP.ViewModels
             {
                 if (e.PropertyName.Equals("BackgroundTask")) await SaveBackgroundTaskSetting();
                 else if (e.PropertyName.Equals("LanBroadcastIsOn")) SaveLanBroadcastIsOnSetting();
+                else if (e.PropertyName.Equals("LanMulticastIsOn")) SaveLanMulticastIsOnSetting();
             };
         }
         #endregion
@@ -68,6 +71,7 @@ namespace MyDEFCON_UWP.ViewModels
             if (localSettings.Values.ContainsKey("showUncheckedItems")) ShowUncheckedItems = (bool)localSettings.Values["showUncheckedItems"];
             if (localSettings.Values.ContainsKey("backgroundTask")) BackgroundTask = (bool)localSettings.Values["backgroundTask"];
             if (localSettings.Values.ContainsKey("lanBroadcastIsOn")) LanBroadcastIsOn = (bool)localSettings.Values["lanBroadcastIsOn"];
+            if (localSettings.Values.ContainsKey("lanMulticastIsOn")) LanMulticastIsOn = (bool)localSettings.Values["lanMulticastIsOn"];
             if (localSettings.Values.ContainsKey("selectedTimeIntervallIndex")) SelectedTimeIntervallIndex = (int)localSettings.Values["selectedTimeIntervallIndex"];
             _pageInitialize = false;
         }
@@ -113,6 +117,11 @@ namespace MyDEFCON_UWP.ViewModels
         private void SaveLanBroadcastIsOnSetting()
         {
             if (!_pageInitialize) localSettings.Values["lanBroadcastIsOn"] = LanBroadcastIsOn;
+        }
+
+        private void SaveLanMulticastIsOnSetting()
+        {
+            if (!_pageInitialize) localSettings.Values["lanMulticastIsOn"] = LanBroadcastIsOn;
         }
 
         private async void UpdateTimeIntervall()

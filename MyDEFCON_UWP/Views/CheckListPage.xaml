@@ -386,7 +386,8 @@
                 </AppBarButton.Flyout>-->
             </AppBarButton>
             <!--<AppBarButton Icon="Cancel"  Label="Cancel" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Visibility="{Binding CancelIconVisibility}"/>-->
-            <AppBarButton Icon="Delete" Label="Delete" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Visibility="{Binding DeleteIconVisibility}" Command="{x:Bind ViewModel.DeleteSelectionCommand, Mode=OneWay}"/>
+            <AppBarButton Icon="Share" Label="Share" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Visibility="{Binding DeleteIconVisibility}" Command="{x:Bind ViewModel.ShareCheckListCommand, Mode=OneWay}"/>
+            <AppBarButton Icon="Delete" Label="Delete" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Visibility="{Binding DeleteIconVisibility}" Command="{x:Bind ViewModel.DeleteSelectionCommand, Mode=OneWay}"/>            
         </CommandBar>
     </Grid>
 </Page>
