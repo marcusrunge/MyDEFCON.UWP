@@ -121,7 +121,7 @@ namespace MyDEFCON_UWP.ViewModels
 
         private void SaveLanMulticastIsOnSetting()
         {
-            if (!_pageInitialize) localSettings.Values["lanMulticastIsOn"] = LanBroadcastIsOn;
+            if (!_pageInitialize) localSettings.Values["lanMulticastIsOn"] = LanMulticastIsOn;
         }
 
         private async void UpdateTimeIntervall()
@@ -170,6 +170,7 @@ namespace MyDEFCON_UWP.ViewModels
                     await BackgroundTaskService.UnregisterAll();
                     BackgroundTask = false;
                     LanBroadcastIsOn = false;
+                    LanMulticastIsOn = false;
                 });
                 return _removeBackgroundTasksCommand;
             }

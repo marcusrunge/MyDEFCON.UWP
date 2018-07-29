@@ -27,35 +27,31 @@ namespace SocketLibrary
             await datagramSocket.BindServiceNameAsync("4536");
             datagramSocket.MessageReceived += async (s, e) =>
             {
+                _isOrigin = false;
                 if (!_isOrigin)
                 {
                     RemoteAddress = e.RemoteAddress;
                     uint stringLength = e.GetDataReader().UnconsumedBufferLength;
                     IncomingMessage = e.GetDataReader().ReadString(stringLength);
-                    //if(int.TryParse(IncomingMessage, out int parsedValue) && parsedValue == 0) await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(async () => await HandleStreamSocketConnection(e.RemoteAddress)));
-                    /*else*/
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
                 }
                 _isOrigin = false;
             };
         }
 
-        /*private async Task HandleStreamSocketConnection(HostName remoteHostName)
-        {
-            var streamSocketService = new StreamSocketService();
-            string jsonString = await streamSocketService.ReceiveStringData(remoteHostName);
-            List<CheckListItem> checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(jsonString);
-        }*/
-
         public async Task SendMessage(string message)
         {
-            IOutputStream outputStream;
-            HostName hostname = new HostName("255.255.255.255");
-            outputStream = await datagramSocket.GetOutputStreamAsync(hostname, "4536");
-            DataWriter dataWriter = new DataWriter(outputStream);
-            dataWriter.WriteString(message);
-            _isOrigin = true;
-            await dataWriter.StoreAsync();
+            try
+            {
+                IOutputStream outputStream;
+                HostName hostname = new HostName("255.255.255.255");
+                outputStream = await datagramSocket.GetOutputStreamAsync(hostname, "4536");
+                DataWriter dataWriter = new DataWriter(outputStream);
+                dataWriter.WriteString(message);
+                _isOrigin = true;
+                await dataWriter.StoreAsync();
+            }
+            catch (Exception) { }
         }
 
         private void OnIncomingMessageReceived(string s) => IncomingMessageReceived?.Invoke(this, s);
@@ -64,7 +60,6 @@ namespace SocketLibrary
         {
             await datagramSocket?.CancelIOAsync();
             datagramSocket?.TransferOwnership("myDefconSocket");
-            //datagramSocket?.Dispose();
         }
     }
 }

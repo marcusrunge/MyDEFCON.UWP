@@ -169,7 +169,7 @@ namespace MyDEFCON_UWP.ViewModels
                     }
                     if (defconStatus == 0)
                     {
-                        await _streamSocketService?.ReceiveStringData(_datagramService.RemoteAddress);
+                        if (_streamSocketService != null) await _streamSocketService.ReceiveStringData(_datagramService.RemoteAddress);
                     }
                 };
             }
@@ -190,6 +190,7 @@ namespace MyDEFCON_UWP.ViewModels
         public override async Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
         {
             if (_datagramService != null) await _datagramService.Dispose();
+            if (_streamSocketService != null) await _streamSocketService.Dispose();
         }
         private async void Defcon1CheckList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
@@ -481,17 +482,23 @@ namespace MyDEFCON_UWP.ViewModels
             }
         }        
 
-        private DelegateCommand _shareCheckListCommand;
-        public DelegateCommand ShareCheckListCommand
+        private DelegateCommand<object> _shareCheckListCommand;
+        public DelegateCommand<object> ShareCheckListCommand
         {
             get
             {
                 if (_shareCheckListCommand != null)
                     return _shareCheckListCommand;
-                _shareCheckListCommand = new DelegateCommand
+                _shareCheckListCommand = new DelegateCommand<object>
                     (
-                        async () =>
+                        async (o) =>
                         {
+                            (o as AppBarButton).Focus(FocusState.Programmatic);
+                            await CheckListService.SaveCheckList(Defcon1CheckList, 1);
+                            await CheckListService.SaveCheckList(Defcon2CheckList, 2);
+                            await CheckListService.SaveCheckList(Defcon3CheckList, 3);
+                            await CheckListService.SaveCheckList(Defcon4CheckList, 4);
+                            await CheckListService.SaveCheckList(Defcon5CheckList, 5);
                             await _datagramService.SendMessage("0");
                         }
                     );

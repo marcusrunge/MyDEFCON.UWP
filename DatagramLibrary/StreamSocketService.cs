@@ -79,7 +79,7 @@ namespace SocketLibrary
                     {
                         using (StreamReader streamReader = new StreamReader(inputStream))
                         {
-                            response = await streamReader.ReadToEndAsync();
+                            response = await streamReader.ReadLineAsync();
                             var checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(response);
                             var defcon1CheckListItems = await CheckListService.LoadCheckList(1);
                             var defcon2CheckListItems = await CheckListService.LoadCheckList(2);
@@ -224,6 +224,12 @@ namespace SocketLibrary
             }
 
             return JsonConvert.SerializeObject(checkListItems);
+        }
+
+        public async Task Dispose()
+        {
+            await _streamSocketListener.CancelIOAsync();
+            _streamSocketListener.Dispose();
         }
     }
 }

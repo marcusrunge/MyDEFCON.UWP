@@ -59,7 +59,7 @@ namespace BackgroundTask
                                                 {
                                                     using (StreamReader streamReader = new StreamReader(inputStream))
                                                     {
-                                                        response = await streamReader.ReadToEndAsync();
+                                                        response = await streamReader.ReadLineAsync();
                                                         var checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(response);
                                                         var defcon1CheckListItems = await CheckListService.LoadCheckList(1);
                                                         var defcon2CheckListItems = await CheckListService.LoadCheckList(2);

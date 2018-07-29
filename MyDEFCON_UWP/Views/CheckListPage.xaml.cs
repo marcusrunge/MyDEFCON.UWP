@@ -31,10 +31,5 @@ namespace MyDEFCON_UWP.Views
                 return (qualifiers.ContainsKey("DeviceFamily") && qualifiers["DeviceFamily"] == "Mobile");
             }
         }
-
-        //private void defcon1ListView_SizeChanged(object sender, SizeChangedEventArgs e)
-        //{
-        //    Debug.WriteLine("List: " + e.NewSize.Width.ToString());
-        //}
     }
 }

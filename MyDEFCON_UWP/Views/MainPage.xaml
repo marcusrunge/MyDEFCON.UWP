@@ -255,7 +255,7 @@
                     <StaticResource ResourceKey="RedAppBarButtonStyle"/>
                 </AppBarButton.Style>
                 <AppBarButton.Flyout>
-                    <Flyout x:Name="flyout"  FlyoutPresenterStyle="{StaticResource AddItemFlyoutPresenterStyle}" Placement="Top">
+                    <Flyout x:Name="flyout" FlyoutPresenterStyle="{StaticResource AddItemFlyoutPresenterStyle}" Placement="Top">
                         <Interactivity:Interaction.Behaviors>
                             <dependencies:FlyoutBehavior>
                                 <dependencies:FlyoutBehavior.OpenActions>
