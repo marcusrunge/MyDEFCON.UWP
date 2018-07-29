@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Windows.Networking;
 using Windows.Networking.Sockets;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 namespace SocketLibrary
@@ -15,7 +16,7 @@ namespace SocketLibrary
     {
         public event EventHandler IncomingChecklistReceived;
         public async Task StartListener()
-        {
+        {            
             try
             {
                 var streamSocketListener = new StreamSocketListener();
@@ -60,6 +61,8 @@ namespace SocketLibrary
 
         public async Task<string> ReceiveStringData(HostName hostName)
         {
+            var window = CoreWindow.GetForCurrentThread();
+            var dispatcher = window.Dispatcher;
             string response = String.Empty;
             try
             {
@@ -179,7 +182,7 @@ namespace SocketLibrary
             {
                 SocketErrorStatus webErrorStatus = SocketError.GetStatus(ex.GetBaseException().HResult);
             }
-            OnIncomingChecklistReceived();
+            await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingChecklistReceived()));
             return response;
         }
 

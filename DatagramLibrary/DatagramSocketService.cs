@@ -19,6 +19,7 @@ namespace SocketLibrary
         public HostName RemoteAddress { get; set; }
         public event EventHandler<string> IncomingMessageReceived;
         private DatagramSocket datagramSocket = null;
+        private bool _isOrigin = default(bool);
         public async Task StartListener()
         {
             var window = CoreWindow.GetForCurrentThread();
@@ -29,11 +30,16 @@ namespace SocketLibrary
             await datagramSocket.BindServiceNameAsync("4536");
             datagramSocket.MessageReceived += async (s, e) =>
             {
-                RemoteAddress = e.RemoteAddress;
-                uint stringLength = e.GetDataReader().UnconsumedBufferLength;
-                IncomingMessage = e.GetDataReader().ReadString(stringLength);
-                //if(int.TryParse(IncomingMessage, out int parsedValue) && parsedValue == 0) await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(async () => await HandleStreamSocketConnection(e.RemoteAddress)));
-                /*else*/ await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
+                if (!_isOrigin)
+                {
+                    RemoteAddress = e.RemoteAddress;
+                    uint stringLength = e.GetDataReader().UnconsumedBufferLength;
+                    IncomingMessage = e.GetDataReader().ReadString(stringLength);
+                    //if(int.TryParse(IncomingMessage, out int parsedValue) && parsedValue == 0) await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(async () => await HandleStreamSocketConnection(e.RemoteAddress)));
+                    /*else*/
+                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
+                }
+                _isOrigin = false;
             };
         }
 
@@ -51,6 +57,7 @@ namespace SocketLibrary
             outputStream = await datagramSocket.GetOutputStreamAsync(hostname, "4536");
             DataWriter dataWriter = new DataWriter(outputStream);
             dataWriter.WriteString(message);
+            _isOrigin = true;
             await dataWriter.StoreAsync();
         }
 
