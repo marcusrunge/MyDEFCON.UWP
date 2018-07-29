@@ -1,9 +1,6 @@
 ﻿using BackgroundLibrary;
 using BackgroundTask;
-using Models;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Networking;

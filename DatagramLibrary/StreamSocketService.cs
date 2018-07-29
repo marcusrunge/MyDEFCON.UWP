@@ -15,20 +15,22 @@ namespace SocketLibrary
     public class StreamSocketService
     {
         public event EventHandler IncomingChecklistReceived;
+        private StreamSocketListener _streamSocketListener;
         public async Task StartListener()
         {            
             try
             {
-                var streamSocketListener = new StreamSocketListener();
-                streamSocketListener.ConnectionReceived += async (s, e) =>
+                _streamSocketListener = new StreamSocketListener();
+                _streamSocketListener.ConnectionReceived += async (s, e) =>
                                 {                                    
                                     using (var streamWriter = new StreamWriter(e.Socket.OutputStream.AsStreamForWrite()))
                                     {
                                         await streamWriter.WriteLineAsync(await GetJsonSerializedChecklistItems());
                                         await streamWriter.FlushAsync();
+                                        s.Dispose();
                                     }
                                 };
-                await streamSocketListener.BindServiceNameAsync("4537");
+                await _streamSocketListener.BindServiceNameAsync("4537");
             }
             catch (Exception ex)
             {
@@ -176,6 +178,7 @@ namespace SocketLibrary
                             await CheckListService.SaveCheckList(defcon5CheckListItems, 5);
                         }
                     }
+                    streamSocket.Dispose();
                 }
             }
             catch (Exception ex)
