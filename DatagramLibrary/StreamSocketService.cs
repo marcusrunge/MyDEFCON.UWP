@@ -27,6 +27,7 @@ namespace SocketLibrary
                                     {
                                         await streamWriter.WriteLineAsync(await GetJsonSerializedChecklistItems());
                                         await streamWriter.FlushAsync();
+                                        await s.CancelIOAsync();
                                         s.Dispose();
                                     }
                                 };
@@ -53,6 +54,8 @@ namespace SocketLibrary
                             await streamWriter.FlushAsync();
                         }
                     }
+                    await streamSocket.CancelIOAsync();
+                    streamSocket.Dispose();
                 }
             }
             catch (Exception ex)
@@ -76,7 +79,7 @@ namespace SocketLibrary
                     {
                         using (StreamReader streamReader = new StreamReader(inputStream))
                         {
-                            response = await streamReader.ReadLineAsync();
+                            response = await streamReader.ReadToEndAsync();
                             var checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(response);
                             var defcon1CheckListItems = await CheckListService.LoadCheckList(1);
                             var defcon2CheckListItems = await CheckListService.LoadCheckList(2);
