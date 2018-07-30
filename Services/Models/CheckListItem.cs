@@ -19,15 +19,15 @@ namespace Models
         #endregion
 
         #region Properties
-        public string Item { get { return _item; } set { Set(ref _item, value);  } }
-        public bool Checked { get { return _checked; } set { Set(ref _checked, value); } }
-        public bool Deleted { get { return _deleted; } set { Set(ref _deleted, value); } }
-        public double FontSize { get { return _fontSize; } set { Set(ref _fontSize, value); } }
-        public double Width { get { return _width; } set { Set(ref _width, value); } }
+        public int Id { get { return _id; } set { Set(ref _id, value); } }
         public long UnixTimeStamp { get { return _unixTimeStamp; } set { Set(ref _unixTimeStamp, value); } }
         public short DefconStatus { get { return _defconStatus; } set { Set(ref _defconStatus, value); } }
-        public int Id { get { return _id; } set { Set(ref _id, value); } }
+        public string Item { get { return _item; } set { Set(ref _item, value); } }
+        public bool Checked { get { return _checked; } set { Set(ref _checked, value); } }
+        public bool Deleted { get { return _deleted; } set { Set(ref _deleted, value); } }
         public Visibility Visibility { get { return _visibility; } set { Set(ref _visibility, value); } }
+        public double FontSize { get { return _fontSize; } set { Set(ref _fontSize, value); } }
+        public double Width { get { return _width; } set { Set(ref _width, value); } }
         #endregion
 
         #region NotifyPropertyChanged
