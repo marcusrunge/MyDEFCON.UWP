@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 
@@ -12,15 +13,22 @@ namespace Models
         bool _deleted = default(bool);
         double _fontSize = default(double);
         double _width = default(double);
-        long _unixTimeStamp;
+        long _unixTimeStampCreated;
+        long _unixTimeStampUpdated;
         short _defconStatus;
         int _id;
         Visibility _visibility;
         #endregion
 
+        public CheckListItem()
+        {
+            PropertyChanged += (s, e) => UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+        }
+
         #region Properties
         public int Id { get { return _id; } set { Set(ref _id, value); } }
-        public long UnixTimeStamp { get { return _unixTimeStamp; } set { Set(ref _unixTimeStamp, value); } }
+        public long UnixTimeStampCreated { get { return _unixTimeStampCreated; } set { Set(ref _unixTimeStampCreated, value); } }
+        public long UnixTimeStampUpdated { get { return _unixTimeStampUpdated; } set { Set(ref _unixTimeStampUpdated, value); } }
         public short DefconStatus { get { return _defconStatus; } set { Set(ref _defconStatus, value); } }
         public string Item { get { return _item; } set { Set(ref _item, value); } }
         public bool Checked { get { return _checked; } set { Set(ref _checked, value); } }

@@ -73,7 +73,7 @@ namespace BackgroundTask
                                                             {
                                                                 for (int i = 0; i < defcon1CheckListItems.Count; i++)
                                                                 {
-                                                                    if (defcon1CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
+                                                                    if (defcon1CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStamp)
                                                                     {
                                                                         itemFound = true;
                                                                         if (defcon1CheckListItems[i].Deleted != item.Deleted)
@@ -90,7 +90,7 @@ namespace BackgroundTask
                                                             {
                                                                 for (int i = 0; i < defcon2CheckListItems.Count; i++)
                                                                 {
-                                                                    if (defcon2CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
+                                                                    if (defcon2CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStamp)
                                                                     {
                                                                         itemFound = true;
                                                                         if (defcon2CheckListItems[i].Deleted != item.Deleted)
@@ -107,7 +107,7 @@ namespace BackgroundTask
                                                             {
                                                                 for (int i = 0; i < defcon3CheckListItems.Count; i++)
                                                                 {
-                                                                    if (defcon3CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
+                                                                    if (defcon3CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStamp)
                                                                     {
                                                                         itemFound = true;
                                                                         if (defcon3CheckListItems[i].Deleted != item.Deleted)
@@ -124,7 +124,7 @@ namespace BackgroundTask
                                                             {
                                                                 for (int i = 0; i < defcon4CheckListItems.Count; i++)
                                                                 {
-                                                                    if (defcon4CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
+                                                                    if (defcon4CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStamp)
                                                                     {
                                                                         itemFound = true;
                                                                         if (defcon4CheckListItems[i].Deleted != item.Deleted)
@@ -141,7 +141,7 @@ namespace BackgroundTask
                                                             {
                                                                 for (int i = 0; i < defcon5CheckListItems.Count; i++)
                                                                 {
-                                                                    if (defcon5CheckListItems[i].UnixTimeStamp == item.UnixTimeStamp)
+                                                                    if (defcon5CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStamp)
                                                                     {
                                                                         itemFound = true;
                                                                         if (defcon5CheckListItems[i].Deleted != item.Deleted)
