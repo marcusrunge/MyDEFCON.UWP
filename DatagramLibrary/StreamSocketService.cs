@@ -101,6 +101,11 @@ namespace SocketLibrary
                                                 defcon1CheckListItems[i].Deleted = true;
                                                 defcon1CheckListItems[i].Visibility = Visibility.Collapsed;
                                             }
+                                            else if (defcon1CheckListItems[i].UnixTimeStampUpdated < item.UnixTimeStampUpdated)
+                                            {
+                                                defcon1CheckListItems[i].Item = item.Item;
+                                                defcon1CheckListItems[i].Checked = item.Checked;
+                                            }
                                         }
                                     }
                                     if (!itemFound) defcon1CheckListItems.Add(item);
@@ -117,6 +122,11 @@ namespace SocketLibrary
                                             {
                                                 defcon2CheckListItems[i].Deleted = true;
                                                 defcon2CheckListItems[i].Visibility = Visibility.Collapsed;
+                                            }
+                                            else if (defcon2CheckListItems[i].UnixTimeStampUpdated < item.UnixTimeStampUpdated)
+                                            {
+                                                defcon2CheckListItems[i].Item = item.Item;
+                                                defcon2CheckListItems[i].Checked = item.Checked;
                                             }
                                         }
                                     }
@@ -135,6 +145,11 @@ namespace SocketLibrary
                                                 defcon3CheckListItems[i].Deleted = true;
                                                 defcon3CheckListItems[i].Visibility = Visibility.Collapsed;
                                             }
+                                            else if (defcon3CheckListItems[i].UnixTimeStampUpdated < item.UnixTimeStampUpdated)
+                                            {
+                                                defcon3CheckListItems[i].Item = item.Item;
+                                                defcon3CheckListItems[i].Checked = item.Checked;
+                                            }
                                         }
                                     }
                                     if (!itemFound) defcon3CheckListItems.Add(item);
@@ -152,6 +167,11 @@ namespace SocketLibrary
                                                 defcon4CheckListItems[i].Deleted = true;
                                                 defcon4CheckListItems[i].Visibility = Visibility.Collapsed;
                                             }
+                                            else if (defcon4CheckListItems[i].UnixTimeStampUpdated < item.UnixTimeStampUpdated)
+                                            {
+                                                defcon4CheckListItems[i].Item = item.Item;
+                                                defcon4CheckListItems[i].Checked = item.Checked;
+                                            }
                                         }
                                     }
                                     if (!itemFound) defcon4CheckListItems.Add(item);
@@ -168,6 +188,11 @@ namespace SocketLibrary
                                             {
                                                 defcon5CheckListItems[i].Deleted = true;
                                                 defcon5CheckListItems[i].Visibility = Visibility.Collapsed;
+                                            }
+                                            else if (defcon5CheckListItems[i].UnixTimeStampUpdated < item.UnixTimeStampUpdated)
+                                            {
+                                                defcon5CheckListItems[i].Item = item.Item;
+                                                defcon5CheckListItems[i].Checked = item.Checked;
                                             }
                                         }
                                     }

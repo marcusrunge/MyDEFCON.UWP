@@ -73,13 +73,18 @@ namespace BackgroundTask
                                                             {
                                                                 for (int i = 0; i < defcon1CheckListItems.Count; i++)
                                                                 {
-                                                                    if (defcon1CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStamp)
+                                                                    if (defcon1CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStampCreated)
                                                                     {
                                                                         itemFound = true;
                                                                         if (defcon1CheckListItems[i].Deleted != item.Deleted)
                                                                         {
                                                                             defcon1CheckListItems[i].Deleted = true;
                                                                             defcon1CheckListItems[i].Visibility = Visibility.Collapsed;
+                                                                        }
+                                                                        else if (defcon1CheckListItems[i].UnixTimeStampUpdated < item.UnixTimeStampUpdated)
+                                                                        {
+                                                                            defcon1CheckListItems[i].Item = item.Item;
+                                                                            defcon1CheckListItems[i].Checked = item.Checked;
                                                                         }
                                                                     }
                                                                 }
@@ -90,13 +95,18 @@ namespace BackgroundTask
                                                             {
                                                                 for (int i = 0; i < defcon2CheckListItems.Count; i++)
                                                                 {
-                                                                    if (defcon2CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStamp)
+                                                                    if (defcon2CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStampCreated)
                                                                     {
                                                                         itemFound = true;
                                                                         if (defcon2CheckListItems[i].Deleted != item.Deleted)
                                                                         {
                                                                             defcon2CheckListItems[i].Deleted = true;
                                                                             defcon2CheckListItems[i].Visibility = Visibility.Collapsed;
+                                                                        }
+                                                                        else if (defcon2CheckListItems[i].UnixTimeStampUpdated < item.UnixTimeStampUpdated)
+                                                                        {
+                                                                            defcon2CheckListItems[i].Item = item.Item;
+                                                                            defcon2CheckListItems[i].Checked = item.Checked;
                                                                         }
                                                                     }
                                                                 }
@@ -107,13 +117,18 @@ namespace BackgroundTask
                                                             {
                                                                 for (int i = 0; i < defcon3CheckListItems.Count; i++)
                                                                 {
-                                                                    if (defcon3CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStamp)
+                                                                    if (defcon3CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStampCreated)
                                                                     {
                                                                         itemFound = true;
                                                                         if (defcon3CheckListItems[i].Deleted != item.Deleted)
                                                                         {
                                                                             defcon3CheckListItems[i].Deleted = true;
                                                                             defcon3CheckListItems[i].Visibility = Visibility.Collapsed;
+                                                                        }
+                                                                        else if (defcon3CheckListItems[i].UnixTimeStampUpdated < item.UnixTimeStampUpdated)
+                                                                        {
+                                                                            defcon3CheckListItems[i].Item = item.Item;
+                                                                            defcon3CheckListItems[i].Checked = item.Checked;
                                                                         }
                                                                     }
                                                                 }
@@ -124,13 +139,18 @@ namespace BackgroundTask
                                                             {
                                                                 for (int i = 0; i < defcon4CheckListItems.Count; i++)
                                                                 {
-                                                                    if (defcon4CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStamp)
+                                                                    if (defcon4CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStampCreated)
                                                                     {
                                                                         itemFound = true;
                                                                         if (defcon4CheckListItems[i].Deleted != item.Deleted)
                                                                         {
                                                                             defcon4CheckListItems[i].Deleted = true;
                                                                             defcon4CheckListItems[i].Visibility = Visibility.Collapsed;
+                                                                        }
+                                                                        else if (defcon4CheckListItems[i].UnixTimeStampUpdated < item.UnixTimeStampUpdated)
+                                                                        {
+                                                                            defcon4CheckListItems[i].Item = item.Item;
+                                                                            defcon4CheckListItems[i].Checked = item.Checked;
                                                                         }
                                                                     }
                                                                 }
@@ -141,13 +161,18 @@ namespace BackgroundTask
                                                             {
                                                                 for (int i = 0; i < defcon5CheckListItems.Count; i++)
                                                                 {
-                                                                    if (defcon5CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStamp)
+                                                                    if (defcon5CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStampCreated)
                                                                     {
                                                                         itemFound = true;
                                                                         if (defcon5CheckListItems[i].Deleted != item.Deleted)
                                                                         {
                                                                             defcon5CheckListItems[i].Deleted = true;
                                                                             defcon5CheckListItems[i].Visibility = Visibility.Collapsed;
+                                                                        }
+                                                                        else if (defcon5CheckListItems[i].UnixTimeStampUpdated < item.UnixTimeStampUpdated)
+                                                                        {
+                                                                            defcon5CheckListItems[i].Item = item.Item;
+                                                                            defcon5CheckListItems[i].Checked = item.Checked;
                                                                         }
                                                                     }
                                                                 }
