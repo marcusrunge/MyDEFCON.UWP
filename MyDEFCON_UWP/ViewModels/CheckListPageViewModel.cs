@@ -636,6 +636,7 @@ namespace MyDEFCON_UWP.ViewModels
                                     {
                                         Defcon1CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Deleted = true;
                                         Defcon1CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Visibility = Visibility.Collapsed;
+                                        Defcon1CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Checked = true;
                                         //Defcon1CheckList.Remove(item);
                                     }
                                     _noUpdate = false;
@@ -646,6 +647,7 @@ namespace MyDEFCON_UWP.ViewModels
                                     {
                                         Defcon2CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Deleted = true;
                                         Defcon2CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Visibility = Visibility.Collapsed;
+                                        Defcon2CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Checked = true;
                                         //Defcon2CheckList.Remove(item);
                                     }
                                     _noUpdate = false;
@@ -656,6 +658,7 @@ namespace MyDEFCON_UWP.ViewModels
                                     {
                                         Defcon3CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Deleted = true;
                                         Defcon3CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Visibility = Visibility.Collapsed;
+                                        Defcon3CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Checked = true;
                                         //Defcon3CheckList.Remove(item);
                                     }
                                     _noUpdate = false;
@@ -666,6 +669,7 @@ namespace MyDEFCON_UWP.ViewModels
                                     {
                                         Defcon4CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Deleted = true;
                                         Defcon4CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Visibility = Visibility.Collapsed;
+                                        Defcon4CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Checked = true;
                                         //Defcon4CheckList.Remove(item);
                                     }
                                     _noUpdate = false;
@@ -676,6 +680,7 @@ namespace MyDEFCON_UWP.ViewModels
                                     {
                                         Defcon5CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Deleted = true;
                                         Defcon5CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Visibility = Visibility.Collapsed;
+                                        Defcon5CheckList.Where((c) => c.UnixTimeStampCreated == item.UnixTimeStampCreated).FirstOrDefault().Checked = true;
                                         //Defcon5CheckList.Remove(item);
                                     }
                                     _noUpdate = false;
