@@ -13,14 +13,15 @@
     xmlns:Media="using:Microsoft.Xaml.Interactions.Media"
     xmlns:views="using:MyDEFCON_UWP.Views"
     xmlns:Converters="using:MyDEFCON_UWP.Converters"
-    xmlns:System="using:System" x:Name="page"
+    xmlns:System="using:System"
+    xmlns:usercontrols="using:MyDEFCON_UWP.UserControls" x:Name="page"
     x:Class="MyDEFCON_UWP.Views.CheckListPage"
     mc:Ignorable="d" >
 
     <Page.Resources>
         <Converters:SelectedItemsToListConverter x:Key="SelectedItemsToListConverter"/>
         <DataTemplate x:Name="CheckListEntry" >
-            <RelativePanel Visibility="{Binding Visibility, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}">
+            <RelativePanel>
                 <TextBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemTextBox" TextWrapping="Wrap" RelativePanel.RightOf="checkListItemCheckBox" Text="{Binding Item, Mode=TwoWay, UpdateSourceTrigger=Explicit}" LostFocus="TextBox_LostFocus" FontSize="{Binding FontSize}" Width="{Binding Width}" RequestedTheme="Dark" PlaceholderText="New item">
                     <TextBox.Resources>
                         <ResourceDictionary Source="/Styles/CheckListItemTextBoxStyle.xaml"/>
@@ -305,42 +306,42 @@
                 <Rectangle Grid.Row="1" Grid.Column="4" Margin="3,0" Fill="{Binding Defcon5CheckRectangleFill}"/>
                 <TextBlock Grid.Row="1" Grid.Column="4" FontFamily="Segoe UI" FontSize="18.667" HorizontalAlignment="Center" Text="{Binding Defcon5UnCheckedItems}" Foreground="#FFFFFFFF"/>
             </Grid>
-            <ListView RequestedTheme="Dark" x:Name="defcon1ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon1CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3"  >
+            <usercontrols:DeletedItemsAwareListView RequestedTheme="Dark" x:Name="defcon1ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon1CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3" >                
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="SelectionChanged">
                         <Core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" InputConverter="{StaticResource SelectedItemsToListConverter}" InputConverterParameter="{Binding ElementName=defcon1ListView}"/>
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
-            </ListView>
-            <ListView RequestedTheme="Dark"  x:Name="defcon2ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon2CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3">
+            </usercontrols:DeletedItemsAwareListView>
+            <usercontrols:DeletedItemsAwareListView RequestedTheme="Dark"  x:Name="defcon2ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon2CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3">
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="SelectionChanged">
                         <Core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" InputConverter="{StaticResource SelectedItemsToListConverter}" InputConverterParameter="{Binding ElementName=defcon2ListView}"/>
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
-            </ListView>
-            <ListView RequestedTheme="Dark"  x:Name="defcon3ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon3CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3">
+            </usercontrols:DeletedItemsAwareListView>
+            <usercontrols:DeletedItemsAwareListView RequestedTheme="Dark"  x:Name="defcon3ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon3CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3">
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="SelectionChanged">
                         <Core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" InputConverter="{StaticResource SelectedItemsToListConverter}" InputConverterParameter="{Binding ElementName=defcon3ListView}"/>
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
-            </ListView>
-            <ListView RequestedTheme="Dark"  x:Name="defcon4ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon4CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3">
+            </usercontrols:DeletedItemsAwareListView>
+            <usercontrols:DeletedItemsAwareListView RequestedTheme="Dark"  x:Name="defcon4ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon4CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="3">
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="SelectionChanged">
                         <Core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" InputConverter="{StaticResource SelectedItemsToListConverter}" InputConverterParameter="{Binding ElementName=defcon4ListView}"/>
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
-            </ListView>
-            <ListView RequestedTheme="Dark"  x:Name="defcon5ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon5CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="4,3,3,3">
+            </usercontrols:DeletedItemsAwareListView>
+            <usercontrols:DeletedItemsAwareListView RequestedTheme="Dark"  x:Name="defcon5ListView" Grid.Row="1" ItemTemplate="{StaticResource CheckListEntry}" Background="#B2000000" ItemsSource="{Binding Defcon5CheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{Binding DefconListViewSelectionMode}" Margin="4,3,3,3">
                 <Interactivity:Interaction.Behaviors>
                     <Core:EventTriggerBehavior EventName="SelectionChanged">
                         <Core:InvokeCommandAction Command="{x:Bind ViewModel.SelectionChangedCommand}" InputConverter="{StaticResource SelectedItemsToListConverter}" InputConverterParameter="{Binding ElementName=defcon5ListView}"/>
                         <Core:CallMethodAction/>
                     </Core:EventTriggerBehavior>
                 </Interactivity:Interaction.Behaviors>
-            </ListView>
+            </usercontrols:DeletedItemsAwareListView>
         </Grid>
         <CommandBar Grid.Row="2" RequestedTheme="Light" Background="#FFE8FF00" Foreground="Red" BorderBrush="Red" >
             <CommandBar.Resources>
@@ -355,35 +356,7 @@
                 </AppBarButton.Resources>
                 <AppBarButton.Style>
                     <StaticResource ResourceKey="RedAppBarButtonStyle"/>
-                </AppBarButton.Style>
-                <!--<AppBarButton.Flyout>
-                    <Flyout x:Name="flyout"  FlyoutPresenterStyle="{StaticResource AddItemFlyoutPresenterStyle}" Placement="Top">
-                        <Interactivity:Interaction.Behaviors>
-                            <dependencies:FlyoutBehavior>
-                                <dependencies:FlyoutBehavior.OpenActions>
-                                    <Core:InvokeCommandAction Command="{x:Bind ViewModel.AddItemFlyoutOpenCommand, Mode=OneWay}"/>
-                                </dependencies:FlyoutBehavior.OpenActions>
-                                <dependencies:FlyoutBehavior.CloseActions>
-                                    <Core:InvokeCommandAction Command="{x:Bind ViewModel.AddItemFlyoutCloseCommand, Mode=OneWay}"/>
-                                </dependencies:FlyoutBehavior.CloseActions>
-                            </dependencies:FlyoutBehavior>
-                        </Interactivity:Interaction.Behaviors>
-                        <Grid x:Name="flyoutGrid" Width="{x:Bind ViewModel.ScreenWidth}" Margin="0,0,0,0" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" Padding="8,0,24,0" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <TextBox x:Name="textBox" Grid.Column="0" Margin="0" VerticalAlignment="Center" Text="{x:Bind ViewModel.TextBox, Mode=TwoWay}" Width="Auto" FontSize="24"/>
-                            <AppBarButton Grid.Column="1" Label="Accept" Icon="Accept" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind ViewModel.AddItemCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=textBox}">
-                                <Interactivity:Interaction.Behaviors>
-                                    <Core:EventTriggerBehavior EventName="Click">
-                                        <Behaviors:CloseFlyoutAction/>
-                                    </Core:EventTriggerBehavior>
-                                </Interactivity:Interaction.Behaviors>
-                            </AppBarButton>
-                        </Grid>
-                    </Flyout>
-                </AppBarButton.Flyout>-->
+                </AppBarButton.Style>                
             </AppBarButton>
             <!--<AppBarButton Icon="Cancel"  Label="Cancel" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Visibility="{Binding CancelIconVisibility}"/>-->
             <AppBarButton x:Name="shareAppBarButton" Icon="Share" Label="Share" Foreground="Red" Style="{StaticResource RedAppBarButtonStyle}" Command="{x:Bind ViewModel.ShareCheckListCommand, Mode=OneWay}" CommandParameter="{Binding ElementName=shareAppBarButton}"/>

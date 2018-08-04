@@ -1,6 +1,7 @@
 ﻿using Models;
 using Services;
 using System;
+using System.Linq;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
@@ -15,7 +16,7 @@ namespace MyDEFCON_UWP.Services
             {
                 foreach (var item in collection)
                 {
-                    if (!item.Checked)
+                    if (!item.Checked && !item.Deleted)
                     {
                         i++;
                     }
@@ -31,7 +32,7 @@ namespace MyDEFCON_UWP.Services
             {
                 foreach (var item in collection)
                 {
-                    item.Checked = false;
+                    if(!item.Deleted) item.Checked = false;
                 }
             }
 
@@ -108,11 +109,18 @@ namespace MyDEFCON_UWP.Services
             {
                 try
                 {
-                    if (collection.Count == uncheckedItems && collection[0] != null)
+                    int validCollectionCount = 0;                    
+                    foreach (var item in collection)
+                    {
+                        if (!item.Deleted) validCollectionCount++;
+                    }
+                    int deletedItemsCount = collection.Count - validCollectionCount;
+
+                    if (deletedItemsCount != collection.Count && validCollectionCount == uncheckedItems && collection[0] != null)
                     {
                         return new SolidColorBrush(Colors.Red);
                     }
-                    else if (collection.Count > uncheckedItems && uncheckedItems > 0)
+                    else if (validCollectionCount > uncheckedItems && uncheckedItems > 0)
                     {
                         return new SolidColorBrush(Colors.Orange);
                     }
