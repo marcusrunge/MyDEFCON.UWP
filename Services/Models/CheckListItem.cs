@@ -18,12 +18,7 @@ namespace Models
         short _defconStatus;
         int _id;
         Visibility _visibility;
-        #endregion
-
-        public CheckListItem()
-        {
-            PropertyChanged += (s, e) => UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-        }
+        #endregion        
 
         #region Properties
         public int Id { get { return _id; } set { Set(ref _id, value); } }
