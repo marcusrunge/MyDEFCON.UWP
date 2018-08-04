@@ -202,15 +202,18 @@ namespace MyDEFCON_UWP.ViewModels
                 {
                     //_noUpdate = true;
                     //Defcon1CheckList.Where(x => x.UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated).FirstOrDefault().UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                    for (int i = 0; i < Defcon1CheckList.Count; i++)
+                    if (e != null)
                     {
-                        if (Defcon1CheckList[i].UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated)
+                        for (int i = 0; i < Defcon1CheckList.Count; i++)
                         {
-                            _noUpdate = true;
-                            Defcon1CheckList[i].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                            if (Defcon1CheckList[i].UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated)
+                            {
+                                _noUpdate = true;
+                                Defcon1CheckList[i].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                            }
                         }
+                        _noUpdate = false;
                     }
-                    _noUpdate = false;
                     await CheckListService.SaveCheckList(Defcon1CheckList, 1);
                     Defcon1UnCheckedItems = UncheckedItemsService.Count(Defcon1CheckList, 1, _defconStatus);
                     Defcon1CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon1CheckList, 1, UncheckedItemsService.Count(Defcon1CheckList, 1, _defconStatus), _defconStatus);
@@ -225,15 +228,18 @@ namespace MyDEFCON_UWP.ViewModels
             {
                 if ((e == null && sender == null) || (sender as ItemObservableCollection<CheckListItem>)[e.NewStartingIndex].Item.Length > 0)
                 {
-                    for (int i = 0; i < Defcon2CheckList.Count; i++)
+                    if (e != null)
                     {
-                        if (Defcon2CheckList[i].UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated)
+                        for (int i = 0; i < Defcon2CheckList.Count; i++)
                         {
-                            _noUpdate = true;
-                            Defcon2CheckList[i].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                            if (Defcon2CheckList[i].UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated)
+                            {
+                                _noUpdate = true;
+                                Defcon2CheckList[i].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                            }
                         }
+                        _noUpdate = false;
                     }
-                    _noUpdate = false;
                     await CheckListService.SaveCheckList(Defcon2CheckList, 2);
                     Defcon2UnCheckedItems = UncheckedItemsService.Count(Defcon2CheckList, 2, _defconStatus);
                     Defcon2CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon2CheckList, 2, UncheckedItemsService.Count(Defcon2CheckList, 2, _defconStatus), _defconStatus);
@@ -248,15 +254,18 @@ namespace MyDEFCON_UWP.ViewModels
             {
                 if ((e == null && sender == null) || (sender as ItemObservableCollection<CheckListItem>)[e.NewStartingIndex].Item.Length > 0)
                 {
-                    for (int i = 0; i < Defcon3CheckList.Count; i++)
+                    if (e != null)
                     {
-                        if (Defcon3CheckList[i].UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated)
+                        for (int i = 0; i < Defcon3CheckList.Count; i++)
                         {
-                            _noUpdate = true;
-                            Defcon3CheckList[i].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                            if (Defcon3CheckList[i].UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated)
+                            {
+                                _noUpdate = true;
+                                Defcon3CheckList[i].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                            }
                         }
+                        _noUpdate = false;
                     }
-                    _noUpdate = false;
                     await CheckListService.SaveCheckList(Defcon3CheckList, 3);
                     Defcon3UnCheckedItems = UncheckedItemsService.Count(Defcon3CheckList, 3, _defconStatus);
                     Defcon3CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon3CheckList, 3, UncheckedItemsService.Count(Defcon3CheckList, 3, _defconStatus), _defconStatus);
@@ -271,15 +280,18 @@ namespace MyDEFCON_UWP.ViewModels
             {
                 if ((e == null && sender == null) || (sender as ItemObservableCollection<CheckListItem>)[e.NewStartingIndex].Item.Length > 0)
                 {
-                    for (int i = 0; i < Defcon4CheckList.Count; i++)
+                    if (e != null)
                     {
-                        if (Defcon4CheckList[i].UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated)
+                        for (int i = 0; i < Defcon4CheckList.Count; i++)
                         {
-                            _noUpdate = true;
-                            Defcon4CheckList[i].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                            if (Defcon4CheckList[i].UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated)
+                            {
+                                _noUpdate = true;
+                                Defcon4CheckList[i].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                            }
                         }
+                        _noUpdate = false;
                     }
-                    _noUpdate = false;
                     await CheckListService.SaveCheckList(Defcon4CheckList, 4);
                     Defcon4UnCheckedItems = UncheckedItemsService.Count(Defcon4CheckList, 4, _defconStatus);
                     Defcon4CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon4CheckList, 4, UncheckedItemsService.Count(Defcon4CheckList, 4, _defconStatus), _defconStatus);
@@ -294,15 +306,18 @@ namespace MyDEFCON_UWP.ViewModels
             {
                 if ((e == null && sender == null) || (sender as ItemObservableCollection<CheckListItem>)[e.NewStartingIndex].Item.Length > 0)
                 {
-                    for (int i = 0; i < Defcon5CheckList.Count; i++)
+                    if (e != null)
                     {
-                        if (Defcon5CheckList[i].UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated)
+                        for (int i = 0; i < Defcon5CheckList.Count; i++)
                         {
-                            _noUpdate = true;
-                            Defcon5CheckList[i].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                            if (Defcon5CheckList[i].UnixTimeStampCreated == ((CheckListItem)e.NewItems[0]).UnixTimeStampCreated)
+                            {
+                                _noUpdate = true;
+                                Defcon5CheckList[i].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+                            }
                         }
+                        _noUpdate = false;
                     }
-                    _noUpdate = false;
                     await CheckListService.SaveCheckList(Defcon5CheckList, 5);
                     Defcon5UnCheckedItems = UncheckedItemsService.Count(Defcon5CheckList, 5, _defconStatus);
                     Defcon5CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon5CheckList, 5, UncheckedItemsService.Count(Defcon5CheckList, 5, _defconStatus), _defconStatus);
