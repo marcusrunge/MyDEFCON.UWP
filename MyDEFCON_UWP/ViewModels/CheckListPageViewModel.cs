@@ -182,10 +182,21 @@ namespace MyDEFCON_UWP.ViewModels
                 _streamSocketService.IncomingChecklistReceived += async (s, e) => 
                 {
                     Defcon1CheckList = await CheckListService.LoadCheckList(1);
+                    Defcon1UnCheckedItems = UncheckedItemsService.Count(Defcon1CheckList, 1, _defconStatus);
+                    Defcon1CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon1CheckList, 1, UncheckedItemsService.Count(Defcon1CheckList, 1, _defconStatus), _defconStatus);
                     Defcon2CheckList = await CheckListService.LoadCheckList(2);
+                    Defcon2UnCheckedItems = UncheckedItemsService.Count(Defcon2CheckList, 2, _defconStatus);
+                    Defcon2CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon2CheckList, 2, UncheckedItemsService.Count(Defcon2CheckList, 2, _defconStatus), _defconStatus);                    
                     Defcon3CheckList = await CheckListService.LoadCheckList(3);
+                    Defcon3UnCheckedItems = UncheckedItemsService.Count(Defcon3CheckList, 3, _defconStatus);
+                    Defcon3CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon3CheckList, 3, UncheckedItemsService.Count(Defcon3CheckList, 3, _defconStatus), _defconStatus);
                     Defcon4CheckList = await CheckListService.LoadCheckList(4);
+                    Defcon4UnCheckedItems = UncheckedItemsService.Count(Defcon4CheckList, 4, _defconStatus);
+                    Defcon4CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon4CheckList, 4, UncheckedItemsService.Count(Defcon4CheckList, 4, _defconStatus), _defconStatus);
                     Defcon5CheckList = await CheckListService.LoadCheckList(5);
+                    Defcon5UnCheckedItems = UncheckedItemsService.Count(Defcon5CheckList, 5, _defconStatus);
+                    Defcon5CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon5CheckList, 5, UncheckedItemsService.Count(Defcon5CheckList, 5, _defconStatus), _defconStatus);
+                    UpdateTileBadge();
                 };
             }
         }
