@@ -51,31 +51,31 @@ namespace MyDEFCON_UWP.Services
 
             foreach (var item in defcon1CheckList)
             {
-                if (!item.Checked)
+                if (!item.Checked && !item.Deleted)
                     defcon1UncheckedItems++;
             }
 
             foreach (var item in defcon2CheckList)
             {
-                if (!item.Checked)
+                if (!item.Checked && !item.Deleted)
                     defcon2UncheckedItems++;
             }
 
             foreach (var item in defcon3CheckList)
             {
-                if (!item.Checked)
+                if (!item.Checked && !item.Deleted)
                     defcon3UncheckedItems++;
             }
 
             foreach (var item in defcon4CheckList)
             {
-                if (!item.Checked)
+                if (!item.Checked && !item.Deleted)
                     defcon4UncheckedItems++;
             }
 
             foreach (var item in defcon5CheckList)
             {
-                if (!item.Checked)
+                if (!item.Checked && !item.Deleted)
                     defcon5UncheckedItems++;
             }
 
