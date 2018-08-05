@@ -30,10 +30,15 @@ namespace SocketLibrary
                 _isOrigin = false;
                 if (!_isOrigin)
                 {
-                    RemoteAddress = e.RemoteAddress;
-                    uint stringLength = e.GetDataReader().UnconsumedBufferLength;
-                    IncomingMessage = e.GetDataReader().ReadString(stringLength);
-                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
+                    try
+                    {
+                        RemoteAddress = e.RemoteAddress;
+                        uint stringLength = e.GetDataReader().UnconsumedBufferLength;
+                        IncomingMessage = e.GetDataReader().ReadString(stringLength);
+                        await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
+                    }
+                    catch (Exception) { }
+
                 }
                 _isOrigin = false;
             };
