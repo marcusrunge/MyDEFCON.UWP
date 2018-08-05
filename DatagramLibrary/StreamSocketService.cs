@@ -248,7 +248,7 @@ namespace SocketLibrary
                 checkListItems.Add(checkListItem);
             }
 
-            return JsonConvert.SerializeObject(checkListItems);
+            return JsonConvert.SerializeObject(checkListItems) + "/0";
         }
 
         public async Task Dispose()
