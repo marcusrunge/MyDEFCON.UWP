@@ -206,6 +206,7 @@ namespace SocketLibrary
                             await CheckListService.SaveCheckList(defcon5CheckListItems, 5);
                         }
                     }
+                    await streamSocket.CancelIOAsync();
                     streamSocket.Dispose();
                 }
             }
@@ -248,7 +249,7 @@ namespace SocketLibrary
                 checkListItems.Add(checkListItem);
             }
 
-            return JsonConvert.SerializeObject(checkListItems); //+ "/0";
+            return JsonConvert.SerializeObject(checkListItems);
         }
 
         public async Task Dispose()
