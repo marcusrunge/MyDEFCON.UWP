@@ -769,6 +769,8 @@ namespace MyDEFCON_UWP.ViewModels
                             }
                             SetTextBoxWidth(args.NewSize.Width - 52);
                             _textBoxWidth = (args.NewSize.Width - 52);
+                            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+                            localSettings.Values["textBoxWidth"] = (args.NewSize.Width - 52);
                             _noUpdate = false;
                         }
                     );

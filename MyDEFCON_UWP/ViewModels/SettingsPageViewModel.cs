@@ -57,8 +57,20 @@ namespace MyDEFCON_UWP.ViewModels
             localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             PropertyChanged += async (s, e) =>
             {
-                if (e.PropertyName.Equals("BackgroundTask")) await SaveBackgroundTaskSetting();
-                else if (e.PropertyName.Equals("LanBroadcastIsOn")) SaveLanBroadcastIsOnSetting();
+                if (e.PropertyName.Equals("BackgroundTask"))
+                {
+                    await SaveBackgroundTaskSetting();
+                    /*if (!BackgroundTask)
+                    {
+                        LanBroadcastIsOn = false;
+                        LanMulticastIsOn = false;
+                    }*/
+                }
+                else if (e.PropertyName.Equals("LanBroadcastIsOn"))
+                {
+                    SaveLanBroadcastIsOnSetting();
+                    if(!LanBroadcastIsOn) LanMulticastIsOn = false;
+                }
                 else if (e.PropertyName.Equals("LanMulticastIsOn")) SaveLanMulticastIsOnSetting();
             };
         }

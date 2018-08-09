@@ -112,7 +112,6 @@
     <Compile Include="ItemObservableCollection.cs" />
     <Compile Include="LiveTileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DatagramService.cs" />
     <Compile Include="StorageService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Windows.Networking;
 using Windows.Networking.Sockets;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
@@ -66,6 +67,10 @@ namespace SocketLibrary
 
         public async Task<string> ReceiveStringData(HostName hostName)
         {
+            double textBoxWidth = 256;
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+            if (localSettings.Values.ContainsKey("textBoxWidth")) textBoxWidth = (double)localSettings.Values["textBoxWidth"];
+
             var window = CoreWindow.GetForCurrentThread();
             var dispatcher = window.Dispatcher;
             string response = String.Empty;
@@ -108,7 +113,11 @@ namespace SocketLibrary
                                             }
                                         }
                                     }
-                                    if (!itemFound) defcon1CheckListItems.Add(item);
+                                    if (!itemFound)
+                                    {
+                                        item.Width = textBoxWidth;
+                                        defcon1CheckListItems.Add(item);
+                                    }
                                 }
 
                                 else if (item.DefconStatus == 2)
@@ -130,7 +139,11 @@ namespace SocketLibrary
                                             }
                                         }
                                     }
-                                    if (!itemFound) defcon2CheckListItems.Add(item);
+                                    if (!itemFound)
+                                    {
+                                        item.Width = textBoxWidth;
+                                        defcon2CheckListItems.Add(item);
+                                    }
                                 }
 
                                 else if (item.DefconStatus == 3)
@@ -152,7 +165,11 @@ namespace SocketLibrary
                                             }
                                         }
                                     }
-                                    if (!itemFound) defcon3CheckListItems.Add(item);
+                                    if (!itemFound)
+                                    {
+                                        item.Width = textBoxWidth;
+                                        defcon3CheckListItems.Add(item);
+                                    }
                                 }
 
                                 else if (item.DefconStatus == 4)
@@ -174,7 +191,11 @@ namespace SocketLibrary
                                             }
                                         }
                                     }
-                                    if (!itemFound) defcon4CheckListItems.Add(item);
+                                    if (!itemFound)
+                                    {
+                                        item.Width = textBoxWidth;
+                                        defcon4CheckListItems.Add(item);
+                                    }
                                 }
 
                                 else if (item.DefconStatus == 5)
@@ -196,7 +217,11 @@ namespace SocketLibrary
                                             }
                                         }
                                     }
-                                    if (!itemFound) defcon5CheckListItems.Add(item);
+                                    if (!itemFound)
+                                    {
+                                        item.Width = textBoxWidth;
+                                        defcon5CheckListItems.Add(item);
+                                    }
                                 }
                             }
                             await CheckListService.SaveCheckList(defcon1CheckListItems, 1);
