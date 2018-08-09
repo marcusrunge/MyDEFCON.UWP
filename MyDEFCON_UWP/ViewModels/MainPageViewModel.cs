@@ -13,6 +13,10 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using SocketLibrary;
 using Models;
+using System.Net;
+using Windows.Networking;
+using Windows.Networking.Connectivity;
+using System.Linq;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -79,12 +83,12 @@ namespace MyDEFCON_UWP.ViewModels
             DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
             ScreenWidth = ApplicationView.GetForCurrentView().VisibleBounds.Width;
             CancelIconVisibility = Visibility.Collapsed;
-            ApplicationData.Current.DataChanged += (s, e) => 
-            {                
+            ApplicationData.Current.DataChanged += (s, e) =>
+            {
                 _defconStatus = Convert.ToInt16(s.RoamingSettings.Values["defconStatus"]);
                 SetDefconStatus(_defconStatus);
                 LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
-                ReverseUncheck(_defconStatus);                
+                ReverseUncheck(_defconStatus);
                 UpdateTileBadge();
             };
 
@@ -95,15 +99,16 @@ namespace MyDEFCON_UWP.ViewModels
                 await _datagramService.StartListener();
                 _datagramService.IncomingMessageReceived += (s, e) =>
                 {
-                    int.TryParse(e, out int defconStatus);
-                    if (defconStatus > 0 && defconStatus < 6)
+                    if (!(GetLocalIp().Equals((s as DatagramSocketService).RemoteAddress.CanonicalName)) && int.TryParse(e, out int defconStatus) && (defconStatus > 0 && defconStatus < 6))
                     {
                         _defconStatus = defconStatus;
                         ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
                         roamingSettings.Values["defconStatus"] = e;
                         LoadDefconStatusFromRoamingSettings();
+                        ReverseUncheck(defconStatus);
                         LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
                     }
+
                 };
             }
         }
@@ -125,7 +130,7 @@ namespace MyDEFCON_UWP.ViewModels
         public override async Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
         {
             DataTransferManager.GetForCurrentView().DataRequested -= OnShareDataRequested;
-            if(_datagramService!=null) await _datagramService.Dispose();
+            if (_datagramService != null) await _datagramService.Dispose();
             //return Task.CompletedTask;
         }
 
@@ -190,8 +195,7 @@ namespace MyDEFCON_UWP.ViewModels
         private void SaveDefconStatus(int status)
         {
             ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-            roamingSettings.Values["defconStatus"] = status.ToString();
-            if (lanBroadcastIsOn) _datagramService?.SendMessage(status.ToString());
+            roamingSettings.Values["defconStatus"] = status.ToString();            
         }
 
         private void UncheckOtherButton(int v)
@@ -246,7 +250,7 @@ namespace MyDEFCON_UWP.ViewModels
                         _defcon1CheckList = UncheckCollection(_defcon1CheckList);
                         await CheckListService.SaveCheckList(_defcon1CheckList, 1);
                     }
-                    
+
                     break;
                 case 3:
                     if (_defconStatus != 3)
@@ -256,7 +260,7 @@ namespace MyDEFCON_UWP.ViewModels
                         await CheckListService.SaveCheckList(_defcon1CheckList, 1);
                         await CheckListService.SaveCheckList(_defcon2CheckList, 2);
                     }
-                    
+
                     break;
                 case 4:
                     if (_defconStatus != 4)
@@ -268,7 +272,7 @@ namespace MyDEFCON_UWP.ViewModels
                         await CheckListService.SaveCheckList(_defcon2CheckList, 2);
                         await CheckListService.SaveCheckList(_defcon3CheckList, 3);
                     }
-                    
+
                     break;
                 case 5:
                     if (_defconStatus != 5)
@@ -281,7 +285,7 @@ namespace MyDEFCON_UWP.ViewModels
                         await CheckListService.SaveCheckList(_defcon2CheckList, 2);
                         await CheckListService.SaveCheckList(_defcon3CheckList, 3);
                         await CheckListService.SaveCheckList(_defcon4CheckList, 4);
-                    }                    
+                    }
                     break;
                 default:
                     break;
@@ -318,6 +322,7 @@ namespace MyDEFCON_UWP.ViewModels
                             //if (!loadFromRoaming) ReverseUncheck(1);
                             UpdateTileBadge();
                             SaveDefconStatus(1);
+                            if (lanBroadcastIsOn) _datagramService?.SendMessage("1");
                         }
                     });
                 }
@@ -345,6 +350,7 @@ namespace MyDEFCON_UWP.ViewModels
                             _defconStatus = 2;
                             UpdateTileBadge();
                             SaveDefconStatus(2);
+                            if (lanBroadcastIsOn) _datagramService?.SendMessage("2");
                         }
                     });
                 }
@@ -372,6 +378,7 @@ namespace MyDEFCON_UWP.ViewModels
                             _defconStatus = 3;
                             UpdateTileBadge();
                             SaveDefconStatus(3);
+                            if (lanBroadcastIsOn) _datagramService?.SendMessage("3");
                         }
                     });
                 }
@@ -399,6 +406,7 @@ namespace MyDEFCON_UWP.ViewModels
                             _defconStatus = 4;
                             UpdateTileBadge();
                             SaveDefconStatus(4);
+                            if (lanBroadcastIsOn) _datagramService?.SendMessage("4");
                         }
                     });
                 }
@@ -426,6 +434,7 @@ namespace MyDEFCON_UWP.ViewModels
                             _defconStatus = 5;
                             UpdateTileBadge();
                             SaveDefconStatus(5);
+                            if (lanBroadcastIsOn) _datagramService?.SendMessage("5");
                         }
                     });
                 }
@@ -492,6 +501,12 @@ namespace MyDEFCON_UWP.ViewModels
             }
         }
         #endregion
+        public string GetLocalIp(HostNameType hostNameType = HostNameType.Ipv4)
+        {
+            var internetConnectionProfile = NetworkInformation.GetInternetConnectionProfile();
+            if (internetConnectionProfile?.NetworkAdapter == null) return null;
+            var hostname = NetworkInformation.GetHostNames().FirstOrDefault(h => h.Type == hostNameType && h.IPInformation?.NetworkAdapter != null && h.IPInformation.NetworkAdapter.NetworkAdapterId == internetConnectionProfile.NetworkAdapter.NetworkAdapterId);
+            return hostname?.CanonicalName;
+        }
     }
 }
-

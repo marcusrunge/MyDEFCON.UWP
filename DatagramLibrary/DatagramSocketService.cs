@@ -24,7 +24,7 @@ namespace SocketLibrary
             var backgroundTaskRegistration = await BackgroundTaskService.Register<BroadcastListenerBackgroundTask>(new SocketActivityTrigger());
             datagramSocket = new DatagramSocket();
             datagramSocket.EnableTransferOwnership(backgroundTaskRegistration.TaskId, SocketActivityConnectedStandbyAction.DoNotWake);
-            await datagramSocket.BindServiceNameAsync("4536");
+            await datagramSocket.BindServiceNameAsync("4536");            
             datagramSocket.MessageReceived += async (s, e) =>
             {
                 _isOrigin = false;
@@ -38,7 +38,6 @@ namespace SocketLibrary
                         await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
                     }
                     catch (Exception) { }
-
                 }
                 _isOrigin = false;
             };
