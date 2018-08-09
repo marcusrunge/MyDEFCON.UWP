@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Networking;
 using Windows.Networking.Sockets;
+using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 
@@ -19,6 +20,7 @@ namespace SocketLibrary
         private bool _isOrigin = default(bool);
         public async Task StartListener()
         {
+            //ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
             var window = CoreWindow.GetForCurrentThread();
             var dispatcher = window.Dispatcher;
             var backgroundTaskRegistration = await BackgroundTaskService.Register<BroadcastListenerBackgroundTask>(new SocketActivityTrigger());
@@ -35,6 +37,7 @@ namespace SocketLibrary
                         RemoteAddress = e.RemoteAddress;
                         uint stringLength = e.GetDataReader().UnconsumedBufferLength;
                         IncomingMessage = e.GetDataReader().ReadString(stringLength);
+                        //if(int.TryParse(IncomingMessage, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) roamingSettings.Values["defconStatus"] = IncomingMessage;
                         await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
                     }
                     catch (Exception) { }

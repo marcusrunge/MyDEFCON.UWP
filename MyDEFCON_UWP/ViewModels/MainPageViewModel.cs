@@ -43,6 +43,7 @@ namespace MyDEFCON_UWP.ViewModels
         bool loadFromRoaming = false;
         DatagramSocketService _datagramService;
         bool lanBroadcastIsOn = false;
+        bool _isSetDefconCommandBlocked = false;
         #endregion
 
         #region Properties
@@ -71,8 +72,10 @@ namespace MyDEFCON_UWP.ViewModels
         }
         public async override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            UncheckOtherButton(0);
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             LoadDefconStatusFromRoamingSettings();
+            SetDefconStatus(_defconStatus);
             LoadTransparentTileSetting();
             LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
             _defcon1CheckList = await CheckListService.LoadCheckList(1);
@@ -84,9 +87,9 @@ namespace MyDEFCON_UWP.ViewModels
             ScreenWidth = ApplicationView.GetForCurrentView().VisibleBounds.Width;
             CancelIconVisibility = Visibility.Collapsed;
             ApplicationData.Current.DataChanged += (s, e) =>
-            {
-                _defconStatus = Convert.ToInt16(s.RoamingSettings.Values["defconStatus"]);
-                SetDefconStatus(_defconStatus);
+            {                
+                _defconStatus = Convert.ToInt16(s.RoamingSettings.Values["defconStatus"]);                
+                SetDefconStatus(_defconStatus);                
                 LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
                 ReverseUncheck(_defconStatus);
                 UpdateTileBadge();
@@ -100,15 +103,17 @@ namespace MyDEFCON_UWP.ViewModels
                 _datagramService.IncomingMessageReceived += (s, e) =>
                 {
                     if (!(GetLocalIp().Equals((s as DatagramSocketService).RemoteAddress.CanonicalName)) && int.TryParse(e, out int defconStatus) && (defconStatus > 0 && defconStatus < 6))
-                    {
+                    {                        
                         _defconStatus = defconStatus;
                         ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
                         roamingSettings.Values["defconStatus"] = e;
-                        LoadDefconStatusFromRoamingSettings();
-                        ReverseUncheck(defconStatus);
-                        LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
+                        _isSetDefconCommandBlocked = true;
+                        UncheckOtherButton(0);
+                        SetDefconStatus(_defconStatus);
+                        _isSetDefconCommandBlocked = false;
+                        ReverseUncheck(_defconStatus);
+                        LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);                        
                     }
-
                 };
             }
         }
@@ -131,6 +136,7 @@ namespace MyDEFCON_UWP.ViewModels
         {
             DataTransferManager.GetForCurrentView().DataRequested -= OnShareDataRequested;
             if (_datagramService != null) await _datagramService.Dispose();
+            //UncheckOtherButton(0);
             //return Task.CompletedTask;
         }
 
@@ -202,6 +208,13 @@ namespace MyDEFCON_UWP.ViewModels
         {
             switch (v)
             {
+                case 0:
+                    Defcon1ButtonIsChecked = false;
+                    Defcon2ButtonIsChecked = false;
+                    Defcon3ButtonIsChecked = false;
+                    Defcon4ButtonIsChecked = false;
+                    Defcon5ButtonIsChecked = false;
+                    break;
                 case 1:
                     Defcon1ButtonIsChecked = false;
                     break;
@@ -313,16 +326,19 @@ namespace MyDEFCON_UWP.ViewModels
                 {
                     _setDefcon1Command = new DelegateCommand(() =>
                     {
-                        UncheckOtherButton(_defconStatus);
-                        if (!Defcon2ButtonIsChecked && !Defcon3ButtonIsChecked && !Defcon4ButtonIsChecked && !Defcon5ButtonIsChecked)
+                        if (!_isSetDefconCommandBlocked)
                         {
-                            Defcon1ButtonIsChecked = true;
-                            _defconStatus = 1;
-                            LiveTileService.SetLiveTile(1, _useTransparentTile);
-                            //if (!loadFromRoaming) ReverseUncheck(1);
-                            UpdateTileBadge();
-                            SaveDefconStatus(1);
-                            if (lanBroadcastIsOn) _datagramService?.SendMessage("1");
+                            UncheckOtherButton(_defconStatus);
+                            if (!Defcon2ButtonIsChecked && !Defcon3ButtonIsChecked && !Defcon4ButtonIsChecked && !Defcon5ButtonIsChecked)
+                            {
+                                Defcon1ButtonIsChecked = true;
+                                _defconStatus = 1;
+                                LiveTileService.SetLiveTile(1, _useTransparentTile);
+                                //if (!loadFromRoaming) ReverseUncheck(1);
+                                UpdateTileBadge();
+                                SaveDefconStatus(1);
+                                if (lanBroadcastIsOn) _datagramService?.SendMessage("1");
+                            }
                         }
                     });
                 }
@@ -340,17 +356,20 @@ namespace MyDEFCON_UWP.ViewModels
                 {
                     _setDefcon2Command = new DelegateCommand(() =>
                     {
-                        UncheckOtherButton(_defconStatus);
-                        if (!Defcon1ButtonIsChecked && !Defcon3ButtonIsChecked && !Defcon4ButtonIsChecked && !Defcon5ButtonIsChecked)
+                        if (!_isSetDefconCommandBlocked)
                         {
-                            Defcon2ButtonIsChecked = true;
-                            //_defconStatus = 2;
-                            LiveTileService.SetLiveTile(2, _useTransparentTile);
-                            if (!loadFromRoaming) ReverseUncheck(2);
-                            _defconStatus = 2;
-                            UpdateTileBadge();
-                            SaveDefconStatus(2);
-                            if (lanBroadcastIsOn) _datagramService?.SendMessage("2");
+                            UncheckOtherButton(_defconStatus);
+                            if (!Defcon1ButtonIsChecked && !Defcon3ButtonIsChecked && !Defcon4ButtonIsChecked && !Defcon5ButtonIsChecked)
+                            {
+                                Defcon2ButtonIsChecked = true;
+                                //_defconStatus = 2;
+                                LiveTileService.SetLiveTile(2, _useTransparentTile);
+                                if (!loadFromRoaming) ReverseUncheck(2);
+                                _defconStatus = 2;
+                                UpdateTileBadge();
+                                SaveDefconStatus(2);
+                                if (lanBroadcastIsOn) _datagramService?.SendMessage("2");
+                            }
                         }
                     });
                 }
@@ -368,17 +387,20 @@ namespace MyDEFCON_UWP.ViewModels
                 {
                     _setDefcon3Command = new DelegateCommand(() =>
                     {
-                        UncheckOtherButton(_defconStatus);
-                        if (!Defcon1ButtonIsChecked && !Defcon2ButtonIsChecked && !Defcon4ButtonIsChecked && !Defcon5ButtonIsChecked)
+                        if (!_isSetDefconCommandBlocked)
                         {
-                            Defcon3ButtonIsChecked = true;
-                            //_defconStatus = 3;
-                            LiveTileService.SetLiveTile(3, _useTransparentTile);
-                            if (!loadFromRoaming) ReverseUncheck(3);
-                            _defconStatus = 3;
-                            UpdateTileBadge();
-                            SaveDefconStatus(3);
-                            if (lanBroadcastIsOn) _datagramService?.SendMessage("3");
+                            UncheckOtherButton(_defconStatus);
+                            if (!Defcon1ButtonIsChecked && !Defcon2ButtonIsChecked && !Defcon4ButtonIsChecked && !Defcon5ButtonIsChecked)
+                            {
+                                Defcon3ButtonIsChecked = true;
+                                //_defconStatus = 3;
+                                LiveTileService.SetLiveTile(3, _useTransparentTile);
+                                if (!loadFromRoaming) ReverseUncheck(3);
+                                _defconStatus = 3;
+                                UpdateTileBadge();
+                                SaveDefconStatus(3);
+                                if (lanBroadcastIsOn) _datagramService?.SendMessage("3");
+                            }
                         }
                     });
                 }
@@ -396,17 +418,20 @@ namespace MyDEFCON_UWP.ViewModels
                 {
                     _setDefcon4Command = new DelegateCommand(() =>
                     {
-                        UncheckOtherButton(_defconStatus);
-                        if (!Defcon1ButtonIsChecked && !Defcon2ButtonIsChecked && !Defcon3ButtonIsChecked && !Defcon5ButtonIsChecked)
+                        if (!_isSetDefconCommandBlocked)
                         {
-                            Defcon4ButtonIsChecked = true;
-                            //_defconStatus = 4;
-                            LiveTileService.SetLiveTile(4, _useTransparentTile);
-                            if (!loadFromRoaming) ReverseUncheck(4);
-                            _defconStatus = 4;
-                            UpdateTileBadge();
-                            SaveDefconStatus(4);
-                            if (lanBroadcastIsOn) _datagramService?.SendMessage("4");
+                            UncheckOtherButton(_defconStatus);
+                            if (!Defcon1ButtonIsChecked && !Defcon2ButtonIsChecked && !Defcon3ButtonIsChecked && !Defcon5ButtonIsChecked)
+                            {
+                                Defcon4ButtonIsChecked = true;
+                                //_defconStatus = 4;
+                                LiveTileService.SetLiveTile(4, _useTransparentTile);
+                                if (!loadFromRoaming) ReverseUncheck(4);
+                                _defconStatus = 4;
+                                UpdateTileBadge();
+                                SaveDefconStatus(4);
+                                if (lanBroadcastIsOn) _datagramService?.SendMessage("4");
+                            }
                         }
                     });
                 }
@@ -424,17 +449,20 @@ namespace MyDEFCON_UWP.ViewModels
                 {
                     _setDefcon5Command = new DelegateCommand(() =>
                     {
-                        UncheckOtherButton(_defconStatus);
-                        if (!Defcon1ButtonIsChecked && !Defcon2ButtonIsChecked && !Defcon3ButtonIsChecked && !Defcon4ButtonIsChecked)
+                        if (!_isSetDefconCommandBlocked)
                         {
-                            Defcon5ButtonIsChecked = true;
-                            //_defconStatus = 5;
-                            LiveTileService.SetLiveTile(5, _useTransparentTile);
-                            if (!loadFromRoaming) ReverseUncheck(5);
-                            _defconStatus = 5;
-                            UpdateTileBadge();
-                            SaveDefconStatus(5);
-                            if (lanBroadcastIsOn) _datagramService?.SendMessage("5");
+                            UncheckOtherButton(_defconStatus);
+                            if (!Defcon1ButtonIsChecked && !Defcon2ButtonIsChecked && !Defcon3ButtonIsChecked && !Defcon4ButtonIsChecked)
+                            {
+                                Defcon5ButtonIsChecked = true;
+                                //_defconStatus = 5;
+                                LiveTileService.SetLiveTile(5, _useTransparentTile);
+                                if (!loadFromRoaming) ReverseUncheck(5);
+                                _defconStatus = 5;
+                                UpdateTileBadge();
+                                SaveDefconStatus(5);
+                                if (lanBroadcastIsOn) _datagramService?.SendMessage("5");
+                            }
                         }
                     });
                 }
