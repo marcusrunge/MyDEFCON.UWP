@@ -165,20 +165,20 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Border x:Name="border" BorderBrush="#FFFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF404040" SizeChanged="{x:Bind ViewModel.border_SizeChanged}" LayoutUpdated="border_LayoutUpdated">
-            <TextBlock x:Name="textBlock" Text="DEFCON 1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFFFF" FocusVisualPrimaryBrush="#FFFFFFFF" FontSize="{Binding FontSize}" FontWeight="Normal" TextLineBounds="Tight"/>
+        <Border x:Name="border" BorderBrush="#FFFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF404040" SizeChanged="{x:Bind ViewModel.border_SizeChanged}" >
+            <TextBlock x:Name="textBlock" Text="DEFCON 1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFFFF" FocusVisualPrimaryBrush="#FFFFFFFF" FontSize="{Binding FontSize}" FontWeight="SemiBold" TextLineBounds="Tight"/>
         </Border>
         <Border x:Name="border1" BorderBrush="#FFFF7100" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF400C00">
-            <TextBlock x:Name="textBlock1" Text="DEFCON 2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFF7100" FocusVisualPrimaryBrush="#FFFF7100" FontSize="{Binding FontSize}" FontWeight="Normal" TextLineBounds="Tight"/>
+            <TextBlock x:Name="textBlock1" Text="DEFCON 2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFF7100" FocusVisualPrimaryBrush="#FFFF7100" FontSize="{Binding FontSize}" FontWeight="SemiBold" TextLineBounds="Tight"/>
         </Border>
         <Border x:Name="border2" BorderBrush="#FFFFFF00" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF404000">
-            <TextBlock x:Name="textBlock2" Text="DEFCON 3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF00" FocusVisualPrimaryBrush="#FFFFFF00" FontSize="{Binding FontSize}" FontWeight="Normal" TextLineBounds="Tight"/>
+            <TextBlock x:Name="textBlock2" Text="DEFCON 3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF00" FocusVisualPrimaryBrush="#FFFFFF00" FontSize="{Binding FontSize}" FontWeight="SemiBold" TextLineBounds="Tight"/>
         </Border>
         <Border x:Name="border3" BorderBrush="#FF00F200" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF003500">
-            <TextBlock x:Name="textBlock3" Text="DEFCON 4" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF00F200" FocusVisualPrimaryBrush="#FF00F200" FontSize="{Binding FontSize}" FontWeight="Normal" TextLineBounds="Tight"/>
+            <TextBlock x:Name="textBlock3" Text="DEFCON 4" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF00F200" FocusVisualPrimaryBrush="#FF00F200" FontSize="{Binding FontSize}" FontWeight="SemiBold" TextLineBounds="Tight"/>
         </Border>
         <Border x:Name="border4" BorderBrush="#FF0066FF" HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF002340">
-            <TextBlock x:Name="textBlock4" Text="DEFCON 5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF0066FF" FocusVisualPrimaryBrush="#FF0066FF" FontSize="{Binding FontSize}" FontWeight="Normal" TextLineBounds="Tight"/>
+            <TextBlock x:Name="textBlock4" Text="DEFCON 5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF0066FF" FocusVisualPrimaryBrush="#FF0066FF" FontSize="{Binding FontSize}" FontWeight="SemiBold" TextLineBounds="Tight"/>
         </Border>
     </Grid>
 </Page>

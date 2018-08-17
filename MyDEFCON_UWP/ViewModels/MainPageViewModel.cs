@@ -44,6 +44,7 @@ namespace MyDEFCON_UWP.ViewModels
         DatagramSocketService _datagramService;
         bool lanBroadcastIsOn = false;
         bool _isSetDefconCommandBlocked = false;
+        double _fontSize;
         #endregion
 
         #region Properties
@@ -56,6 +57,7 @@ namespace MyDEFCON_UWP.ViewModels
         public Visibility ShareIconVisibility { get { return _shareIconVisibility; } set { Set(ref _shareIconVisibility, value); } }
         public Visibility CancelIconVisibility { get { return _cancelIconVisibility; } set { Set(ref _cancelIconVisibility, value); } }
         public string TextBox { get { return _textBox; } set { Set(ref _textBox, value); } }
+        public double FontSize { get { return _fontSize; } set { Set(ref _fontSize, value); } }
         #endregion
 
         #region Constructor
@@ -66,6 +68,19 @@ namespace MyDEFCON_UWP.ViewModels
         #endregion
 
         #region Methods
+        public void toggleButton_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            double calculatedTextBlockWidth = e.NewSize.Height * 0.5 * 6.5;
+            if (e.NewSize.Width > calculatedTextBlockWidth)
+            {
+                FontSize = Math.Floor(e.NewSize.Height * 0.5);
+            }
+            else
+            {
+                FontSize = Math.Floor(e.NewSize.Width / 6.5);
+            }
+        }
+
         private void Current_SizeChanged(object sender, Windows.UI.Core.WindowSizeChangedEventArgs e)
         {
             ScreenWidth = ApplicationView.GetForCurrentView().VisibleBounds.Width;

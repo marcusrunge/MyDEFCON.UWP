@@ -13,10 +13,5 @@ namespace MyDEFCON_UWP.Views
         {
             this.InitializeComponent();
         }
-
-        private void border_LayoutUpdated(object sender, object e)
-        {
-
-        }
     }
 }
