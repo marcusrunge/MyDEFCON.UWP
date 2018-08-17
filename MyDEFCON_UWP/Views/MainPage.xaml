@@ -186,7 +186,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <ToggleButton x:Name="defcon1ToggleButton" Grid.Row="0" Content="DEFCON 1" Background="#FF404040" Foreground="#FFFFFF" Style="{StaticResource Defcon1ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="{Binding FontSize}" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" BorderBrush="White" IsChecked="{Binding Defcon1ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="{x:Bind ViewModel.toggleButton_SizeChanged}">
+                <ToggleButton x:Name="defcon1ToggleButton" Grid.Row="0" Content="DEFCON 1" Background="#FF404040" Foreground="#FFFFFF" Style="{StaticResource Defcon1ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="{Binding FontSize}" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" BorderBrush="White" IsChecked="{Binding Defcon1ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SizeChanged="{x:Bind ViewModel.toggleButton_SizeChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                     <Interactivity:Interaction.Behaviors>
                         <Core:EventTriggerBehavior EventName="Checked">
                             <Core:GoToStateAction StateName="Defcon1VisualState"/>
@@ -197,7 +197,7 @@
                         </Core:EventTriggerBehavior>
                     </Interactivity:Interaction.Behaviors>
                 </ToggleButton>
-                <ToggleButton x:Name="defcon2ToggleButton" Grid.Row="1" Content="DEFCON 2" Style="{StaticResource Defcon2ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="{Binding FontSize}" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF400C00" BorderBrush="#FFFF7100" Foreground="#FFFF7100" IsChecked="{Binding Defcon2ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ToggleButton x:Name="defcon2ToggleButton" Grid.Row="1" Content="DEFCON 2" Style="{StaticResource Defcon2ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="{Binding FontSize}" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF400C00" BorderBrush="#FFFF7100" Foreground="#FFFF7100" IsChecked="{Binding Defcon2ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                     <Interactivity:Interaction.Behaviors>
                         <Core:EventTriggerBehavior EventName="Checked">
                             <Core:GoToStateAction StateName="Defcon2VisualState"/>
@@ -208,7 +208,7 @@
                         </Core:EventTriggerBehavior>
                     </Interactivity:Interaction.Behaviors>
                 </ToggleButton>
-                <ToggleButton x:Name="defcon3ToggleButton" Grid.Row="2" Content="DEFCON 3" Style="{StaticResource Defcon3ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="{Binding FontSize}" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF404000" BorderBrush="Yellow" Foreground="Yellow" IsChecked="{Binding Defcon3ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ToggleButton x:Name="defcon3ToggleButton" Grid.Row="2" Content="DEFCON 3" Style="{StaticResource Defcon3ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="{Binding FontSize}" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF404000" BorderBrush="Yellow" Foreground="Yellow" IsChecked="{Binding Defcon3ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                     <Interactivity:Interaction.Behaviors>
                         <Core:EventTriggerBehavior EventName="Checked">
                             <Core:GoToStateAction StateName="Defcon3VisualState"/>
@@ -219,7 +219,7 @@
                         </Core:EventTriggerBehavior>
                     </Interactivity:Interaction.Behaviors>
                 </ToggleButton>
-                <ToggleButton x:Name="defcon4ToggleButton" Grid.Row="3" Content="DEFCON 4" Style="{StaticResource Defcon4ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="{Binding FontSize}" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF003500" BorderBrush="#FF00F200" Foreground="#FF00F200" IsChecked="{Binding Defcon4ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ToggleButton x:Name="defcon4ToggleButton" Grid.Row="3" Content="DEFCON 4" Style="{StaticResource Defcon4ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="{Binding FontSize}" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF003500" BorderBrush="#FF00F200" Foreground="#FF00F200" IsChecked="{Binding Defcon4ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                     <Interactivity:Interaction.Behaviors>
                         <Core:EventTriggerBehavior EventName="Checked">
                             <Core:GoToStateAction StateName="Defcon4VisualState"/>
@@ -230,7 +230,7 @@
                         </Core:EventTriggerBehavior>
                     </Interactivity:Interaction.Behaviors>
                 </ToggleButton>
-                <ToggleButton x:Name="defcon5ToggleButton" Grid.Row="4" Content="DEFCON 5" Style="{StaticResource Defcon5ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="{Binding FontSize}" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF002340" BorderBrush="#FF0066FF" Foreground="#FF0066FF" IsChecked="{Binding Defcon5ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ToggleButton x:Name="defcon5ToggleButton" Grid.Row="4" Content="DEFCON 5" Style="{StaticResource Defcon5ToggleButtonStyle}" HorizontalAlignment="Stretch" BorderThickness="6" FontSize="{Binding FontSize}" FontWeight="SemiBold" Margin="0,5" VerticalAlignment="Stretch" Background="#FF002340" BorderBrush="#FF0066FF" Foreground="#FF0066FF" IsChecked="{Binding Defcon5ButtonIsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                     <Interactivity:Interaction.Behaviors>
                         <Core:EventTriggerBehavior EventName="Checked">
                             <Core:GoToStateAction StateName="Defcon5VisualState"/>
