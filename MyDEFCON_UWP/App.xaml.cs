@@ -1,10 +1,8 @@
 using MyDEFCON_UWP.Services.SettingsServices;
-using System;
 using System.Threading.Tasks;
 using Template10.Common;
 using Template10.Controls;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation.Metadata;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -56,12 +54,7 @@ namespace MyDEFCON_UWP
             appView.TitleBar.BackgroundColor = Color.FromArgb(255, 232, 255, 0);
             appView.TitleBar.ButtonForegroundColor = Colors.Red;
             appView.TitleBar.ButtonHoverBackgroundColor = Colors.Red;
-            appView.TitleBar.ButtonHoverForegroundColor = Color.FromArgb(255, 232, 255, 0);
-            if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
-            {
-                var statusBar = StatusBar.GetForCurrentView();
-                await statusBar.HideAsync();
-            }
+            appView.TitleBar.ButtonHoverForegroundColor = Color.FromArgb(255, 232, 255, 0);            
             await NavigationService.NavigateAsync(typeof(Views.MainPage));
         }
     }
