@@ -11,7 +11,7 @@
     <AssemblyName>MyDEFCON_UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
@@ -319,7 +319,7 @@
       <Version>6.2.8</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
-      <Version>2.0.0</Version>
+      <Version>2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.3</Version>
@@ -332,7 +332,7 @@
     <SDKReference Include="WindowsIoT, Version=10.0.17134.0">
       <Name>Windows IoT Extensions for the UWP</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.17763.0">
+    <SDKReference Include="WindowsMobile, Version=10.0.18362.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
