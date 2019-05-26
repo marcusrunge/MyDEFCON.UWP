@@ -301,7 +301,7 @@
 
                         <StackPanel Padding="0" Margin="0,0,0,24">
                             <TextBlock Margin="12,0,12,0" Text="MyDEFCON" FontFamily="Segoe WP Semibold" FontSize="32"/>
-                            <TextBlock Margin="12,0,12,0" FontFamily="Segoe WP" FontSize="20" Text="2.7.2.0" />
+                            <TextBlock Margin="12,0,12,0" FontFamily="Segoe WP" FontSize="20" Text="2.7.3.0" />
                             <TextBlock Margin="12,0,12,0" FontFamily="Segoe WP" FontSize="13.333" Text="Made in Germany with Template 10" FontStyle="Italic" />
                         </StackPanel>
                         <HyperlinkButton x:Name="EmailButton"
@@ -329,7 +329,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock Text="Copyright (c) 2018"
+                                <TextBlock Text="Copyright (c) 2019"
                         				FontFamily="Segoe WP"
                         				FontSize="20"/>
                                 <TextBlock Text="Marcus Runge"
