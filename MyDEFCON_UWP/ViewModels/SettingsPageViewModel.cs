@@ -39,6 +39,7 @@ namespace MyDEFCON_UWP.ViewModels
         int _selectedTimeIntervallIndex = default(int);
         Windows.Storage.ApplicationDataContainer localSettings;
         int _defconStatus;
+        Visibility _iotVisibility = default(Visibility);
         #endregion
 
         #region Properties
@@ -49,6 +50,7 @@ namespace MyDEFCON_UWP.ViewModels
         public bool LanMulticastIsOn { get { return _lanMulticastIsOn; } set { Set(ref _lanMulticastIsOn, value); } }
         public List<string> Intervall { get { return _intervall; } set { Set(ref _intervall, value); } }
         public int SelectedTimeIntervallIndex { get { return _selectedTimeIntervallIndex; } set { Set(ref _selectedTimeIntervallIndex, value); UpdateTimeIntervall(); } }
+        public Visibility IotVisibility { get { return _iotVisibility; } set { Set(ref _iotVisibility, value); } }
         #endregion
 
         #region Constructor
@@ -75,6 +77,7 @@ namespace MyDEFCON_UWP.ViewModels
                 }
                 else if (e.PropertyName.Equals("LanMulticastIsOn")) SaveLanMulticastIsOnSetting();
             };
+            IotVisibility = IsIotDevice() ? Visibility.Visible : Visibility.Collapsed;
         }
         #endregion
 
@@ -170,6 +173,7 @@ namespace MyDEFCON_UWP.ViewModels
             }
             return 15;
         }
+        private bool IsIotDevice() => AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.IoT");
         #endregion
 
         #region Commands
@@ -209,23 +213,18 @@ namespace MyDEFCON_UWP.ViewModels
     public class AboutPartViewModel : ViewModelBase
     {
         #region Fields
-        Visibility _iotVisibility = default(Visibility);
+        
         #endregion
 
         #region Properties
-        public Visibility IotVisibility { get { return _iotVisibility; } set { Set(ref _iotVisibility, value); } }
+        
         #endregion
 
         #region Constructor
         #endregion
 
         #region Methods
-        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
-        {
-            IotVisibility = IsIotDevice() ? Visibility.Visible : Visibility.Collapsed;
-            return base.OnNavigatedToAsync(parameter, mode, state);
-        }
-        private bool IsIotDevice() => AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.IoT");
+                
         #endregion
 
         #region Commands

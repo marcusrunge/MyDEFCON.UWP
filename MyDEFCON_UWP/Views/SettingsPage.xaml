@@ -278,14 +278,14 @@
                                 Width="{Binding ElementName=BackgroundTasksRemovalButton, Path=ActualWidth}"
                                 RelativePanel.Below="BackgroundTasksRemovalButton" Margin="0,24,0,0" RelativePanel.AlignHorizontalCenterWith="BackgroundTasksRemovalButton"
                                 Command="{x:Bind ViewModel.SettingsPartViewModel.RestartCommand}"
-                                Visibility="{x:Bind ViewModel.IotVisibility, Mode=OneWay}"/>
+                                Visibility="{x:Bind ViewModel.SettingsPartViewModel.IotVisibility, Mode=OneWay}"/>
                         <Button x:Name="DeviceShutdownButton"
                                 Width="{Binding ElementName=BackgroundTasksRemovalButton, Path=ActualWidth}"
                                 Style="{StaticResource RedTransparentButtonStyle}"
                                 Content="Device Shutdown"
                                 RelativePanel.Below="DeviceRestartButton" Margin="0,6,0,0" RelativePanel.AlignHorizontalCenterWith="DeviceRestartButton"
                                 Command="{x:Bind ViewModel.SettingsPartViewModel.ShutdownCommand}"
-                                Visibility="{x:Bind ViewModel.IotVisibility, Mode=OneWay}"/>
+                                Visibility="{x:Bind ViewModel.SettingsPartViewModel.IotVisibility, Mode=OneWay}"/>
                     </RelativePanel>
                 </ScrollViewer>
             </PivotItem>
