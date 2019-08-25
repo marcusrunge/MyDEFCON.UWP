@@ -277,13 +277,15 @@
                                 Content="Device Restart"
                                 Width="{Binding ElementName=BackgroundTasksRemovalButton, Path=ActualWidth}"
                                 RelativePanel.Below="BackgroundTasksRemovalButton" Margin="0,24,0,0" RelativePanel.AlignHorizontalCenterWith="BackgroundTasksRemovalButton"
-                                Command="{x:Bind ViewModel.SettingsPartViewModel.RestartCommand}"/>
+                                Command="{x:Bind ViewModel.SettingsPartViewModel.RestartCommand}"
+                                Visibility="{x:Bind ViewModel.IotVisibility, Mode=OneWay}"/>
                         <Button x:Name="DeviceShutdownButton"
                                 Width="{Binding ElementName=BackgroundTasksRemovalButton, Path=ActualWidth}"
                                 Style="{StaticResource RedTransparentButtonStyle}"
                                 Content="Device Shutdown"
                                 RelativePanel.Below="DeviceRestartButton" Margin="0,6,0,0" RelativePanel.AlignHorizontalCenterWith="DeviceRestartButton"
-                                Command="{x:Bind ViewModel.SettingsPartViewModel.ShutdownCommand}"/>
+                                Command="{x:Bind ViewModel.SettingsPartViewModel.ShutdownCommand}"
+                                Visibility="{x:Bind ViewModel.IotVisibility, Mode=OneWay}"/>
                     </RelativePanel>
                 </ScrollViewer>
             </PivotItem>
@@ -301,7 +303,7 @@
 
                         <StackPanel Padding="0" Margin="0,0,0,24">
                             <TextBlock Margin="12,0,12,0" Text="MyDEFCON" FontFamily="Segoe WP Semibold" FontSize="32"/>
-                            <TextBlock Margin="12,0,12,0" FontFamily="Segoe WP" FontSize="20" Text="2.7.3.0" />
+                            <TextBlock Margin="12,0,12,0" FontFamily="Segoe WP" FontSize="20" Text="2.7.4.0" />
                             <TextBlock Margin="12,0,12,0" FontFamily="Segoe WP" FontSize="13.333" Text="Made in Germany with Template 10" FontStyle="Italic" />
                         </StackPanel>
                         <HyperlinkButton x:Name="EmailButton"

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.ApplicationModel.Background;
 using Windows.System;
+using Windows.System.Profile;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
 namespace MyDEFCON_UWP.ViewModels
@@ -207,18 +209,23 @@ namespace MyDEFCON_UWP.ViewModels
     public class AboutPartViewModel : ViewModelBase
     {
         #region Fields
-
+        Visibility _iotVisibility = default(Visibility);
         #endregion
 
         #region Properties
-
+        public Visibility IotVisibility { get { return _iotVisibility; } set { Set(ref _iotVisibility, value); } }
         #endregion
 
         #region Constructor
         #endregion
 
         #region Methods
-
+        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
+        {
+            IotVisibility = IsIotDevice() ? Visibility.Visible : Visibility.Collapsed;
+            return base.OnNavigatedToAsync(parameter, mode, state);
+        }
+        private bool IsIotDevice() => AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.IoT");
         #endregion
 
         #region Commands
