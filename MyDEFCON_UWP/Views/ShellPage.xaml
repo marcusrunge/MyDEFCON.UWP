@@ -13,6 +13,7 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     mc:Ignorable="d">
 
+
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
             <ic:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
@@ -21,7 +22,13 @@
     <Grid>
         <Grid.Resources>            
             <media:BackdropBlurBrush x:Key="NavigationViewExpandedPaneBackground" Amount="10" />
-        </Grid.Resources>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundPointerOver" Color="Red"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelected" Color="Red"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPointerOver" Color="Red"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundPressed" Color="Red"/>
+            <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPressed" Color="Red"/>
+            <SolidColorBrush x:Key="NavigationViewItemForeground" Color="Red"/>
+</Grid.Resources>
         <Grid x:Name="backgroundGrid">
             <Grid.RenderTransform>
                 <CompositeTransform SkewX="-45"/>
@@ -59,8 +66,8 @@
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        IsSettingsVisible="True">
-        <winui:NavigationView.MenuItems>
+        IsSettingsVisible="True">            
+            <winui:NavigationView.MenuItems>
             <!--
             TODO WTS: Change the symbols for each item as appropriate for your app
             More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
