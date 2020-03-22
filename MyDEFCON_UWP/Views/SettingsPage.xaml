@@ -14,7 +14,7 @@
 
     <Grid Margin="{StaticResource MediumLeftRightMargin}">
         <StackPanel
-            x:Name="ContentArea">
+            x:Name="ContentArea" Background="#80000000">
             <TextBlock x:Uid="Settings_Personalization" Style="{ThemeResource SubtitleTextBlockStyle}" />
             <StackPanel Margin="{StaticResource SmallTopBottomMargin}">
                 <TextBlock x:Uid="Settings_Theme" />

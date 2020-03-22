@@ -41,7 +41,8 @@ namespace MyDEFCON_UWP
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
-        {            
+        {
+            RegisterContainer();
             if (!args.PrelaunchActivated)
             {
                 await ActivationService.ActivateAsync(args);
