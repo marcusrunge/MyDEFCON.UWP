@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDEFCON_UWP", "MyDEFCON_UWP\MyDEFCON_UWP.csproj", "{8ABEC2E4-A2D8-4323-9DE7-D42E62FEC479}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDEFCON_UWP.deprecated", "MyDEFCON_UWP.deprecated\MyDEFCON_UWP.deprecated.csproj", "{8ABEC2E4-A2D8-4323-9DE7-D42E62FEC479}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundTask", "BackgroundTask\BackgroundTask.csproj", "{094A1694-D8C7-43BB-8AC8-E6F6B03EA4F1}"
 EndProject
