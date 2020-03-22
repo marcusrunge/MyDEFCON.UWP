@@ -6,7 +6,8 @@ using Microsoft.AppCenter.Crashes;
 
 using MyDEFCON_UWP.Core.Helpers;
 using MyDEFCON_UWP.Services;
-
+using MyDEFCON_UWP.ViewModels;
+using Unity;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -15,6 +16,7 @@ namespace MyDEFCON_UWP
 {
     public sealed partial class App : Application
     {
+        public IUnityContainer Container { get; set; }
         private Lazy<ActivationService> _activationService;
 
         private ActivationService ActivationService
@@ -25,6 +27,8 @@ namespace MyDEFCON_UWP
         public App()
         {
             InitializeComponent();
+
+            Container = new UnityContainer();            
 
             EnteredBackground += App_EnteredBackground;
             Resuming += App_Resuming;
@@ -37,7 +41,7 @@ namespace MyDEFCON_UWP
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
-        {
+        {            
             if (!args.PrelaunchActivated)
             {
                 await ActivationService.ActivateAsync(args);
@@ -69,6 +73,15 @@ namespace MyDEFCON_UWP
         private void App_Resuming(object sender, object e)
         {
             Singleton<SuspendAndResumeService>.Instance.ResumeApp();
+        }
+
+        private void RegisterContainer()
+        {
+            Container.RegisterType<MainViewModel>();
+            Container.RegisterType<ChecklistViewModel>();
+            Container.RegisterType<MessagesViewModel>();
+            Container.RegisterType<SettingsViewModel>();
+            Container.RegisterType<ShellViewModel>();
         }
     }
 }
