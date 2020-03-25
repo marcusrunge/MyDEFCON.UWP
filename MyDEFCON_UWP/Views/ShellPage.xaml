@@ -62,15 +62,11 @@
             </Grid>
         </Grid>
         <winui:NavigationView
-            Style="{StaticResource RedNavigationViewStyle}"
         x:Name="navigationView"
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        IsSettingsVisible="True">
-            <winui:NavigationView.Resources>
-                <ResourceDictionary Source="/Styles/RedNavigationViewStyle.xaml"/>
-            </winui:NavigationView.Resources>
+        IsSettingsVisible="True">            
             <winui:NavigationView.MenuItems>
             <!--
             TODO WTS: Change the symbols for each item as appropriate for your app
