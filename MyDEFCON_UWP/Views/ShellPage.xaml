@@ -20,7 +20,7 @@
         </ic:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <Grid>
-        <Grid.Resources>            
+        <Grid.Resources>
             <media:BackdropBlurBrush x:Key="NavigationViewExpandedPaneBackground" Amount="10" />
             <SolidColorBrush x:Key="NavigationViewItemForegroundPointerOver" Color="Red"/>
             <SolidColorBrush x:Key="NavigationViewItemForegroundSelected" Color="Red"/>
@@ -28,7 +28,7 @@
             <SolidColorBrush x:Key="NavigationViewItemForegroundPressed" Color="Red"/>
             <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPressed" Color="Red"/>
             <SolidColorBrush x:Key="NavigationViewItemForeground" Color="Red"/>
-</Grid.Resources>
+        </Grid.Resources>
         <Grid x:Name="backgroundGrid">
             <Grid.RenderTransform>
                 <CompositeTransform SkewX="-45"/>
@@ -66,7 +66,14 @@
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        IsSettingsVisible="True">            
+        IsSettingsVisible="True">
+            <winui:NavigationView.Resources>
+                <ResourceDictionary Source="/Styles/RedPaneToggleButtonStyle.xaml"/>
+            </winui:NavigationView.Resources>
+            <winui:NavigationView.PaneToggleButtonStyle>
+                <StaticResource ResourceKey="RedPaneToggleButtonStyle"/>
+            </winui:NavigationView.PaneToggleButtonStyle>
+
             <winui:NavigationView.MenuItems>
             <!--
             TODO WTS: Change the symbols for each item as appropriate for your app
