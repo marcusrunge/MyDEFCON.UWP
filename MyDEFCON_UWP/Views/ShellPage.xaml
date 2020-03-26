@@ -61,9 +61,13 @@
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="/Styles/RedPaneToggleButtonStyle.xaml"/>
                         <ResourceDictionary Source="/Styles/SolidColorBrushes.xaml"/>
+                        <ResourceDictionary Source="/Styles/CustomNavigationView.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>                
             </winui:NavigationView.Resources>
+            <winui:NavigationView.Style>
+                <StaticResource ResourceKey="CustomNavigationViewStyle"/>
+            </winui:NavigationView.Style>
             <winui:NavigationView.PaneToggleButtonStyle>
                 <StaticResource ResourceKey="RedPaneToggleButtonStyle"/>
             </winui:NavigationView.PaneToggleButtonStyle>
