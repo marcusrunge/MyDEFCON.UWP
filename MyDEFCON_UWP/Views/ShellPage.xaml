@@ -86,6 +86,7 @@
                     <DataTemplate>
                         <Grid>
                             <TextBlock
+                                Foreground="Red"
                                 Text="{Binding}"
                                 Style="{ThemeResource TitleTextBlockStyle}"
                                 Margin="{StaticResource SmallLeftRightMargin}" />
