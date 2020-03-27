@@ -1,10 +1,8 @@
-﻿using System;
+﻿using MyDEFCON_UWP.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using MyDEFCON_UWP.Helpers;
-
 using Windows.Storage;
 
 namespace MyDEFCON_UWP.Models

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using MyDEFCON_UWP.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using MyDEFCON_UWP.Models;
-
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Streams;

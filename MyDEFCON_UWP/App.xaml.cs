@@ -1,12 +1,10 @@
-﻿using System;
-
-using Microsoft.AppCenter;
+﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-
 using MyDEFCON_UWP.Core.Helpers;
 using MyDEFCON_UWP.Services;
 using MyDEFCON_UWP.ViewModels;
+using System;
 using Unity;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -28,7 +26,7 @@ namespace MyDEFCON_UWP
         {
             InitializeComponent();
 
-            Container = new UnityContainer();            
+            Container = new UnityContainer();
 
             EnteredBackground += App_EnteredBackground;
             Resuming += App_Resuming;
@@ -83,6 +81,7 @@ namespace MyDEFCON_UWP
             Container.RegisterType<MessagesViewModel>();
             Container.RegisterType<SettingsViewModel>();
             Container.RegisterType<ShellViewModel>();
+            Container.RegisterType<FullScreenViewModel>();
         }
     }
 }

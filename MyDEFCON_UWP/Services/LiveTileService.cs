@@ -1,10 +1,8 @@
-﻿using System;
+﻿using MyDEFCON_UWP.Activation;
+using MyDEFCON_UWP.Helpers;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-
-using MyDEFCON_UWP.Activation;
-using MyDEFCON_UWP.Helpers;
-
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.UI.Notifications;

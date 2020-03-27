@@ -1,8 +1,6 @@
-﻿using System;
+﻿using MyDEFCON_UWP.Helpers;
+using System;
 using System.Threading.Tasks;
-
-using MyDEFCON_UWP.Helpers;
-
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;

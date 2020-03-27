@@ -1,9 +1,8 @@
-﻿using System;
-
+﻿
 using MyDEFCON_UWP.ViewModels;
-using Windows.UI.Xaml.Controls;
 using Unity;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace MyDEFCON_UWP.Views
 {

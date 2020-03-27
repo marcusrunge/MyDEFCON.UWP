@@ -1,10 +1,7 @@
-﻿using System;
+﻿using MyDEFCON_UWP.Helpers;
+using MyDEFCON_UWP.Services;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
-using MyDEFCON_UWP.Helpers;
-using MyDEFCON_UWP.Services;
-
 using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 

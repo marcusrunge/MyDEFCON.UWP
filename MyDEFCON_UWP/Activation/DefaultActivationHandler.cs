@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using MyDEFCON_UWP.Core.Helpers;
+﻿using MyDEFCON_UWP.Core.Helpers;
 using MyDEFCON_UWP.Services;
-
+using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 
 namespace MyDEFCON_UWP.Activation

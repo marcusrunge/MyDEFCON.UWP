@@ -1,8 +1,6 @@
-﻿using System;
+﻿using MyDEFCON_UWP.Activation;
+using System;
 using System.Threading.Tasks;
-
-using MyDEFCON_UWP.Activation;
-
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Notifications;
 

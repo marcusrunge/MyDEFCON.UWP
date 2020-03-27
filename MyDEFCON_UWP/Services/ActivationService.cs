@@ -1,12 +1,9 @@
-﻿using System;
+﻿using MyDEFCON_UWP.Activation;
+using MyDEFCON_UWP.Core.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using MyDEFCON_UWP.Activation;
-using MyDEFCON_UWP.Core.Helpers;
-using MyDEFCON_UWP.Services;
-
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
