@@ -25,7 +25,7 @@
                             <ColumnDefinition Width="20"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <VisualStateManager.VisualStateGroups>
+                        <!--<VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal"/>
                                 <VisualState x:Name="PointerOver">
@@ -133,11 +133,11 @@
                                 <VisualState x:Name="Unchecked"/>
                                 <VisualState x:Name="Indeterminate"/>
                             </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
+                        </VisualStateManager.VisualStateGroups>-->
                         <Grid Height="32" VerticalAlignment="Top">
-                            <Ellipse x:Name="OuterEllipse" Fill="{StaticResource RadioButtonOuterEllipseFill}" Height="20" StrokeThickness="{ThemeResource RadioButtonBorderThemeThickness}" Stroke="{ThemeResource RadioButtonOuterEllipseStroke}" UseLayoutRounding="False" Width="20"/>
+                            <!--<Ellipse x:Name="OuterEllipse" Fill="{StaticResource RadioButtonOuterEllipseFill}" Height="20" StrokeThickness="{ThemeResource RadioButtonBorderThemeThickness}" Stroke="{ThemeResource RadioButtonOuterEllipseStroke}" UseLayoutRounding="False" Width="20"/>
                             <Ellipse x:Name="CheckOuterEllipse" Fill="{ThemeResource RadioButtonOuterEllipseCheckedFill}" Height="20" Opacity="0" StrokeThickness="{ThemeResource RadioButtonBorderThemeThickness}" Stroke="{ThemeResource RadioButtonOuterEllipseCheckedStroke}" UseLayoutRounding="False" Width="20"/>
-                            <Ellipse x:Name="CheckGlyph" Fill="{ThemeResource RadioButtonCheckGlyphFill}" Height="10" Opacity="0" Stroke="{ThemeResource RadioButtonCheckGlyphStroke}" UseLayoutRounding="False" Width="10"/>
+                            <Ellipse x:Name="CheckGlyph" Fill="{ThemeResource RadioButtonCheckGlyphFill}" Height="10" Opacity="0" Stroke="{ThemeResource RadioButtonCheckGlyphStroke}" UseLayoutRounding="False" Width="10"/>-->
                         </Grid>
                         <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentTransitions="{TemplateBinding ContentTransitions}" Grid.Column="1" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" TextWrapping="Wrap" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Grid>

@@ -17,7 +17,7 @@
     </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <StackPanel>
-            <RadioButton Style="{StaticResource DefconButtonStyle}">
+            <RadioButton Content="DEFCON 1" Style="{StaticResource DefconButtonStyle}" Foreground="White" Background="#FF404040">
                 <i:Interaction.Behaviors>
                     <b:DefconColorBehavior ActiveForeground="#FF404040" ActiveBackground="#FFFFFFFF" PassiveForeground="#FFFFFFFF" PassiveBackground="#FF404040"/>
                 </i:Interaction.Behaviors>
