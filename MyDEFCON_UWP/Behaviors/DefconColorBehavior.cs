@@ -41,6 +41,16 @@ namespace MyDEFCON_UWP.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
+            if (AssociatedObject.IsChecked.Value)
+            {
+                AssociatedObject.Background = GetSolidColorBrush(ActiveBackground);
+                AssociatedObject.Foreground = GetSolidColorBrush(ActiveForeground);
+            }
+            else
+            {
+                AssociatedObject.Background = GetSolidColorBrush(PassiveBackground);
+                AssociatedObject.Foreground = GetSolidColorBrush(PassiveForeground);
+            }
             AssociatedObject.Checked += (s, e) =>
             {
                 AssociatedObject.Background = GetSolidColorBrush(ActiveBackground);
