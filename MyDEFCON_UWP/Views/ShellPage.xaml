@@ -50,12 +50,21 @@
                 <StackPanel Grid.Column="14" Background="#FFE8FF00"/>
             </Grid>
         </Grid>
+        <CommandBar Background="#FFE8FF00" Foreground="Red" Margin="60,0,0,0" OverflowButtonVisibility="Collapsed">
+            <!--<CommandBar.Content>
+                <TextBlock Text="Test" Style="{ThemeResource TitleTextBlockStyle}"/>
+            </CommandBar.Content>-->
+            <AppBarButton Icon="Share" Foreground="Red"/>
+            <AppBarButton Icon="Sync" Foreground="Red"/>
+            <AppBarButton Icon="List" Foreground="Red"/>
+            <AppBarButton Icon="Delete" Foreground="Red"/>
+        </CommandBar>
         <winui:NavigationView
         x:Name="navigationView"
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        IsSettingsVisible="True" PaneDisplayMode="LeftCompact">
+        IsSettingsVisible="True" PaneDisplayMode="LeftCompact">            
             <winui:NavigationView.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
