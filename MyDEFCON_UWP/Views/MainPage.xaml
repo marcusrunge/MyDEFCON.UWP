@@ -17,14 +17,9 @@
     </Page.Resources>
     <Page.Style>
         <StaticResource ResourceKey="PageStyle"/>
-    </Page.Style>
-    <i:Interaction.Behaviors>
-        <Custom:EventTriggerBehavior EventName="SizeChanged">
-            <Custom:InvokeCommandAction Command="{x:Bind ViewModel.SetFontSizeCommand}"/>
-        </Custom:EventTriggerBehavior>
-    </i:Interaction.Behaviors>
+    </Page.Style>    
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <StackPanel>            
+        <Grid>            
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -33,32 +28,35 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <RadioButton Grid.Row="0" Content="DEFCON 1" Margin="0,5" FontWeight="SemiBold" Style="{StaticResource DefconButtonStyle}" Foreground="White" Background="#FF404040" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" FontSize="{x:Bind Path=ViewModel.FontSize, Mode=OneWay}" VerticalAlignment="Stretch">
+                <RadioButton Grid.Row="0" Content="DEFCON 1" Margin="0,5" FontWeight="SemiBold" Style="{StaticResource DefconButtonStyle}" Foreground="White" Background="#FF404040" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" FontSize="{x:Bind Path=ViewModel.FontSize, Mode=OneWay,FallbackValue=14}" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
                     <i:Interaction.Behaviors>
+                        <Custom:EventTriggerBehavior EventName="SizeChanged">
+                            <Custom:InvokeCommandAction Command="{x:Bind ViewModel.SetFontSizeCommand}"/>
+                        </Custom:EventTriggerBehavior>
                         <b:DefconColorBehavior ActiveForeground="#FF404040" ActiveBackground="#FFFFFFFF" PassiveForeground="#FFFFFFFF" PassiveBackground="#FF404040"/>
                     </i:Interaction.Behaviors>
                 </RadioButton>
-                <RadioButton Grid.Row="1" Content="DEFCON 2" Margin="0,5" FontWeight="SemiBold" Style="{StaticResource DefconButtonStyle}" Foreground="#FFFF7100" Background="#FF400C00" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" FontSize="{x:Bind Path=ViewModel.FontSize, Mode=OneWay}" VerticalAlignment="Stretch">
+                <RadioButton Grid.Row="1" Content="DEFCON 2" Margin="0,5" FontWeight="SemiBold" Style="{StaticResource DefconButtonStyle}" Foreground="#FFFF7100" Background="#FF400C00" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" FontSize="{x:Bind Path=ViewModel.FontSize, Mode=OneWay,FallbackValue=14}" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
                     <i:Interaction.Behaviors>
                         <b:DefconColorBehavior ActiveForeground="#FF400C00" ActiveBackground="#FFFF7100" PassiveForeground="#FFFF7100" PassiveBackground="#FF400C00"/>
                     </i:Interaction.Behaviors>
                 </RadioButton>
-                <RadioButton Grid.Row="2" Content="DEFCON 3" Margin="0,5" FontWeight="SemiBold" Style="{StaticResource DefconButtonStyle}" Foreground="#FFFFFF00" Background="#FF404000" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" FontSize="{x:Bind Path=ViewModel.FontSize, Mode=OneWay}" VerticalAlignment="Stretch">
+                <RadioButton Grid.Row="2" Content="DEFCON 3" Margin="0,5" FontWeight="SemiBold" Style="{StaticResource DefconButtonStyle}" Foreground="#FFFFFF00" Background="#FF404000" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" FontSize="{x:Bind Path=ViewModel.FontSize, Mode=OneWay,FallbackValue=14}" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
                     <i:Interaction.Behaviors>
                         <b:DefconColorBehavior ActiveForeground="#FF404000" ActiveBackground="#FFFFFF00" PassiveForeground="#FFFFFF00" PassiveBackground="#FF404000"/>
                     </i:Interaction.Behaviors>
                 </RadioButton>
-                <RadioButton Grid.Row="3" Content="DEFCON 4" Margin="0,5" FontWeight="SemiBold" Style="{StaticResource DefconButtonStyle}" Foreground="#FF00F200" Background="#FF003500" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" FontSize="{x:Bind Path=ViewModel.FontSize, Mode=OneWay}" VerticalAlignment="Stretch">
+                <RadioButton Grid.Row="3" Content="DEFCON 4" Margin="0,5" FontWeight="SemiBold" Style="{StaticResource DefconButtonStyle}" Foreground="#FF00F200" Background="#FF003500" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" FontSize="{x:Bind Path=ViewModel.FontSize, Mode=OneWay,FallbackValue=14}" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
                     <i:Interaction.Behaviors>
                         <b:DefconColorBehavior ActiveForeground="#FF003500" ActiveBackground="#FF00F200" PassiveForeground="#FF00F200" PassiveBackground="#FF003500"/>
                     </i:Interaction.Behaviors>
                 </RadioButton>
-                <RadioButton Grid.Row="4" Content="DEFCON 5" Margin="0,5" FontWeight="SemiBold" Style="{StaticResource DefconButtonStyle}" Foreground="#FF0066FF" Background="#FF002340" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" FontSize="{x:Bind Path=ViewModel.FontSize, Mode=OneWay}" VerticalAlignment="Stretch">
+                <RadioButton Grid.Row="4" Content="DEFCON 5" Margin="0,5" FontWeight="SemiBold" Style="{StaticResource DefconButtonStyle}" Foreground="#FF0066FF" Background="#FF002340" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" FontSize="{x:Bind Path=ViewModel.FontSize, Mode=OneWay,FallbackValue=14}" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
                     <i:Interaction.Behaviors>
                         <b:DefconColorBehavior ActiveForeground="#FF002340" ActiveBackground="#FF0066FF" PassiveForeground="#FF0066FF" PassiveBackground="#FF002340"/>
                     </i:Interaction.Behaviors>
                 </RadioButton>
             </Grid>
-        </StackPanel>
+        </Grid>
     </Grid>
 </Page>
