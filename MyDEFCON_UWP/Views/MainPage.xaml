@@ -22,10 +22,26 @@
                     <b:DefconColorBehavior ActiveForeground="#FF404040" ActiveBackground="#FFFFFFFF" PassiveForeground="#FFFFFFFF" PassiveBackground="#FF404040"/>
                 </i:Interaction.Behaviors>
             </RadioButton>
-            <RadioButton Style="{StaticResource DefconButtonStyle}"/>
-            <RadioButton Style="{StaticResource DefconButtonStyle}"/>
-            <RadioButton Style="{StaticResource DefconButtonStyle}"/>
-            <RadioButton Style="{StaticResource DefconButtonStyle}"/>
+            <RadioButton Content="DEFCON 2" Style="{StaticResource DefconButtonStyle}" Foreground="#FFFF7100" Background="#FF400C00">
+                <i:Interaction.Behaviors>
+                    <b:DefconColorBehavior ActiveForeground="#FF404040" ActiveBackground="#FFFFFFFF" PassiveForeground="#FFFFFFFF" PassiveBackground="#FF404040"/>
+                </i:Interaction.Behaviors>
+            </RadioButton>
+            <RadioButton Content="DEFCON 3" Style="{StaticResource DefconButtonStyle}" Foreground="#FFFFFF00" Background="#FF404000">
+                <i:Interaction.Behaviors>
+                    <b:DefconColorBehavior ActiveForeground="#FF404000" ActiveBackground="#FFFFFF00" PassiveForeground="#FFFFFF00" PassiveBackground="#FF404000"/>
+                </i:Interaction.Behaviors>
+            </RadioButton>
+            <RadioButton Content="DEFCON 4" Style="{StaticResource DefconButtonStyle}" Foreground="#FF00F200" Background="#FF003500">
+                <i:Interaction.Behaviors>
+                    <b:DefconColorBehavior ActiveForeground="#FF003500" ActiveBackground="#FF00F200" PassiveForeground="#FF00F200" PassiveBackground="#FF003500"/>
+                </i:Interaction.Behaviors>
+            </RadioButton>
+            <RadioButton Content="DEFCON 5" Style="{StaticResource DefconButtonStyle}" Foreground="#FF0066FF" Background="#FF002340">
+                <i:Interaction.Behaviors>
+                    <b:DefconColorBehavior ActiveForeground="#FF002340" ActiveBackground="#FF0066FF" PassiveForeground="#FF0066FF" PassiveBackground="#FF002340"/>
+                </i:Interaction.Behaviors>
+            </RadioButton>
         </StackPanel>
     </Grid>
 </Page>
