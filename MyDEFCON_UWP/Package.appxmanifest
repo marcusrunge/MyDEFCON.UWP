@@ -8,14 +8,14 @@
   IgnorableNamespaces="uap mp genTemplate">
 
   <Identity
-    Name="D354913E-51F3-4551-93C9-2FE50FBF6405"
-    Publisher="CN=Marcus Runge"
-    Version="1.0.0.0" />
+    Name="27242DAEDALUS737.MYDEFCON"
+    Publisher="CN=34360351-E0A4-43A5-99AE-0840493AC494"
+    Version="0.0.1.0" />
 
-  <mp:PhoneIdentity PhoneProductId="D354913E-51F3-4551-93C9-2FE50FBF6405" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="7201d165-94b5-4625-a617-eadda9d4e31b" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>MyDEFCON_UWP</DisplayName>
+    <DisplayName>MyDEFCON</DisplayName>
     <PublisherDisplayName>Marcus Runge</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -33,7 +33,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="MyDEFCON_UWP.App">
       <uap:VisualElements
-        DisplayName="ms-resource:AppDisplayName"
+        DisplayName="MyDEFCON"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="ms-resource:AppDescription"
