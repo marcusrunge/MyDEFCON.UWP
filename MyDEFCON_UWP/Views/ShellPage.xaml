@@ -97,7 +97,7 @@
                 DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
                 <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Margin="0,-40,0,0">
                             <TextBlock
                                 Foreground="Red"
                                 Text="{Binding}"
