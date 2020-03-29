@@ -26,6 +26,9 @@ namespace MyDEFCON_UWP.ViewModels
         private ICommand _loadedCommand;
         private ICommand _itemInvokedCommand;
 
+        private string _visualState;
+        public string VisualState { get => _visualState; set => Set(ref _visualState, value); }
+
         public bool IsBackEnabled
         {
             get { return _isBackEnabled; }
@@ -58,6 +61,7 @@ namespace MyDEFCON_UWP.ViewModels
 
         private async void OnLoaded()
         {
+            VisualState = "ShareState";
             // Keyboard accelerators are added here to avoid showing 'Alt + left' tooltip on the page.
             // More info on tracking issue https://github.com/Microsoft/microsoft-ui-xaml/issues/8
             _keyboardAccelerators.Add(_altLeftKeyboardAccelerator);

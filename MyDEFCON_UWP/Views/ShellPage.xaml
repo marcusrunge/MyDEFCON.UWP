@@ -16,8 +16,38 @@
         <ic:EventTriggerBehavior EventName="Loaded">
             <ic:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
         </ic:EventTriggerBehavior>
+        <!--<behaviors:VisualStateBehavior VisualState="{x:Bind ViewModel.VisualState, Mode=OneWay}"/>-->
     </i:Interaction.Behaviors>
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommandBarStates">
+                <VisualState x:Name="ClearState">
+                    <VisualState.Setters>
+                        <Setter Target="Sync.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="Delete.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="Share.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="List.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="ShareState">
+                    <VisualState.Setters>
+                        <Setter Target="Share.(UIElement.Visibility)" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="SyncListState">
+                    <VisualState.Setters>
+                        <Setter Target="Sync.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="List.(UIElement.Visibility)" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="SyncDeleteState">
+                    <VisualState.Setters>
+                        <Setter Target="Sync.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="Delete.(UIElement.Visibility)" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid x:Name="backgroundGrid">
             <Grid.RenderTransform>
                 <CompositeTransform SkewX="-45"/>
@@ -51,13 +81,10 @@
             </Grid>
         </Grid>
         <CommandBar Background="#FFE8FF00" Foreground="Red" Margin="60,0,0,0" OverflowButtonVisibility="Collapsed">
-            <!--<CommandBar.Content>
-                <TextBlock Text="Test" Style="{ThemeResource TitleTextBlockStyle}"/>
-            </CommandBar.Content>-->
-            <AppBarButton Icon="Share" Foreground="Red"/>
-            <AppBarButton Icon="Sync" Foreground="Red"/>
-            <AppBarButton Icon="List" Foreground="Red"/>
-            <AppBarButton Icon="Delete" Foreground="Red"/>
+            <AppBarButton x:Name="Share" Icon="Share" Content="Share" Foreground="Red" Visibility="Collapsed"/>
+            <AppBarButton x:Name="List" Icon="List" Content="Select" Foreground="Red" Visibility="Collapsed"/>
+            <AppBarButton x:Name="Delete" Icon="Delete" Content="Delete" Foreground="Red" Visibility="Collapsed"/>
+            <AppBarButton x:Name="Sync" Icon="Sync" Content="Sync" Foreground="Red" Visibility="Collapsed"/>
         </CommandBar>
         <winui:NavigationView
         x:Name="navigationView"
@@ -76,9 +103,6 @@
             <winui:NavigationView.Style>
                 <StaticResource ResourceKey="CustomNavigationViewStyle"/>
             </winui:NavigationView.Style>
-            <!--<winui:NavigationView.PaneToggleButtonStyle>
-                <StaticResource ResourceKey="RedPaneToggleButtonStyle"/>
-            </winui:NavigationView.PaneToggleButtonStyle>-->
 
             <winui:NavigationView.MenuItems>
             <!--
@@ -93,7 +117,8 @@
                 <winui:NavigationViewItem x:Uid="Shell_FullScreen" Icon="FullScreen" helpers:NavHelper.NavigateTo="views:FullScreenPage" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
-            <behaviors:NavigationViewHeaderBehavior
+                <behaviors:CommandBarBehavior/>
+                <behaviors:NavigationViewHeaderBehavior
                 DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
                 <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
