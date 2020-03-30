@@ -80,18 +80,13 @@
                 <StackPanel Grid.Column="14" Background="#FFE8FF00"/>
             </Grid>
         </Grid>
-        <CommandBar Background="#FFE8FF00" Foreground="Red" Margin="60,0,0,0" OverflowButtonVisibility="Collapsed">
-            <AppBarButton x:Name="Share" Icon="Share" Content="Share" Foreground="Red" Visibility="Collapsed"/>
-            <AppBarButton x:Name="List" Icon="List" Content="Select" Foreground="Red" Visibility="Collapsed"/>
-            <AppBarButton x:Name="Delete" Icon="Delete" Content="Delete" Foreground="Red" Visibility="Collapsed"/>
-            <AppBarButton x:Name="Sync" Icon="Sync" Content="Sync" Foreground="Red" Visibility="Collapsed"/>
-        </CommandBar>
+        
         <winui:NavigationView
         x:Name="navigationView"
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        IsSettingsVisible="True" PaneDisplayMode="LeftCompact">            
+        IsSettingsVisible="True" PaneDisplayMode="LeftCompact" Margin="0,0,0,0">            
             <winui:NavigationView.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
@@ -103,7 +98,6 @@
             <winui:NavigationView.Style>
                 <StaticResource ResourceKey="CustomNavigationViewStyle"/>
             </winui:NavigationView.Style>
-
             <winui:NavigationView.MenuItems>
             <!--
             TODO WTS: Change the symbols for each item as appropriate for your app
@@ -118,12 +112,12 @@
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
                 <behaviors:CommandBarBehavior/>
-                <behaviors:NavigationViewHeaderBehavior
+                <!--<behaviors:NavigationViewHeaderBehavior
                 DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
                 <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
                     <DataTemplate>
                         <Grid Margin="0,-40,0,0">
-                            <TextBlock
+                            <TextBlock x:Name="title"
                                 Foreground="Red"
                                 Text="{Binding}"
                                 Style="{ThemeResource TitleTextBlockStyle}"
@@ -131,7 +125,7 @@
                         </Grid>
                     </DataTemplate>
                 </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
-            </behaviors:NavigationViewHeaderBehavior>
+            </behaviors:NavigationViewHeaderBehavior>-->
             <ic:EventTriggerBehavior EventName="ItemInvoked">
                 <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
             </ic:EventTriggerBehavior>
@@ -140,5 +134,25 @@
             <Frame x:Name="shellFrame" />
         </Grid>
     </winui:NavigationView>
+        <CommandBar Background="#FFE8FF00" Foreground="Red" Margin="52,0,0,0" OverflowButtonVisibility="Collapsed" Padding="0,0,0,0">
+            <CommandBar.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="/Styles/RedAppBarButtonStyle.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </CommandBar.Resources>
+            <CommandBar.Content>                
+                    <TextBlock x:Name="title"
+                                Foreground="Red"
+                                Text="{x:Bind ViewModel.Selected.Content, Mode=OneWay}"
+                                Style="{ThemeResource TitleTextBlockStyle}"
+                                Margin="{StaticResource SmallLeftRightMargin}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />               
+            </CommandBar.Content>
+            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Share" Icon="Share" Content="Share" Label="Share" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Share"/>
+            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="List" Icon="List" Content="Select" Label="Select" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="List"/>
+            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Delete" Icon="Delete" Content="Delete" Label="Delete" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Delete"/>
+            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Sync" Icon="Sync" Content="Sync" Label="Sync" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Sync"/>
+        </CommandBar>
     </Grid>
 </Page>

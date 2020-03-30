@@ -1,6 +1,7 @@
 ﻿using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
 using MyDEFCON_UWP.Views;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,28 +26,30 @@ namespace MyDEFCON_UWP.ViewModels
         private WinUI.NavigationViewItem _selected;
         private ICommand _loadedCommand;
         private ICommand _itemInvokedCommand;
+        private IEventService _eventService;
 
         private string _visualState;
         public string VisualState { get => _visualState; set => Set(ref _visualState, value); }
 
         public bool IsBackEnabled
         {
-            get { return _isBackEnabled; }
-            set { Set(ref _isBackEnabled, value); }
+            get => _isBackEnabled;
+            set => Set(ref _isBackEnabled, value);
         }
 
         public WinUI.NavigationViewItem Selected
         {
-            get { return _selected; }
-            set { Set(ref _selected, value); }
+            get => _selected;
+            set => Set(ref _selected, value);
         }
 
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand(OnLoaded));
 
         public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
 
-        public ShellViewModel()
+        public ShellViewModel(IEventService eventService)
         {
+            _eventService = eventService;
         }
 
         public void Initialize(Frame frame, WinUI.NavigationView navigationView, IList<KeyboardAccelerator> keyboardAccelerators)
@@ -131,5 +134,11 @@ namespace MyDEFCON_UWP.ViewModels
             var result = NavigationService.GoBack();
             args.Handled = result;
         }
+
+        private ICommand _appBarButtonClickedCommand;
+        public ICommand AppBarButtonClickedCommand => _appBarButtonClickedCommand ?? (_appBarButtonClickedCommand = new RelayCommand<object>((param) =>
+        {
+            _eventService.OnAppBarButtonClicked(new AppBarButtonClickedEventArgs((string)param));
+        }));
     }
 }

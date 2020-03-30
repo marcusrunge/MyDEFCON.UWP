@@ -4,6 +4,7 @@ using Microsoft.AppCenter.Crashes;
 using MyDEFCON_UWP.Core.Helpers;
 using MyDEFCON_UWP.Services;
 using MyDEFCON_UWP.ViewModels;
+using Services;
 using System;
 using Unity;
 using Windows.ApplicationModel;
@@ -76,6 +77,7 @@ namespace MyDEFCON_UWP
 
         private void RegisterContainer()
         {
+            Container.RegisterSingleton<IEventService, EventService>();
             Container.RegisterType<MainViewModel>();
             Container.RegisterType<ChecklistViewModel>();
             Container.RegisterType<MessagesViewModel>();
