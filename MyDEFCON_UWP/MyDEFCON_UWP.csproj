@@ -276,6 +276,11 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ShareImages\Defcon1.png" />
+    <Content Include="ShareImages\Defcon2.png" />
+    <Content Include="ShareImages\Defcon3.png" />
+    <Content Include="ShareImages\Defcon4.png" />
+    <Content Include="ShareImages\Defcon5.png" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />

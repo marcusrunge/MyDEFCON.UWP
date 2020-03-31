@@ -21,6 +21,9 @@
         <c:EventTriggerBehavior EventName="Loaded">
             <c:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}"/>
         </c:EventTriggerBehavior>
+        <c:EventTriggerBehavior EventName="Unloaded">
+            <c:InvokeCommandAction Command="{x:Bind ViewModel.UnloadedCommand}"/>
+        </c:EventTriggerBehavior>
     </i:Interaction.Behaviors>
     <Page.Style>
         <StaticResource ResourceKey="PageStyle"/>
