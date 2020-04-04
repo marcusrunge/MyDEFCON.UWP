@@ -78,11 +78,11 @@
                 </interactivity:Interaction.Behaviors>
             </RadioButton>
         </Grid>
-        <usercontrols:DeletedItemsAwareListView RequestedTheme="Dark" Grid.Row="1" ItemsSource="{Binding DefconCheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <usercontrols:DeletedItemsAwareListView RequestedTheme="Dark" Grid.Row="1" ItemsSource="{Binding DefconCheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="#B2000000">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel>
-                        <TextBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemTextBox" TextWrapping="Wrap" RelativePanel.RightOf="checkListItemCheckBox" Text="{Binding Item, Mode=TwoWay, UpdateSourceTrigger=Explicit}" FontSize="{Binding FontSize}" Width="{Binding Width}" RequestedTheme="Dark" PlaceholderText="New item">
+                        <TextBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemTextBox" TextWrapping="Wrap" RelativePanel.RightOf="checkListItemCheckBox" Text="{Binding Item, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" FontSize="{Binding FontSize}" Width="{Binding Width}" RequestedTheme="Dark" PlaceholderText="New item">
                             <TextBox.Resources>
                                 <ResourceDictionary Source="/Styles/CheckListItemTextBoxStyle.xaml"/>
                             </TextBox.Resources>

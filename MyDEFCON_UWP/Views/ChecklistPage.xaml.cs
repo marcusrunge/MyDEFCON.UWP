@@ -13,6 +13,7 @@ namespace MyDEFCON_UWP.Views
         public ChecklistPage()
         {
             InitializeComponent();
+            DataContext = ViewModel;
         }
     }
 }
