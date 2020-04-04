@@ -25,6 +25,7 @@
                     <VisualState.Setters>
                         <Setter Target="Sync.(UIElement.Visibility)" Value="Collapsed"/>
                         <Setter Target="Delete.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="Add.(UIElement.Visibility)" Value="Collapsed"/>
                         <Setter Target="Share.(UIElement.Visibility)" Value="Collapsed"/>
                         <Setter Target="List.(UIElement.Visibility)" Value="Collapsed"/>
                     </VisualState.Setters>
@@ -37,6 +38,7 @@
                 <VisualState x:Name="SyncListState">
                     <VisualState.Setters>
                         <Setter Target="Sync.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="Add.(UIElement.Visibility)" Value="Visible"/>
                         <Setter Target="List.(UIElement.Visibility)" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
@@ -152,6 +154,7 @@
             <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Share" Icon="Share" Content="Share" Label="Share" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Share"/>
             <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="List" Icon="List" Content="Select" Label="Select" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="List"/>
             <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Delete" Icon="Delete" Content="Delete" Label="Delete" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Delete"/>
+            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Add" Icon="Add" Content="Add" Label="Add" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Add"/>
             <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Sync" Icon="Sync" Content="Sync" Label="Sync" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Sync"/>
         </CommandBar>
     </Grid>
