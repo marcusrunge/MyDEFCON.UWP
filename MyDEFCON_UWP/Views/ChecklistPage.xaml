@@ -18,6 +18,14 @@
             <cnv:StatusToBoolConverter x:Key="StatusToBoolConverter"/>
         </ResourceDictionary>
     </Page.Resources>
+    <i:Interaction.Behaviors>
+        <c:EventTriggerBehavior EventName="Loaded">
+            <c:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}"/>
+        </c:EventTriggerBehavior>
+        <c:EventTriggerBehavior EventName="Unloaded">
+            <c:InvokeCommandAction Command="{x:Bind ViewModel.UnloadedCommand}"/>
+        </c:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />            
@@ -64,6 +72,29 @@
                 </i:Interaction.Behaviors>
             </RadioButton>
         </Grid>
-        <ListView Grid.Row="1"/>
+        <ListView Grid.Row="1" ItemsSource="{Binding DefconCheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:Name="CheckListEntry" >
+                    <RelativePanel>
+                        <TextBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemTextBox" TextWrapping="Wrap" RelativePanel.RightOf="checkListItemCheckBox" Text="{Binding Item, Mode=TwoWay, UpdateSourceTrigger=Explicit}" FontSize="{Binding FontSize}" Width="{Binding Width}" RequestedTheme="Dark" PlaceholderText="New item">
+                            <TextBox.Resources>
+                                <ResourceDictionary Source="/Styles/CheckListItemTextBoxStyle.xaml"/>
+                            </TextBox.Resources>
+                            <TextBox.Style>
+                                <StaticResource ResourceKey="CheckListItemTextBoxStyle"/>
+                            </TextBox.Style>
+                        </TextBox>
+                        <CheckBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemCheckBox" RelativePanel.AlignLeftWithPanel="True" IsChecked="{Binding Checked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" RelativePanel.AlignHorizontalCenterWithPanel="True">
+                            <CheckBox.Resources>
+                                <ResourceDictionary Source="/Styles/CheckListItemCheckBoxStyle.xaml"/>
+                            </CheckBox.Resources>
+                            <CheckBox.Style>
+                                <StaticResource ResourceKey="CheckListItemCheckBoxStyle"/>
+                            </CheckBox.Style>
+                        </CheckBox>
+                    </RelativePanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

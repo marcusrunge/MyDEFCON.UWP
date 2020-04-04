@@ -1,4 +1,5 @@
 ﻿
+using Models;
 using MyDEFCON_UWP.Helpers;
 using Services;
 using System;
@@ -15,15 +16,19 @@ namespace MyDEFCON_UWP.ViewModels
         private double _fontSize;
         public double FontSize { get => _fontSize; set => Set(ref _fontSize, value); }
 
+        ItemObservableCollection<CheckListItem> _defconCheckList;
+        public ItemObservableCollection<CheckListItem> DefconCheckList { get { return _defconCheckList; } set { Set(ref _defconCheckList, value); } }
+
         public ChecklistViewModel()
         {
+            DefconStatus = int.Parse(StorageService.GetSetting("defconStatus", "5", StorageService.StorageStrategies.Roaming));
             FontSize = 14;
         }
 
         private ICommand _loadedCommand;
-        public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>((param) =>
-        {
-            DefconStatus = int.Parse(StorageService.GetSetting("defconStatus", "5", StorageService.StorageStrategies.Roaming));            
+        public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
+        {            
+            DefconCheckList= await CheckListService.LoadCheckList(DefconStatus);
         }));
 
         private ICommand _setFontSizeCommand;
@@ -33,7 +38,16 @@ namespace MyDEFCON_UWP.ViewModels
         }));
 
         private ICommand _loadDefconChecklistCommand;
-        public ICommand LoadDefconChecklistCommand => _loadDefconChecklistCommand ?? (_loadDefconChecklistCommand = new RelayCommand<object>((param) =>
+        public ICommand LoadDefconChecklistCommand => _loadDefconChecklistCommand ?? (_loadDefconChecklistCommand = new RelayCommand<object>(async (param) =>
+        {
+            DefconStatus = int.Parse(param as string);
+            DefconCheckList?.Clear();            
+            DefconCheckList = await CheckListService.LoadCheckList(DefconStatus);
+        }));
+
+        private ICommand _unloadedCommand;
+        public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
         {            
         }));
-    }}
+    }
+}

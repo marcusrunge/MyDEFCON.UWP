@@ -21,6 +21,7 @@ namespace MyDEFCON_UWP.ViewModels
         public MainViewModel(IEventService eventService)
         {
             _eventService = eventService;
+            DefconStatus = int.Parse(StorageService.GetSetting("defconStatus", "5", StorageService.StorageStrategies.Roaming));
             FontSize = 14;
         }
 
@@ -41,8 +42,7 @@ namespace MyDEFCON_UWP.ViewModels
 
         private ICommand _loadedCommand;
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>((param) =>
-        {            
-            DefconStatus = int.Parse(StorageService.GetSetting("defconStatus", "5", StorageService.StorageStrategies.Roaming));
+        {   
             DataTransferManager.GetForCurrentView().DataRequested += MainViewModel_DataRequested;
             _eventService.AppBarButtonClicked += (s, e) =>
             {
