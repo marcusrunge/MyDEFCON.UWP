@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -139,6 +140,14 @@ namespace MyDEFCON_UWP.ViewModels
         public ICommand AppBarButtonClickedCommand => _appBarButtonClickedCommand ?? (_appBarButtonClickedCommand = new RelayCommand<object>((param) =>
         {
             _eventService.OnAppBarButtonClicked(new AppBarButtonClickedEventArgs((string)param));
+            if((string)param== "List" &&VisualState == "DeleteItemsState")VisualState = "AddItemState";            
+        }));
+
+        private ICommand _currentStateChangedCommand;
+        public ICommand CurrentStateChangedCommand => _currentStateChangedCommand ?? (_currentStateChangedCommand = new RelayCommand<object>((param) =>
+        {            
+            var newState = (param as VisualStateChangedEventArgs).NewState.Name;        
+            if (VisualState != newState) VisualState = newState;
         }));
     }
 }

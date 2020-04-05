@@ -16,11 +16,16 @@
         <ic:EventTriggerBehavior EventName="Loaded">
             <ic:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
         </ic:EventTriggerBehavior>
-        <!--<behaviors:VisualStateBehavior VisualState="{x:Bind ViewModel.VisualState, Mode=OneWay}"/>-->
+        <behaviors:VisualStateBehavior VisualState="{x:Bind ViewModel.VisualState, Mode=TwoWay}"/>
     </i:Interaction.Behaviors>
-    <Grid x:Name="shellGrid">
+    <Grid x:Name="shellGrid">        
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="CommandBarStates">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="CurrentStateChanged">
+                        <ic:InvokeCommandAction Command="{x:Bind ViewModel.CurrentStateChangedCommand}" />
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
                 <VisualState x:Name="ClearState">
                     <VisualState.Setters>
                         <Setter Target="Sync.(UIElement.Visibility)" Value="Collapsed"/>
