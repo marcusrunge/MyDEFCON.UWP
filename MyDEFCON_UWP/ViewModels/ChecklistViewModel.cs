@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -22,6 +23,9 @@ namespace MyDEFCON_UWP.ViewModels
 
         ItemObservableCollection<CheckListItem> _defconCheckList;
         public ItemObservableCollection<CheckListItem> DefconCheckList { get { return _defconCheckList; } set { Set(ref _defconCheckList, value); } }
+
+        ListViewSelectionMode _checklistSelectionMode;
+        public ListViewSelectionMode CheckistSelectionMode { get { return _checklistSelectionMode; } set { Set(ref _checklistSelectionMode, value); } }
 
         public ChecklistViewModel(IEventService eventService)
         {
@@ -49,6 +53,12 @@ namespace MyDEFCON_UWP.ViewModels
             {
                 case "Add":
                     await AddItemToChecklist();
+                    break;
+                case "List":
+                    CheckistSelectionMode = CheckistSelectionMode == ListViewSelectionMode.Multiple ? ListViewSelectionMode.None : ListViewSelectionMode.Multiple;
+                    break;
+                case "Delete":
+                    CheckistSelectionMode = ListViewSelectionMode.None;
                     break;
                 default:
                     break;

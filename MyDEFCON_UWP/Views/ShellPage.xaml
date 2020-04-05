@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page x:Name="shellPage"
     x:Class="MyDEFCON_UWP.Views.ShellPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -18,7 +18,7 @@
         </ic:EventTriggerBehavior>
         <!--<behaviors:VisualStateBehavior VisualState="{x:Bind ViewModel.VisualState, Mode=OneWay}"/>-->
     </i:Interaction.Behaviors>
-    <Grid>
+    <Grid x:Name="shellGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="CommandBarStates">
                 <VisualState x:Name="ClearState">
@@ -30,21 +30,22 @@
                         <Setter Target="List.(UIElement.Visibility)" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="ShareState">
+                <VisualState x:Name="ShareDefconState">
                     <VisualState.Setters>
                         <Setter Target="Share.(UIElement.Visibility)" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="SyncListState">
+                <VisualState x:Name="AddItemState">
                     <VisualState.Setters>
                         <Setter Target="Sync.(UIElement.Visibility)" Value="Visible"/>
                         <Setter Target="Add.(UIElement.Visibility)" Value="Visible"/>
                         <Setter Target="List.(UIElement.Visibility)" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
-                <VisualState x:Name="SyncDeleteState">
+                <VisualState x:Name="DeleteItemsState">
                     <VisualState.Setters>
                         <Setter Target="Sync.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="List.(UIElement.Visibility)" Value="Visible"/>
                         <Setter Target="Delete.(UIElement.Visibility)" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
@@ -82,37 +83,37 @@
                 <StackPanel Grid.Column="14" Background="#FFE8FF00"/>
             </Grid>
         </Grid>
-        
+
         <winui:NavigationView
         x:Name="navigationView"
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        IsSettingsVisible="True" PaneDisplayMode="LeftCompact" Margin="0,0,0,0">            
+        IsSettingsVisible="True" PaneDisplayMode="LeftCompact" Margin="0,0,0,0">
             <winui:NavigationView.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="/Styles/SolidColorBrushes.xaml"/>
                         <ResourceDictionary Source="/Styles/CustomNavigationView.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
-                </ResourceDictionary>                
+                </ResourceDictionary>
             </winui:NavigationView.Resources>
             <winui:NavigationView.Style>
                 <StaticResource ResourceKey="CustomNavigationViewStyle"/>
             </winui:NavigationView.Style>
             <winui:NavigationView.MenuItems>
-            <!--
+                <!--
             TODO WTS: Change the symbols for each item as appropriate for your app
             More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
             Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/projectTypes/navigationpane.md
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
-            <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Home" helpers:NavHelper.NavigateTo="views:MainPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Home" helpers:NavHelper.NavigateTo="views:MainPage" />
                 <winui:NavigationViewItem x:Uid="Shell_Checklist" Icon="List" helpers:NavHelper.NavigateTo="views:ChecklistPage" />
-            <winui:NavigationViewItem x:Uid="Shell_Messages" Icon="Message" helpers:NavHelper.NavigateTo="views:MessagesPage" />
+                <winui:NavigationViewItem x:Uid="Shell_Messages" Icon="Message" helpers:NavHelper.NavigateTo="views:MessagesPage" />
                 <winui:NavigationViewItem x:Uid="Shell_FullScreen" Icon="FullScreen" helpers:NavHelper.NavigateTo="views:FullScreenPage" />
-        </winui:NavigationView.MenuItems>
-        <i:Interaction.Behaviors>
+            </winui:NavigationView.MenuItems>
+            <i:Interaction.Behaviors>
                 <behaviors:CommandBarBehavior/>
                 <!--<behaviors:NavigationViewHeaderBehavior
                 DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
@@ -128,14 +129,14 @@
                     </DataTemplate>
                 </behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
             </behaviors:NavigationViewHeaderBehavior>-->
-            <ic:EventTriggerBehavior EventName="ItemInvoked">
-                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
-            </ic:EventTriggerBehavior>
-        </i:Interaction.Behaviors>
-        <Grid>
-            <Frame x:Name="shellFrame" />
-        </Grid>
-    </winui:NavigationView>
+                <ic:EventTriggerBehavior EventName="ItemInvoked">
+                    <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+                </ic:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+            <Grid>
+                <Frame x:Name="shellFrame" />
+            </Grid>
+        </winui:NavigationView>
         <CommandBar Background="#FFE8FF00" Foreground="Red" Margin="52,0,0,0" OverflowButtonVisibility="Collapsed" Padding="0,0,0,0">
             <CommandBar.Resources>
                 <ResourceDictionary>
@@ -144,16 +145,28 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </CommandBar.Resources>
-            <CommandBar.Content>                
-                    <TextBlock x:Name="title"
+            <CommandBar.Content>
+                <TextBlock x:Name="title"
                                 Foreground="Red"
                                 Text="{x:Bind ViewModel.Selected.Content, Mode=OneWay}"
                                 Style="{ThemeResource TitleTextBlockStyle}"
-                                Margin="{StaticResource SmallLeftRightMargin}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />               
+                                Margin="{StaticResource SmallLeftRightMargin}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             </CommandBar.Content>
             <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Share" Icon="Share" Content="Share" Label="Share" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Share"/>
-            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="List" Icon="List" Content="Select" Label="Select" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="List"/>
-            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Delete" Icon="Delete" Content="Delete" Label="Delete" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Delete"/>
+            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="List" Icon="List" Content="Select" Label="Select" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="List">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="Click">
+                        <ic:GoToStateAction TargetObject="{Binding ElementName=shellPage}" StateName="DeleteItemsState"/>
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </AppBarButton>
+            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Delete" Icon="Delete" Content="Delete" Label="Delete" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Delete">
+                <i:Interaction.Behaviors>
+                    <ic:EventTriggerBehavior EventName="Click">
+                        <ic:GoToStateAction TargetObject="{Binding ElementName=shellPage}" StateName="AddItemState"/>
+                    </ic:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+            </AppBarButton>
             <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Add" Icon="Add" Content="Add" Label="Add" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Add"/>
             <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Sync" Icon="Sync" Content="Sync" Label="Sync" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Sync"/>
         </CommandBar>

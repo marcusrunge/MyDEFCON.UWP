@@ -78,7 +78,7 @@
                 </interactivity:Interaction.Behaviors>
             </RadioButton>
         </Grid>
-        <usercontrols:DeletedItemsAwareListView RequestedTheme="Dark" Grid.Row="1" ItemsSource="{Binding DefconCheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="#B2000000">
+        <usercontrols:DeletedItemsAwareListView Grid.Row="1" RequestedTheme="Dark" Background="#B2000000" ItemsSource="{Binding DefconCheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{x:Bind ViewModel.CheckistSelectionMode, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel>

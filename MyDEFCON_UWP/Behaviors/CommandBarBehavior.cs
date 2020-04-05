@@ -16,10 +16,10 @@ namespace MyDEFCON_UWP.Behaviors
                     switch ((e.SelectedItem as Microsoft.UI.Xaml.Controls.NavigationViewItem).Content)
                     {
                         case "Main":
-                            VisualStateManager.GoToState((AssociatedObject.Parent as Grid).Parent as Control, "ShareState", true);
+                            VisualStateManager.GoToState((AssociatedObject.Parent as Grid).Parent as Control, "ShareDefconState", true);
                             break;
                         case "Checklist":
-                            VisualStateManager.GoToState((AssociatedObject.Parent as Grid).Parent as Control, "SyncListState", true);
+                            VisualStateManager.GoToState((AssociatedObject.Parent as Grid).Parent as Control, "AddItemState", true);
                             break;
                         default:
                             VisualStateManager.GoToState((AssociatedObject.Parent as Grid).Parent as Control, "ClearState", true);
