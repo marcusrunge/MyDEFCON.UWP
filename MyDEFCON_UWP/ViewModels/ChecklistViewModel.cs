@@ -3,6 +3,7 @@ using Models;
 using MyDEFCON_UWP.Helpers;
 using Services;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
@@ -32,7 +33,11 @@ namespace MyDEFCON_UWP.ViewModels
             _eventService = eventService;
             DefconStatus = int.Parse(StorageService.GetSetting("defconStatus", "5", StorageService.StorageStrategies.Roaming));
             FontSize = 14;
+            SelectedItemsUnixTimeStampCreated = new List<long>();
         }
+
+        private List<long> _selectedItemsUnixTimeStampCreated;
+        public List<long> SelectedItemsUnixTimeStampCreated { get => _selectedItemsUnixTimeStampCreated; set => Set(ref _selectedItemsUnixTimeStampCreated, value); }
 
         private ICommand _loadedCommand;
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
@@ -58,11 +63,28 @@ namespace MyDEFCON_UWP.ViewModels
                     CheckistSelectionMode = CheckistSelectionMode == ListViewSelectionMode.Multiple ? ListViewSelectionMode.None : ListViewSelectionMode.Multiple;
                     break;
                 case "Delete":
-                    CheckistSelectionMode = ListViewSelectionMode.None;
+                    DeleteSelectedItems();
                     break;
                 default:
                     break;
             }
+        }
+
+        private void DeleteSelectedItems()
+        {
+            for (int i = 0; i < SelectedItemsUnixTimeStampCreated.Count; i++)
+            {
+                for (int j = 0; j < DefconCheckList.Count; j++)
+                {
+                    if (DefconCheckList[j].UnixTimeStampCreated == SelectedItemsUnixTimeStampCreated[i])
+                    {
+                        DefconCheckList[j].Deleted = true;
+                        DefconCheckList[j].Visibility = Visibility.Collapsed;
+                        DefconCheckList[j].Checked = true;
+                    }
+                }
+            }
+            CheckistSelectionMode = ListViewSelectionMode.None;
         }
 
         private async Task AddItemToChecklist()

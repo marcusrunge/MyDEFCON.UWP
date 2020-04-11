@@ -79,7 +79,10 @@
             </RadioButton>
         </Grid>
         <usercontrols:DeletedItemsAwareListView Grid.Row="1" RequestedTheme="Dark" Background="#B2000000" ItemsSource="{Binding DefconCheckList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionMode="{x:Bind ViewModel.CheckistSelectionMode, Mode=OneWay}">
-            <ListView.ItemTemplate>
+            <interactivity:Interaction.Behaviors>
+                <behaviors:SelectionChangedBehavior SelectedItems="{Binding SelectedItemsUnixTimeStampCreated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </interactivity:Interaction.Behaviors>
+                <ListView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel>
                         <TextBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemTextBox" TextWrapping="Wrap" RelativePanel.RightOf="checkListItemCheckBox" Text="{Binding Item, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" FontSize="{Binding FontSize}" Width="{Binding Width}" RequestedTheme="Dark" PlaceholderText="New item">

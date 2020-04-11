@@ -153,6 +153,7 @@
     <Compile Include="Behaviors\DefconColorBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
+    <Compile Include="Behaviors\SelectionChangedBehavior.cs" />
     <Compile Include="Behaviors\VisualStateBehavior.cs" />
     <Compile Include="Converter\StatusToBoolConverter.cs" />
     <Compile Include="Helpers\DataRequestExtensions.cs" />
