@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -28,16 +29,39 @@ namespace MyDEFCON_UWP.ViewModels
         ListViewSelectionMode _checklistSelectionMode;
         public ListViewSelectionMode CheckistSelectionMode { get { return _checklistSelectionMode; } set { Set(ref _checklistSelectionMode, value); } }
 
+        List<long> _selectedItemsUnixTimeStampCreated;
+        public List<long> SelectedItemsUnixTimeStampCreated { get => _selectedItemsUnixTimeStampCreated; set => Set(ref _selectedItemsUnixTimeStampCreated, value); }
+
+        SolidColorBrush _defcon1RectangleFill;
+        public SolidColorBrush Defcon1RectangleFill { get { return _defcon1RectangleFill; } set { Set(ref _defcon1RectangleFill, value); } }
+        SolidColorBrush _defcon2RectangleFill;
+        public SolidColorBrush Defcon2RectangleFill { get { return _defcon2RectangleFill; } set { Set(ref _defcon2RectangleFill, value); } }
+        SolidColorBrush _defcon3RectangleFill;
+        public SolidColorBrush Defcon3RectangleFill { get { return _defcon3RectangleFill; } set { Set(ref _defcon3RectangleFill, value); } }
+        SolidColorBrush _defcon4RectangleFill;
+        public SolidColorBrush Defcon4RectangleFill { get { return _defcon4RectangleFill; } set { Set(ref _defcon4RectangleFill, value); } }
+        SolidColorBrush _defcon5RectangleFill;
+        public SolidColorBrush Defcon5RectangleFill { get { return _defcon5RectangleFill; } set { Set(ref _defcon5RectangleFill, value); } }
+
+        int _defcon1UnCheckedItems;
+        public int Defcon1UnCheckedItems { get { return _defcon1UnCheckedItems; } set { Set(ref _defcon1UnCheckedItems, value); } }
+        
+        int _defcon2UnCheckedItems;
+        public int Defcon2UnCheckedItems { get { return _defcon2UnCheckedItems; } set { Set(ref _defcon2UnCheckedItems, value); } }
+        int _defcon3UnCheckedItems;
+        public int Defcon3UnCheckedItems { get { return _defcon3UnCheckedItems; } set { Set(ref _defcon3UnCheckedItems, value); } }
+        int _defcon4UnCheckedItems;
+        public int Defcon4UnCheckedItems { get { return _defcon4UnCheckedItems; } set { Set(ref _defcon4UnCheckedItems, value); } }
+        int _defcon5UnCheckedItems;
+        public int Defcon5UnCheckedItems { get { return _defcon5UnCheckedItems; } set { Set(ref _defcon5UnCheckedItems, value); } }
+
         public ChecklistViewModel(IEventService eventService)
         {
             _eventService = eventService;
             DefconStatus = int.Parse(StorageService.GetSetting("defconStatus", "5", StorageService.StorageStrategies.Roaming));
             FontSize = 14;
             SelectedItemsUnixTimeStampCreated = new List<long>();
-        }
-
-        private List<long> _selectedItemsUnixTimeStampCreated;
-        public List<long> SelectedItemsUnixTimeStampCreated { get => _selectedItemsUnixTimeStampCreated; set => Set(ref _selectedItemsUnixTimeStampCreated, value); }
+        }        
 
         private ICommand _loadedCommand;
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
@@ -45,6 +69,21 @@ namespace MyDEFCON_UWP.ViewModels
             DefconCheckList = await CheckListService.LoadCheckList(DefconStatus);
             DefconCheckList.CollectionChanged += DefconCheckList_CollectionChanged;
             _eventService.AppBarButtonClicked += AppBarButtonClicked;
+            var defcon1CheckList = await CheckListService.LoadCheckList(1);
+            var defcon2CheckList = await CheckListService.LoadCheckList(2);
+            var defcon3CheckList = await CheckListService.LoadCheckList(3);
+            var defcon4CheckList = await CheckListService.LoadCheckList(4);
+            var defcon5CheckList = await CheckListService.LoadCheckList(5);
+            Defcon1UnCheckedItems = UncheckedItems.Count(defcon1CheckList, 1, DefconStatus);
+            Defcon2UnCheckedItems = UncheckedItems.Count(defcon2CheckList, 2, DefconStatus);
+            Defcon3UnCheckedItems = UncheckedItems.Count(defcon3CheckList, 3, DefconStatus);
+            Defcon4UnCheckedItems = UncheckedItems.Count(defcon4CheckList, 4, DefconStatus);
+            Defcon5UnCheckedItems = UncheckedItems.Count(defcon5CheckList, 5, DefconStatus);
+            Defcon1RectangleFill = UncheckedItems.RectangleFill(defcon1CheckList, 1, Defcon1UnCheckedItems, _defconStatus);
+            Defcon2RectangleFill = UncheckedItems.RectangleFill(defcon2CheckList, 2, Defcon2UnCheckedItems, _defconStatus);
+            Defcon3RectangleFill = UncheckedItems.RectangleFill(defcon3CheckList, 3, Defcon3UnCheckedItems, _defconStatus);
+            Defcon4RectangleFill = UncheckedItems.RectangleFill(defcon4CheckList, 4, Defcon4UnCheckedItems, _defconStatus);
+            Defcon5RectangleFill = UncheckedItems.RectangleFill(defcon5CheckList, 5, Defcon5UnCheckedItems, _defconStatus);
         }));
 
         private async void DefconCheckList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

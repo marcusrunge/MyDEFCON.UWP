@@ -162,6 +162,7 @@
     <Compile Include="Helpers\Observable.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\SettingsStorageExtensions.cs" />
+    <Compile Include="Helpers\UncheckedItems.cs" />
     <Compile Include="Models\ShareSourceData.cs" />
     <Compile Include="Models\ShareSourceItem.cs" />
     <Compile Include="Services\ActivationService.cs" />
