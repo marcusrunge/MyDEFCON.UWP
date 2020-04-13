@@ -17,6 +17,7 @@ namespace MyDEFCON_UWP.ViewModels
     {
         private IEventService _eventService;
         private long[] selectedItemsUnixTimeStampCreated;
+        private double _gridWidth;
 
         private int _defconStatus;
         public int DefconStatus { get => _defconStatus; set => Set(ref _defconStatus, value); }
@@ -57,13 +58,14 @@ namespace MyDEFCON_UWP.ViewModels
         {
             _eventService = eventService;
             DefconStatus = int.Parse(StorageService.GetSetting("defconStatus", "5", StorageService.StorageStrategies.Roaming));
-            SelectedItemsUnixTimeStampCreated = new List<long>();            
+            SelectedItemsUnixTimeStampCreated = new List<long>();
         }
 
         private ICommand _loadedCommand;
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
         {
             DefconCheckList = await CheckListService.LoadCheckList(DefconStatus);
+            SetTextBoxWidth(_gridWidth - 52);
             DefconCheckList.CollectionChanged += DefconCheckList_CollectionChanged;
             _eventService.AppBarButtonClicked += AppBarButtonClicked;
             var defcon1CheckList = await CheckListService.LoadCheckList(1);
@@ -109,8 +111,9 @@ namespace MyDEFCON_UWP.ViewModels
                     break;
                 default:
                     break;
-            } if(selectedItemsUnixTimeStampCreated !=null&&selectedItemsUnixTimeStampCreated.Length==0)
-            await CheckListService.SaveCheckList(DefconCheckList, DefconStatus);
+            }
+            if (selectedItemsUnixTimeStampCreated != null && selectedItemsUnixTimeStampCreated.Length == 0)
+                await CheckListService.SaveCheckList(DefconCheckList, DefconStatus);
         }
 
         private async void AppBarButtonClicked(object sender, EventArgs e)
@@ -167,11 +170,23 @@ namespace MyDEFCON_UWP.ViewModels
             try
             {
                 DefconCheckList = await CheckListService.LoadCheckList(DefconStatus);
+                SetTextBoxWidth(_gridWidth - 52);
             }
             catch { }
             DefconCheckList.CollectionChanged += DefconCheckList_CollectionChanged;
-
         }));
+
+        private ICommand _windowSizeChangedCommand;
+        public ICommand WindowSizeChangedCommand => _windowSizeChangedCommand ?? (_windowSizeChangedCommand = new RelayCommand<object>(async (param) =>
+        {
+            SetTextBoxWidth(((SizeChangedEventArgs)param).NewSize.Width - 52);
+            _gridWidth = ((SizeChangedEventArgs)param).NewSize.Width;
+        }));
+
+        private void SetTextBoxWidth(double value)
+        {
+            if (DefconCheckList != null) foreach (var item in DefconCheckList) item.Width = value;
+        }
 
         private ICommand _unloadedCommand;
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>(async (param) =>

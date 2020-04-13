@@ -27,7 +27,12 @@
             <core:InvokeCommandAction Command="{x:Bind ViewModel.UnloadedCommand}"/>
         </core:EventTriggerBehavior>
     </interactivity:Interaction.Behaviors>
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">        
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <interactivity:Interaction.Behaviors>
+            <core:EventTriggerBehavior EventName="SizeChanged">
+                <core:InvokeCommandAction Command="{x:Bind ViewModel.WindowSizeChangedCommand}"/>
+            </core:EventTriggerBehavior>
+        </interactivity:Interaction.Behaviors>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />            
             <RowDefinition Height="9*"/>
@@ -92,7 +97,7 @@
                 <ListView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel>
-                        <TextBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemTextBox" TextWrapping="Wrap" RelativePanel.RightOf="checkListItemCheckBox" Text="{Binding Item, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" FontSize="{Binding FontSize}" Width="{Binding Width}" RequestedTheme="Dark" PlaceholderText="New item">
+                        <TextBox RelativePanel.AlignVerticalCenterWithPanel="True" x:Name="checkListItemTextBox" TextWrapping="Wrap" RelativePanel.RightOf="checkListItemCheckBox" Text="{Binding Item, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" RequestedTheme="Dark" PlaceholderText="New item" FontSize="22" Width="{Binding Width}">
                             <TextBox.Resources>
                                 <ResourceDictionary Source="/Styles/CheckListItemTextBoxStyle.xaml"/>
                             </TextBox.Resources>
