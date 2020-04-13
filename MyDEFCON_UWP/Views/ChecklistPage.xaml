@@ -27,12 +27,7 @@
             <core:InvokeCommandAction Command="{x:Bind ViewModel.UnloadedCommand}"/>
         </core:EventTriggerBehavior>
     </interactivity:Interaction.Behaviors>
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <interactivity:Interaction.Behaviors>
-            <core:EventTriggerBehavior EventName="SizeChanged">
-                <core:InvokeCommandAction Command="{x:Bind ViewModel.WindowSizeChangedCommand}"/>
-            </core:EventTriggerBehavior>
-        </interactivity:Interaction.Behaviors>
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">        
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />            
             <RowDefinition Height="9*"/>
@@ -50,10 +45,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <RadioButton Content="1" Margin="5" Style="{StaticResource DefconButtonStyle}" Foreground="White" Background="#FF404040" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" GroupName="Defcon" VerticalAlignment="Stretch" VerticalContentAlignment="Center" IsChecked="{x:Bind ViewModel.DefconStatus, Mode=OneTime, Converter={StaticResource StatusToBoolConverter}, ConverterParameter=1}" Command="{x:Bind ViewModel.LoadDefconChecklistCommand}" CommandParameter="1" Padding="0,0,0,0">
-                <interactivity:Interaction.Behaviors>
-                    <core:EventTriggerBehavior EventName="SizeChanged">
-                        <core:InvokeCommandAction Command="{x:Bind ViewModel.SetFontSizeCommand}"/>
-                    </core:EventTriggerBehavior>
+                <interactivity:Interaction.Behaviors>                    
                     <behaviors:DefconColorBehavior ActiveForeground="#FF404040" ActiveBackground="#FFFFFFFF" PassiveForeground="#FFFFFFFF" PassiveBackground="#FF404040"/>
                     <behaviors:AutoTextSizeBehavior/>
                 </interactivity:Interaction.Behaviors>

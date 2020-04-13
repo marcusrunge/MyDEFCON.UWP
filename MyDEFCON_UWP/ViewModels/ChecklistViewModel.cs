@@ -4,6 +4,7 @@ using MyDEFCON_UWP.Helpers;
 using Services;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
@@ -15,13 +16,10 @@ namespace MyDEFCON_UWP.ViewModels
     public class ChecklistViewModel : Observable
     {
         private IEventService _eventService;
-        double _textBoxWidth;
+        private long[] selectedItemsUnixTimeStampCreated;
 
         private int _defconStatus;
         public int DefconStatus { get => _defconStatus; set => Set(ref _defconStatus, value); }
-
-        private double _fontSize;
-        public double FontSize { get => _fontSize; set => Set(ref _fontSize, value); }
 
         ItemObservableCollection<CheckListItem> _defconCheckList;
         public ItemObservableCollection<CheckListItem> DefconCheckList { get { return _defconCheckList; } set { Set(ref _defconCheckList, value); } }
@@ -45,7 +43,7 @@ namespace MyDEFCON_UWP.ViewModels
 
         int _defcon1UnCheckedItems;
         public int Defcon1UnCheckedItems { get { return _defcon1UnCheckedItems; } set { Set(ref _defcon1UnCheckedItems, value); } }
-        
+
         int _defcon2UnCheckedItems;
         public int Defcon2UnCheckedItems { get { return _defcon2UnCheckedItems; } set { Set(ref _defcon2UnCheckedItems, value); } }
         int _defcon3UnCheckedItems;
@@ -59,9 +57,8 @@ namespace MyDEFCON_UWP.ViewModels
         {
             _eventService = eventService;
             DefconStatus = int.Parse(StorageService.GetSetting("defconStatus", "5", StorageService.StorageStrategies.Roaming));
-            FontSize = 14;
-            SelectedItemsUnixTimeStampCreated = new List<long>();
-        }        
+            SelectedItemsUnixTimeStampCreated = new List<long>();            
+        }
 
         private ICommand _loadedCommand;
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
@@ -79,15 +76,40 @@ namespace MyDEFCON_UWP.ViewModels
             Defcon3UnCheckedItems = UncheckedItems.Count(defcon3CheckList, 3, DefconStatus);
             Defcon4UnCheckedItems = UncheckedItems.Count(defcon4CheckList, 4, DefconStatus);
             Defcon5UnCheckedItems = UncheckedItems.Count(defcon5CheckList, 5, DefconStatus);
-            Defcon1RectangleFill = UncheckedItems.RectangleFill(defcon1CheckList, 1, Defcon1UnCheckedItems, _defconStatus);
-            Defcon2RectangleFill = UncheckedItems.RectangleFill(defcon2CheckList, 2, Defcon2UnCheckedItems, _defconStatus);
-            Defcon3RectangleFill = UncheckedItems.RectangleFill(defcon3CheckList, 3, Defcon3UnCheckedItems, _defconStatus);
-            Defcon4RectangleFill = UncheckedItems.RectangleFill(defcon4CheckList, 4, Defcon4UnCheckedItems, _defconStatus);
-            Defcon5RectangleFill = UncheckedItems.RectangleFill(defcon5CheckList, 5, Defcon5UnCheckedItems, _defconStatus);
+            Defcon1RectangleFill = UncheckedItems.RectangleFill(defcon1CheckList, 1, Defcon1UnCheckedItems, DefconStatus);
+            Defcon2RectangleFill = UncheckedItems.RectangleFill(defcon2CheckList, 2, Defcon2UnCheckedItems, DefconStatus);
+            Defcon3RectangleFill = UncheckedItems.RectangleFill(defcon3CheckList, 3, Defcon3UnCheckedItems, DefconStatus);
+            Defcon4RectangleFill = UncheckedItems.RectangleFill(defcon4CheckList, 4, Defcon4UnCheckedItems, DefconStatus);
+            Defcon5RectangleFill = UncheckedItems.RectangleFill(defcon5CheckList, 5, Defcon5UnCheckedItems, DefconStatus);
         }));
 
         private async void DefconCheckList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+            switch (DefconStatus)
+            {
+                case 1:
+                    Defcon1UnCheckedItems = UncheckedItems.Count(DefconCheckList, 1, DefconStatus);
+                    Defcon1RectangleFill = UncheckedItems.RectangleFill(DefconCheckList, 1, Defcon1UnCheckedItems, DefconStatus);
+                    break;
+                case 2:
+                    Defcon2UnCheckedItems = UncheckedItems.Count(DefconCheckList, 2, DefconStatus);
+                    Defcon2RectangleFill = UncheckedItems.RectangleFill(DefconCheckList, 2, Defcon2UnCheckedItems, DefconStatus);
+                    break;
+                case 3:
+                    Defcon3UnCheckedItems = UncheckedItems.Count(DefconCheckList, 3, DefconStatus);
+                    Defcon3RectangleFill = UncheckedItems.RectangleFill(DefconCheckList, 3, Defcon3UnCheckedItems, DefconStatus);
+                    break;
+                case 4:
+                    Defcon4UnCheckedItems = UncheckedItems.Count(DefconCheckList, 4, DefconStatus);
+                    Defcon4RectangleFill = UncheckedItems.RectangleFill(DefconCheckList, 4, Defcon4UnCheckedItems, DefconStatus);
+                    break;
+                case 5:
+                    Defcon5UnCheckedItems = UncheckedItems.Count(DefconCheckList, 5, DefconStatus);
+                    Defcon5RectangleFill = UncheckedItems.RectangleFill(DefconCheckList, 5, Defcon5UnCheckedItems, DefconStatus);
+                    break;
+                default:
+                    break;
+            } if(selectedItemsUnixTimeStampCreated !=null&&selectedItemsUnixTimeStampCreated.Length==0)
             await CheckListService.SaveCheckList(DefconCheckList, DefconStatus);
         }
 
@@ -96,26 +118,29 @@ namespace MyDEFCON_UWP.ViewModels
             switch ((e as AppBarButtonClickedEventArgs).Button)
             {
                 case "Add":
-                    await AddItemToChecklist();
+                    AddItemToChecklist();
                     break;
                 case "List":
                     CheckistSelectionMode = CheckistSelectionMode == ListViewSelectionMode.Multiple ? ListViewSelectionMode.None : ListViewSelectionMode.Multiple;
                     break;
                 case "Delete":
-                    DeleteSelectedItems();
+                    if (SelectedItemsUnixTimeStampCreated.Count > 0) await DeleteSelectedItems();
+                    else CheckistSelectionMode = ListViewSelectionMode.None;
                     break;
                 default:
                     break;
             }
         }
 
-        private void DeleteSelectedItems()
+        private async Task DeleteSelectedItems()
         {
-            for (int i = 0; i < SelectedItemsUnixTimeStampCreated.Count; i++)
+            selectedItemsUnixTimeStampCreated = new long[SelectedItemsUnixTimeStampCreated.Count];
+            SelectedItemsUnixTimeStampCreated.CopyTo(selectedItemsUnixTimeStampCreated);
+            for (int i = 0; i < selectedItemsUnixTimeStampCreated.Length; i++)
             {
                 for (int j = 0; j < DefconCheckList.Count; j++)
                 {
-                    if (DefconCheckList[j].UnixTimeStampCreated == SelectedItemsUnixTimeStampCreated[i])
+                    if (DefconCheckList[j].UnixTimeStampCreated == selectedItemsUnixTimeStampCreated[i])
                     {
                         DefconCheckList[j].Deleted = true;
                         DefconCheckList[j].Visibility = Visibility.Collapsed;
@@ -123,24 +148,19 @@ namespace MyDEFCON_UWP.ViewModels
                     }
                 }
             }
-            CheckistSelectionMode = ListViewSelectionMode.None;
-        }
-
-        private async Task AddItemToChecklist()
-        {
-            DefconCheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, DefconStatus = (short)DefconStatus, FontSize = FontSize, UnixTimeStampCreated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), Deleted = false, Visibility = Visibility.Visible, Width = _textBoxWidth });
             await CheckListService.SaveCheckList(DefconCheckList, DefconStatus);
         }
 
-        private ICommand _setFontSizeCommand;
-        public ICommand SetFontSizeCommand => _setFontSizeCommand ?? (_setFontSizeCommand = new RelayCommand<object>((param) =>
+        private void AddItemToChecklist()
         {
-            FontSize = Math.Floor((param as SizeChangedEventArgs).NewSize.Width / 6.5);
-        }));
+            DefconCheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, DefconStatus = (short)DefconStatus, FontSize = 14, UnixTimeStampCreated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), Deleted = false, Visibility = Visibility.Visible });
+        }
 
         private ICommand _loadDefconChecklistCommand;
         public ICommand LoadDefconChecklistCommand => _loadDefconChecklistCommand ?? (_loadDefconChecklistCommand = new RelayCommand<object>(async (param) =>
         {
+            CheckistSelectionMode = ListViewSelectionMode.None;
+            _eventService.OnChecklistChanged(null);
             DefconCheckList.CollectionChanged -= DefconCheckList_CollectionChanged;
             DefconStatus = int.Parse(param as string);
             DefconCheckList?.Clear();
@@ -157,12 +177,6 @@ namespace MyDEFCON_UWP.ViewModels
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>(async (param) =>
         {
             await CheckListService.SaveCheckList(DefconCheckList, DefconStatus);
-        }));
-
-        private ICommand _windowSizeChangedCommand;
-        public ICommand WindowSizeChangedCommand => _windowSizeChangedCommand ?? (_windowSizeChangedCommand = new RelayCommand<SizeChangedEventArgs>((param) =>
-        {
-            _textBoxWidth = (param.NewSize.Width - 52);
         }));
     }
 }
