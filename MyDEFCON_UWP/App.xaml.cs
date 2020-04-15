@@ -84,6 +84,8 @@ namespace MyDEFCON_UWP
             Container.RegisterType<SettingsViewModel>();
             Container.RegisterType<ShellViewModel>();
             Container.RegisterType<FullScreenViewModel>();
+            Container.RegisterType<AboutPivotViewModel>();
+            Container.RegisterType<SettingsPivotViewModel>();
         }
     }
 }

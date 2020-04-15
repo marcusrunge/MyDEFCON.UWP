@@ -15,6 +15,7 @@ namespace MyDEFCON_UWP.Views
         public SettingsPage()
         {
             InitializeComponent();
+            DataContext = ViewModel;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

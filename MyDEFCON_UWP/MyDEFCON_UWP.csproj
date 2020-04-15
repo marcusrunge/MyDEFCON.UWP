@@ -178,10 +178,12 @@
     <Compile Include="Services\ToastNotificationsService.cs" />
     <Compile Include="Services\ToastNotificationsService.Samples.cs" />
     <Compile Include="UserControls\DeletedItemsAwareListView.cs" />
+    <Compile Include="ViewModels\AboutPivotViewModel.cs" />
     <Compile Include="ViewModels\ChecklistViewModel.cs" />
     <Compile Include="ViewModels\FullScreenViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MessagesViewModel.cs" />
+    <Compile Include="ViewModels\SettingsPivotViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\ChecklistPage.xaml.cs">
@@ -233,6 +235,10 @@
     <Page Include="Styles\RedAppBarButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\RedTransparentButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\SolidColorBrushes.xaml">
       <SubType>Designer</SubType>
