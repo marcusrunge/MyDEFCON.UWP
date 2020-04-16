@@ -1,9 +1,6 @@
 ﻿using MyDEFCON_UWP.Helpers;
-using System;
+using Services;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
 
@@ -34,6 +31,44 @@ namespace MyDEFCON_UWP.ViewModels
 
         Visibility _iotVisibility = default;
         public Visibility IotVisibility { get { return _iotVisibility; } set { Set(ref _iotVisibility, value); } }
+
+        public SettingsPivotViewModel()
+        {
+            UseTransparentTile = StorageService.GetSetting<bool>("UseTransparentTile");
+            ShowUncheckedItems = StorageService.GetSetting<bool>("ShowUncheckedItems");
+            BackgroundTask = StorageService.GetSetting<bool>("BackgroundTask");
+            LanBroadcastIsOn = StorageService.GetSetting<bool>("LanBroadcastIsOn");
+            BackgroundTask = StorageService.GetSetting<bool>("BackgroundTask");
+            SelectedTimeIntervallIndex = StorageService.GetSetting<int>("SelectedTimeIntervallIndex");
+            PropertyChanged += SettingsPivotViewModel_PropertyChanged;
+        }
+
+        private void SettingsPivotViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "UseTransparentTile":
+                    StorageService.SetSetting(e.PropertyName, UseTransparentTile);
+                    break;
+                case "ShowUncheckedItems":
+                    StorageService.SetSetting(e.PropertyName, ShowUncheckedItems);
+                    break;
+                case "BackgroundTask":
+                    StorageService.SetSetting(e.PropertyName, BackgroundTask);
+                    break;
+                case "LanBroadcastIsOn":
+                    StorageService.SetSetting(e.PropertyName, LanBroadcastIsOn);
+                    break;
+                case "LanMulticastIsOn":
+                    StorageService.SetSetting(e.PropertyName, LanMulticastIsOn);
+                    break;
+                case "SelectedTimeIntervallIndex":
+                    StorageService.SetSetting(e.PropertyName, SelectedTimeIntervallIndex);
+                    break;                
+                default:
+                    break;
+            }
+        }
 
         private ICommand _removeBackgroundTasksCommand;
         public ICommand RemoveBackgroundTasksCommand => _removeBackgroundTasksCommand ?? (_removeBackgroundTasksCommand = new RelayCommand<object>((param) =>

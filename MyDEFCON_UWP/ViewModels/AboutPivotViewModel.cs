@@ -1,11 +1,9 @@
 ﻿using MyDEFCON_UWP.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel;
+using Windows.System;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -21,16 +19,10 @@ namespace MyDEFCON_UWP.ViewModels
         }
 
         private ICommand _emailCommand;
-        public ICommand EmailCommand => _emailCommand ?? (_emailCommand = new RelayCommand<object>((param) =>
-        {
-
-        }));
+        public ICommand EmailCommand => _emailCommand ?? (_emailCommand = new RelayCommand<object>(async (param) => await Launcher.LaunchUriAsync(new Uri("mailto:code_m@outlook.de?subject=MyDEFCON App"))));
 
         private ICommand _rateCommand;
-        public ICommand RateCommand => _rateCommand ?? (_rateCommand = new RelayCommand<object>((param) =>
-        {
-
-        }));
+        public ICommand RateCommand => _rateCommand ?? (_rateCommand = new RelayCommand<object>(async (param) => await Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=d6facdb7-724c-47dc-91d5-489d5acb2eb2"))));
 
         private string GetVersionDescription()
         {
