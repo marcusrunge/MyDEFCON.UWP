@@ -141,13 +141,13 @@ namespace MyDEFCON_UWP.ViewModels
         public ICommand AppBarButtonClickedCommand => _appBarButtonClickedCommand ?? (_appBarButtonClickedCommand = new RelayCommand<object>((param) =>
         {
             _eventService.OnAppBarButtonClicked(new AppBarButtonClickedEventArgs((string)param));
-            if((string)param== "List" &&VisualState == "DeleteItemsState")VisualState = "AddItemState";            
+            if ((string)param == "List" && VisualState == "DeleteItemsState") VisualState = "AddItemState";
         }));
 
         private ICommand _currentStateChangedCommand;
         public ICommand CurrentStateChangedCommand => _currentStateChangedCommand ?? (_currentStateChangedCommand = new RelayCommand<object>((param) =>
-        {            
-            var newState = (param as VisualStateChangedEventArgs).NewState.Name;        
+        {
+            var newState = (param as VisualStateChangedEventArgs).NewState.Name;
             if (VisualState != newState) VisualState = newState;
         }));
     }

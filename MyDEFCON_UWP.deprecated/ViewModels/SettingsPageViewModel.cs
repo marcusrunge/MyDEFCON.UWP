@@ -73,7 +73,7 @@ namespace MyDEFCON_UWP.ViewModels
                 else if (e.PropertyName.Equals("LanBroadcastIsOn"))
                 {
                     SaveLanBroadcastIsOnSetting();
-                    if(!LanBroadcastIsOn) LanMulticastIsOn = false;
+                    if (!LanBroadcastIsOn) LanMulticastIsOn = false;
                 }
                 else if (e.PropertyName.Equals("LanMulticastIsOn")) SaveLanMulticastIsOnSetting();
             };
@@ -105,7 +105,7 @@ namespace MyDEFCON_UWP.ViewModels
             if (!_pageInitialize)
             {
                 localSettings.Values["useTransparentTile"] = UseTransparentTile;
-                LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
+                LiveTileManagement.SetLiveTile(_defconStatus, _useTransparentTile);
             }
         }
 
@@ -117,7 +117,7 @@ namespace MyDEFCON_UWP.ViewModels
                 int badgeNumber = 0;
                 Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
                 if (roamingSettings.Values.ContainsKey("badgeNumber")) badgeNumber = Convert.ToInt16(roamingSettings.Values["badgeNumber"].ToString());
-                LiveTileService.UpdateTileBadge(badgeNumber);
+                LiveTileManagement.UpdateTileBadge(badgeNumber);
             }
         }
 
@@ -213,18 +213,18 @@ namespace MyDEFCON_UWP.ViewModels
     public class AboutPartViewModel : ViewModelBase
     {
         #region Fields
-        
+
         #endregion
 
         #region Properties
-        
+
         #endregion
 
         #region Constructor
         #endregion
 
         #region Methods
-                
+
         #endregion
 
         #region Commands

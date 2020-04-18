@@ -1,22 +1,22 @@
-﻿using Template10.Mvvm;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Template10.Services.NavigationService;
-using Windows.UI.Xaml.Navigation;
-using Windows.UI.ViewManagement;
-using Windows.UI;
+﻿using Models;
 using MyDEFCON_UWP.Services;
-using System;
-using Windows.Graphics.Display;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Core;
-using Windows.Storage;
-using SocketLibrary;
 using Services;
+using SocketLibrary;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using Models;
+using System.Threading.Tasks;
+using Template10.Mvvm;
+using Template10.Services.NavigationService;
+using Windows.Graphics.Display;
+using Windows.Storage;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -124,11 +124,11 @@ namespace MyDEFCON_UWP.ViewModels
 
             FontSize = LoadFontSizeFromLocalSettings();
 
-            Defcon1CheckList = await CheckListService.LoadCheckList(1);
-            Defcon2CheckList = await CheckListService.LoadCheckList(2);
-            Defcon3CheckList = await CheckListService.LoadCheckList(3);
-            Defcon4CheckList = await CheckListService.LoadCheckList(4);
-            Defcon5CheckList = await CheckListService.LoadCheckList(5);
+            Defcon1CheckList = await CheckListManagement.LoadCheckList(1);
+            Defcon2CheckList = await CheckListManagement.LoadCheckList(2);
+            Defcon3CheckList = await CheckListManagement.LoadCheckList(3);
+            Defcon4CheckList = await CheckListManagement.LoadCheckList(4);
+            Defcon5CheckList = await CheckListManagement.LoadCheckList(5);
             SetTextBoxWidth(_textBoxWidth);
             SetFontSize(FontSize);
 
@@ -166,7 +166,7 @@ namespace MyDEFCON_UWP.ViewModels
                         DefconStatus = defconStatus;
                         ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
                         roamingSettings.Values["defconStatus"] = e;
-                        LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
+                        LiveTileManagement.SetLiveTile(_defconStatus, _useTransparentTile);
                     }
                     if (defconStatus == 0 && !_isSender)
                     {
@@ -179,21 +179,21 @@ namespace MyDEFCON_UWP.ViewModels
             {
                 _streamSocketService = new StreamSocketService();
                 await _streamSocketService.StartListener();
-                _streamSocketService.IncomingChecklistReceived += async (s, e) => 
+                _streamSocketService.IncomingChecklistReceived += async (s, e) =>
                 {
-                    Defcon1CheckList = await CheckListService.LoadCheckList(1);
+                    Defcon1CheckList = await CheckListManagement.LoadCheckList(1);
                     Defcon1UnCheckedItems = UncheckedItemsService.Count(Defcon1CheckList, 1, _defconStatus);
                     Defcon1CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon1CheckList, 1, UncheckedItemsService.Count(Defcon1CheckList, 1, _defconStatus), _defconStatus);
-                    Defcon2CheckList = await CheckListService.LoadCheckList(2);
+                    Defcon2CheckList = await CheckListManagement.LoadCheckList(2);
                     Defcon2UnCheckedItems = UncheckedItemsService.Count(Defcon2CheckList, 2, _defconStatus);
-                    Defcon2CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon2CheckList, 2, UncheckedItemsService.Count(Defcon2CheckList, 2, _defconStatus), _defconStatus);                    
-                    Defcon3CheckList = await CheckListService.LoadCheckList(3);
+                    Defcon2CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon2CheckList, 2, UncheckedItemsService.Count(Defcon2CheckList, 2, _defconStatus), _defconStatus);
+                    Defcon3CheckList = await CheckListManagement.LoadCheckList(3);
                     Defcon3UnCheckedItems = UncheckedItemsService.Count(Defcon3CheckList, 3, _defconStatus);
                     Defcon3CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon3CheckList, 3, UncheckedItemsService.Count(Defcon3CheckList, 3, _defconStatus), _defconStatus);
-                    Defcon4CheckList = await CheckListService.LoadCheckList(4);
+                    Defcon4CheckList = await CheckListManagement.LoadCheckList(4);
                     Defcon4UnCheckedItems = UncheckedItemsService.Count(Defcon4CheckList, 4, _defconStatus);
                     Defcon4CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon4CheckList, 4, UncheckedItemsService.Count(Defcon4CheckList, 4, _defconStatus), _defconStatus);
-                    Defcon5CheckList = await CheckListService.LoadCheckList(5);
+                    Defcon5CheckList = await CheckListManagement.LoadCheckList(5);
                     Defcon5UnCheckedItems = UncheckedItemsService.Count(Defcon5CheckList, 5, _defconStatus);
                     Defcon5CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon5CheckList, 5, UncheckedItemsService.Count(Defcon5CheckList, 5, _defconStatus), _defconStatus);
                     UpdateTileBadge();
@@ -225,12 +225,12 @@ namespace MyDEFCON_UWP.ViewModels
                         }
                         _noUpdate = false;
                     }
-                    await CheckListService.SaveCheckList(Defcon1CheckList, 1);
+                    await CheckListManagement.SaveCheckList(Defcon1CheckList, 1);
                     Defcon1UnCheckedItems = UncheckedItemsService.Count(Defcon1CheckList, 1, _defconStatus);
                     Defcon1CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon1CheckList, 1, UncheckedItemsService.Count(Defcon1CheckList, 1, _defconStatus), _defconStatus);
                     UpdateTileBadge();
                 }
-            }            
+            }
         }
 
         private async void Defcon2CheckList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -251,7 +251,7 @@ namespace MyDEFCON_UWP.ViewModels
                         }
                         _noUpdate = false;
                     }
-                    await CheckListService.SaveCheckList(Defcon2CheckList, 2);
+                    await CheckListManagement.SaveCheckList(Defcon2CheckList, 2);
                     Defcon2UnCheckedItems = UncheckedItemsService.Count(Defcon2CheckList, 2, _defconStatus);
                     Defcon2CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon2CheckList, 2, UncheckedItemsService.Count(Defcon2CheckList, 2, _defconStatus), _defconStatus);
                     UpdateTileBadge();
@@ -277,7 +277,7 @@ namespace MyDEFCON_UWP.ViewModels
                         }
                         _noUpdate = false;
                     }
-                    await CheckListService.SaveCheckList(Defcon3CheckList, 3);
+                    await CheckListManagement.SaveCheckList(Defcon3CheckList, 3);
                     Defcon3UnCheckedItems = UncheckedItemsService.Count(Defcon3CheckList, 3, _defconStatus);
                     Defcon3CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon3CheckList, 3, UncheckedItemsService.Count(Defcon3CheckList, 3, _defconStatus), _defconStatus);
                     UpdateTileBadge();
@@ -303,7 +303,7 @@ namespace MyDEFCON_UWP.ViewModels
                         }
                         _noUpdate = false;
                     }
-                    await CheckListService.SaveCheckList(Defcon4CheckList, 4);
+                    await CheckListManagement.SaveCheckList(Defcon4CheckList, 4);
                     Defcon4UnCheckedItems = UncheckedItemsService.Count(Defcon4CheckList, 4, _defconStatus);
                     Defcon4CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon4CheckList, 4, UncheckedItemsService.Count(Defcon4CheckList, 4, _defconStatus), _defconStatus);
                     UpdateTileBadge();
@@ -329,7 +329,7 @@ namespace MyDEFCON_UWP.ViewModels
                         }
                         _noUpdate = false;
                     }
-                    await CheckListService.SaveCheckList(Defcon5CheckList, 5);
+                    await CheckListManagement.SaveCheckList(Defcon5CheckList, 5);
                     Defcon5UnCheckedItems = UncheckedItemsService.Count(Defcon5CheckList, 5, _defconStatus);
                     Defcon5CheckRectangleFill = UncheckedItemsService.CheckRectangleFill(Defcon5CheckList, 5, UncheckedItemsService.Count(Defcon5CheckList, 5, _defconStatus), _defconStatus);
                     UpdateTileBadge();
@@ -401,7 +401,7 @@ namespace MyDEFCON_UWP.ViewModels
             if (LoadShowUncheckedItemsSetting())
             {
                 int badgeNumber = UncheckedItemsService.CountBadgeNumber(_defconStatus, _defcon1CheckList, _defcon2CheckList, _defcon3CheckList, _defcon4CheckList, _defcon5CheckList);
-                LiveTileService.UpdateTileBadge(badgeNumber);
+                LiveTileManagement.UpdateTileBadge(badgeNumber);
                 ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
                 roamingSettings.Values["badgeNumber"] = badgeNumber.ToString();
             }
@@ -555,7 +555,7 @@ namespace MyDEFCON_UWP.ViewModels
                     );
                 return _addItemCommand;
             }
-        }        
+        }
 
         private DelegateCommand<object> _shareCheckListCommand;
         public DelegateCommand<object> ShareCheckListCommand
@@ -569,11 +569,11 @@ namespace MyDEFCON_UWP.ViewModels
                         async (o) =>
                         {
                             (o as AppBarButton).Focus(FocusState.Programmatic);
-                            await CheckListService.SaveCheckList(Defcon1CheckList, 1);
-                            await CheckListService.SaveCheckList(Defcon2CheckList, 2);
-                            await CheckListService.SaveCheckList(Defcon3CheckList, 3);
-                            await CheckListService.SaveCheckList(Defcon4CheckList, 4);
-                            await CheckListService.SaveCheckList(Defcon5CheckList, 5);
+                            await CheckListManagement.SaveCheckList(Defcon1CheckList, 1);
+                            await CheckListManagement.SaveCheckList(Defcon2CheckList, 2);
+                            await CheckListManagement.SaveCheckList(Defcon3CheckList, 3);
+                            await CheckListManagement.SaveCheckList(Defcon4CheckList, 4);
+                            await CheckListManagement.SaveCheckList(Defcon5CheckList, 5);
                             _isSender = true;
                             await _datagramService.SendMessage("0");
                         }
@@ -761,11 +761,11 @@ namespace MyDEFCON_UWP.ViewModels
                         {
                             if (Defcon1CheckList == null || Defcon2CheckList == null || Defcon3CheckList == null || Defcon4CheckList == null || Defcon5CheckList == null)
                             {
-                                Defcon1CheckList = await CheckListService.LoadCheckList(1);
-                                Defcon2CheckList = await CheckListService.LoadCheckList(2);
-                                Defcon3CheckList = await CheckListService.LoadCheckList(3);
-                                Defcon4CheckList = await CheckListService.LoadCheckList(4);
-                                Defcon5CheckList = await CheckListService.LoadCheckList(5);
+                                Defcon1CheckList = await CheckListManagement.LoadCheckList(1);
+                                Defcon2CheckList = await CheckListManagement.LoadCheckList(2);
+                                Defcon3CheckList = await CheckListManagement.LoadCheckList(3);
+                                Defcon4CheckList = await CheckListManagement.LoadCheckList(4);
+                                Defcon5CheckList = await CheckListManagement.LoadCheckList(5);
                             }
                             SetTextBoxWidth(args.NewSize.Width - 52);
                             _textBoxWidth = (args.NewSize.Width - 52);

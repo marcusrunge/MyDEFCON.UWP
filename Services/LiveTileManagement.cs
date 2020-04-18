@@ -27,7 +27,7 @@ namespace Services
             }
         }
     }
-    public static class LiveTileService
+    public static class LiveTileManagement
     {
         public static void SetLiveTile(int status, bool transparent)
         {

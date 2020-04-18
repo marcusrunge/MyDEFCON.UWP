@@ -1,9 +1,5 @@
 ﻿using MyDEFCON_UWP.Helpers;
-using MyDEFCON_UWP.Services;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.ApplicationModel;
-using Windows.UI.Xaml;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -15,7 +11,7 @@ namespace MyDEFCON_UWP.ViewModels
 
         private SettingsPivotViewModel _settingsPivotViewModel;
         public SettingsPivotViewModel SettingsPivotViewModel { get => _settingsPivotViewModel; set => Set(ref _settingsPivotViewModel, value); }
-            
+
         public SettingsViewModel(SettingsPivotViewModel settingsPivotViewModel, AboutPivotViewModel aboutPivotViewModel)
         {
             SettingsPivotViewModel = settingsPivotViewModel;

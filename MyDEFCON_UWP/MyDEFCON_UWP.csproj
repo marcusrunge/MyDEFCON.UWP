@@ -157,6 +157,7 @@
     <Compile Include="Behaviors\SelectionChangedBehavior.cs" />
     <Compile Include="Behaviors\VisualStateBehavior.cs" />
     <Compile Include="Converter\StatusToBoolConverter.cs" />
+    <Compile Include="Helpers\BackgroundTaskManagement.cs" />
     <Compile Include="Helpers\DataRequestExtensions.cs" />
     <Compile Include="Helpers\EnumToBooleanConverter.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
@@ -349,6 +350,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackgroundTask\BackgroundTask.csproj">
+      <Project>{094A1694-D8C7-43BB-8AC8-E6F6B03EA4F1}</Project>
+      <Name>BackgroundTask</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyDEFCON_UWP.Core\MyDEFCON_UWP.Core.csproj">
       <Project>{ED0C7D0F-BBF5-4E7E-9130-010E84E2AA5F}</Project>
       <Name>MyDEFCON_UWP.Core</Name>
@@ -357,6 +362,11 @@
       <Project>{d6950a90-d30c-4c9e-96aa-45feaad1f2c6}</Project>
       <Name>Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsIoT, Version=10.0.17134.0">
+      <Name>Windows IoT Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

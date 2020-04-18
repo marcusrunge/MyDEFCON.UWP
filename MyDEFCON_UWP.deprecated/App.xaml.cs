@@ -54,7 +54,7 @@ namespace MyDEFCON_UWP
             appView.TitleBar.BackgroundColor = Color.FromArgb(255, 232, 255, 0);
             appView.TitleBar.ButtonForegroundColor = Colors.Red;
             appView.TitleBar.ButtonHoverBackgroundColor = Colors.Red;
-            appView.TitleBar.ButtonHoverForegroundColor = Color.FromArgb(255, 232, 255, 0);            
+            appView.TitleBar.ButtonHoverForegroundColor = Color.FromArgb(255, 232, 255, 0);
             await NavigationService.NavigateAsync(typeof(Views.MainPage));
         }
     }

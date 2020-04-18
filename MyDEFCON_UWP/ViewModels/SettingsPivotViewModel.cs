@@ -1,13 +1,21 @@
-﻿using MyDEFCON_UWP.Helpers;
+﻿using BackgroundTask;
+using MyDEFCON_UWP.Helpers;
 using Services;
+using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using Windows.ApplicationModel.Background;
+using Windows.System;
+using Windows.System.Profile;
 using Windows.UI.Xaml;
+using static Services.StorageManagement;
 
 namespace MyDEFCON_UWP.ViewModels
 {
     public class SettingsPivotViewModel : Observable
     {
+        private int _defconStatus;
+
         bool _useTransparentTile = default;
         public bool UseTransparentTile { get { return _useTransparentTile; } set { Set(ref _useTransparentTile, value); } }
 
@@ -25,7 +33,7 @@ namespace MyDEFCON_UWP.ViewModels
 
         List<string> _intervall = default;
         public List<string> Intervall { get { return _intervall; } set { Set(ref _intervall, value); } }
-                
+
         int _selectedTimeIntervallIndex = default;
         public int SelectedTimeIntervallIndex { get { return _selectedTimeIntervallIndex; } set { Set(ref _selectedTimeIntervallIndex, value); } }
 
@@ -34,58 +42,96 @@ namespace MyDEFCON_UWP.ViewModels
 
         public SettingsPivotViewModel()
         {
-            UseTransparentTile = StorageService.GetSetting<bool>("UseTransparentTile");
-            ShowUncheckedItems = StorageService.GetSetting<bool>("ShowUncheckedItems");
-            BackgroundTask = StorageService.GetSetting<bool>("BackgroundTask");
-            LanBroadcastIsOn = StorageService.GetSetting<bool>("LanBroadcastIsOn");
-            BackgroundTask = StorageService.GetSetting<bool>("BackgroundTask");
-            SelectedTimeIntervallIndex = StorageService.GetSetting<int>("SelectedTimeIntervallIndex");
+            Intervall = new List<string> { "15min", "30min", "1hour", "3hours", "6hours", "12hours", "daily" };
+            UseTransparentTile = GetSetting<bool>("UseTransparentTile");
+            ShowUncheckedItems = GetSetting<bool>("ShowUncheckedItems");
+            BackgroundTask = GetSetting<bool>("BackgroundTask");
+            LanBroadcastIsOn = GetSetting<bool>("LanBroadcastIsOn");
+            BackgroundTask = GetSetting<bool>("BackgroundTask");
+            SelectedTimeIntervallIndex = GetSetting<int>("SelectedTimeIntervallIndex");
+            IotVisibility = AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.IoT") ? Visibility.Visible : Visibility.Collapsed;
+            _defconStatus = int.Parse(GetSetting("defconStatus", "5", StorageStrategies.Roaming));
             PropertyChanged += SettingsPivotViewModel_PropertyChanged;
         }
 
-        private void SettingsPivotViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private async void SettingsPivotViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case "UseTransparentTile":
-                    StorageService.SetSetting(e.PropertyName, UseTransparentTile);
+                    SetSetting(e.PropertyName, UseTransparentTile);
+                    LiveTileManagement.SetLiveTile(_defconStatus, UseTransparentTile);
                     break;
                 case "ShowUncheckedItems":
-                    StorageService.SetSetting(e.PropertyName, ShowUncheckedItems);
+                    SetSetting(e.PropertyName, ShowUncheckedItems);
+                    if (ShowUncheckedItems)
+                    {
+                        int badgeNumber = Convert.ToInt16(GetSetting<string>("badgeNumber", location: StorageStrategies.Roaming));
+                        LiveTileManagement.UpdateTileBadge(badgeNumber);
+                    }
                     break;
                 case "BackgroundTask":
-                    StorageService.SetSetting(e.PropertyName, BackgroundTask);
+                    SetSetting(e.PropertyName, BackgroundTask);
+                    if (BackgroundTask) await BackgroundTaskManagement.Register<TileUpdateBackgroundTask>(new TimeTrigger(IntervallInMinutes(), false));
+                    else await BackgroundTaskManagement.Unregister<BroadcastListenerBackgroundTask>();
                     break;
                 case "LanBroadcastIsOn":
-                    StorageService.SetSetting(e.PropertyName, LanBroadcastIsOn);
+                    SetSetting(e.PropertyName, LanBroadcastIsOn);
                     break;
                 case "LanMulticastIsOn":
-                    StorageService.SetSetting(e.PropertyName, LanMulticastIsOn);
+                    SetSetting(e.PropertyName, LanMulticastIsOn);
                     break;
                 case "SelectedTimeIntervallIndex":
-                    StorageService.SetSetting(e.PropertyName, SelectedTimeIntervallIndex);
-                    break;                
+                    SetSetting(e.PropertyName, SelectedTimeIntervallIndex);
+                    break;
                 default:
                     break;
             }
         }
 
         private ICommand _removeBackgroundTasksCommand;
-        public ICommand RemoveBackgroundTasksCommand => _removeBackgroundTasksCommand ?? (_removeBackgroundTasksCommand = new RelayCommand<object>((param) =>
+        public ICommand RemoveBackgroundTasksCommand => _removeBackgroundTasksCommand ?? (_removeBackgroundTasksCommand = new RelayCommand<object>(async (param) =>
         {
-            
+            await BackgroundTaskManagement.UnregisterAll();
+            BackgroundTask = false;
+            LanBroadcastIsOn = false;
+            LanMulticastIsOn = false;
         }));
 
         private ICommand _restartCommand;
         public ICommand RestartCommand => _restartCommand ?? (_restartCommand = new RelayCommand<object>((param) =>
         {
-
+            ShutdownManager.BeginShutdown(ShutdownKind.Restart, TimeSpan.FromSeconds(0));
         }));
 
         private ICommand _shutdownCommand;
         public ICommand ShutdownCommand => _shutdownCommand ?? (_shutdownCommand = new RelayCommand<object>((param) =>
         {
-
+            ShutdownManager.BeginShutdown(ShutdownKind.Shutdown, TimeSpan.FromSeconds(0));
         }));
+
+        private uint IntervallInMinutes()
+        {
+            switch (SelectedTimeIntervallIndex)
+            {
+                case 0:
+                    return 15;
+                case 1:
+                    return 30;
+                case 2:
+                    return 60;
+                case 3:
+                    return 180;
+                case 4:
+                    return 360;
+                case 5:
+                    return 720;
+                case 6:
+                    return 1440;
+                default:
+                    break;
+            }
+            return 15;
+        }
     }
 }

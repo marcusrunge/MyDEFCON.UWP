@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public static class CheckListService
+    public static class CheckListManagement
     {
         public static async Task<ItemObservableCollection<CheckListItem>> LoadCheckList(int defcon)
         {
@@ -11,19 +11,19 @@ namespace Services
             switch (defcon)
             {
                 case 1:
-                    itemObservableCollection = await StorageService.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon1.json", StorageService.StorageStrategies.Roaming);
+                    itemObservableCollection = await StorageManagement.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon1.json", StorageManagement.StorageStrategies.Roaming);
                     break;
                 case 2:
-                    itemObservableCollection = await StorageService.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon2.json", StorageService.StorageStrategies.Roaming);
+                    itemObservableCollection = await StorageManagement.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon2.json", StorageManagement.StorageStrategies.Roaming);
                     break;
                 case 3:
-                    itemObservableCollection = await StorageService.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon3.json", StorageService.StorageStrategies.Roaming);
+                    itemObservableCollection = await StorageManagement.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon3.json", StorageManagement.StorageStrategies.Roaming);
                     break;
                 case 4:
-                    itemObservableCollection = await StorageService.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon4.json", StorageService.StorageStrategies.Roaming);
+                    itemObservableCollection = await StorageManagement.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon4.json", StorageManagement.StorageStrategies.Roaming);
                     break;
                 case 5:
-                    itemObservableCollection = await StorageService.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon5.json", StorageService.StorageStrategies.Roaming);
+                    itemObservableCollection = await StorageManagement.ReadFileAsync<ItemObservableCollection<CheckListItem>>("defcon5.json", StorageManagement.StorageStrategies.Roaming);
                     break;
                 default:
                     break;
@@ -45,28 +45,28 @@ namespace Services
             {
                 case 1:
                     await
-                        //Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
-                         StorageService.WriteFileAsync("defcon1.json", checkList, StorageService.StorageStrategies.Roaming);
+                         //Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
+                         StorageManagement.WriteFileAsync("defcon1.json", checkList, StorageManagement.StorageStrategies.Roaming);
                     break;
                 case 2:
                     await
                         //Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-                        StorageService.WriteFileAsync("defcon2.json", checkList, StorageService.StorageStrategies.Roaming);
+                        StorageManagement.WriteFileAsync("defcon2.json", checkList, StorageManagement.StorageStrategies.Roaming);
                     break;
                 case 3:
                     await
                         //Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-                        StorageService.WriteFileAsync("defcon3.json", checkList, StorageService.StorageStrategies.Roaming);
+                        StorageManagement.WriteFileAsync("defcon3.json", checkList, StorageManagement.StorageStrategies.Roaming);
                     break;
                 case 4:
                     await
                         //Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-                        StorageService.WriteFileAsync("defcon4.json", checkList, StorageService.StorageStrategies.Roaming);
+                        StorageManagement.WriteFileAsync("defcon4.json", checkList, StorageManagement.StorageStrategies.Roaming);
                     break;
                 case 5:
                     await
                         //Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-                        StorageService.WriteFileAsync("defcon5.json", checkList, StorageService.StorageStrategies.Roaming);
+                        StorageManagement.WriteFileAsync("defcon5.json", checkList, StorageManagement.StorageStrategies.Roaming);
                     break;
                 default:
                     break;

@@ -109,11 +109,11 @@
   <ItemGroup>
     <Compile Include="EventService.cs" />
     <Compile Include="Models\CheckListItem.cs" />
-    <Compile Include="CheckListService.cs" />
+    <Compile Include="CheckListManagement.cs" />
     <Compile Include="ItemObservableCollection.cs" />
-    <Compile Include="LiveTileService.cs" />
+    <Compile Include="LiveTileManagement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StorageService.cs" />
+    <Compile Include="StorageManagement.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">

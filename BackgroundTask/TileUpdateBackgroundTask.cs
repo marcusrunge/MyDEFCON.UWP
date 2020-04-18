@@ -16,8 +16,8 @@ namespace BackgroundTask
             else
             {
                 var deferral = taskInstance.GetDeferral();
-                LiveTileService.SetLiveTile(LoadDefconStatusFromRoamingSettings(), LoadUseTransparentTileSetting());
-                LiveTileService.UpdateTileBadge(BadgeNumber());
+                LiveTileManagement.SetLiveTile(LoadDefconStatusFromRoamingSettings(), LoadUseTransparentTileSetting());
+                LiveTileManagement.UpdateTileBadge(BadgeNumber());
                 deferral.Complete();
             }
         }

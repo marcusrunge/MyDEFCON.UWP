@@ -1,6 +1,6 @@
-﻿using SocketLibrary;
-using MyDEFCON_UWP.Services.SettingsServices;
+﻿using MyDEFCON_UWP.Services.SettingsServices;
 using Services;
+using SocketLibrary;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -42,7 +42,7 @@ namespace MyDEFCON_UWP.ViewModels
             ApplicationData.Current.DataChanged += async (s, e) =>
             {
                 await LoadDefconStatusFromRoamingSettings();
-                LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
+                LiveTileManagement.SetLiveTile(_defconStatus, _useTransparentTile);
             };
 
             if (localSettings.Values.ContainsKey("lanBroadcastIsOn") && (bool)localSettings.Values["lanBroadcastIsOn"])
@@ -58,7 +58,7 @@ namespace MyDEFCON_UWP.ViewModels
                         ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
                         roamingSettings.Values["defconStatus"] = e;
                         await LoadDefconStatusFromRoamingSettings();
-                        LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
+                        LiveTileManagement.SetLiveTile(_defconStatus, _useTransparentTile);
                     }
                 };
             }

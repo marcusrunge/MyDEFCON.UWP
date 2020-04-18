@@ -22,7 +22,7 @@ namespace Services
             {
                 foreach (var item in e.NewItems)
                 {
-                    ((INotifyPropertyChanged)item).PropertyChanged += ItemObservableCollection_PropertyChanged; 
+                    ((INotifyPropertyChanged)item).PropertyChanged += ItemObservableCollection_PropertyChanged;
                 }
             }
             if (e.OldItems != null)

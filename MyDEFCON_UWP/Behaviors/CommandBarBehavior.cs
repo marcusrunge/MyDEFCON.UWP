@@ -11,7 +11,7 @@ namespace MyDEFCON_UWP.Behaviors
             base.OnAttached();
             AssociatedObject.SelectionChanged += (s, e) =>
             {
-                if (e.SelectedItem != null&&(e.SelectedItem as Microsoft.UI.Xaml.Controls.NavigationViewItem).Content != null)
+                if (e.SelectedItem != null && (e.SelectedItem as Microsoft.UI.Xaml.Controls.NavigationViewItem).Content != null)
                 {
                     switch ((e.SelectedItem as Microsoft.UI.Xaml.Controls.NavigationViewItem).Content)
                     {
@@ -25,7 +25,7 @@ namespace MyDEFCON_UWP.Behaviors
                             VisualStateManager.GoToState((AssociatedObject.Parent as Grid).Parent as Control, "ClearState", true);
                             break;
                     }
-                }                
+                }
             };
         }
     }

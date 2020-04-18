@@ -4,7 +4,6 @@ using MyDEFCON_UWP.Helpers;
 using Services;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
@@ -57,22 +56,22 @@ namespace MyDEFCON_UWP.ViewModels
         public ChecklistViewModel(IEventService eventService)
         {
             _eventService = eventService;
-            DefconStatus = int.Parse(StorageService.GetSetting("defconStatus", "5", StorageService.StorageStrategies.Roaming));
+            DefconStatus = int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming));
             SelectedItemsUnixTimeStampCreated = new List<long>();
         }
 
         private ICommand _loadedCommand;
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
         {
-            DefconCheckList = await CheckListService.LoadCheckList(DefconStatus);
+            DefconCheckList = await CheckListManagement.LoadCheckList(DefconStatus);
             SetTextBoxWidth(_gridWidth - 52);
             DefconCheckList.CollectionChanged += DefconCheckList_CollectionChanged;
             _eventService.AppBarButtonClicked += AppBarButtonClicked;
-            var defcon1CheckList = await CheckListService.LoadCheckList(1);
-            var defcon2CheckList = await CheckListService.LoadCheckList(2);
-            var defcon3CheckList = await CheckListService.LoadCheckList(3);
-            var defcon4CheckList = await CheckListService.LoadCheckList(4);
-            var defcon5CheckList = await CheckListService.LoadCheckList(5);
+            var defcon1CheckList = await CheckListManagement.LoadCheckList(1);
+            var defcon2CheckList = await CheckListManagement.LoadCheckList(2);
+            var defcon3CheckList = await CheckListManagement.LoadCheckList(3);
+            var defcon4CheckList = await CheckListManagement.LoadCheckList(4);
+            var defcon5CheckList = await CheckListManagement.LoadCheckList(5);
             Defcon1UnCheckedItems = UncheckedItems.Count(defcon1CheckList, 1, DefconStatus);
             Defcon2UnCheckedItems = UncheckedItems.Count(defcon2CheckList, 2, DefconStatus);
             Defcon3UnCheckedItems = UncheckedItems.Count(defcon3CheckList, 3, DefconStatus);
@@ -113,7 +112,7 @@ namespace MyDEFCON_UWP.ViewModels
                     break;
             }
             if (selectedItemsUnixTimeStampCreated != null && selectedItemsUnixTimeStampCreated.Length == 0)
-                await CheckListService.SaveCheckList(DefconCheckList, DefconStatus);
+                await CheckListManagement.SaveCheckList(DefconCheckList, DefconStatus);
         }
 
         private async void AppBarButtonClicked(object sender, EventArgs e)
@@ -151,7 +150,7 @@ namespace MyDEFCON_UWP.ViewModels
                     }
                 }
             }
-            await CheckListService.SaveCheckList(DefconCheckList, DefconStatus);
+            await CheckListManagement.SaveCheckList(DefconCheckList, DefconStatus);
         }
 
         private void AddItemToChecklist()
@@ -169,7 +168,7 @@ namespace MyDEFCON_UWP.ViewModels
             DefconCheckList?.Clear();
             try
             {
-                DefconCheckList = await CheckListService.LoadCheckList(DefconStatus);
+                DefconCheckList = await CheckListManagement.LoadCheckList(DefconStatus);
                 SetTextBoxWidth(_gridWidth - 52);
             }
             catch { }
@@ -191,7 +190,7 @@ namespace MyDEFCON_UWP.ViewModels
         private ICommand _unloadedCommand;
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>(async (param) =>
         {
-            await CheckListService.SaveCheckList(DefconCheckList, DefconStatus);
+            await CheckListManagement.SaveCheckList(DefconCheckList, DefconStatus);
         }));
     }
 }

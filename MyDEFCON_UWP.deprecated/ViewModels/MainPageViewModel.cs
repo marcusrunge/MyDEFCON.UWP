@@ -1,22 +1,21 @@
-using Template10.Mvvm;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Template10.Services.NavigationService;
-using Windows.UI.Xaml.Navigation;
-using System;
-using Services;
-using MyDEFCON_UWP.Services;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.UI.Xaml;
-using Windows.UI.ViewManagement;
-using Windows.Storage;
-using Windows.Storage.Streams;
-using SocketLibrary;
 using Models;
-using System.Net;
+using MyDEFCON_UWP.Services;
+using Services;
+using SocketLibrary;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Template10.Mvvm;
+using Template10.Services.NavigationService;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Networking;
 using Windows.Networking.Connectivity;
-using System.Linq;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Navigation;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -92,20 +91,20 @@ namespace MyDEFCON_UWP.ViewModels
             LoadDefconStatusFromRoamingSettings();
             SetDefconStatus(_defconStatus);
             LoadTransparentTileSetting();
-            LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
-            _defcon1CheckList = await CheckListService.LoadCheckList(1);
-            _defcon2CheckList = await CheckListService.LoadCheckList(2);
-            _defcon3CheckList = await CheckListService.LoadCheckList(3);
-            _defcon4CheckList = await CheckListService.LoadCheckList(4);
-            _defcon5CheckList = await CheckListService.LoadCheckList(5);
+            LiveTileManagement.SetLiveTile(_defconStatus, _useTransparentTile);
+            _defcon1CheckList = await CheckListManagement.LoadCheckList(1);
+            _defcon2CheckList = await CheckListManagement.LoadCheckList(2);
+            _defcon3CheckList = await CheckListManagement.LoadCheckList(3);
+            _defcon4CheckList = await CheckListManagement.LoadCheckList(4);
+            _defcon5CheckList = await CheckListManagement.LoadCheckList(5);
             DataTransferManager.GetForCurrentView().DataRequested += OnShareDataRequested;
             ScreenWidth = ApplicationView.GetForCurrentView().VisibleBounds.Width;
             CancelIconVisibility = Visibility.Collapsed;
             ApplicationData.Current.DataChanged += (s, e) =>
-            {                
-                _defconStatus = Convert.ToInt16(s.RoamingSettings.Values["defconStatus"]);                
-                SetDefconStatus(_defconStatus);                
-                LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);
+            {
+                _defconStatus = Convert.ToInt16(s.RoamingSettings.Values["defconStatus"]);
+                SetDefconStatus(_defconStatus);
+                LiveTileManagement.SetLiveTile(_defconStatus, _useTransparentTile);
                 ReverseUncheck(_defconStatus);
                 UpdateTileBadge();
             };
@@ -118,7 +117,7 @@ namespace MyDEFCON_UWP.ViewModels
                 _datagramService.IncomingMessageReceived += (s, e) =>
                 {
                     if (!(GetLocalIp().Equals((s as DatagramSocketService).RemoteAddress.CanonicalName)) && int.TryParse(e, out int defconStatus) && (defconStatus > 0 && defconStatus < 6))
-                    {                        
+                    {
                         _defconStatus = defconStatus;
                         ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
                         roamingSettings.Values["defconStatus"] = e;
@@ -127,7 +126,7 @@ namespace MyDEFCON_UWP.ViewModels
                         SetDefconStatus(_defconStatus);
                         _isSetDefconCommandBlocked = false;
                         ReverseUncheck(_defconStatus);
-                        LiveTileService.SetLiveTile(_defconStatus, _useTransparentTile);                        
+                        LiveTileManagement.SetLiveTile(_defconStatus, _useTransparentTile);
                     }
                 };
             }
@@ -216,7 +215,7 @@ namespace MyDEFCON_UWP.ViewModels
         private void SaveDefconStatus(int status)
         {
             ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-            roamingSettings.Values["defconStatus"] = status.ToString();            
+            roamingSettings.Values["defconStatus"] = status.ToString();
         }
 
         private void UncheckOtherButton(int v)
@@ -255,7 +254,7 @@ namespace MyDEFCON_UWP.ViewModels
             if (LoadShowUncheckedItemsSetting())
             {
                 int badgeNumber = UncheckedItemsService.CountBadgeNumber(_defconStatus, _defcon1CheckList, _defcon2CheckList, _defcon3CheckList, _defcon4CheckList, _defcon5CheckList);
-                LiveTileService.UpdateTileBadge(badgeNumber);
+                LiveTileManagement.UpdateTileBadge(badgeNumber);
                 ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
                 roamingSettings.Values["badgeNumber"] = badgeNumber.ToString();
             }
@@ -276,7 +275,7 @@ namespace MyDEFCON_UWP.ViewModels
                     if (_defconStatus != 2)
                     {
                         _defcon1CheckList = UncheckCollection(_defcon1CheckList);
-                        await CheckListService.SaveCheckList(_defcon1CheckList, 1);
+                        await CheckListManagement.SaveCheckList(_defcon1CheckList, 1);
                     }
 
                     break;
@@ -285,8 +284,8 @@ namespace MyDEFCON_UWP.ViewModels
                     {
                         _defcon1CheckList = UncheckCollection(_defcon1CheckList);
                         _defcon2CheckList = UncheckCollection(_defcon2CheckList);
-                        await CheckListService.SaveCheckList(_defcon1CheckList, 1);
-                        await CheckListService.SaveCheckList(_defcon2CheckList, 2);
+                        await CheckListManagement.SaveCheckList(_defcon1CheckList, 1);
+                        await CheckListManagement.SaveCheckList(_defcon2CheckList, 2);
                     }
 
                     break;
@@ -296,9 +295,9 @@ namespace MyDEFCON_UWP.ViewModels
                         _defcon1CheckList = UncheckCollection(_defcon1CheckList);
                         _defcon2CheckList = UncheckCollection(_defcon2CheckList);
                         _defcon3CheckList = UncheckCollection(_defcon3CheckList);
-                        await CheckListService.SaveCheckList(_defcon1CheckList, 1);
-                        await CheckListService.SaveCheckList(_defcon2CheckList, 2);
-                        await CheckListService.SaveCheckList(_defcon3CheckList, 3);
+                        await CheckListManagement.SaveCheckList(_defcon1CheckList, 1);
+                        await CheckListManagement.SaveCheckList(_defcon2CheckList, 2);
+                        await CheckListManagement.SaveCheckList(_defcon3CheckList, 3);
                     }
 
                     break;
@@ -309,10 +308,10 @@ namespace MyDEFCON_UWP.ViewModels
                         _defcon2CheckList = UncheckCollection(_defcon2CheckList);
                         _defcon3CheckList = UncheckCollection(_defcon3CheckList);
                         _defcon4CheckList = UncheckCollection(_defcon4CheckList);
-                        await CheckListService.SaveCheckList(_defcon1CheckList, 1);
-                        await CheckListService.SaveCheckList(_defcon2CheckList, 2);
-                        await CheckListService.SaveCheckList(_defcon3CheckList, 3);
-                        await CheckListService.SaveCheckList(_defcon4CheckList, 4);
+                        await CheckListManagement.SaveCheckList(_defcon1CheckList, 1);
+                        await CheckListManagement.SaveCheckList(_defcon2CheckList, 2);
+                        await CheckListManagement.SaveCheckList(_defcon3CheckList, 3);
+                        await CheckListManagement.SaveCheckList(_defcon4CheckList, 4);
                     }
                     break;
                 default:
@@ -348,7 +347,7 @@ namespace MyDEFCON_UWP.ViewModels
                             {
                                 Defcon1ButtonIsChecked = true;
                                 _defconStatus = 1;
-                                LiveTileService.SetLiveTile(1, _useTransparentTile);
+                                LiveTileManagement.SetLiveTile(1, _useTransparentTile);
                                 //if (!loadFromRoaming) ReverseUncheck(1);
                                 UpdateTileBadge();
                                 SaveDefconStatus(1);
@@ -378,7 +377,7 @@ namespace MyDEFCON_UWP.ViewModels
                             {
                                 Defcon2ButtonIsChecked = true;
                                 //_defconStatus = 2;
-                                LiveTileService.SetLiveTile(2, _useTransparentTile);
+                                LiveTileManagement.SetLiveTile(2, _useTransparentTile);
                                 if (!loadFromRoaming) ReverseUncheck(2);
                                 _defconStatus = 2;
                                 UpdateTileBadge();
@@ -409,7 +408,7 @@ namespace MyDEFCON_UWP.ViewModels
                             {
                                 Defcon3ButtonIsChecked = true;
                                 //_defconStatus = 3;
-                                LiveTileService.SetLiveTile(3, _useTransparentTile);
+                                LiveTileManagement.SetLiveTile(3, _useTransparentTile);
                                 if (!loadFromRoaming) ReverseUncheck(3);
                                 _defconStatus = 3;
                                 UpdateTileBadge();
@@ -440,7 +439,7 @@ namespace MyDEFCON_UWP.ViewModels
                             {
                                 Defcon4ButtonIsChecked = true;
                                 //_defconStatus = 4;
-                                LiveTileService.SetLiveTile(4, _useTransparentTile);
+                                LiveTileManagement.SetLiveTile(4, _useTransparentTile);
                                 if (!loadFromRoaming) ReverseUncheck(4);
                                 _defconStatus = 4;
                                 UpdateTileBadge();
@@ -471,7 +470,7 @@ namespace MyDEFCON_UWP.ViewModels
                             {
                                 Defcon5ButtonIsChecked = true;
                                 //_defconStatus = 5;
-                                LiveTileService.SetLiveTile(5, _useTransparentTile);
+                                LiveTileManagement.SetLiveTile(5, _useTransparentTile);
                                 if (!loadFromRoaming) ReverseUncheck(5);
                                 _defconStatus = 5;
                                 UpdateTileBadge();

@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Networking;
 using Windows.Networking.Sockets;
-using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 
@@ -26,7 +25,7 @@ namespace SocketLibrary
             var backgroundTaskRegistration = await BackgroundTaskService.Register<BroadcastListenerBackgroundTask>(new SocketActivityTrigger());
             datagramSocket = new DatagramSocket();
             datagramSocket.EnableTransferOwnership(backgroundTaskRegistration.TaskId, SocketActivityConnectedStandbyAction.DoNotWake);
-            await datagramSocket.BindServiceNameAsync("4536");            
+            await datagramSocket.BindServiceNameAsync("4536");
             datagramSocket.MessageReceived += async (s, e) =>
             {
                 _isOrigin = false;

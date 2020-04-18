@@ -5,13 +5,12 @@ using System;
 using System.Windows.Input;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
-using Windows.UI.Xaml;
 
 namespace MyDEFCON_UWP.ViewModels
 {
     public class MainViewModel : Observable
     {
-        private IEventService _eventService;       
+        private IEventService _eventService;
 
         private int _defconStatus;
         public int DefconStatus { get => _defconStatus; set => Set(ref _defconStatus, value); }
@@ -19,23 +18,23 @@ namespace MyDEFCON_UWP.ViewModels
         public MainViewModel(IEventService eventService)
         {
             _eventService = eventService;
-            DefconStatus = int.Parse(StorageService.GetSetting("defconStatus", "5", StorageService.StorageStrategies.Roaming));
+            DefconStatus = int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming));
         }
 
         private ICommand _setDefconStatusCommand;
         public ICommand SetDefconStatusCommand => _setDefconStatusCommand ?? (_setDefconStatusCommand = new RelayCommand<object>((param) =>
         {
-            StorageService.SetSetting("defconStatus", (string)param, StorageService.StorageStrategies.Roaming);
+            StorageManagement.SetSetting("defconStatus", (string)param, StorageManagement.StorageStrategies.Roaming);
             DefconStatus = int.Parse(param as string);
         }));
 
         private ICommand _loadedCommand;
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>((param) =>
-        {   
+        {
             DataTransferManager.GetForCurrentView().DataRequested += MainViewModel_DataRequested;
             _eventService.AppBarButtonClicked += (s, e) =>
             {
-                if((e as AppBarButtonClickedEventArgs).Button.Equals("Share")) DataTransferManager.ShowShareUI();
+                if ((e as AppBarButtonClickedEventArgs).Button.Equals("Share")) DataTransferManager.ShowShareUI();
             };
         }));
 
@@ -44,7 +43,7 @@ namespace MyDEFCON_UWP.ViewModels
             var dataPackage = args.Request.Data;
             var deferral = args.Request.GetDeferral();
             dataPackage.Properties.Title = "DEFCON STATUS";
-            dataPackage.Properties.Description = "DEFCON Status Payload for sharing";            
+            dataPackage.Properties.Description = "DEFCON Status Payload for sharing";
             dataPackage.SetBitmap(RandomAccessStreamReference.CreateFromUri(new Uri(string.Format("ms-appx:///ShareImages/Defcon{0}.png", _defconStatus.ToString()))));
             deferral.Complete();
         }

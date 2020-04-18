@@ -12,7 +12,7 @@ namespace MyDEFCON_UWP.Views
             if (IsMobile) flyoutGrid.Margin = new Thickness(0, 0, 0, 3840);
             NavigationCacheMode = NavigationCacheMode.Enabled;
         }
-        
+
         public bool IsMobile
         {
             get

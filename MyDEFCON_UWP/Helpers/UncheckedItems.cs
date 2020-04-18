@@ -1,7 +1,6 @@
 ﻿using Models;
 using Services;
 using System;
-using System.Linq;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
@@ -32,7 +31,7 @@ namespace MyDEFCON_UWP.Helpers
             {
                 foreach (var item in collection)
                 {
-                    if(!item.Deleted) item.Checked = false;
+                    if (!item.Deleted) item.Checked = false;
                 }
             }
 
@@ -109,7 +108,7 @@ namespace MyDEFCON_UWP.Helpers
             {
                 try
                 {
-                    int validCollectionCount = 0;                    
+                    int validCollectionCount = 0;
                     foreach (var item in collection)
                     {
                         if (!item.Deleted) validCollectionCount++;

@@ -5,7 +5,7 @@ namespace Services
 {
     using System.Threading.Tasks;
 
-    public static class StorageService
+    public static class StorageManagement
     {
         #region SettingsPage
 

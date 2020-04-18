@@ -14,7 +14,7 @@ namespace MyDEFCON_UWP.Behaviors
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty VisualStateProperty =
-            DependencyProperty.Register("VisualState", typeof(int), typeof(VisualStateBehavior), new PropertyMetadata(null, (d,e)=>
+            DependencyProperty.Register("VisualState", typeof(int), typeof(VisualStateBehavior), new PropertyMetadata(null, (d, e) =>
             {
                 VisualStateManager.GoToState((d as VisualStateBehavior).AssociatedObject, e.NewValue.ToString(), true);
             }));

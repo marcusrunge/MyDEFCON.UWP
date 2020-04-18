@@ -18,12 +18,12 @@ namespace SocketLibrary
         public event EventHandler IncomingChecklistReceived;
         private StreamSocketListener _streamSocketListener;
         public async Task StartListener()
-        {            
+        {
             try
             {
                 _streamSocketListener = new StreamSocketListener();
                 _streamSocketListener.ConnectionReceived += async (s, e) =>
-                                {                                    
+                                {
                                     using (var streamWriter = new StreamWriter(e.Socket.OutputStream.AsStreamForWrite()))
                                     {
                                         await streamWriter.WriteLineAsync(await GetJsonSerializedChecklistItems());
@@ -86,16 +86,16 @@ namespace SocketLibrary
                         {
                             response = await streamReader.ReadLineAsync();
                             var checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(response);
-                            var defcon1CheckListItems = await CheckListService.LoadCheckList(1);
-                            var defcon2CheckListItems = await CheckListService.LoadCheckList(2);
-                            var defcon3CheckListItems = await CheckListService.LoadCheckList(3);
-                            var defcon4CheckListItems = await CheckListService.LoadCheckList(4);
-                            var defcon5CheckListItems = await CheckListService.LoadCheckList(5);
+                            var defcon1CheckListItems = await CheckListManagement.LoadCheckList(1);
+                            var defcon2CheckListItems = await CheckListManagement.LoadCheckList(2);
+                            var defcon3CheckListItems = await CheckListManagement.LoadCheckList(3);
+                            var defcon4CheckListItems = await CheckListManagement.LoadCheckList(4);
+                            var defcon5CheckListItems = await CheckListManagement.LoadCheckList(5);
                             foreach (var item in checkListItems)
                             {
-                                bool itemFound = false;                                
+                                bool itemFound = false;
                                 if (item.DefconStatus == 1)
-                                {                                    
+                                {
                                     for (int i = 0; i < defcon1CheckListItems.Count; i++)
                                     {
                                         if (defcon1CheckListItems[i].UnixTimeStampCreated == item.UnixTimeStampCreated)
@@ -224,11 +224,11 @@ namespace SocketLibrary
                                     }
                                 }
                             }
-                            await CheckListService.SaveCheckList(defcon1CheckListItems, 1);
-                            await CheckListService.SaveCheckList(defcon2CheckListItems, 2);
-                            await CheckListService.SaveCheckList(defcon3CheckListItems, 3);
-                            await CheckListService.SaveCheckList(defcon4CheckListItems, 4);
-                            await CheckListService.SaveCheckList(defcon5CheckListItems, 5);
+                            await CheckListManagement.SaveCheckList(defcon1CheckListItems, 1);
+                            await CheckListManagement.SaveCheckList(defcon2CheckListItems, 2);
+                            await CheckListManagement.SaveCheckList(defcon3CheckListItems, 3);
+                            await CheckListManagement.SaveCheckList(defcon4CheckListItems, 4);
+                            await CheckListManagement.SaveCheckList(defcon5CheckListItems, 5);
                         }
                     }
                     await streamSocket.CancelIOAsync();
@@ -248,11 +248,11 @@ namespace SocketLibrary
         public async Task<string> GetJsonSerializedChecklistItems()
         {
             var checkListItems = new List<CheckListItem>();
-            var defcon1CheckListItems = await CheckListService.LoadCheckList(1);
-            var defcon2CheckListItems = await CheckListService.LoadCheckList(2);
-            var defcon3CheckListItems = await CheckListService.LoadCheckList(3);
-            var defcon4CheckListItems = await CheckListService.LoadCheckList(4);
-            var defcon5CheckListItems = await CheckListService.LoadCheckList(5);
+            var defcon1CheckListItems = await CheckListManagement.LoadCheckList(1);
+            var defcon2CheckListItems = await CheckListManagement.LoadCheckList(2);
+            var defcon3CheckListItems = await CheckListManagement.LoadCheckList(3);
+            var defcon4CheckListItems = await CheckListManagement.LoadCheckList(4);
+            var defcon5CheckListItems = await CheckListManagement.LoadCheckList(5);
             foreach (var checkListItem in defcon1CheckListItems)
             {
                 checkListItems.Add(checkListItem);
