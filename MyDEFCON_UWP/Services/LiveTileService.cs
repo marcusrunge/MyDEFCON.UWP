@@ -1,5 +1,6 @@
 ﻿using MyDEFCON_UWP.Activation;
 using MyDEFCON_UWP.Helpers;
+using Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,11 +25,11 @@ namespace MyDEFCON_UWP.Services
             }
         }
 
-        public void UpdateTile(TileNotification notification)
+        public void UpdateTile(int status, bool transparent)
         {
             try
             {
-                TileUpdateManager.CreateTileUpdaterForApplication().Update(notification);
+                LiveTileManagement.SetLiveTile(status, transparent);
             }
             catch (Exception)
             {

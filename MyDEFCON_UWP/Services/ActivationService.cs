@@ -1,5 +1,6 @@
 ﻿using MyDEFCON_UWP.Activation;
 using MyDEFCON_UWP.Core.Helpers;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,7 +95,8 @@ namespace MyDEFCON_UWP.Services
         private async Task StartupAsync()
         {
             await ThemeSelectorService.SetRequestedThemeAsync();
-            Singleton<LiveTileService>.Instance.SampleUpdate();
+            Singleton<LiveTileService>.Instance.UpdateTile(int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming)), StorageManagement.GetSetting<bool>("UseTransparentTile"));
+            if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) LiveTileManagement.UpdateTileBadge(Convert.ToInt16(StorageManagement.GetSetting<string>("badgeNumber", location: StorageManagement.StorageStrategies.Roaming)));
             await Task.CompletedTask;
         }
 

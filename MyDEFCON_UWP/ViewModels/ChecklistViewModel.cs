@@ -1,6 +1,7 @@
 ﻿
 using Models;
 using MyDEFCON_UWP.Helpers;
+using MyDEFCON_UWP.Services;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -111,8 +112,8 @@ namespace MyDEFCON_UWP.ViewModels
                 default:
                     break;
             }
-            if (selectedItemsUnixTimeStampCreated != null && selectedItemsUnixTimeStampCreated.Length == 0)
-                await CheckListManagement.SaveCheckList(DefconCheckList, DefconStatus);
+            await CheckListManagement.SaveCheckList(DefconCheckList, DefconStatus);
+            await UpdateTileBadge();
         }
 
         private async void AppBarButtonClicked(object sender, EventArgs e)
@@ -153,10 +154,7 @@ namespace MyDEFCON_UWP.ViewModels
             await CheckListManagement.SaveCheckList(DefconCheckList, DefconStatus);
         }
 
-        private void AddItemToChecklist()
-        {
-            DefconCheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, DefconStatus = (short)DefconStatus, FontSize = 14, UnixTimeStampCreated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), Deleted = false, Visibility = Visibility.Visible });
-        }
+        private void AddItemToChecklist() => DefconCheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, DefconStatus = (short)DefconStatus, FontSize = 14, UnixTimeStampCreated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), Deleted = false, Visibility = Visibility.Visible });
 
         private ICommand _loadDefconChecklistCommand;
         public ICommand LoadDefconChecklistCommand => _loadDefconChecklistCommand ?? (_loadDefconChecklistCommand = new RelayCommand<object>(async (param) =>
@@ -192,5 +190,17 @@ namespace MyDEFCON_UWP.ViewModels
         {
             await CheckListManagement.SaveCheckList(DefconCheckList, DefconStatus);
         }));
+
+        private async Task UpdateTileBadge()
+        {
+            var defcon1CheckList = await CheckListManagement.LoadCheckList(1);
+            var defcon2CheckList = await CheckListManagement.LoadCheckList(2);
+            var defcon3CheckList = await CheckListManagement.LoadCheckList(3);
+            var defcon4CheckList = await CheckListManagement.LoadCheckList(4);
+            var defcon5CheckList = await CheckListManagement.LoadCheckList(5);
+            int badgeNumber = UncheckedItemsService.CountBadgeNumber(DefconStatus, defcon1CheckList, defcon2CheckList, defcon3CheckList, defcon4CheckList, defcon5CheckList);
+            StorageManagement.SetSetting("badgeNumber", badgeNumber.ToString(), StorageManagement.StorageStrategies.Roaming);
+            if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) LiveTileManagement.UpdateTileBadge(badgeNumber);
+        }
     }
 }
