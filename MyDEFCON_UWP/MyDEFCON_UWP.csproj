@@ -394,6 +394,10 @@
       <Project>{094A1694-D8C7-43BB-8AC8-E6F6B03EA4F1}</Project>
       <Name>BackgroundTask</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Checklists\Checklists.csproj">
+      <Project>{4CBC2EB2-FCF1-4342-A538-546B80AB4EB0}</Project>
+      <Name>Checklists</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyDEFCON_UWP.Core\MyDEFCON_UWP.Core.csproj">
       <Project>{ED0C7D0F-BBF5-4E7E-9130-010E84E2AA5F}</Project>
       <Name>MyDEFCON_UWP.Core</Name>

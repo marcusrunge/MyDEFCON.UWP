@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace Checklists
 {
-    public interface IChecklistsFactory
+    public static class ChecklistsFactory 
     {
-        IChecklists Create();
-    }
-
-    public class ChecklistsFactory : IChecklistsFactory
-    {
-        public IChecklists Create()
+        public static IChecklists Create()
         {
             return new Checklists();
         }

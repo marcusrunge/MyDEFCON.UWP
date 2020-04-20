@@ -9,7 +9,7 @@ namespace Checklists
 {
     public interface IChecklists
     {
-        IChecklistCollection ChecklistCollection { get; }
-        ICheckListOperations CheckListOperations { get; }
+        IChecklistCollection Collection { get; }
+        ICheckListOperations Operations { get; }
     }
 }
