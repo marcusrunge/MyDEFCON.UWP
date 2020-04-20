@@ -1,10 +1,5 @@
 ﻿using Models;
 using Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Checklists
 {
@@ -22,10 +17,5 @@ namespace Checklists
         public ItemObservableCollection<CheckListItem> Defcon3Checklist { get { return _defcon3CheckList; } set { Set(ref _defcon3CheckList, value); } }
         public ItemObservableCollection<CheckListItem> Defcon4Checklist { get { return _defcon4CheckList; } set { Set(ref _defcon4CheckList, value); } }
         public ItemObservableCollection<CheckListItem> Defcon5Checklist { get { return _defcon5CheckList; } set { Set(ref _defcon5CheckList, value); } }
-
-        internal ChecklistCollection()
-        {
-            
-        }
     }
 }

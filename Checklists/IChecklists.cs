@@ -1,9 +1,4 @@
-﻿using Models;
-using Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Threading.Tasks;
 
 namespace Checklists
 {
@@ -11,5 +6,6 @@ namespace Checklists
     {
         IChecklistCollection Collection { get; }
         ICheckListOperations Operations { get; }
+        Task Initialize();
     }
 }
