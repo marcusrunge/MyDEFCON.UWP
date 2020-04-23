@@ -13,6 +13,8 @@ namespace Checklists
         private protected static ItemObservableCollection<CheckListItem> _defcon3CheckList;
         private protected static ItemObservableCollection<CheckListItem> _defcon4CheckList;
         private protected static ItemObservableCollection<CheckListItem> _defcon5CheckList;
+        private protected static ItemObservableCollection<CheckListItem> _activeDefconCheckList;
+        private protected static int _defconStatus;
 
         internal protected async Task InitializeBase()
         {
@@ -27,37 +29,8 @@ namespace Checklists
             if (_defcon3CheckList == null) _defcon3CheckList = new ItemObservableCollection<CheckListItem>();
             if (_defcon4CheckList == null) _defcon4CheckList = new ItemObservableCollection<CheckListItem>();
             if (_defcon5CheckList == null) _defcon5CheckList = new ItemObservableCollection<CheckListItem>();
-
-            _defcon1CheckList.CollectionChanged += CollectionChanged;
-            _defcon2CheckList.CollectionChanged += CollectionChanged;
-            _defcon3CheckList.CollectionChanged += CollectionChanged;
-            _defcon4CheckList.CollectionChanged += CollectionChanged;
-            _defcon5CheckList.CollectionChanged += CollectionChanged;
-        }        
-
-        private async void CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            switch ((sender as CheckListItem).DefconStatus)
-            {
-                case 1:
-                    await StorageManagement.WriteFileAsync("defcon1.json", _defcon1CheckList, StorageManagement.StorageStrategies.Roaming);
-                    break;
-                case 2:
-                    await StorageManagement.WriteFileAsync("defcon2.json", _defcon2CheckList, StorageManagement.StorageStrategies.Roaming);
-                    break;
-                case 3:
-                    await StorageManagement.WriteFileAsync("defcon3.json", _defcon3CheckList, StorageManagement.StorageStrategies.Roaming);
-                    break;
-                case 4:
-                    await StorageManagement.WriteFileAsync("defcon4.json", _defcon4CheckList, StorageManagement.StorageStrategies.Roaming);
-                    break;
-                case 5:
-                    await StorageManagement.WriteFileAsync("defcon5.json", _defcon5CheckList, StorageManagement.StorageStrategies.Roaming);
-                    break;
-                default:
-                    break;
-            }
         }
+        
         #region NotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 

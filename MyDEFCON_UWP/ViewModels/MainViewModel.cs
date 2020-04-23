@@ -25,7 +25,7 @@ namespace MyDEFCON_UWP.ViewModels
         }
 
         private ICommand _setDefconStatusCommand;
-        public ICommand SetDefconStatusCommand => _setDefconStatusCommand ?? (_setDefconStatusCommand = new RelayCommand<object>(async(param) =>
+        public ICommand SetDefconStatusCommand => _setDefconStatusCommand ?? (_setDefconStatusCommand = new RelayCommand<object>(async (param) =>
         {
             StorageManagement.SetSetting("defconStatus", (string)param, StorageManagement.StorageStrategies.Roaming);
             DefconStatus = int.Parse(param as string);

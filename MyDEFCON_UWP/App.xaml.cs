@@ -1,4 +1,5 @@
-﻿using Microsoft.AppCenter;
+﻿using Checklists;
+using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using MyDEFCON_UWP.Core.Helpers;
@@ -46,6 +47,7 @@ namespace MyDEFCON_UWP
             {
                 await ActivationService.ActivateAsync(args);
             }
+            await Container.Resolve<IChecklists>().Initialize();
         }
 
         protected override async void OnActivated(IActivatedEventArgs args)
@@ -86,6 +88,7 @@ namespace MyDEFCON_UWP
             Container.RegisterType<FullScreenViewModel>();
             Container.RegisterType<AboutPivotViewModel>();
             Container.RegisterType<SettingsPivotViewModel>();
+            Container.RegisterInstance(ChecklistsFactory.Create());
         }
     }
 }
