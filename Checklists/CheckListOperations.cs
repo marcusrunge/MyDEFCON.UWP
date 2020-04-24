@@ -15,9 +15,62 @@ namespace Checklists
             return _checkListOperations;
         }
 
-        public Task ReverseUncheck(int defconStatus)
+        public async Task ReverseUncheck(int defconStatus)
         {
-            throw new NotImplementedException();
+            switch (defconStatus)
+            {
+                case 2:
+                    if (_defconStatus != 2)
+                    {
+                        _defcon1CheckList = UncheckCollection(_defcon1CheckList);
+                        await SaveCheckList(_defcon1CheckList, 1);
+                    }
+
+                    break;
+                case 3:
+                    if (_defconStatus != 3)
+                    {
+                        _defcon1CheckList = UncheckCollection(_defcon1CheckList);
+                        _defcon2CheckList = UncheckCollection(_defcon2CheckList);
+                        await SaveCheckList(_defcon1CheckList, 1);
+                        await SaveCheckList(_defcon2CheckList, 2);
+                    }
+
+                    break;
+                case 4:
+                    if (_defconStatus != 4)
+                    {
+                        _defcon1CheckList = UncheckCollection(_defcon1CheckList);
+                        _defcon2CheckList = UncheckCollection(_defcon2CheckList);
+                        _defcon3CheckList = UncheckCollection(_defcon3CheckList);
+                        await SaveCheckList(_defcon1CheckList, 1);
+                        await SaveCheckList(_defcon2CheckList, 2);
+                        await SaveCheckList(_defcon3CheckList, 3);
+                    }
+
+                    break;
+                case 5:
+                    if (_defconStatus != 5)
+                    {
+                        _defcon1CheckList = UncheckCollection(_defcon1CheckList);
+                        _defcon2CheckList = UncheckCollection(_defcon2CheckList);
+                        _defcon3CheckList = UncheckCollection(_defcon3CheckList);
+                        _defcon4CheckList = UncheckCollection(_defcon4CheckList);
+                        await SaveCheckList(_defcon1CheckList, 1);
+                        await SaveCheckList(_defcon2CheckList, 2);
+                        await SaveCheckList(_defcon3CheckList, 3);
+                        await SaveCheckList(_defcon4CheckList, 4);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private ItemObservableCollection<CheckListItem> UncheckCollection(ItemObservableCollection<CheckListItem> collection)
+        {
+            foreach (var item in collection) item.Checked = false;
+            return collection;
         }
 
         public async Task SaveCheckList(ItemObservableCollection<CheckListItem> checkList, int defcon)
