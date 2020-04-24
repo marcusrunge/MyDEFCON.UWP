@@ -115,7 +115,7 @@
       <Version>6.2.10</Version>
     </PackageReference>
     <PackageReference Include="Unity">
-      <Version>5.11.5</Version>
+      <Version>5.11.6</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
