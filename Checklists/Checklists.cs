@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Checklists
 {
-    internal class Checklists : ChecklistsBase, IChecklists
+    internal class Checklists : ChecklistsBase, IChecklists, INotifyPropertyChanged
     {
         public IChecklistCollection Collection => ChecklistCollection.Create();
 
