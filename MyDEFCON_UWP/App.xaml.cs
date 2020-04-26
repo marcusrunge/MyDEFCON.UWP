@@ -1,4 +1,5 @@
 ﻿using Checklists;
+using LiveTile;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -89,6 +90,7 @@ namespace MyDEFCON_UWP
             Container.RegisterType<AboutPivotViewModel>();
             Container.RegisterType<SettingsPivotViewModel>();
             Container.RegisterInstance(ChecklistsFactory.Create());
+            Container.RegisterInstance(LiveTileFactory.Create());
         }
     }
 }

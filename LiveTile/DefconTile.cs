@@ -5,11 +5,11 @@ namespace LiveTile
     public interface IDefconTile
     {
         void SetBadge(int number);
-        void Set(int status);
+        void SetTile(int status);
     }
     internal class DefconTile : DefconTileBase, IDefconTile
     {
-        public void Set(int status)
+        public void SetTile(int status)
         {
             var xmlDocument = CreateTiles(DefconImagePathsFactory.Create(status));
             var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication();

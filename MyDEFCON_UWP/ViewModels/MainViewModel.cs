@@ -1,5 +1,6 @@
 ﻿
 using Checklists;
+using LiveTile;
 using Models;
 using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
@@ -16,14 +17,16 @@ namespace MyDEFCON_UWP.ViewModels
     {
         private IEventService _eventService;
         private IChecklists _checkLists;
+        private ILiveTile _liveTile;
 
         private int _defconStatus;
         public int DefconStatus { get => _defconStatus; set => Set(ref _defconStatus, value); }
 
-        public MainViewModel(IEventService eventService, IChecklists checkLists)
+        public MainViewModel(IEventService eventService, IChecklists checkLists, ILiveTile liveTile)
         {
             _eventService = eventService;
             _checkLists = checkLists;
+            _liveTile = liveTile;
             DefconStatus = int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming));
         }
 
@@ -32,7 +35,7 @@ namespace MyDEFCON_UWP.ViewModels
         {
             StorageManagement.SetSetting("defconStatus", (string)param, StorageManagement.StorageStrategies.Roaming);
             DefconStatus = int.Parse(param as string);
-            LiveTileManagement.SetLiveTile(DefconStatus, StorageManagement.GetSetting<bool>("UseTransparentTile"));
+            _liveTile.DefconTile.SetTile(DefconStatus);
             await _checkLists.Operations.ReverseUncheck(DefconStatus);
             await UpdateTileBadge();
         }));
@@ -72,7 +75,7 @@ namespace MyDEFCON_UWP.ViewModels
             var defcon5CheckList = await CheckListManagement.LoadCheckList(5);
             int badgeNumber = UncheckedItemsService.CountBadgeNumber(DefconStatus, defcon1CheckList, defcon2CheckList, defcon3CheckList, defcon4CheckList, defcon5CheckList);
             StorageManagement.SetSetting("badgeNumber", badgeNumber.ToString(), StorageManagement.StorageStrategies.Roaming);
-            if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) LiveTileManagement.UpdateTileBadge(badgeNumber);
+            if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
         }        
     }
 }

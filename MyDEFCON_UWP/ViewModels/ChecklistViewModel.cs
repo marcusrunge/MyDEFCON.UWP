@@ -1,5 +1,6 @@
 ﻿
 using Checklists;
+using LiveTile;
 using Models;
 using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
@@ -18,6 +19,7 @@ namespace MyDEFCON_UWP.ViewModels
     {
         private IEventService _eventService;
         private IChecklists _checkLists;
+        private ILiveTile _liveTile;
         private long[] selectedItemsUnixTimeStampCreated;
         private double _gridWidth;
 
@@ -56,10 +58,11 @@ namespace MyDEFCON_UWP.ViewModels
         int _defcon5UnCheckedItems;
         public int Defcon5UnCheckedItems { get { return _defcon5UnCheckedItems; } set { Set(ref _defcon5UnCheckedItems, value); } }
 
-        public ChecklistViewModel(IEventService eventService, IChecklists checkLists)
+        public ChecklistViewModel(IEventService eventService, IChecklists checkLists, ILiveTile liveTile)
         {
             _eventService = eventService;
             _checkLists = checkLists;
+            _liveTile = liveTile;
             DefconStatus = int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming));
             SelectedItemsUnixTimeStampCreated = new List<long>();
         }
@@ -169,7 +172,7 @@ namespace MyDEFCON_UWP.ViewModels
         }));
 
         private ICommand _windowSizeChangedCommand;
-        public ICommand WindowSizeChangedCommand => _windowSizeChangedCommand ?? (_windowSizeChangedCommand = new RelayCommand<object>(async (param) =>
+        public ICommand WindowSizeChangedCommand => _windowSizeChangedCommand ?? (_windowSizeChangedCommand = new RelayCommand<object>((param) =>
         {
             SetTextBoxWidth(((SizeChangedEventArgs)param).NewSize.Width - 52);
             _gridWidth = ((SizeChangedEventArgs)param).NewSize.Width;
@@ -190,7 +193,7 @@ namespace MyDEFCON_UWP.ViewModels
         {
             int badgeNumber = UncheckedItemsService.CountBadgeNumber(DefconStatus, _checkLists.Collection.Defcon1Checklist, _checkLists.Collection.Defcon2Checklist, _checkLists.Collection.Defcon3Checklist, _checkLists.Collection.Defcon4Checklist, _checkLists.Collection.Defcon5Checklist);
             StorageManagement.SetSetting("badgeNumber", badgeNumber.ToString(), StorageManagement.StorageStrategies.Roaming);
-            if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) LiveTileManagement.UpdateTileBadge(badgeNumber);
+            if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
         }
     }
 }

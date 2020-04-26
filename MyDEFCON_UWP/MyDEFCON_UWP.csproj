@@ -358,6 +358,10 @@
       <Project>{4CBC2EB2-FCF1-4342-A538-546B80AB4EB0}</Project>
       <Name>Checklists</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LiveTile\LiveTile.csproj">
+      <Project>{9AC67919-5AA0-4297-96C4-48C82ADA0C39}</Project>
+      <Name>LiveTile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyDEFCON_UWP.Core\MyDEFCON_UWP.Core.csproj">
       <Project>{ED0C7D0F-BBF5-4E7E-9130-010E84E2AA5F}</Project>
       <Name>MyDEFCON_UWP.Core</Name>
