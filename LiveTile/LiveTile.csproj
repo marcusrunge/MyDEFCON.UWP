@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4CBC2EB2-FCF1-4342-A538-546B80AB4EB0}</ProjectGuid>
+    <ProjectGuid>{9AC67919-5AA0-4297-96C4-48C82ADA0C39}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Checklists</RootNamespace>
-    <AssemblyName>Checklists</AssemblyName>
+    <RootNamespace>LiveTile</RootNamespace>
+    <AssemblyName>LiveTile</AssemblyName>
     <DefaultLanguage>de-DE</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
@@ -120,27 +120,62 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ChecklistCollection.cs" />
-    <Compile Include="CheckListOperations.cs" />
-    <Compile Include="Checklists.cs" />
-    <Compile Include="ChecklistsBase.cs" />
-    <Compile Include="IChecklistCollection.cs" />
-    <Compile Include="ICheckListOperations.cs" />
-    <Compile Include="IChecklists.cs" />
-    <Compile Include="ChecklistsFactory.cs" />
+    <Compile Include="DefconImagePaths.cs" />
+    <Compile Include="DefconImagePathsFactory.cs" />
+    <Compile Include="DefconTile.cs" />
+    <Compile Include="DefconTileBase.cs" />
+    <Compile Include="DefconTileFactory.cs" />
+    <Compile Include="LiveTile.cs" />
+    <Compile Include="LiveTileFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Checklists.rd.xml" />
+    <EmbeddedResource Include="Properties\LiveTile.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.10</Version>
+      <Version>6.2.9</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Services\Services.csproj">
-      <Project>{D6950A90-D30C-4C9E-96AA-45FEAAD1F2C6}</Project>
-      <Name>Services</Name>
-    </ProjectReference>
+    <Content Include="TileImages\Defcon1LargeTile.png" />
+    <Content Include="TileImages\Defcon1MediumTile.png" />
+    <Content Include="TileImages\Defcon1SmallTile.png" />
+    <Content Include="TileImages\Defcon1WideTile.png" />
+    <Content Include="TileImages\Defcon2LargeTile.png" />
+    <Content Include="TileImages\Defcon2MediumTile.png" />
+    <Content Include="TileImages\Defcon2SmallTile.png" />
+    <Content Include="TileImages\Defcon2WideTile.png" />
+    <Content Include="TileImages\Defcon3LargeTile.png" />
+    <Content Include="TileImages\Defcon3MediumTile.png" />
+    <Content Include="TileImages\Defcon3SmallTile.png" />
+    <Content Include="TileImages\Defcon3WideTile.png" />
+    <Content Include="TileImages\Defcon4LargeTile.png" />
+    <Content Include="TileImages\Defcon4MediumTile.png" />
+    <Content Include="TileImages\Defcon4SmallTile.png" />
+    <Content Include="TileImages\Defcon4WideTile.png" />
+    <Content Include="TileImages\Defcon5LargeTile.png" />
+    <Content Include="TileImages\Defcon5MediumTile.png" />
+    <Content Include="TileImages\Defcon5SmallTile.png" />
+    <Content Include="TileImages\Defcon5WideTile.png" />
+    <Content Include="TransparentTileImages\Defcon1LargeTile.png" />
+    <Content Include="TransparentTileImages\Defcon1MediumTile.png" />
+    <Content Include="TransparentTileImages\Defcon1SmallTile.png" />
+    <Content Include="TransparentTileImages\Defcon1WideTile.png" />
+    <Content Include="TransparentTileImages\Defcon2LargeTile.png" />
+    <Content Include="TransparentTileImages\Defcon2MediumTile.png" />
+    <Content Include="TransparentTileImages\Defcon2SmallTile.png" />
+    <Content Include="TransparentTileImages\Defcon2WideTile.png" />
+    <Content Include="TransparentTileImages\Defcon3LargeTile.png" />
+    <Content Include="TransparentTileImages\Defcon3MediumTile.png" />
+    <Content Include="TransparentTileImages\Defcon3SmallTile.png" />
+    <Content Include="TransparentTileImages\Defcon3WideTile.png" />
+    <Content Include="TransparentTileImages\Defcon4LargeTile.png" />
+    <Content Include="TransparentTileImages\Defcon4MediumTile.png" />
+    <Content Include="TransparentTileImages\Defcon4SmallTile.png" />
+    <Content Include="TransparentTileImages\Defcon4WideTile.png" />
+    <Content Include="TransparentTileImages\Defcon5LargeTile.png" />
+    <Content Include="TransparentTileImages\Defcon5MediumTile.png" />
+    <Content Include="TransparentTileImages\Defcon5SmallTile.png" />
+    <Content Include="TransparentTileImages\Defcon5WideTile.png" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
