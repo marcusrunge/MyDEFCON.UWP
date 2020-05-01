@@ -148,6 +148,7 @@ namespace MyDEFCON_UWP.ViewModels
         private async Task DeleteSelectedItems()
         {
             _deleteInProgress = true;
+            CheckistSelectionMode = ListViewSelectionMode.None;
             selectedItemsUnixTimeStampCreated = new long[SelectedItemsUnixTimeStampCreated.Count];
             SelectedItemsUnixTimeStampCreated.CopyTo(selectedItemsUnixTimeStampCreated);
             for (int i = 0; i < selectedItemsUnixTimeStampCreated.Length; i++)
