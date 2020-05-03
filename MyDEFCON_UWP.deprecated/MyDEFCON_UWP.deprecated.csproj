@@ -309,9 +309,9 @@
       <Project>{094a1694-d8c7-43bb-8ac8-e6f6b03ea4f1}</Project>
       <Name>BackgroundTask</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DatagramLibrary\SocketLibrary.csproj">
+    <ProjectReference Include="..\Sockets\Sockets.csproj">
       <Project>{0b9d8150-acbb-4e63-b485-8d48164b9816}</Project>
-      <Name>SocketLibrary</Name>
+      <Name>Sockets</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{d6950a90-d30c-4c9e-96aa-45feaad1f2c6}</Project>

@@ -11,12 +11,26 @@ using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
-namespace SocketLibrary
+namespace Sockets
 {
-    public class StreamSocketService
+    public interface IStream
+    {
+        event EventHandler IncomingChecklistReceived;
+        Task StartListener();
+        Task SendStringData(HostName hostName, string data);
+        Task<string> ReceiveStringData(HostName hostName);
+        Task<string> GetJsonSerializedChecklistItems();
+        Task TransferOwnership();
+    }
+    public class Stream:IStream
     {
         public event EventHandler IncomingChecklistReceived;
         private StreamSocketListener _streamSocketListener;
+
+        private static IStream _stream;
+        internal static IStream Create() => _stream ?? (_stream = new Stream());
+
+
         public async Task StartListener()
         {
             try
@@ -47,7 +61,7 @@ namespace SocketLibrary
                 using (var streamSocket = new StreamSocket())
                 {
                     await streamSocket.ConnectAsync(hostName, "4537");
-                    using (Stream outputStream = streamSocket.OutputStream.AsStreamForWrite())
+                    using (System.IO.Stream outputStream = streamSocket.OutputStream.AsStreamForWrite())
                     {
                         using (var streamWriter = new StreamWriter(outputStream))
                         {
@@ -80,7 +94,7 @@ namespace SocketLibrary
                 {
                     await streamSocket.ConnectAsync(hostName, "4537");
 
-                    using (Stream inputStream = streamSocket.InputStream.AsStreamForRead())
+                    using (System.IO.Stream inputStream = streamSocket.InputStream.AsStreamForRead())
                     {
                         using (StreamReader streamReader = new StreamReader(inputStream))
                         {
@@ -277,10 +291,10 @@ namespace SocketLibrary
             return JsonConvert.SerializeObject(checkListItems);
         }
 
-        public async Task Dispose()
+        public async Task TransferOwnership()
         {
             await _streamSocketListener.CancelIOAsync();
-            _streamSocketListener.Dispose();
+            _streamSocketListener.TransferOwnership("myDefconStreamSocket");
         }
     }
 }

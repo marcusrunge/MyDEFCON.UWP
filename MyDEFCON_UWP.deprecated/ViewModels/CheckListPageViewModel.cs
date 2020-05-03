@@ -1,7 +1,7 @@
 ﻿using Models;
 using MyDEFCON_UWP.Services;
 using Services;
-using SocketLibrary;
+using Sockets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,8 +61,8 @@ namespace MyDEFCON_UWP.ViewModels
         string _textBox;
         private bool selectionModeEnabled;
         bool _useTransparentTile = default(bool);
-        DatagramSocketService _datagramService;
-        StreamSocketService _streamSocketService;
+        Datagram _datagramService;
+        Stream _streamSocketService;
         #endregion
 
         #region Properties
@@ -156,7 +156,7 @@ namespace MyDEFCON_UWP.ViewModels
             if (localSettings.Values.ContainsKey("useTransparentTile")) _useTransparentTile = (bool)localSettings.Values["useTransparentTile"];
             if (localSettings.Values.ContainsKey("lanBroadcastIsOn") && (bool)localSettings.Values["lanBroadcastIsOn"])
             {
-                _datagramService = new DatagramSocketService();
+                _datagramService = new Datagram();
                 await _datagramService.StartListener();
                 _datagramService.IncomingMessageReceived += async (s, e) =>
                 {
@@ -177,7 +177,7 @@ namespace MyDEFCON_UWP.ViewModels
             }
             if (localSettings.Values.ContainsKey("lanMulticastIsOn") && (bool)localSettings.Values["lanMulticastIsOn"])
             {
-                _streamSocketService = new StreamSocketService();
+                _streamSocketService = new Stream();
                 await _streamSocketService.StartListener();
                 _streamSocketService.IncomingChecklistReceived += async (s, e) =>
                 {

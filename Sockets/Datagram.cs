@@ -8,15 +8,26 @@ using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
 
-namespace SocketLibrary
+namespace Sockets
 {
-    public class DatagramSocketService
+    public interface IDatagram
+    {
+        Task StartListener();
+        Task SendMessage(string message);
+        event EventHandler<string> IncomingMessageReceived;
+        Task TransferOwnership();
+    }
+    internal class Datagram: IDatagram
     {
         public string IncomingMessage { get; set; }
         public HostName RemoteAddress { get; set; }
         public event EventHandler<string> IncomingMessageReceived;
         private DatagramSocket datagramSocket = null;
         private bool _isOrigin = default(bool);
+
+        private static IDatagram _datagram;
+        internal static IDatagram Create() => _datagram ?? (_datagram = new Datagram());        
+
         public async Task StartListener()
         {
             //ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
@@ -62,10 +73,10 @@ namespace SocketLibrary
 
         private void OnIncomingMessageReceived(string s) => IncomingMessageReceived?.Invoke(this, s);
 
-        public async Task Dispose()
+        public async Task TransferOwnership()
         {
             await datagramSocket?.CancelIOAsync();
-            datagramSocket?.TransferOwnership("myDefconSocket");
+            datagramSocket?.TransferOwnership("myDefconDatagramSocket");
         }
     }
 }

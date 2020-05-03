@@ -1,7 +1,7 @@
 using Models;
 using MyDEFCON_UWP.Services;
 using Services;
-using SocketLibrary;
+using Sockets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace MyDEFCON_UWP.ViewModels
         ItemObservableCollection<CheckListItem> _defcon4CheckList;
         ItemObservableCollection<CheckListItem> _defcon5CheckList;
         bool loadFromRoaming = false;
-        DatagramSocketService _datagramService;
+        Datagram _datagramService;
         bool lanBroadcastIsOn = false;
         bool _isSetDefconCommandBlocked = false;
         double _fontSize;
@@ -112,11 +112,11 @@ namespace MyDEFCON_UWP.ViewModels
             if (localSettings.Values.ContainsKey("lanBroadcastIsOn") && (bool)localSettings.Values["lanBroadcastIsOn"])
             {
                 lanBroadcastIsOn = true;
-                _datagramService = new DatagramSocketService();
+                _datagramService = new Datagram();
                 await _datagramService.StartListener();
                 _datagramService.IncomingMessageReceived += (s, e) =>
                 {
-                    if (!(GetLocalIp().Equals((s as DatagramSocketService).RemoteAddress.CanonicalName)) && int.TryParse(e, out int defconStatus) && (defconStatus > 0 && defconStatus < 6))
+                    if (!(GetLocalIp().Equals((s as Datagram).RemoteAddress.CanonicalName)) && int.TryParse(e, out int defconStatus) && (defconStatus > 0 && defconStatus < 6))
                     {
                         _defconStatus = defconStatus;
                         ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;

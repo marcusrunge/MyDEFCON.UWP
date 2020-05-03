@@ -7,6 +7,7 @@ using MyDEFCON_UWP.Core.Helpers;
 using MyDEFCON_UWP.Services;
 using MyDEFCON_UWP.ViewModels;
 using Services;
+using Sockets;
 using System;
 using Unity;
 using Windows.ApplicationModel;
@@ -91,6 +92,7 @@ namespace MyDEFCON_UWP
             Container.RegisterType<SettingsPivotViewModel>();
             Container.RegisterInstance(ChecklistsFactory.Create());
             Container.RegisterInstance(LiveTileFactory.Create());
+            Container.RegisterInstance(SocketsFactory.Create());
         }
     }
 }
