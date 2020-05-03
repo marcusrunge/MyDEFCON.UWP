@@ -9,12 +9,8 @@ namespace Checklists
         private ChecklistsBase _checklistsBase;
 
         private static IChecklistCollection _checklistCollection;
-        internal static IChecklistCollection Create(ChecklistsBase checklistsBase)
-        {
-            if (_checklistCollection == null) _checklistCollection = new ChecklistCollection(checklistsBase);
-            return _checklistCollection;
-        }
-
+        internal static IChecklistCollection Create(ChecklistsBase checklistsBase) => _checklistCollection ?? (_checklistCollection = new ChecklistCollection(checklistsBase));
+        
         public ChecklistCollection(ChecklistsBase checklistsBase)
         {
             _checklistsBase = checklistsBase;
