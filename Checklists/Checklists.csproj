@@ -120,6 +120,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BindableBase.cs" />
     <Compile Include="ChecklistCollection.cs" />
     <Compile Include="CheckListOperations.cs" />
     <Compile Include="Checklists.cs" />

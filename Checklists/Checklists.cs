@@ -1,16 +1,11 @@
-﻿using System.ComponentModel;
-using System.Threading.Tasks;
-
-namespace Checklists
+﻿namespace Checklists
 {
-    internal class Checklists : ChecklistsBase, IChecklists, INotifyPropertyChanged
+    internal class Checklists : ChecklistsBase
     {
-        public IChecklistCollection Collection => ChecklistCollection.Create();
-
-        public ICheckListOperations Operations => CheckListOperations.Create();
-        public async Task Initialize()
+        internal Checklists()
         {
-            await InitializeBase();
+            _checklistCollection = ChecklistCollection.Create(this);
+            _checkListOperations = CheckListOperations.Create(this);
         }
     }
 }
