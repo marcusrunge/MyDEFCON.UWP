@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Sockets
+﻿namespace Sockets
 {
     public interface ISockets
     {

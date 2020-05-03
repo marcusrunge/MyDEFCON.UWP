@@ -22,7 +22,7 @@ namespace Sockets
         Task<string> GetJsonSerializedChecklistItems();
         Task TransferOwnership();
     }
-    public class Stream:IStream
+    public class Stream : IStream
     {
         public event EventHandler IncomingChecklistReceived;
         private StreamSocketListener _streamSocketListener;

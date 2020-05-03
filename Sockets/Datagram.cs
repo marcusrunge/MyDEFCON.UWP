@@ -17,7 +17,7 @@ namespace Sockets
         event EventHandler<string> IncomingMessageReceived;
         Task TransferOwnership();
     }
-    internal class Datagram: IDatagram
+    internal class Datagram : IDatagram
     {
         public string IncomingMessage { get; set; }
         public HostName RemoteAddress { get; set; }
@@ -26,7 +26,7 @@ namespace Sockets
         private bool _isOrigin = default(bool);
 
         private static IDatagram _datagram;
-        internal static IDatagram Create() => _datagram ?? (_datagram = new Datagram());        
+        internal static IDatagram Create() => _datagram ?? (_datagram = new Datagram());
 
         public async Task StartListener()
         {
