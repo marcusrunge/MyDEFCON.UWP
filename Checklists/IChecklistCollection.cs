@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Checklists
 {
-    public interface IChecklistCollection: INotifyPropertyChanged
+    public interface IChecklistCollection : INotifyPropertyChanged
     {
         ItemObservableCollection<CheckListItem> Defcon1Checklist { get; set; }
         ItemObservableCollection<CheckListItem> Defcon2Checklist { get; set; }

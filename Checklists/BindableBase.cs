@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace Checklists
 {
@@ -21,7 +20,7 @@ namespace Checklists
             storage = value;
             RaisePropertyChanged(propertyName);
             return true;
-        }        
+        }
         #endregion
     }
 }

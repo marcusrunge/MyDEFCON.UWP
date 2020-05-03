@@ -1,6 +1,5 @@
 ﻿using Models;
 using Services;
-using System;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
 
@@ -12,7 +11,7 @@ namespace Checklists
 
         private static ICheckListOperations _checkListOperations;
         internal static ICheckListOperations Create(ChecklistsBase checklistsBase) => _checkListOperations ?? (_checkListOperations = new CheckListOperations(checklistsBase));
-        
+
         internal CheckListOperations(ChecklistsBase checklistsBase)
         {
             _checklistsBase = checklistsBase;
@@ -107,7 +106,7 @@ namespace Checklists
 
         public async Task SetDefconStatus(int status)
         {
-            if(_checklistsBase._activeDefconCheckList !=null) _checklistsBase._activeDefconCheckList.CollectionChanged -= CollectionChanged;
+            if (_checklistsBase._activeDefconCheckList != null) _checklistsBase._activeDefconCheckList.CollectionChanged -= CollectionChanged;
             _checklistsBase._activeDefconCheckList = await StorageManagement.ReadFileAsync<ItemObservableCollection<CheckListItem>>($"defcon{status}.json", StorageManagement.StorageStrategies.Roaming);
             if (_checklistsBase._activeDefconCheckList == null) _checklistsBase._activeDefconCheckList = new ItemObservableCollection<CheckListItem>();
             _checklistsBase._defconStatus = status;

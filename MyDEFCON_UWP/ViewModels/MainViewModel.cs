@@ -1,7 +1,6 @@
 ﻿
 using Checklists;
 using LiveTile;
-using Models;
 using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
 using Services;
@@ -76,6 +75,6 @@ namespace MyDEFCON_UWP.ViewModels
             int badgeNumber = UncheckedItemsService.CountBadgeNumber(DefconStatus, defcon1CheckList, defcon2CheckList, defcon3CheckList, defcon4CheckList, defcon5CheckList);
             StorageManagement.SetSetting("badgeNumber", badgeNumber.ToString(), StorageManagement.StorageStrategies.Roaming);
             if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
-        }        
+        }
     }
 }

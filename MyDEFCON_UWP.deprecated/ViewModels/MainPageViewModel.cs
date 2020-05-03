@@ -1,7 +1,6 @@
 using Models;
 using MyDEFCON_UWP.Services;
 using Services;
-using Sockets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
