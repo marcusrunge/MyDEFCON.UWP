@@ -4,9 +4,12 @@ using Windows.Storage;
 
 namespace LiveTile
 {
-    internal abstract class DefconTileBase
+    internal abstract class DefconTileBase : ILiveTile
     {
-        private protected XmlDocument CreateTiles(IDefconImagePaths defconImagePaths)
+        protected IDefconTile _defconTile;
+        public IDefconTile DefconTile => _defconTile;
+
+        internal protected XmlDocument CreateTiles(IDefconImagePaths defconImagePaths)
         {
             XDocument xDocument = new XDocument(
                 new XElement("tile", new XAttribute("version", 3),
@@ -38,6 +41,6 @@ namespace LiveTile
             return xmlDocument;
         }
 
-        private protected bool LoadShowUncheckedItemsSetting() => ApplicationData.Current.LocalSettings.Values.ContainsKey("showUncheckedItems") ? (bool)ApplicationData.Current.LocalSettings.Values["showUncheckedItems"] : false;
+        internal protected bool LoadShowUncheckedItemsSetting() => ApplicationData.Current.LocalSettings.Values.ContainsKey("showUncheckedItems") ? (bool)ApplicationData.Current.LocalSettings.Values["showUncheckedItems"] : false;
     }
 }

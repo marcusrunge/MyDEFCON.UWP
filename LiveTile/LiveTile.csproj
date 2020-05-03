@@ -124,7 +124,6 @@
     <Compile Include="DefconImagePathsFactory.cs" />
     <Compile Include="DefconTile.cs" />
     <Compile Include="DefconTileBase.cs" />
-    <Compile Include="DefconTileFactory.cs" />
     <Compile Include="LiveTile.cs" />
     <Compile Include="LiveTileFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

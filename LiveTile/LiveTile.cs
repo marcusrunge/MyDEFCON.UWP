@@ -4,8 +4,11 @@
     {
         IDefconTile DefconTile { get; }
     }
-    public class LiveTile : ILiveTile
+    internal class LiveTile : DefconTileBase
     {
-        public IDefconTile DefconTile => DefconTileFactory.Create();
+        internal LiveTile()
+        {
+            _defconTile = global::LiveTile.DefconTile.Create(this);
+        }
     }
 }

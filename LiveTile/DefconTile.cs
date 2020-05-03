@@ -7,11 +7,18 @@ namespace LiveTile
         void SetBadge(int number);
         void SetTile(int status);
     }
-    internal class DefconTile : DefconTileBase, IDefconTile
+    internal class DefconTile : IDefconTile
     {
+        private DefconTileBase _defconTileBase;
+
+        private static IDefconTile _defconTile;
+        public static IDefconTile Create(DefconTileBase defconTileBase) => _defconTile ?? (_defconTile = new DefconTile(defconTileBase));
+
+        internal DefconTile(DefconTileBase defconTileBase) => _defconTileBase = defconTileBase;
+
         public void SetTile(int status)
         {
-            var xmlDocument = CreateTiles(DefconImagePathsFactory.Create(status));
+            var xmlDocument = _defconTileBase.CreateTiles(DefconImagePathsFactory.Create(status));
             var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication();
             var tileNotification = new TileNotification(xmlDocument);
             tileUpdater.Update(tileNotification);
@@ -19,7 +26,7 @@ namespace LiveTile
 
         public void SetBadge(int number)
         {
-            if (LoadShowUncheckedItemsSetting())
+            if (_defconTileBase.LoadShowUncheckedItemsSetting())
             {
                 //Build Badge
                 var type = BadgeTemplateType.BadgeNumber;
