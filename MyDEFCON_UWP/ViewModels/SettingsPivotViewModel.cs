@@ -1,6 +1,7 @@
 ﻿using BackgroundTask;
 using MyDEFCON_UWP.Helpers;
 using Services;
+using Sockets;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ namespace MyDEFCON_UWP.ViewModels
     public class SettingsPivotViewModel : Observable
     {
         private int _defconStatus;
+        private ISockets _sockets;
 
         bool _useTransparentTile = default;
         public bool UseTransparentTile { get { return _useTransparentTile; } set { Set(ref _useTransparentTile, value); } }
@@ -40,13 +42,15 @@ namespace MyDEFCON_UWP.ViewModels
         Visibility _iotVisibility = default;
         public Visibility IotVisibility { get { return _iotVisibility; } set { Set(ref _iotVisibility, value); } }
 
-        public SettingsPivotViewModel()
+        public SettingsPivotViewModel(ISockets sockets)
         {
+            _sockets = sockets;
             Intervall = new List<string> { "15min", "30min", "1hour", "3hours", "6hours", "12hours", "daily" };
             UseTransparentTile = GetSetting<bool>("UseTransparentTile");
             ShowUncheckedItems = GetSetting<bool>("ShowUncheckedItems");
             BackgroundTask = GetSetting<bool>("BackgroundTask");
             LanBroadcastIsOn = GetSetting<bool>("LanBroadcastIsOn");
+            LanMulticastIsOn = GetSetting<bool>("LanMulticastIsOn");
             BackgroundTask = GetSetting<bool>("BackgroundTask");
             SelectedTimeIntervallIndex = GetSetting<int>("SelectedTimeIntervallIndex");
             IotVisibility = AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.IoT") ? Visibility.Visible : Visibility.Collapsed;
@@ -77,9 +81,13 @@ namespace MyDEFCON_UWP.ViewModels
                     break;
                 case "LanBroadcastIsOn":
                     SetSetting(e.PropertyName, LanBroadcastIsOn);
+                    if (LanBroadcastIsOn) await _sockets.Datagram.StartListener();
+                    else await _sockets.Datagram.StopListener();
                     break;
                 case "LanMulticastIsOn":
                     SetSetting(e.PropertyName, LanMulticastIsOn);
+                    if (LanMulticastIsOn) await _sockets.Stream.StartListener();
+                    else await _sockets.Stream.StopListener();
                     break;
                 case "SelectedTimeIntervallIndex":
                     SetSetting(e.PropertyName, SelectedTimeIntervallIndex);

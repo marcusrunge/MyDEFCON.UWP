@@ -17,6 +17,7 @@ namespace Sockets
     {
         event EventHandler IncomingChecklistReceived;
         Task StartListener();
+        Task StopListener();
         Task SendStringData(HostName hostName, string data);
         Task<string> ReceiveStringData(HostName hostName);
         Task<string> GetJsonSerializedChecklistItems();
@@ -36,22 +37,30 @@ namespace Sockets
             try
             {
                 _streamSocketListener = new StreamSocketListener();
-                _streamSocketListener.ConnectionReceived += async (s, e) =>
-                                {
-                                    using (var streamWriter = new StreamWriter(e.Socket.OutputStream.AsStreamForWrite()))
-                                    {
-                                        await streamWriter.WriteLineAsync(await GetJsonSerializedChecklistItems());
-                                        await streamWriter.FlushAsync();
-                                        await s.CancelIOAsync();
-                                        s.Dispose();
-                                    }
-                                };
+                _streamSocketListener.ConnectionReceived += _streamSocketListener_ConnectionReceived;
+
                 await _streamSocketListener.BindServiceNameAsync("4537");
             }
             catch (Exception ex)
             {
                 SocketErrorStatus webErrorStatus = SocketError.GetStatus(ex.GetBaseException().HResult);
             }
+        }
+
+        private async void _streamSocketListener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
+        {
+            using (var streamWriter = new StreamWriter(args.Socket.OutputStream.AsStreamForWrite()))
+            {
+                await streamWriter.WriteLineAsync(await GetJsonSerializedChecklistItems());
+                await streamWriter.FlushAsync();
+            }
+        }
+
+        public async Task StopListener()
+        {
+            _streamSocketListener.ConnectionReceived -= _streamSocketListener_ConnectionReceived;
+            await _streamSocketListener.CancelIOAsync();
+            _streamSocketListener = null;
         }
 
         public async Task SendStringData(HostName hostName, string data)

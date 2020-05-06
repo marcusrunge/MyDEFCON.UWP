@@ -4,11 +4,13 @@ using LiveTile;
 using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
 using Services;
+using Sockets;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
+using static Services.StorageManagement;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -17,26 +19,35 @@ namespace MyDEFCON_UWP.ViewModels
         private IEventService _eventService;
         private IChecklists _checkLists;
         private ILiveTile _liveTile;
+        private ISockets _sockets;
 
         private int _defconStatus;
         public int DefconStatus { get => _defconStatus; set => Set(ref _defconStatus, value); }
 
-        public MainViewModel(IEventService eventService, IChecklists checkLists, ILiveTile liveTile)
+        public MainViewModel(IEventService eventService, IChecklists checkLists, ILiveTile liveTile, ISockets sockets)
         {
             _eventService = eventService;
             _checkLists = checkLists;
             _liveTile = liveTile;
-            DefconStatus = int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming));
+            _sockets = sockets;
+            DefconStatus = int.Parse(GetSetting("defconStatus", "5", StorageStrategies.Roaming));
+            if (GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
+        }
+
+        private void Datagram_IncomingMessageReceived(object sender, string e)
+        {
+            if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) DefconStatus = parsedDefconStatus;
         }
 
         private ICommand _setDefconStatusCommand;
         public ICommand SetDefconStatusCommand => _setDefconStatusCommand ?? (_setDefconStatusCommand = new RelayCommand<object>(async (param) =>
         {
-            StorageManagement.SetSetting("defconStatus", (string)param, StorageManagement.StorageStrategies.Roaming);
+            SetSetting("defconStatus", (string)param, StorageStrategies.Roaming);
             DefconStatus = int.Parse(param as string);
             _liveTile.DefconTile.SetTile(DefconStatus);
             await _checkLists.Operations.ReverseUncheck(DefconStatus);
             await UpdateTileBadge();
+            if (GetSetting<bool>("LanBroadcastIsOn")) await _sockets.Datagram.SendMessage(param as string);
         }));
 
         private ICommand _loadedCommand;
@@ -73,8 +84,8 @@ namespace MyDEFCON_UWP.ViewModels
             var defcon4CheckList = await CheckListManagement.LoadCheckList(4);
             var defcon5CheckList = await CheckListManagement.LoadCheckList(5);
             int badgeNumber = UncheckedItemsService.CountBadgeNumber(DefconStatus, defcon1CheckList, defcon2CheckList, defcon3CheckList, defcon4CheckList, defcon5CheckList);
-            StorageManagement.SetSetting("badgeNumber", badgeNumber.ToString(), StorageManagement.StorageStrategies.Roaming);
-            if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
+            SetSetting("badgeNumber", badgeNumber.ToString(), StorageStrategies.Roaming);
+            if (GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
         }
     }
 }

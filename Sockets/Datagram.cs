@@ -13,6 +13,7 @@ namespace Sockets
     public interface IDatagram
     {
         Task StartListener();
+        Task StopListener();
         Task SendMessage(string message);
         event EventHandler<string> IncomingMessageReceived;
         Task TransferOwnership();
@@ -30,30 +31,36 @@ namespace Sockets
 
         public async Task StartListener()
         {
-            //ApplicationDataContainer roamingSettings = ApplicationData.Current.RoamingSettings;
-            var window = CoreWindow.GetForCurrentThread();
-            var dispatcher = window.Dispatcher;
             var backgroundTaskRegistration = await BackgroundTaskService.Register<BroadcastListenerBackgroundTask>(new SocketActivityTrigger());
             datagramSocket = new DatagramSocket();
             datagramSocket.EnableTransferOwnership(backgroundTaskRegistration.TaskId, SocketActivityConnectedStandbyAction.DoNotWake);
             await datagramSocket.BindServiceNameAsync("4536");
-            datagramSocket.MessageReceived += async (s, e) =>
+            datagramSocket.MessageReceived += DatagramSocket_MessageReceived;
+        }
+
+        public async Task StopListener()
+        {
+            datagramSocket.MessageReceived -= DatagramSocket_MessageReceived;
+            await datagramSocket.CancelIOAsync();
+            datagramSocket = null;
+            await BackgroundTaskService.Unregister<BroadcastListenerBackgroundTask>();
+        }
+
+        private async void DatagramSocket_MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
+        {
+            _isOrigin = false;
+            if (!_isOrigin)
             {
-                _isOrigin = false;
-                if (!_isOrigin)
+                try
                 {
-                    try
-                    {
-                        RemoteAddress = e.RemoteAddress;
-                        uint stringLength = e.GetDataReader().UnconsumedBufferLength;
-                        IncomingMessage = e.GetDataReader().ReadString(stringLength);
-                        //if(int.TryParse(IncomingMessage, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) roamingSettings.Values["defconStatus"] = IncomingMessage;
-                        await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
-                    }
-                    catch (Exception) { }
+                    RemoteAddress = args.RemoteAddress;
+                    uint stringLength = args.GetDataReader().UnconsumedBufferLength;
+                    IncomingMessage = args.GetDataReader().ReadString(stringLength);
+                    await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
                 }
-                _isOrigin = false;
-            };
+                catch (Exception) { }
+            }
+            _isOrigin = false;
         }
 
         public async Task SendMessage(string message)

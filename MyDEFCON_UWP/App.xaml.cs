@@ -13,6 +13,7 @@ using Unity;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
+using static Services.StorageManagement;
 
 namespace MyDEFCON_UWP
 {
@@ -20,6 +21,7 @@ namespace MyDEFCON_UWP
     {
         public IUnityContainer Container { get; set; }
         private Lazy<ActivationService> _activationService;
+        private ISockets _sockets;
 
         private ActivationService ActivationService
         {
@@ -50,6 +52,16 @@ namespace MyDEFCON_UWP
                 await ActivationService.ActivateAsync(args);
             }
             await Container.Resolve<IChecklists>().Initialize();
+            _sockets = Container.Resolve<ISockets>();
+            if (GetSetting<bool>("LanBroadcastIsOn"))
+            {
+                await _sockets.Datagram.StartListener();
+                _sockets.Datagram.IncomingMessageReceived += (s, e) =>
+                  {
+                      if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) SetSetting("defconStatus", parsedDefconStatus.ToString(), StorageStrategies.Roaming);
+                  };
+            }
+            if (GetSetting<bool>("LanMulticastIsOn")) await _sockets.Stream.StartListener();
         }
 
         protected override async void OnActivated(IActivatedEventArgs args)
