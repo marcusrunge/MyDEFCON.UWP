@@ -5,8 +5,10 @@ using Models;
 using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
 using Services;
+using Sockets;
 using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
@@ -24,6 +26,7 @@ namespace MyDEFCON_UWP.ViewModels
         private double _gridWidth;
         private int _appDefconStatus;
         private bool _deleteInProgress;
+        private ISockets _sockets;
 
         private int _pageDefconStatus;
         public int PageDefconStatus { get => _pageDefconStatus; set => Set(ref _pageDefconStatus, value); }
@@ -60,11 +63,12 @@ namespace MyDEFCON_UWP.ViewModels
         int _defcon5UnCheckedItems;
         public int Defcon5UnCheckedItems { get { return _defcon5UnCheckedItems; } set { Set(ref _defcon5UnCheckedItems, value); } }
 
-        public ChecklistViewModel(IEventService eventService, IChecklists checkLists, ILiveTile liveTile)
+        public ChecklistViewModel(IEventService eventService, IChecklists checkLists, ILiveTile liveTile, ISockets sockets)
         {
             _eventService = eventService;
             _checkLists = checkLists;
             _liveTile = liveTile;
+            _sockets = sockets;
             _deleteInProgress = false;
             _appDefconStatus = int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming));
             PageDefconStatus = _appDefconStatus;
@@ -139,6 +143,9 @@ namespace MyDEFCON_UWP.ViewModels
                 case "Delete":
                     if (SelectedItemsUnixTimeStampCreated.Count > 0) await DeleteSelectedItems();
                     else CheckistSelectionMode = ListViewSelectionMode.None;
+                    break;
+                case "Sync":
+                    await _sockets.Datagram.SendMessage("0");
                     break;
                 default:
                     break;
