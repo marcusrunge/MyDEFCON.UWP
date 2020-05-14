@@ -54,7 +54,7 @@ namespace Sockets
                     RemoteAddress = args.RemoteAddress;
                     uint stringLength = args.GetDataReader().UnconsumedBufferLength;
                     IncomingMessage = args.GetDataReader().ReadString(stringLength);
-                    OnIncomingMessageReceived(IncomingMessage);
+                    OnIncomingMessageReceived(args, IncomingMessage);
                 }
                 catch (Exception) { }
             }
@@ -74,7 +74,7 @@ namespace Sockets
             catch (Exception) { }
         }
 
-        private void OnIncomingMessageReceived(string s) => IncomingMessageReceived?.Invoke(this, s);
+        private void OnIncomingMessageReceived(DatagramSocketMessageReceivedEventArgs a, string s) => IncomingMessageReceived?.Invoke(a.RemoteAddress, s);
 
         public async Task TransferOwnership()
         {

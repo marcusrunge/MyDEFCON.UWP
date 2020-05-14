@@ -11,9 +11,12 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.Networking;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using static Services.StorageManagement;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -73,6 +76,19 @@ namespace MyDEFCON_UWP.ViewModels
             _appDefconStatus = int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming));
             PageDefconStatus = _appDefconStatus;
             SelectedItemsUnixTimeStampCreated = new List<long>();
+            if (GetSetting<bool>("LanMulticastIsOn"))
+            {
+                _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
+                _sockets.Stream.IncomingChecklistReceived += Stream_IncomingChecklistReceived;
+            } 
+        }
+
+        private void Stream_IncomingChecklistReceived(object sender, EventArgs e) => LoadedCommand.Execute(null);
+
+        private async void Datagram_IncomingMessageReceived(object sender, string e)
+        {
+                if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus == 0)
+                await _sockets.Stream.ReceiveStringData(sender as HostName);
         }
 
         private ICommand _loadedCommand;

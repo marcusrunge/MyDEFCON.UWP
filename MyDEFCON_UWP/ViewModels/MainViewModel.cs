@@ -35,12 +35,12 @@ namespace MyDEFCON_UWP.ViewModels
             if (GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
         }
 
-        private void Datagram_IncomingMessageReceived(object sender, string e)
+        private async void Datagram_IncomingMessageReceived(object sender, string e)
         {
-            //await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() =>
-            //{
+            await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() =>
+            {
                 if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) DefconStatus = parsedDefconStatus;
-            //}));            
+            }));
         }
 
         private ICommand _setDefconStatusCommand;
