@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
+using Windows.UI.Core;
 using static Services.StorageManagement;
 
 namespace MyDEFCON_UWP.ViewModels
@@ -36,7 +37,10 @@ namespace MyDEFCON_UWP.ViewModels
 
         private void Datagram_IncomingMessageReceived(object sender, string e)
         {
-            if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) DefconStatus = parsedDefconStatus;
+            //await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() =>
+            //{
+                if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) DefconStatus = parsedDefconStatus;
+            //}));            
         }
 
         private ICommand _setDefconStatusCommand;

@@ -24,7 +24,6 @@ namespace Sockets
         public HostName RemoteAddress { get; set; }
         public event EventHandler<string> IncomingMessageReceived;
         private DatagramSocket datagramSocket = null;
-        private bool _isOrigin = default(bool);
 
         private static IDatagram _datagram;
         internal static IDatagram Create() => _datagram ?? (_datagram = new Datagram());
@@ -46,21 +45,19 @@ namespace Sockets
             await BackgroundTaskService.Unregister<BroadcastListenerBackgroundTask>();
         }
 
-        private async void DatagramSocket_MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
-        {
-            _isOrigin = false;
-            if (!_isOrigin)
+        private void DatagramSocket_MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
+        {            
+            if (sender.Information.LocalPort!=args.RemotePort)
             {
                 try
                 {
                     RemoteAddress = args.RemoteAddress;
                     uint stringLength = args.GetDataReader().UnconsumedBufferLength;
                     IncomingMessage = args.GetDataReader().ReadString(stringLength);
-                    await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingMessageReceived(IncomingMessage)));
+                    OnIncomingMessageReceived(IncomingMessage);
                 }
                 catch (Exception) { }
             }
-            _isOrigin = false;
         }
 
         public async Task SendMessage(string message)
@@ -72,7 +69,6 @@ namespace Sockets
                 outputStream = await datagramSocket.GetOutputStreamAsync(hostname, "4536");
                 DataWriter dataWriter = new DataWriter(outputStream);
                 dataWriter.WriteString(message);
-                _isOrigin = true;
                 await dataWriter.StoreAsync();
             }
             catch (Exception) { }
