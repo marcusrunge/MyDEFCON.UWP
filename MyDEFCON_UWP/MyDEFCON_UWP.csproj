@@ -19,7 +19,7 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>
     </PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>A407EFAE6B93DF578C65C3B0807B4A62C89397D0</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>BEB23BE3CD6B8E55375CCA5235646E1FF5D55888</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">

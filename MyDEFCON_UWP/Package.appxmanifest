@@ -51,6 +51,14 @@
             <Task Type="systemEvent"/>
           </BackgroundTasks>
         </Extension>
+
+        <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundTask.TileUpdateBackgroundTask">
+
+          <BackgroundTasks>
+
+            <Task Type="timer"/>
+          </BackgroundTasks>
+        </Extension>
       </Extensions>
     </Application>
   </Applications>
