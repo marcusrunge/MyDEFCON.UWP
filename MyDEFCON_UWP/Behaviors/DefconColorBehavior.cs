@@ -53,13 +53,13 @@ namespace MyDEFCON_UWP.Behaviors
             }
             AssociatedObject.Checked += (s, e) =>
             {
-                AssociatedObject.Background = GetSolidColorBrush(ActiveBackground);
-                AssociatedObject.Foreground = GetSolidColorBrush(ActiveForeground);
+                (s as RadioButton).Background = GetSolidColorBrush(ActiveBackground);
+                (s as RadioButton).Foreground = GetSolidColorBrush(ActiveForeground);
             };
             AssociatedObject.Unchecked += (s, e) =>
             {
-                AssociatedObject.Background = GetSolidColorBrush(PassiveBackground);
-                AssociatedObject.Foreground = GetSolidColorBrush(PassiveForeground);
+                (s as RadioButton).Background = GetSolidColorBrush(PassiveBackground);
+                (s as RadioButton).Foreground = GetSolidColorBrush(PassiveForeground);
             };
         }
 
