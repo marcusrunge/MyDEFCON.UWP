@@ -94,8 +94,6 @@ namespace Sockets
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             if (localSettings.Values.ContainsKey("textBoxWidth")) textBoxWidth = (double)localSettings.Values["textBoxWidth"];
 
-            var window = CoreWindow.GetForCurrentThread();
-            var dispatcher = window.Dispatcher;
             string response = String.Empty;
             try
             {
@@ -262,7 +260,7 @@ namespace Sockets
             {
                 SocketErrorStatus webErrorStatus = SocketError.GetStatus(ex.GetBaseException().HResult);
             }
-            await dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => OnIncomingChecklistReceived()));
+            OnIncomingChecklistReceived();
             return response;
         }
 
