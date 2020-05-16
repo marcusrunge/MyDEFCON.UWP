@@ -30,6 +30,7 @@ namespace MyDEFCON_UWP.ViewModels
         private int _appDefconStatus;
         private bool _deleteInProgress;
         private ISockets _sockets;
+        private CoreDispatcher _coreDispatcher;
 
         private int _pageDefconStatus;
         public int PageDefconStatus { get => _pageDefconStatus; set => Set(ref _pageDefconStatus, value); }
@@ -80,10 +81,11 @@ namespace MyDEFCON_UWP.ViewModels
             {
                 _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
                 _sockets.Stream.IncomingChecklistReceived += Stream_IncomingChecklistReceived;
-            } 
+            }
+            _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
         }
 
-        private void Stream_IncomingChecklistReceived(object sender, EventArgs e) => LoadedCommand.Execute(null);
+        private async void Stream_IncomingChecklistReceived(object sender, EventArgs e) => await _coreDispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() => LoadedCommand.Execute(null)));
 
         private async void Datagram_IncomingMessageReceived(object sender, string e)
         {

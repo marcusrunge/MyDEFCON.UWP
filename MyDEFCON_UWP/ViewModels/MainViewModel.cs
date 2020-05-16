@@ -8,6 +8,7 @@ using Sockets;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
@@ -21,6 +22,7 @@ namespace MyDEFCON_UWP.ViewModels
         private IChecklists _checkLists;
         private ILiveTile _liveTile;
         private ISockets _sockets;
+        private CoreDispatcher _coreDispatcher;
 
         private int _defconStatus;
         public int DefconStatus { get => _defconStatus; set => Set(ref _defconStatus, value); }
@@ -33,11 +35,12 @@ namespace MyDEFCON_UWP.ViewModels
             _sockets = sockets;
             DefconStatus = int.Parse(GetSetting("defconStatus", "5", StorageStrategies.Roaming));
             if (GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
+            _coreDispatcher= CoreWindow.GetForCurrentThread().Dispatcher;
         }
 
         private async void Datagram_IncomingMessageReceived(object sender, string e)
         {
-            await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() =>
+            await _coreDispatcher.RunAsync(CoreDispatcherPriority.Normal, new DispatchedHandler(() =>
             {
                 if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) DefconStatus = parsedDefconStatus;
             }));
