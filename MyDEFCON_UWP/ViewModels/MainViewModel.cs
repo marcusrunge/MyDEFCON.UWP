@@ -8,7 +8,6 @@ using Sockets;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
@@ -35,7 +34,7 @@ namespace MyDEFCON_UWP.ViewModels
             _sockets = sockets;
             DefconStatus = int.Parse(GetSetting("defconStatus", "5", StorageStrategies.Roaming));
             if (GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
-            _coreDispatcher= CoreWindow.GetForCurrentThread().Dispatcher;
+            _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
         }
 
         private async void Datagram_IncomingMessageReceived(object sender, string e)

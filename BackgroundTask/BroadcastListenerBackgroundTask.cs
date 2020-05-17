@@ -238,7 +238,7 @@ namespace BackgroundTask
 
         private bool LoadUseTransparentTileSetting()
         {
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             if (localSettings.Values.ContainsKey("useTransparentTile")) return (bool)localSettings.Values["useTransparentTile"];
             else return false;
         }
