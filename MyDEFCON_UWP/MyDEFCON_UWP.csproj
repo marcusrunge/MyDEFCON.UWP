@@ -295,6 +295,16 @@
     <Compile Include="Helpers\ResourceExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\BadgeLogo.scale-100.png" />
+    <Content Include="Assets\BadgeLogo.scale-125.png" />
+    <Content Include="Assets\BadgeLogo.scale-150.png" />
+    <Content Include="Assets\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\Square24x24Logo.scale-100.png" />
+    <Content Include="Assets\Square24x24Logo.scale-125.png" />
+    <Content Include="Assets\Square24x24Logo.scale-150.png" />
+    <Content Include="Assets\Square24x24Logo.scale-200.png" />
+    <Content Include="Assets\Square24x24Logo.scale-400.png" />
     <Content Include="ShareImages\Defcon1.png" />
     <Content Include="ShareImages\Defcon2.png" />
     <Content Include="ShareImages\Defcon3.png" />
