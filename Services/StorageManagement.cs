@@ -25,9 +25,9 @@ namespace Services
             switch (location)
             {
                 case StorageStrategies.Local:
-                    return Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey(key);
+                    return ApplicationData.Current.LocalSettings.Values.ContainsKey(key);
                 case StorageStrategies.Roaming:
-                    return Windows.Storage.ApplicationData.Current.RoamingSettings.Values.ContainsKey(key);
+                    return ApplicationData.Current.RoamingSettings.Values.ContainsKey(key);
                 default:
                     throw new NotSupportedException(location.ToString());
             }
@@ -48,9 +48,9 @@ namespace Services
                 switch (location)
                 {
                     case StorageStrategies.Local:
-                        return (T)Windows.Storage.ApplicationData.Current.LocalSettings.Values[key.ToString()];
+                        return (T)ApplicationData.Current.LocalSettings.Values[key.ToString()];
                     case StorageStrategies.Roaming:
-                        return (T)Windows.Storage.ApplicationData.Current.RoamingSettings.Values[key.ToString()];
+                        return (T)ApplicationData.Current.RoamingSettings.Values[key.ToString()];
                     default:
                         throw new NotSupportedException(location.ToString());
                 }
@@ -68,10 +68,10 @@ namespace Services
             switch (location)
             {
                 case StorageStrategies.Local:
-                    Windows.Storage.ApplicationData.Current.LocalSettings.Values[key.ToString()] = value;
+                    ApplicationData.Current.LocalSettings.Values[key.ToString()] = value;
                     break;
                 case StorageStrategies.Roaming:
-                    Windows.Storage.ApplicationData.Current.RoamingSettings.Values[key.ToString()] = value;
+                    ApplicationData.Current.RoamingSettings.Values[key.ToString()] = value;
                     break;
                 default:
                     throw new NotSupportedException(location.ToString());
@@ -83,10 +83,10 @@ namespace Services
             switch (location)
             {
                 case StorageStrategies.Local:
-                    Windows.Storage.ApplicationData.Current.LocalSettings.Values.Remove(key);
+                    ApplicationData.Current.LocalSettings.Values.Remove(key);
                     break;
                 case StorageStrategies.Roaming:
-                    Windows.Storage.ApplicationData.Current.RoamingSettings.Values.Remove(key);
+                    ApplicationData.Current.RoamingSettings.Values.Remove(key);
                     break;
                 default:
                     throw new NotSupportedException(location.ToString());
@@ -132,7 +132,7 @@ namespace Services
                 if (_File == null)
                     return default(T);
                 // read content
-                var _String = await Windows.Storage.FileIO.ReadTextAsync(_File);
+                var _String = await FileIO.ReadTextAsync(_File);
                 // convert to obj
                 var _Result = Deserialize<T>(_String);
                 return _Result;
@@ -151,33 +151,33 @@ namespace Services
         public static async Task<bool> WriteFileAsync<T>(string key, T value, StorageStrategies location = StorageStrategies.Local)
         {
             // create file
-            var _File = await CreateFileAsync(key, location, Windows.Storage.CreationCollisionOption.ReplaceExisting);
+            var _File = await CreateFileAsync(key, location, CreationCollisionOption.ReplaceExisting);
             // convert to string
             var _String = Serialize(value);
             // save string to file
-            await Windows.Storage.FileIO.WriteTextAsync(_File, _String);
+            await FileIO.WriteTextAsync(_File, _String);
             // result
             return await FileExistsAsync(key, location);
         }
 
         private static async Task<Windows.Storage.StorageFile> CreateFileAsync(string key, StorageStrategies location = StorageStrategies.Local,
-            Windows.Storage.CreationCollisionOption option = Windows.Storage.CreationCollisionOption.OpenIfExists)
+            Windows.Storage.CreationCollisionOption option = CreationCollisionOption.OpenIfExists)
         {
             switch (location)
             {
                 case StorageStrategies.Local:
-                    return await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFileAsync(key, option);
+                    return await ApplicationData.Current.LocalFolder.CreateFileAsync(key, option);
                 case StorageStrategies.Roaming:
-                    return await Windows.Storage.ApplicationData.Current.RoamingFolder.CreateFileAsync(key, option);
+                    return await ApplicationData.Current.RoamingFolder.CreateFileAsync(key, option);
                 case StorageStrategies.Temporary:
-                    return await Windows.Storage.ApplicationData.Current.TemporaryFolder.CreateFileAsync(key, option);
+                    return await ApplicationData.Current.TemporaryFolder.CreateFileAsync(key, option);
                 default:
                     throw new NotSupportedException(location.ToString());
             }
         }
 
         private static async Task<Windows.Storage.StorageFile> GetIfFileExistsAsync(string key, Windows.Storage.StorageFolder folder,
-            Windows.Storage.CreationCollisionOption option = Windows.Storage.CreationCollisionOption.FailIfExists)
+            Windows.Storage.CreationCollisionOption option = CreationCollisionOption.FailIfExists)
         {
             Windows.Storage.StorageFile retval;
             try
@@ -198,7 +198,7 @@ namespace Services
         /// <returns>StorageFile</returns>
         private static async Task<Windows.Storage.StorageFile> GetIfFileExistsAsync(string key,
             StorageStrategies location = StorageStrategies.Local,
-            Windows.Storage.CreationCollisionOption option = Windows.Storage.CreationCollisionOption.FailIfExists)
+            Windows.Storage.CreationCollisionOption option = CreationCollisionOption.FailIfExists)
         {
             Windows.Storage.StorageFile retval;
             try
@@ -206,13 +206,13 @@ namespace Services
                 switch (location)
                 {
                     case StorageStrategies.Local:
-                        retval = await Windows.Storage.ApplicationData.Current.LocalFolder.GetFileAsync(key);
+                        retval = await ApplicationData.Current.LocalFolder.GetFileAsync(key);
                         break;
                     case StorageStrategies.Roaming:
-                        retval = await Windows.Storage.ApplicationData.Current.RoamingFolder.GetFileAsync(key);
+                        retval = await ApplicationData.Current.RoamingFolder.GetFileAsync(key);
                         break;
                     case StorageStrategies.Temporary:
-                        retval = await Windows.Storage.ApplicationData.Current.TemporaryFolder.GetFileAsync(key);
+                        retval = await ApplicationData.Current.TemporaryFolder.GetFileAsync(key);
                         break;
                     default:
                         throw new NotSupportedException(location.ToString());

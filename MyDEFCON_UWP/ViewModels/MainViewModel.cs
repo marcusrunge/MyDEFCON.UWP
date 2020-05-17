@@ -35,7 +35,11 @@ namespace MyDEFCON_UWP.ViewModels
             DefconStatus = int.Parse(GetSetting("defconStatus", "5", StorageStrategies.Roaming));
             if (GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
             _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-            ApplicationDataChanged += (s, e) => { /*TODO*/ };
+            ApplicationDataChanged += async (s, e) =>
+            {
+                DefconStatus=int.Parse((string)s.RoamingSettings.Values["defconStatus"]);
+                await updateDefconStatus();
+            };
         }
 
         private async void Datagram_IncomingMessageReceived(object sender, string e)
@@ -51,10 +55,7 @@ namespace MyDEFCON_UWP.ViewModels
         {
             SetSetting("defconStatus", (string)param, StorageStrategies.Roaming);
             DefconStatus = int.Parse(param as string);
-            _liveTile.DefconTile.SetTile(DefconStatus);
-            await _checkLists.Operations.ReverseUncheck(DefconStatus);
-            await UpdateTileBadge();
-            if (GetSetting<bool>("LanBroadcastIsOn")) await _sockets.Datagram.SendMessage(param as string);
+            await updateDefconStatus();
         }));
 
         private ICommand _loadedCommand;
@@ -93,6 +94,14 @@ namespace MyDEFCON_UWP.ViewModels
             int badgeNumber = UncheckedItemsService.CountBadgeNumber(DefconStatus, defcon1CheckList, defcon2CheckList, defcon3CheckList, defcon4CheckList, defcon5CheckList);
             SetSetting("badgeNumber", badgeNumber.ToString(), StorageStrategies.Roaming);
             if (GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
+        }
+
+        private async Task updateDefconStatus()
+        {            
+            _liveTile.DefconTile.SetTile(DefconStatus);
+            await _checkLists.Operations.ReverseUncheck(DefconStatus);
+            await UpdateTileBadge();
+            if (GetSetting<bool>("LanBroadcastIsOn")) await _sockets.Datagram.SendMessage(DefconStatus.ToString());
         }
     }
 }
