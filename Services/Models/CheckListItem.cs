@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 
@@ -24,8 +25,8 @@ namespace Models
         public long UnixTimeStampCreated { get { return _unixTimeStampCreated; } set { Set(ref _unixTimeStampCreated, value); } }
         public long UnixTimeStampUpdated { get { return _unixTimeStampUpdated; } set { Set(ref _unixTimeStampUpdated, value); } }
         public short DefconStatus { get { return _defconStatus; } set { Set(ref _defconStatus, value); } }
-        public string Item { get { return _item; } set { Set(ref _item, value); } }
-        public bool Checked { get { return _checked; } set { Set(ref _checked, value); } }
+        public string Item { get { return _item; } set { Set(ref _item, value); UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds(); } }
+        public bool Checked { get { return _checked; } set { Set(ref _checked, value); UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds(); } }
         public bool Deleted { get { return _deleted; } set { Set(ref _deleted, value); } }
         public Visibility Visibility { get { return _visibility; } set { Set(ref _visibility, value); } }
         public double FontSize { get { return _fontSize; } set { Set(ref _fontSize, value); } }

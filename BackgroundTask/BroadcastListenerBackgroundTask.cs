@@ -197,14 +197,14 @@ namespace BackgroundTask
                                     }
                                 };
                             await datagramSocket.CancelIOAsync();
-                            datagramSocket.TransferOwnership("myDefconSocket");
+                            datagramSocket.TransferOwnership("myDefconDatagramSocket");
                             break;
                         case SocketActivityTriggerReason.SocketClosed:
                             DatagramSocket newDatagramSocket = new DatagramSocket();
                             newDatagramSocket.EnableTransferOwnership(taskInstance.Task.TaskId, SocketActivityConnectedStandbyAction.DoNotWake);
                             await newDatagramSocket.BindServiceNameAsync("4536");
                             await newDatagramSocket.CancelIOAsync();
-                            newDatagramSocket.TransferOwnership("myDefconSocket");
+                            newDatagramSocket.TransferOwnership("myDefconDatagramSocket");
                             break;
                         default:
                             break;
@@ -218,7 +218,7 @@ namespace BackgroundTask
                         newDatagramSocket.EnableTransferOwnership(taskInstance.Task.TaskId, SocketActivityConnectedStandbyAction.DoNotWake);
                         await newDatagramSocket.BindServiceNameAsync("4536");
                         await newDatagramSocket.CancelIOAsync();
-                        newDatagramSocket.TransferOwnership("myDefconSocket");
+                        newDatagramSocket.TransferOwnership("myDefconDatagramSocket");
                     }
                     catch (Exception) { }
                 }

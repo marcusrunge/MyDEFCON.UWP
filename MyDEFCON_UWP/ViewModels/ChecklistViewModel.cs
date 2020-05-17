@@ -179,6 +179,7 @@ namespace MyDEFCON_UWP.ViewModels
                         _checkLists.Collection.ActiveDefconCheckList[j].Deleted = true;
                         _checkLists.Collection.ActiveDefconCheckList[j].Visibility = Visibility.Collapsed;
                         _checkLists.Collection.ActiveDefconCheckList[j].Checked = true;
+                        _checkLists.Collection.ActiveDefconCheckList[j].UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds();
                     }
                 }
             }
@@ -187,7 +188,7 @@ namespace MyDEFCON_UWP.ViewModels
             _deleteInProgress = false;
         }
 
-        private void AddItemToChecklist() => _checkLists.Collection.ActiveDefconCheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, DefconStatus = (short)PageDefconStatus, FontSize = 14, UnixTimeStampCreated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), Deleted = false, Visibility = Visibility.Visible, Width = _gridWidth - 52 });
+        private void AddItemToChecklist() => _checkLists.Collection.ActiveDefconCheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, DefconStatus = (short)PageDefconStatus, FontSize = 14, UnixTimeStampCreated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), UnixTimeStampUpdated= DateTimeOffset.Now.ToUnixTimeMilliseconds(), Deleted = false, Visibility = Visibility.Visible, Width = _gridWidth - 52 });
 
         private ICommand _loadDefconChecklistCommand;
         public ICommand LoadDefconChecklistCommand => _loadDefconChecklistCommand ?? (_loadDefconChecklistCommand = new RelayCommand<object>(async (param) =>
