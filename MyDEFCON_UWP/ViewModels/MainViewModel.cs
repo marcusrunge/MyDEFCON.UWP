@@ -35,6 +35,7 @@ namespace MyDEFCON_UWP.ViewModels
             DefconStatus = int.Parse(GetSetting("defconStatus", "5", StorageStrategies.Roaming));
             if (GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
             _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
+            ApplicationDataChanged += (s, e) => { /*TODO*/ };
         }
 
         private async void Datagram_IncomingMessageReceived(object sender, string e)

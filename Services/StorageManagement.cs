@@ -4,10 +4,17 @@ using System.Text;
 namespace Services
 {
     using System.Threading.Tasks;
+    using Windows.Foundation;
+    using Windows.Storage;
 
     public static class StorageManagement
     {
-        #region SettingsPage
+        /// <summary>Register for DataChanged Event</summary>        
+        public static event TypedEventHandler<ApplicationData, object> ApplicationDataChanged
+        {
+            add { ApplicationData.Current.DataChanged += value; }
+            remove { ApplicationData.Current.DataChanged -= value; }
+        }
 
         /// <summary>Returns if a setting is found in the specified storage strategy</summary>
         /// <param name="key">Path of the setting in storage</param>
@@ -85,10 +92,6 @@ namespace Services
                     throw new NotSupportedException(location.ToString());
             }
         }
-
-        #endregion
-
-        #region File
 
         /// <summary>Returns if a file is found in the specified storage strategy</summary>
         /// <param name="key">Path of the file in storage</param>
@@ -224,8 +227,6 @@ namespace Services
             return retval;
         }
 
-        #endregion
-
         /// <summary>Serializes the specified object as a JSON string</summary>
         /// <param name="objectToSerialize">Specified object to serialize</param>
         /// <returns>JSON string of serialzied object</returns>
@@ -286,5 +287,4 @@ namespace Services
             await WriteFileAsync(key, value, location);
         }
     }
-
 }
