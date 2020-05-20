@@ -10,7 +10,7 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <i:Interaction.Behaviors>
-        <b:VisualStateBehavior VisualState="{x:Bind ViewModel.DefconStatus, Mode=OneWay}"/>
+        <b:VisualStateBehavior VisualState="{x:Bind ViewModel.DefconVisualState, Mode=OneWay}"/>
         <c:EventTriggerBehavior EventName="Tapped">
             <c:InvokeCommandAction Command="{x:Bind ViewModel.FullScreenCommand, Mode=OneWay}"/>
         </c:EventTriggerBehavior>
