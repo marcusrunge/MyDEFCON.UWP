@@ -4,14 +4,182 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:c="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:b="using:MyDEFCON_UWP.Behaviors"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid>
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
-        </Grid>
+    <i:Interaction.Behaviors>
+        <b:VisualStateBehavior VisualState="{x:Bind ViewModel.DefconStatus, Mode=OneWay}"/>
+        <c:EventTriggerBehavior EventName="Tapped">
+            <c:InvokeCommandAction Command="{x:Bind ViewModel.FullScreenCommand, Mode=OneWay}"/>
+        </c:EventTriggerBehavior>
+        <!--Gesture Recognizer-->
+        <c:EventTriggerBehavior EventName="PointerPressed">
+            <c:InvokeCommandAction Command="{x:Bind ViewModel.OnPointerPressedCommand, Mode=OneWay}"/>
+        </c:EventTriggerBehavior>
+        <!--<Core:EventTriggerBehavior EventName="PointerMoved">
+            <Core:InvokeCommandAction Command="{x:Bind ViewModel.OnPointerMovedCommand, Mode=OneWay}"/>
+        </Core:EventTriggerBehavior>-->
+        <c:EventTriggerBehavior EventName="PointerReleased">
+            <c:InvokeCommandAction Command="{x:Bind ViewModel.OnPointerReleasedCommand, Mode=OneWay}"/>
+        </c:EventTriggerBehavior>
+        <!--<Core:EventTriggerBehavior EventName="PointerCanceled">
+            <Core:InvokeCommandAction Command="{x:Bind ViewModel.OnPointerCanceledCommand, Mode=OneWay}"/>
+        </Core:EventTriggerBehavior>-->
+        <c:EventTriggerBehavior EventName="Loaded">
+            <c:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}"/>
+        </c:EventTriggerBehavior>
+        <c:EventTriggerBehavior EventName="Unloaded">
+            <c:InvokeCommandAction Command="{x:Bind ViewModel.UnloadedCommand}"/>
+        </c:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid x:Name="ContentArea">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="DefconVisualStateGroup">
+                <VisualState x:Name="Defcon1VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="border.(Border.Background).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>White</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="border.(Border.BorderBrush).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF404040</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock.(FrameworkElement.FocusVisualPrimaryBrush).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF404040</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock.(TextBlock.Foreground).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF404040</Color>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon2VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="border1.(Border.Background).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FFFF7100</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="border1.(Border.BorderBrush).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF400C00</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock1.(FrameworkElement.FocusVisualPrimaryBrush).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF400C00</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock1.(TextBlock.Foreground).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF400C00</Color>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon3VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="textBlock2.(FrameworkElement.FocusVisualPrimaryBrush).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF404000</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock2.(TextBlock.Foreground).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF404000</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="border2.(Border.Background).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>Yellow</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="border2.(Border.BorderBrush).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF404000</Color>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon4VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="border3.(Border.Background).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF00F200</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="border3.(Border.BorderBrush).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF003500</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock3.(FrameworkElement.FocusVisualPrimaryBrush).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF003500</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock3.(TextBlock.Foreground).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF003500</Color>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Defcon5VisualState">
+                    <VisualState.Setters>
+                        <Setter Target="border4.(Border.Background).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF0066FF</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="border4.(Border.BorderBrush).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF002340</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock4.(FrameworkElement.FocusVisualPrimaryBrush).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF002340</Color>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock4.(TextBlock.Foreground).(SolidColorBrush.Color)">
+                            <Setter.Value>
+                                <Color>#FF002340</Color>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Border x:Name="border" BorderBrush="#FFFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF404040" SizeChanged="{x:Bind ViewModel.border_SizeChanged}" >
+            <TextBlock x:Name="textBlock" Text="DEFCON 1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFFFF" FocusVisualPrimaryBrush="#FFFFFFFF" FontSize="{Binding FontSize}" FontWeight="SemiBold" TextLineBounds="Tight"/>
+        </Border>
+        <Border x:Name="border1" BorderBrush="#FFFF7100" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF400C00">
+            <TextBlock x:Name="textBlock1" Text="DEFCON 2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFF7100" FocusVisualPrimaryBrush="#FFFF7100" FontSize="{Binding FontSize}" FontWeight="SemiBold" TextLineBounds="Tight"/>
+        </Border>
+        <Border x:Name="border2" BorderBrush="#FFFFFF00" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF404000">
+            <TextBlock x:Name="textBlock2" Text="DEFCON 3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF00" FocusVisualPrimaryBrush="#FFFFFF00" FontSize="{Binding FontSize}" FontWeight="SemiBold" TextLineBounds="Tight"/>
+        </Border>
+        <Border x:Name="border3" BorderBrush="#FF00F200" HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF003500">
+            <TextBlock x:Name="textBlock3" Text="DEFCON 4" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF00F200" FocusVisualPrimaryBrush="#FF00F200" FontSize="{Binding FontSize}" FontWeight="SemiBold" TextLineBounds="Tight"/>
+        </Border>
+        <Border x:Name="border4" BorderBrush="#FF0066FF" HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Stretch" BorderThickness="12" Background="#FF002340">
+            <TextBlock x:Name="textBlock4" Text="DEFCON 5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FF0066FF" FocusVisualPrimaryBrush="#FF0066FF" FontSize="{Binding FontSize}" FontWeight="SemiBold" TextLineBounds="Tight"/>
+        </Border>
     </Grid>
 </Page>
