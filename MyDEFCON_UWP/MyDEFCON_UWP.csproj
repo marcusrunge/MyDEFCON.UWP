@@ -150,6 +150,7 @@
   <ItemGroup>
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Behaviors\AutoTextSizeBehavior.cs" />
+    <Compile Include="Behaviors\BorderSizeChangedBehavior.cs" />
     <Compile Include="Behaviors\CommandBarBehavior.cs" />
     <Compile Include="Behaviors\DefconColorBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />

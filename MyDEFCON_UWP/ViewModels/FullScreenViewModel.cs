@@ -24,10 +24,7 @@ namespace MyDEFCON_UWP.ViewModels
 
         private string _defconVisualState;
         public string DefconVisualState { get => _defconVisualState; set => Set(ref _defconVisualState, value); }
-
-        double _fontSize;
-        public double FontSize { get { return _fontSize; } set { Set(ref _fontSize, value); } }
-
+                
         public FullScreenViewModel(ISockets sockets)
         {
             _sockets = sockets;
@@ -100,19 +97,6 @@ namespace MyDEFCON_UWP.ViewModels
             if (deltaY > 0 && deltaY > 10) ToggleScreenBacklight(false);
             if (deltaY < 0 && deltaY < -10) ToggleScreenBacklight(true);
         }));
-
-        public void border_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            double calculatedTextBlockWidth = e.NewSize.Height * 0.75 * 6.5;
-            if (e.NewSize.Width > calculatedTextBlockWidth)
-            {
-                FontSize = Math.Floor(e.NewSize.Height * 0.75);
-            }
-            else
-            {
-                FontSize = Math.Floor(e.NewSize.Width / 6.5);
-            }
-        }
 
         private void ToggleScreenBacklight(bool isScreenBacklightOn)
         {

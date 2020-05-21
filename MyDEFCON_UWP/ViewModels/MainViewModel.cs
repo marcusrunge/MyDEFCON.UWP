@@ -38,7 +38,7 @@ namespace MyDEFCON_UWP.ViewModels
             ApplicationDataChanged += async (s, e) =>
             {
                 DefconStatus=int.Parse((string)s.RoamingSettings.Values["defconStatus"]);
-                await updateDefconStatus();
+                await UpdateDefconStatus();
             };
         }
 
@@ -55,7 +55,7 @@ namespace MyDEFCON_UWP.ViewModels
         {
             SetSetting("defconStatus", (string)param, StorageStrategies.Roaming);
             DefconStatus = int.Parse(param as string);
-            await updateDefconStatus();
+            await UpdateDefconStatus();
         }));
 
         private ICommand _loadedCommand;
@@ -96,7 +96,7 @@ namespace MyDEFCON_UWP.ViewModels
             if (GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
         }
 
-        private async Task updateDefconStatus()
+        private async Task UpdateDefconStatus()
         {            
             _liveTile.DefconTile.SetTile(DefconStatus);
             await _checkLists.Operations.ReverseUncheck(DefconStatus);
