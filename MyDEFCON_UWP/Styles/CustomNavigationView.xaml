@@ -348,16 +348,15 @@
                                     <Grid x:Name="TopNavLeftPadding" Grid.Column="1" Width="0"/>
                                     <ContentControl x:Name="PaneHeaderOnTopPane" Grid.Column="2" HorizontalContentAlignment="Stretch" IsTabStop="False" VerticalContentAlignment="Stretch"/>
                                     <ContentControl x:Name="PaneTitleOnTopPane" Grid.Column="2" HorizontalContentAlignment="Stretch" IsTabStop="False" VerticalContentAlignment="Stretch"/>
-                                    <controls:NavigationViewList x:Name="TopNavMenuItemsHost" Grid.Column="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollMode="Disabled" ItemContainerStyleSelector="{TemplateBinding MenuItemContainerStyleSelector}" ItemContainerStyle="{TemplateBinding MenuItemContainerStyle}" ItemTemplate="{TemplateBinding MenuItemTemplate}" IsItemClickEnabled="True" ItemTemplateSelector="{TemplateBinding MenuItemTemplateSelector}" AutomationProperties.LandmarkType="Navigation" AutomationProperties.Name="{TemplateBinding AutomationProperties.Name}" SelectionMode="Single" SingleSelectionFollowsFocus="{Binding TemplateSettings.SingleSelectionFollowsFocus, RelativeSource={RelativeSource Mode=TemplatedParent}}" ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                                        <controls:NavigationViewList.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <ItemsStackPanel Orientation="Horizontal"/>
-                                            </ItemsPanelTemplate>
-                                        </controls:NavigationViewList.ItemsPanel>
-                                        <controls:NavigationViewList.ItemContainerTransitions>
-                                            <TransitionCollection/>
-                                        </controls:NavigationViewList.ItemContainerTransitions>
-                                    </controls:NavigationViewList>
+                                    <controls:ItemsRepeaterScrollHost Grid.Column="3">
+                                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Disabled" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+                                            <controls:ItemsRepeater x:Name="TopNavMenuItemsHost" AutomationProperties.AccessibilityView="Content" AutomationProperties.LandmarkType="Navigation" AutomationProperties.Name="{TemplateBinding AutomationProperties.Name}">
+                                                <controls:ItemsRepeater.Layout>
+                                                    <controls:StackLayout Orientation="Horizontal"/>
+                                                </controls:ItemsRepeater.Layout>
+                                            </controls:ItemsRepeater>
+                                        </ScrollViewer>
+                                    </controls:ItemsRepeaterScrollHost>
                                     <Button x:Name="TopNavOverflowButton" Content="More" Grid.Column="4" Style="{StaticResource NavigationViewOverflowButtonStyleWhenPaneOnTop}" Visibility="{Binding TemplateSettings.OverflowButtonVisibility, RelativeSource={RelativeSource Mode=TemplatedParent}}">
                                         <Button.Flyout>
                                             <Flyout ElementSoundMode="{Binding ElementSoundMode, RelativeSource={RelativeSource Mode=TemplatedParent}}" Placement="Bottom">
@@ -367,11 +366,15 @@
                                                         <Setter Property="Margin" Value="0,-4,0,0"/>
                                                     </Style>
                                                 </Flyout.FlyoutPresenterStyle>
-                                                <controls:NavigationViewList x:Name="TopNavMenuItemsOverflowHost" ElementSoundMode="{TemplateBinding ElementSoundMode}" ItemContainerStyleSelector="{TemplateBinding MenuItemContainerStyleSelector}" ItemContainerStyle="{TemplateBinding MenuItemContainerStyle}" ItemTemplate="{TemplateBinding MenuItemTemplate}" IsItemClickEnabled="True" ItemTemplateSelector="{TemplateBinding MenuItemTemplateSelector}" SingleSelectionFollowsFocus="False">
-                                                    <controls:NavigationViewList.ItemContainerTransitions>
-                                                        <TransitionCollection/>
-                                                    </controls:NavigationViewList.ItemContainerTransitions>
-                                                </controls:NavigationViewList>
+                                                <controls:ItemsRepeaterScrollHost>
+                                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                        <controls:ItemsRepeater x:Name="TopNavMenuItemsOverflowHost" AutomationProperties.AccessibilityView="Content">
+                                                            <controls:ItemsRepeater.Layout>
+                                                                <controls:StackLayout Orientation="Vertical"/>
+                                                            </controls:ItemsRepeater.Layout>
+                                                        </controls:ItemsRepeater>
+                                                    </ScrollViewer>
+                                                </controls:ItemsRepeaterScrollHost>
                                             </Flyout>
                                         </Button.Flyout>
                                     </Button>
@@ -422,7 +425,15 @@
                                             <Button x:Name="PaneAutoSuggestButton" Style="{ThemeResource NavigationViewPaneSearchButtonStyle}" Visibility="Collapsed" Width="{TemplateBinding CompactPaneLength}"/>
                                         </Grid>
                                         <ContentControl x:Name="PaneCustomContentBorder" HorizontalContentAlignment="Stretch" IsTabStop="False" Grid.Row="4" VerticalContentAlignment="Stretch"/>
-                                        <controls:NavigationViewList x:Name="MenuItemsHost" HorizontalAlignment="Stretch" ItemContainerStyleSelector="{TemplateBinding MenuItemContainerStyleSelector}" ItemContainerStyle="{TemplateBinding MenuItemContainerStyle}" ItemTemplate="{TemplateBinding MenuItemTemplate}" IsItemClickEnabled="True" ItemTemplateSelector="{TemplateBinding MenuItemTemplateSelector}" Margin="0,0,0,20" AutomationProperties.Name="{TemplateBinding AutomationProperties.Name}" Grid.Row="6" SelectionMode="Single" SelectedItem="{TemplateBinding SelectedItem}" SingleSelectionFollowsFocus="{Binding TemplateSettings.SingleSelectionFollowsFocus, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                        <controls:ItemsRepeaterScrollHost HorizontalAlignment="Stretch" Margin="0,0,0,20" Grid.Row="6" VerticalAlignment="Top">
+                                            <ScrollViewer TabNavigation="Once" VerticalScrollBarVisibility="Auto">
+                                                <controls:ItemsRepeater x:Name="MenuItemsHost" AutomationProperties.AccessibilityView="Content" AutomationProperties.Name="{TemplateBinding AutomationProperties.Name}">
+                                                    <controls:ItemsRepeater.Layout>
+                                                        <controls:StackLayout Orientation="Vertical"/>
+                                                    </controls:ItemsRepeater.Layout>
+                                                </controls:ItemsRepeater>
+                                            </ScrollViewer>
+                                        </controls:ItemsRepeaterScrollHost>
                                         <ContentControl x:Name="FooterContentBorder" HorizontalContentAlignment="Stretch" IsTabStop="False" Grid.Row="7" VerticalContentAlignment="Stretch"/>
                                         <Grid Grid.Row="8">
                                             <controls:NavigationViewItem x:Name="SettingsNavPaneItem">
