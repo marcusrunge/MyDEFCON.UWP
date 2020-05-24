@@ -1,4 +1,6 @@
-﻿using MyDEFCON_UWP.Helpers;
+﻿using Microsoft.UI.Xaml.Controls;
+using MyDEFCON_UWP.Helpers;
+using Services;
 using Sockets;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,7 @@ namespace MyDEFCON_UWP.ViewModels
         private UIElement _uIElement;
         private I2cDevice _i2CDevice;
         private ISockets _sockets;
+        private IEventService _eventService;
         private CoreDispatcher _coreDispatcher;
         double _onPointerPressedY, _onPointerReleasedY;
         bool _isFullScreen = default(bool);
@@ -25,9 +28,10 @@ namespace MyDEFCON_UWP.ViewModels
         private string _defconVisualState;
         public string DefconVisualState { get => _defconVisualState; set => Set(ref _defconVisualState, value); }
                 
-        public FullScreenViewModel(ISockets sockets)
+        public FullScreenViewModel(ISockets sockets, IEventService eventService)
         {
             _sockets = sockets;
+            _eventService = eventService;
             if (GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
             _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             ApplicationDataChanged += async (s, e) =>
@@ -45,9 +49,7 @@ namespace MyDEFCON_UWP.ViewModels
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
         {
             await SetDefconVisualState(int.Parse(GetSetting("defconStatus", "5", StorageStrategies.Roaming)));
-            _isFullScreen = true;
-            SetSetting("isFullScreen", true);
-            SetSetting("showHamburgerButton", false);
+            _isFullScreen = true;            
             string i2cDeviceSelector = I2cDevice.GetDeviceSelector();
             I2cConnectionSettings i2CConnectionSettings = new I2cConnectionSettings(0x45);
             IReadOnlyList<DeviceInformation> deviceInformationCollection = await DeviceInformation.FindAllAsync(i2cDeviceSelector);
@@ -56,13 +58,13 @@ namespace MyDEFCON_UWP.ViewModels
                 var i2CDevice = await I2cDevice.FromIdAsync(deviceInformationCollection[0].Id, i2CConnectionSettings);
                 _i2CDevice = i2CDevice;
             }
+            _eventService.OnPaneDisplayModeChangeChanged(new PaneDisplayModeChangedEventArgs(4));
         }));
 
         private ICommand _unloadedCommand;
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
         {
-            SetSetting("isFullScreen", false);
-            SetSetting("showHamburgerButton", true);
+            _eventService.OnPaneDisplayModeChangeChanged(new PaneDisplayModeChangedEventArgs(3));
         }));
 
         private ICommand _fullScreenCommand;
@@ -70,14 +72,12 @@ namespace MyDEFCON_UWP.ViewModels
         {
             if (_isFullScreen)
             {
-                SetSetting("isFullScreen", false);
-                SetSetting("showHamburgerButton", true);
+                _eventService.OnPaneDisplayModeChangeChanged(new PaneDisplayModeChangedEventArgs(3));
                 _isFullScreen = false;
             }
             else
             {
-                SetSetting("isFullScreen", true);
-                SetSetting("showHamburgerButton", false);
+                _eventService.OnPaneDisplayModeChangeChanged(new PaneDisplayModeChangedEventArgs(4));
                 _isFullScreen = true;
             }
         }));

@@ -94,7 +94,7 @@
         IsBackButtonVisible="Visible"
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
-        IsSettingsVisible="True" PaneDisplayMode="LeftCompact" Margin="0,0,0,0">
+        IsSettingsVisible="True" PaneDisplayMode="{x:Bind ViewModel.PaneDisplayMode, Mode=OneWay}" Margin="0,0,0,0">
             <winui:NavigationView.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>

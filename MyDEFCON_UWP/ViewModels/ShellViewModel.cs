@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.System;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using WinUI = Microsoft.UI.Xaml.Controls;
@@ -32,6 +31,9 @@ namespace MyDEFCON_UWP.ViewModels
         private string _visualState;
         public string VisualState { get => _visualState; set => Set(ref _visualState, value); }
 
+        private WinUI.NavigationViewPaneDisplayMode _paneDisplayMode;
+        public WinUI.NavigationViewPaneDisplayMode PaneDisplayMode { get => _paneDisplayMode; set => Set(ref _paneDisplayMode, value); }
+
         public bool IsBackEnabled
         {
             get => _isBackEnabled;
@@ -51,9 +53,11 @@ namespace MyDEFCON_UWP.ViewModels
         public ShellViewModel(IEventService eventService)
         {
             _eventService = eventService;
+            PaneDisplayMode = WinUI.NavigationViewPaneDisplayMode.LeftCompact;
+            _eventService.PaneDisplayModeChangeChanged += (s, e) => PaneDisplayMode = (WinUI.NavigationViewPaneDisplayMode)((PaneDisplayModeChangedEventArgs)e).Mode;
         }
 
-        public void Initialize(Frame frame, WinUI.NavigationView navigationView, IList<KeyboardAccelerator> keyboardAccelerators)
+        public void Initialize(Windows.UI.Xaml.Controls.Frame frame, WinUI.NavigationView navigationView, IList<KeyboardAccelerator> keyboardAccelerators)
         {
             _navigationView = navigationView;
             _keyboardAccelerators = keyboardAccelerators;
