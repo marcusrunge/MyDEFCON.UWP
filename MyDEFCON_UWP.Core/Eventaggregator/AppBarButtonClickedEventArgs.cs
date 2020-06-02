@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MyDEFCON_UWP.Core.Eventaggregator
+﻿namespace MyDEFCON_UWP.Core.Eventaggregator
 {
     internal class AppBarButtonClickedEventArgs : IAppBarButtonClickedEventArgs
     {

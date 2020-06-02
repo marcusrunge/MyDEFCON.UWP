@@ -1,24 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MyDEFCON_UWP.Core.Eventaggregator
 {
-    internal class Publish : SubscribeBase, IPublish
+    internal class Publish : IPublish
     {
-        private SubscribeBase _subscribe;
         private static IPublish _publish;
-        internal static IPublish Create(SubscribeBase subscribe) => _publish ?? (_publish = new Publish(subscribe));
+        private SubscribeBase _subscribeBase;
 
-        public Publish(SubscribeBase subscribe)
+        public Publish(SubscribeBase subscribeBase)
         {
-            _subscribe = subscribe;
+            _subscribeBase = subscribeBase;
         }
 
-        public void OnAppBarButtonClicked(IAppBarButtonClickedEventArgs eventArgs) => AppBarButtonClicked?.Invoke(this, eventArgs);
+        internal static IPublish Create(SubscribeBase subscribeBase) => _publish ?? (_publish = new Publish(subscribeBase));
+                
+        public void OnAppBarButtonClicked(IAppBarButtonClickedEventArgs eventArgs) => _subscribeBase._onAppBarButtonClickedDelegate(this, eventArgs as EventArgs);
 
-        public void OnChecklistChanged(EventArgs eventArgs) => ChecklistChanged?.Invoke(this, eventArgs);
+        public void OnChecklistChanged(EventArgs eventArgs) => _subscribeBase._onChecklistChangedDelegate(this, eventArgs);
 
-        public void OnPaneDisplayModeChangeChanged(IPaneDisplayModeChangedEventArgs paneDisplayModeChangedEventArgs) => PaneDisplayModeChangeChanged?.Invoke(this, paneDisplayModeChangedEventArgs);
+        public void OnPaneDisplayModeChangeChanged(IPaneDisplayModeChangedEventArgs paneDisplayModeChangedEventArgs) => _subscribeBase._onPaneDisplayModeChangeChangedDelegate(this, paneDisplayModeChangedEventArgs as EventArgs);
     }
 }

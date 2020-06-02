@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MyDEFCON_UWP.Core.Eventaggregator
+﻿namespace MyDEFCON_UWP.Core.Eventaggregator
 {
-    internal abstract class SubscribeBase : ISubscribe
+    internal class Subscribe:SubscribeBase
     {
-        public event EventHandler AppBarButtonClicked;
-        public event EventHandler ChecklistChanged;
-        public event EventHandler PaneDisplayModeChangeChanged;
+        private static ISubscribe _subscribe;
+        internal static ISubscribe Create() => _subscribe ?? (_subscribe = new Subscribe());
     }
 }
