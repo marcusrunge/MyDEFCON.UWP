@@ -1,6 +1,7 @@
 ﻿
 using Checklists;
 using LiveTile;
+using MyDEFCON_UWP.Core.Eventaggregator;
 using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
 using Services;
@@ -17,7 +18,7 @@ namespace MyDEFCON_UWP.ViewModels
 {
     public class MainViewModel : Observable
     {
-        private IEventService _eventService;
+        private IEventAggregator _eventAggregator;
         private IChecklists _checkLists;
         private ILiveTile _liveTile;
         private ISockets _sockets;
@@ -26,9 +27,9 @@ namespace MyDEFCON_UWP.ViewModels
         private int _defconStatus;
         public int DefconStatus { get => _defconStatus; set => Set(ref _defconStatus, value); }
 
-        public MainViewModel(IEventService eventService, IChecklists checkLists, ILiveTile liveTile, ISockets sockets)
+        public MainViewModel(IEventAggregator eventAggregator, IChecklists checkLists, ILiveTile liveTile, ISockets sockets)
         {
-            _eventService = eventService;
+            _eventAggregator = eventAggregator;
             _checkLists = checkLists;
             _liveTile = liveTile;
             _sockets = sockets;
@@ -62,9 +63,9 @@ namespace MyDEFCON_UWP.ViewModels
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>((param) =>
         {
             DataTransferManager.GetForCurrentView().DataRequested += MainViewModel_DataRequested;
-            _eventService.AppBarButtonClicked += (s, e) =>
+            _eventAggregator.Subscribe.AppBarButtonClicked += (s, e) =>
             {
-                if ((e as AppBarButtonClickedEventArgs).Button.Equals("Share")) DataTransferManager.ShowShareUI();
+                if (e.Button.Equals("Share")) DataTransferManager.ShowShareUI();
             };
         }));
 

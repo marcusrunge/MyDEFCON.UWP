@@ -4,8 +4,8 @@ namespace MyDEFCON_UWP.Core.Eventaggregator
 {
     public interface ISubscribe
     {
-        event EventHandler AppBarButtonClicked;
+        event EventHandler<IAppBarButtonClickedEventArgs> AppBarButtonClicked;
         event EventHandler ChecklistChanged;
-        event EventHandler PaneDisplayModeChangeChanged;
+        event EventHandler<IPaneDisplayModeChangedEventArgs> PaneDisplayModeChangeChanged;
     }
 }

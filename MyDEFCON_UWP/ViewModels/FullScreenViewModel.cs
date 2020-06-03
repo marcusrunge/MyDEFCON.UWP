@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using MyDEFCON_UWP.Core.Eventaggregator;
 using MyDEFCON_UWP.Helpers;
 using Services;
 using Sockets;
@@ -20,7 +21,7 @@ namespace MyDEFCON_UWP.ViewModels
         private UIElement _uIElement;
         private I2cDevice _i2CDevice;
         private ISockets _sockets;
-        private IEventService _eventService;
+        private IEventAggregator _eventAggregator;
         private CoreDispatcher _coreDispatcher;
         double _onPointerPressedY, _onPointerReleasedY;
         bool _isFullScreen = default(bool);
@@ -28,10 +29,10 @@ namespace MyDEFCON_UWP.ViewModels
         private string _defconVisualState;
         public string DefconVisualState { get => _defconVisualState; set => Set(ref _defconVisualState, value); }
                 
-        public FullScreenViewModel(ISockets sockets, IEventService eventService)
+        public FullScreenViewModel(ISockets sockets, IEventAggregator eventAggregator)
         {
             _sockets = sockets;
-            _eventService = eventService;
+            _eventAggregator = eventAggregator;
             if (GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
             _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             ApplicationDataChanged += async (s, e) =>
@@ -58,13 +59,13 @@ namespace MyDEFCON_UWP.ViewModels
                 var i2CDevice = await I2cDevice.FromIdAsync(deviceInformationCollection[0].Id, i2CConnectionSettings);
                 _i2CDevice = i2CDevice;
             }
-            _eventService.OnPaneDisplayModeChangeChanged(new PaneDisplayModeChangedEventArgs(4));
+            _eventAggregator.Publish.OnPaneDisplayModeChangeChanged(EventArgsFactory.CreateEventArgs<IPaneDisplayModeChangedEventArgs>(4));           
         }));
 
         private ICommand _unloadedCommand;
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
         {
-            _eventService.OnPaneDisplayModeChangeChanged(new PaneDisplayModeChangedEventArgs(3));
+            _eventAggregator.Publish.OnPaneDisplayModeChangeChanged(EventArgsFactory.CreateEventArgs<IPaneDisplayModeChangedEventArgs>(3));
         }));
 
         private ICommand _fullScreenCommand;
@@ -72,12 +73,12 @@ namespace MyDEFCON_UWP.ViewModels
         {
             if (_isFullScreen)
             {
-                _eventService.OnPaneDisplayModeChangeChanged(new PaneDisplayModeChangedEventArgs(3));
+                _eventAggregator.Publish.OnPaneDisplayModeChangeChanged(EventArgsFactory.CreateEventArgs<IPaneDisplayModeChangedEventArgs>(3));
                 _isFullScreen = false;
             }
             else
             {
-                _eventService.OnPaneDisplayModeChangeChanged(new PaneDisplayModeChangedEventArgs(4));
+                _eventAggregator.Publish.OnPaneDisplayModeChangeChanged(EventArgsFactory.CreateEventArgs<IPaneDisplayModeChangedEventArgs>(4));
                 _isFullScreen = true;
             }
         }));

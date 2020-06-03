@@ -6,6 +6,6 @@ namespace MyDEFCON_UWP.Core.Eventaggregator
     {
         void OnChecklistChanged(EventArgs eventArgs);
         void OnAppBarButtonClicked(IAppBarButtonClickedEventArgs eventArgs);
-        void OnPaneDisplayModeChangeChanged(IPaneDisplayModeChangedEventArgs paneDisplayModeChangedEventArgs)
+        void OnPaneDisplayModeChangeChanged(IPaneDisplayModeChangedEventArgs paneDisplayModeChangedEventArgs);
     }
 }

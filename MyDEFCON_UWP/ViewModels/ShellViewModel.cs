@@ -1,4 +1,5 @@
-﻿using MyDEFCON_UWP.Helpers;
+﻿using MyDEFCON_UWP.Core.Eventaggregator;
+using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
 using MyDEFCON_UWP.Views;
 using Services;
@@ -26,7 +27,7 @@ namespace MyDEFCON_UWP.ViewModels
         private WinUI.NavigationViewItem _selected;
         private ICommand _loadedCommand;
         private ICommand _itemInvokedCommand;
-        private IEventService _eventService;
+        private IEventAggregator _eventAggregator;
 
         private string _visualState;
         public string VisualState { get => _visualState; set => Set(ref _visualState, value); }
@@ -50,11 +51,11 @@ namespace MyDEFCON_UWP.ViewModels
 
         public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
 
-        public ShellViewModel(IEventService eventService)
+        public ShellViewModel(IEventAggregator eventAggregator)
         {
-            _eventService = eventService;
+            _eventAggregator = eventAggregator;
             PaneDisplayMode = WinUI.NavigationViewPaneDisplayMode.LeftCompact;
-            _eventService.PaneDisplayModeChangeChanged += (s, e) => PaneDisplayMode = (WinUI.NavigationViewPaneDisplayMode)((PaneDisplayModeChangedEventArgs)e).Mode;
+            _eventAggregator.Subscribe.PaneDisplayModeChangeChanged += (s, e) => PaneDisplayMode = (WinUI.NavigationViewPaneDisplayMode)e.Mode;
         }
 
         public void Initialize(Windows.UI.Xaml.Controls.Frame frame, WinUI.NavigationView navigationView, IList<KeyboardAccelerator> keyboardAccelerators)
@@ -74,7 +75,7 @@ namespace MyDEFCON_UWP.ViewModels
             // More info on tracking issue https://github.com/Microsoft/microsoft-ui-xaml/issues/8
             _keyboardAccelerators.Add(_altLeftKeyboardAccelerator);
             _keyboardAccelerators.Add(_backKeyboardAccelerator);
-            _eventService.ChecklistChanged += (s, e) => { VisualState = "AddItemState"; };
+            _eventAggregator.Subscribe.ChecklistChanged+= (s, e) => { VisualState = "AddItemState"; };
             await Task.CompletedTask;
         }
 
@@ -144,7 +145,7 @@ namespace MyDEFCON_UWP.ViewModels
         private ICommand _appBarButtonClickedCommand;
         public ICommand AppBarButtonClickedCommand => _appBarButtonClickedCommand ?? (_appBarButtonClickedCommand = new RelayCommand<object>((param) =>
         {
-            _eventService.OnAppBarButtonClicked(new AppBarButtonClickedEventArgs((string)param));
+            _eventAggregator.Publish.OnAppBarButtonClicked(EventArgsFactory.CreateEventArgs<IAppBarButtonClickedEventArgs>((string)param));
             if ((string)param == "List" && VisualState == "DeleteItemsState") VisualState = "AddItemState";
         }));
 

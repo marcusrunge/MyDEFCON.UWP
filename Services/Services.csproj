@@ -107,7 +107,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="EventService.cs" />
     <Compile Include="Models\CheckListItem.cs" />
     <Compile Include="CheckListManagement.cs" />
     <Compile Include="ItemObservableCollection.cs" />

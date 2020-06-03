@@ -6,18 +6,18 @@ namespace MyDEFCON_UWP.Core.Eventaggregator
     {
         private static SubscribeBase _instance;
 
-        internal delegate void OnAppBarButtonClickedDelegate(object s, EventArgs e);
-        internal OnAppBarButtonClickedDelegate _onAppBarButtonClickedDelegate =(s, e) => _instance.AppBarButtonClicked?.Invoke(s, e);
+        internal protected delegate void OnAppBarButtonClickedDelegate(object s, IAppBarButtonClickedEventArgs e);
+        internal protected OnAppBarButtonClickedDelegate _onAppBarButtonClickedDelegate =(s, e) => _instance.AppBarButtonClicked?.Invoke(s, e);
 
-        internal delegate void OnChecklistChangedDelegate(object s, EventArgs e);
-        internal OnChecklistChangedDelegate _onChecklistChangedDelegate = (s, e) => _instance.ChecklistChanged?.Invoke(s, e);
+        internal protected delegate void OnChecklistChangedDelegate(object s, EventArgs e);
+        internal protected OnChecklistChangedDelegate _onChecklistChangedDelegate = (s, e) => _instance.ChecklistChanged?.Invoke(s, e);
 
-        internal delegate void OnPaneDisplayModeChangeChangedDelegate(object s, EventArgs e);
-        internal OnPaneDisplayModeChangeChangedDelegate _onPaneDisplayModeChangeChangedDelegate = (s, e) => _instance.PaneDisplayModeChangeChanged?.Invoke(s, e);
+        internal protected delegate void OnPaneDisplayModeChangeChangedDelegate(object s, IPaneDisplayModeChangedEventArgs e);
+        internal protected OnPaneDisplayModeChangeChangedDelegate _onPaneDisplayModeChangeChangedDelegate = (s, e) => _instance.PaneDisplayModeChangeChanged?.Invoke(s, e);
 
-        public event EventHandler AppBarButtonClicked;
+        public event EventHandler<IAppBarButtonClickedEventArgs> AppBarButtonClicked;
         public event EventHandler ChecklistChanged;
-        public event EventHandler PaneDisplayModeChangeChanged;
+        public event EventHandler<IPaneDisplayModeChangedEventArgs> PaneDisplayModeChangeChanged;
 
         public SubscribeBase()
         {

@@ -2,6 +2,7 @@
 using Checklists;
 using LiveTile;
 using Models;
+using MyDEFCON_UWP.Core.Eventaggregator;
 using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
 using Services;
@@ -21,7 +22,7 @@ namespace MyDEFCON_UWP.ViewModels
 {
     public class ChecklistViewModel : Observable
     {
-        private IEventService _eventService;
+        private IEventAggregator _eventAggregator;
         private IChecklists _checkLists;
         private ILiveTile _liveTile;
         private long[] selectedItemsUnixTimeStampCreated;
@@ -66,9 +67,9 @@ namespace MyDEFCON_UWP.ViewModels
         int _defcon5UnCheckedItems;
         public int Defcon5UnCheckedItems { get { return _defcon5UnCheckedItems; } set { Set(ref _defcon5UnCheckedItems, value); } }
 
-        public ChecklistViewModel(IEventService eventService, IChecklists checkLists, ILiveTile liveTile, ISockets sockets)
+        public ChecklistViewModel(IEventAggregator eventAggregator, IChecklists checkLists, ILiveTile liveTile, ISockets sockets)
         {
-            _eventService = eventService;
+            _eventAggregator = eventAggregator;
             _checkLists = checkLists;
             _liveTile = liveTile;
             _sockets = sockets;
@@ -99,7 +100,7 @@ namespace MyDEFCON_UWP.ViewModels
             DefconCheckList = _checkLists.Collection.ActiveDefconCheckList;
             SetTextBoxWidth(_gridWidth - 52);
             _checkLists.Collection.ActiveDefconCheckList.CollectionChanged += DefconCheckList_CollectionChanged;
-            _eventService.AppBarButtonClicked += AppBarButtonClicked;
+            _eventAggregator.Subscribe.AppBarButtonClicked += AppBarButtonClicked;
             Defcon1UnCheckedItems = UncheckedItems.Count(_checkLists.Collection.Defcon1Checklist, 1, _appDefconStatus);
             Defcon2UnCheckedItems = UncheckedItems.Count(_checkLists.Collection.Defcon2Checklist, 2, _appDefconStatus);
             Defcon3UnCheckedItems = UncheckedItems.Count(_checkLists.Collection.Defcon3Checklist, 3, _appDefconStatus);
@@ -143,9 +144,9 @@ namespace MyDEFCON_UWP.ViewModels
             UpdateTileBadge();
         }
 
-        private async void AppBarButtonClicked(object sender, EventArgs e)
+        private async void AppBarButtonClicked(object sender, IAppBarButtonClickedEventArgs e)
         {
-            switch ((e as AppBarButtonClickedEventArgs).Button)
+            switch (e.Button)
             {
                 case "Add":
                     AddItemToChecklist();
@@ -188,13 +189,13 @@ namespace MyDEFCON_UWP.ViewModels
             _deleteInProgress = false;
         }
 
-        private void AddItemToChecklist() => _checkLists.Collection.ActiveDefconCheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, DefconStatus = (short)PageDefconStatus, FontSize = 14, UnixTimeStampCreated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), UnixTimeStampUpdated= DateTimeOffset.Now.ToUnixTimeMilliseconds(), Deleted = false, Visibility = Visibility.Visible, Width = _gridWidth - 52 });
+        private void AddItemToChecklist() => _checkLists.Collection.ActiveDefconCheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, DefconStatus = (short)PageDefconStatus, FontSize = 14, UnixTimeStampCreated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), Deleted = false, Visibility = Visibility.Visible, Width = _gridWidth - 52 });
 
         private ICommand _loadDefconChecklistCommand;
         public ICommand LoadDefconChecklistCommand => _loadDefconChecklistCommand ?? (_loadDefconChecklistCommand = new RelayCommand<object>(async (param) =>
         {
-            CheckistSelectionMode = ListViewSelectionMode.None;
-            _eventService.OnChecklistChanged(null);
+            CheckistSelectionMode = ListViewSelectionMode.None;            
+            _eventAggregator.Publish.OnChecklistChanged(null);
             _checkLists.Collection.ActiveDefconCheckList.CollectionChanged -= DefconCheckList_CollectionChanged;
             PageDefconStatus = int.Parse(param as string);
             await _checkLists.Operations.SetDefconStatus(PageDefconStatus);

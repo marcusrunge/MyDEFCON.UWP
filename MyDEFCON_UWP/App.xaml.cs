@@ -3,6 +3,7 @@ using LiveTile;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using MyDEFCON_UWP.Core.Eventaggregator;
 using MyDEFCON_UWP.Core.Helpers;
 using MyDEFCON_UWP.Services;
 using MyDEFCON_UWP.ViewModels;
@@ -92,8 +93,7 @@ namespace MyDEFCON_UWP
         }
 
         private void RegisterContainer()
-        {
-            Container.RegisterSingleton<IEventService, EventService>();
+        {            
             Container.RegisterType<MainViewModel>();
             Container.RegisterType<ChecklistViewModel>();
             Container.RegisterType<MessagesViewModel>();
@@ -105,6 +105,7 @@ namespace MyDEFCON_UWP
             Container.RegisterInstance(ChecklistsFactory.Create());
             Container.RegisterInstance(LiveTileFactory.Create());
             Container.RegisterInstance(SocketsFactory.Create());
+            Container.RegisterInstance(EventAggregatorFactory.Create());
         }
     }
 }
