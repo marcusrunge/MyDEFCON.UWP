@@ -113,7 +113,7 @@ namespace MyDEFCON_UWP.ViewModels
             Defcon5RectangleFill = UncheckedItems.RectangleFill(_checkLists.Collection.Defcon5Checklist, 5, Defcon5UnCheckedItems, _appDefconStatus);
         }));
 
-        private async void DefconCheckList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void DefconCheckList_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             switch (PageDefconStatus)
             {
@@ -140,7 +140,7 @@ namespace MyDEFCON_UWP.ViewModels
                 default:
                     break;
             }
-            if (!_deleteInProgress) await _checkLists.Operations.SaveCheckList(DefconCheckList, PageDefconStatus);
+            if (!_deleteInProgress) _checkLists.Operations.SaveCheckList(DefconCheckList, PageDefconStatus);
             UpdateTileBadge();
         }
 
@@ -155,7 +155,7 @@ namespace MyDEFCON_UWP.ViewModels
                     CheckistSelectionMode = CheckistSelectionMode == ListViewSelectionMode.Multiple ? ListViewSelectionMode.None : ListViewSelectionMode.Multiple;
                     break;
                 case "Delete":
-                    if (SelectedItemsUnixTimeStampCreated.Count > 0) await DeleteSelectedItems();
+                    if (SelectedItemsUnixTimeStampCreated.Count > 0) DeleteSelectedItems();
                     else CheckistSelectionMode = ListViewSelectionMode.None;
                     break;
                 case "Sync":
@@ -166,7 +166,7 @@ namespace MyDEFCON_UWP.ViewModels
             }
         }
 
-        private async Task DeleteSelectedItems()
+        private void DeleteSelectedItems()
         {
             _deleteInProgress = true;
             selectedItemsUnixTimeStampCreated = new long[SelectedItemsUnixTimeStampCreated.Count];
@@ -185,7 +185,7 @@ namespace MyDEFCON_UWP.ViewModels
                 }
             }
             CheckistSelectionMode = ListViewSelectionMode.None;
-            await _checkLists.Operations.SaveCheckList(DefconCheckList, PageDefconStatus);
+            _checkLists.Operations.SaveCheckList(DefconCheckList, PageDefconStatus);
             _deleteInProgress = false;
         }
 
@@ -217,9 +217,9 @@ namespace MyDEFCON_UWP.ViewModels
         }
 
         private ICommand _unloadedCommand;
-        public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>(async (param) =>
+        public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
         {
-            await _checkLists.Operations.SaveCheckList(DefconCheckList, PageDefconStatus);
+            _checkLists.Operations.SaveCheckList(DefconCheckList, PageDefconStatus);
         }));
 
         private void UpdateTileBadge()

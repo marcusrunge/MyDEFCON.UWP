@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Checklists;
+using Models;
 using Newtonsoft.Json;
 using Services;
 using System;
@@ -20,7 +21,7 @@ namespace Sockets
         Task StopListener();
         Task SendStringData(HostName hostName, string data);
         Task<string> ReceiveStringData(HostName hostName);
-        Task<string> GetJsonSerializedChecklistItems();
+        string GetJsonSerializedChecklistItems();
         Task TransferOwnership();
     }
     public class Stream : IStream
@@ -29,7 +30,14 @@ namespace Sockets
         private StreamSocketListener _streamSocketListener;
 
         private static IStream _stream;
-        internal static IStream Create() => _stream ?? (_stream = new Stream());
+        private IChecklists _checklists;
+
+        public Stream(IChecklists checklists)
+        {
+            _checklists = checklists;
+        }
+
+        internal static IStream Create(IChecklists checklists) => _stream ?? (_stream = new Stream(checklists));
 
 
         public async Task StartListener()
@@ -51,7 +59,7 @@ namespace Sockets
         {
             using (var streamWriter = new StreamWriter(args.Socket.OutputStream.AsStreamForWrite()))
             {
-                await streamWriter.WriteLineAsync(await GetJsonSerializedChecklistItems());
+                await streamWriter.WriteLineAsync(GetJsonSerializedChecklistItems());
                 await streamWriter.FlushAsync();
             }
         }
@@ -107,11 +115,11 @@ namespace Sockets
                         {
                             response = await streamReader.ReadLineAsync();
                             var checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(response);
-                            var defcon1CheckListItems = await CheckListManagement.LoadCheckList(1);
-                            var defcon2CheckListItems = await CheckListManagement.LoadCheckList(2);
-                            var defcon3CheckListItems = await CheckListManagement.LoadCheckList(3);
-                            var defcon4CheckListItems = await CheckListManagement.LoadCheckList(4);
-                            var defcon5CheckListItems = await CheckListManagement.LoadCheckList(5);
+                            var defcon1CheckListItems = _checklists.Collection.Defcon1Checklist;
+                            var defcon2CheckListItems = _checklists.Collection.Defcon2Checklist;
+                            var defcon3CheckListItems = _checklists.Collection.Defcon3Checklist;
+                            var defcon4CheckListItems = _checklists.Collection.Defcon4Checklist;
+                            var defcon5CheckListItems = _checklists.Collection.Defcon5Checklist;
                             foreach (var item in checkListItems)
                             {
                                 bool itemFound = false;
@@ -245,11 +253,11 @@ namespace Sockets
                                     }
                                 }
                             }
-                            await CheckListManagement.SaveCheckList(defcon1CheckListItems, 1);
-                            await CheckListManagement.SaveCheckList(defcon2CheckListItems, 2);
-                            await CheckListManagement.SaveCheckList(defcon3CheckListItems, 3);
-                            await CheckListManagement.SaveCheckList(defcon4CheckListItems, 4);
-                            await CheckListManagement.SaveCheckList(defcon5CheckListItems, 5);
+                            await _checklists.Operations.SaveCheckList(defcon1CheckListItems, 1);
+                            await _checklists.Operations.SaveCheckList(defcon2CheckListItems, 2);
+                            await _checklists.Operations.SaveCheckList(defcon3CheckListItems, 3);
+                            await _checklists.Operations.SaveCheckList(defcon4CheckListItems, 4);
+                            await _checklists.Operations.SaveCheckList(defcon5CheckListItems, 5);
                         }
                     }
                     await streamSocket.CancelIOAsync();
@@ -266,14 +274,14 @@ namespace Sockets
 
         private void OnIncomingChecklistReceived() => IncomingChecklistReceived?.Invoke(this, new EventArgs());
 
-        public async Task<string> GetJsonSerializedChecklistItems()
+        public string GetJsonSerializedChecklistItems()
         {
             var checkListItems = new List<CheckListItem>();
-            var defcon1CheckListItems = await CheckListManagement.LoadCheckList(1);
-            var defcon2CheckListItems = await CheckListManagement.LoadCheckList(2);
-            var defcon3CheckListItems = await CheckListManagement.LoadCheckList(3);
-            var defcon4CheckListItems = await CheckListManagement.LoadCheckList(4);
-            var defcon5CheckListItems = await CheckListManagement.LoadCheckList(5);
+            var defcon1CheckListItems = _checklists.Collection.Defcon1Checklist;
+            var defcon2CheckListItems = _checklists.Collection.Defcon2Checklist;
+            var defcon3CheckListItems = _checklists.Collection.Defcon3Checklist;
+            var defcon4CheckListItems = _checklists.Collection.Defcon4Checklist;
+            var defcon5CheckListItems = _checklists.Collection.Defcon5Checklist;
             foreach (var checkListItem in defcon1CheckListItems)
             {
                 checkListItems.Add(checkListItem);

@@ -104,7 +104,7 @@ namespace MyDEFCON_UWP
             Container.RegisterType<SettingsPivotViewModel>();
             Container.RegisterInstance(ChecklistsFactory.Create());
             Container.RegisterInstance(LiveTileFactory.Create());
-            Container.RegisterInstance(SocketsFactory.Create());
+            Container.RegisterInstance(SocketsFactory.Create(Container.Resolve<IChecklists>()));
             Container.RegisterInstance(EventAggregatorFactory.Create());
         }
     }

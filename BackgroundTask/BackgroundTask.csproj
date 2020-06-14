@@ -123,6 +123,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Checklists\Checklists.csproj">
+      <Project>{4CBC2EB2-FCF1-4342-A538-546B80AB4EB0}</Project>
+      <Name>Checklists</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{d6950a90-d30c-4c9e-96aa-45feaad1f2c6}</Project>
       <Name>Services</Name>

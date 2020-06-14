@@ -85,14 +85,9 @@ namespace MyDEFCON_UWP.ViewModels
             DataTransferManager.GetForCurrentView().DataRequested -= MainViewModel_DataRequested;
         }));
 
-        private async Task UpdateTileBadge()
-        {
-            var defcon1CheckList = await CheckListManagement.LoadCheckList(1);
-            var defcon2CheckList = await CheckListManagement.LoadCheckList(2);
-            var defcon3CheckList = await CheckListManagement.LoadCheckList(3);
-            var defcon4CheckList = await CheckListManagement.LoadCheckList(4);
-            var defcon5CheckList = await CheckListManagement.LoadCheckList(5);
-            int badgeNumber = UncheckedItemsService.CountBadgeNumber(DefconStatus, defcon1CheckList, defcon2CheckList, defcon3CheckList, defcon4CheckList, defcon5CheckList);
+        private void UpdateTileBadge()
+        {            
+            int badgeNumber = UncheckedItemsService.CountBadgeNumber(DefconStatus, _checkLists.Collection.Defcon1Checklist, _checkLists.Collection.Defcon2Checklist, _checkLists.Collection.Defcon3Checklist, _checkLists.Collection.Defcon4Checklist, _checkLists.Collection.Defcon5Checklist);
             SetSetting("badgeNumber", badgeNumber.ToString(), StorageStrategies.Roaming);
             if (GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
         }
@@ -101,7 +96,7 @@ namespace MyDEFCON_UWP.ViewModels
         {            
             _liveTile.DefconTile.SetTile(DefconStatus);
             await _checkLists.Operations.ReverseUncheck(DefconStatus);
-            await UpdateTileBadge();
+            UpdateTileBadge();
             if (GetSetting<bool>("LanBroadcastIsOn")) await _sockets.Datagram.SendMessage(DefconStatus.ToString());
         }
     }

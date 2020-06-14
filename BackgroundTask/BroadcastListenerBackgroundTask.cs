@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using Checklists;
+using Models;
 using Newtonsoft.Json;
 using Services;
 using System;
@@ -17,6 +18,7 @@ namespace BackgroundTask
     {
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
+            var checklists = ChecklistsFactory.Create();
             var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
             if (backgroundWorkCost == BackgroundWorkCostValue.High) return;
             else
@@ -61,11 +63,11 @@ namespace BackgroundTask
                                                     {
                                                         response = await streamReader.ReadLineAsync();
                                                         var checkListItems = JsonConvert.DeserializeObject<List<CheckListItem>>(response);
-                                                        var defcon1CheckListItems = await CheckListManagement.LoadCheckList(1);
-                                                        var defcon2CheckListItems = await CheckListManagement.LoadCheckList(2);
-                                                        var defcon3CheckListItems = await CheckListManagement.LoadCheckList(3);
-                                                        var defcon4CheckListItems = await CheckListManagement.LoadCheckList(4);
-                                                        var defcon5CheckListItems = await CheckListManagement.LoadCheckList(5);
+                                                        var defcon1CheckListItems = checklists.Collection.Defcon1Checklist;
+                                                        var defcon2CheckListItems = checklists.Collection.Defcon2Checklist;
+                                                        var defcon3CheckListItems = checklists.Collection.Defcon3Checklist;
+                                                        var defcon4CheckListItems = checklists.Collection.Defcon4Checklist;
+                                                        var defcon5CheckListItems = checklists.Collection.Defcon5Checklist;
                                                         foreach (var item in checkListItems)
                                                         {
                                                             bool itemFound = false;
@@ -179,11 +181,11 @@ namespace BackgroundTask
                                                                 if (!itemFound) defcon5CheckListItems.Add(item);
                                                             }
                                                         }
-                                                        await CheckListManagement.SaveCheckList(defcon1CheckListItems, 1);
-                                                        await CheckListManagement.SaveCheckList(defcon2CheckListItems, 2);
-                                                        await CheckListManagement.SaveCheckList(defcon3CheckListItems, 3);
-                                                        await CheckListManagement.SaveCheckList(defcon4CheckListItems, 4);
-                                                        await CheckListManagement.SaveCheckList(defcon5CheckListItems, 5);
+                                                        await checklists.Operations.SaveCheckList(defcon1CheckListItems, 1);
+                                                        await checklists.Operations.SaveCheckList(defcon2CheckListItems, 2);
+                                                        await checklists.Operations.SaveCheckList(defcon3CheckListItems, 3);
+                                                        await checklists.Operations.SaveCheckList(defcon4CheckListItems, 4);
+                                                        await checklists.Operations.SaveCheckList(defcon5CheckListItems, 5);
                                                     }
                                                 }
                                                 await streamSocket.CancelIOAsync();
