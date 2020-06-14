@@ -9,7 +9,6 @@ using Services;
 using Sockets;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Networking;
 using Windows.UI.Core;

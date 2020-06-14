@@ -7,7 +7,6 @@ using MyDEFCON_UWP.Core.Eventaggregator;
 using MyDEFCON_UWP.Core.Helpers;
 using MyDEFCON_UWP.Services;
 using MyDEFCON_UWP.ViewModels;
-using Services;
 using Sockets;
 using System;
 using Unity;
@@ -34,7 +33,7 @@ namespace MyDEFCON_UWP
             InitializeComponent();
 
             Container = new UnityContainer();
-
+            RegisterContainer();
             EnteredBackground += App_EnteredBackground;
             Resuming += App_Resuming;
 
@@ -46,8 +45,7 @@ namespace MyDEFCON_UWP
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
-        {
-            RegisterContainer();
+        {            
             if (!args.PrelaunchActivated)
             {
                 await ActivationService.ActivateAsync(args);
@@ -72,7 +70,7 @@ namespace MyDEFCON_UWP
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(Views.MainPage), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, typeof(Views.MainPage), Container.Resolve<ILiveTile>(), new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()

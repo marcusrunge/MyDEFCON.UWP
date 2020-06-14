@@ -1,7 +1,7 @@
 ﻿using Checklists;
+using LiveTile;
 using Models;
 using Newtonsoft.Json;
-using Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +19,7 @@ namespace BackgroundTask
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             var checklists = ChecklistsFactory.Create();
+            var liveTile = LiveTileFactory.Create();
             var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
             if (backgroundWorkCost == BackgroundWorkCostValue.High) return;
             else
@@ -46,7 +47,7 @@ namespace BackgroundTask
                                         {
                                             roamingSettings.Values["defconStatus"] = defconStatus;
                                             ShowToast("DEFCON " + defconStatus);
-                                            LiveTileManagement.SetLiveTile(int.Parse(defconStatus), LoadUseTransparentTileSetting());
+                                            liveTile.DefconTile.SetTile(int.Parse(defconStatus));
                                         }
                                     }
                                     if (parsedDefconStatus == 0)

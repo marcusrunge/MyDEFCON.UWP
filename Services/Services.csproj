@@ -109,7 +109,6 @@
   <ItemGroup>
     <Compile Include="Models\CheckListItem.cs" />
     <Compile Include="ItemObservableCollection.cs" />
-    <Compile Include="LiveTileManagement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageManagement.cs" />
   </ItemGroup>

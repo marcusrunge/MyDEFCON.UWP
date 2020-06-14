@@ -1,4 +1,4 @@
-﻿using Services;
+﻿using LiveTile;
 using System;
 using Windows.ApplicationModel.Background;
 
@@ -8,6 +8,7 @@ namespace BackgroundTask
     {
         public void Run(IBackgroundTaskInstance taskInstance)
         {
+            var liveTile = LiveTileFactory.Create();
             var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
             if (backgroundWorkCost == BackgroundWorkCostValue.High)
             {
@@ -16,8 +17,8 @@ namespace BackgroundTask
             else
             {
                 var deferral = taskInstance.GetDeferral();
-                LiveTileManagement.SetLiveTile(LoadDefconStatusFromRoamingSettings(), LoadUseTransparentTileSetting());
-                LiveTileManagement.UpdateTileBadge(BadgeNumber());
+                liveTile.DefconTile.SetTile(LoadDefconStatusFromRoamingSettings());
+                liveTile.DefconTile.SetBadge(BadgeNumber());
                 deferral.Complete();
             }
         }

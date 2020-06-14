@@ -1,7 +1,5 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using MyDEFCON_UWP.Core.Eventaggregator;
+﻿using MyDEFCON_UWP.Core.Eventaggregator;
 using MyDEFCON_UWP.Helpers;
-using Services;
 using Sockets;
 using System;
 using System.Collections.Generic;

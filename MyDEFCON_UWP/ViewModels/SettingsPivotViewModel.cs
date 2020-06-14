@@ -1,6 +1,6 @@
 ﻿using BackgroundTask;
+using LiveTile;
 using MyDEFCON_UWP.Helpers;
-using Services;
 using Sockets;
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,7 @@ namespace MyDEFCON_UWP.ViewModels
     {
         private int _defconStatus;
         private ISockets _sockets;
+        private ILiveTile _liveTile;
 
         bool _useTransparentTile = default;
         public bool UseTransparentTile { get { return _useTransparentTile; } set { Set(ref _useTransparentTile, value); } }
@@ -42,9 +43,10 @@ namespace MyDEFCON_UWP.ViewModels
         Visibility _iotVisibility = default;
         public Visibility IotVisibility { get { return _iotVisibility; } set { Set(ref _iotVisibility, value); } }
 
-        public SettingsPivotViewModel(ISockets sockets)
+        public SettingsPivotViewModel(ISockets sockets, ILiveTile liveTile)
         {
             _sockets = sockets;
+            _liveTile = liveTile;
             Intervall = new List<string> { "15min", "30min", "1hour", "3hours", "6hours", "12hours", "daily" };
             UseTransparentTile = GetSetting<bool>("UseTransparentTile");
             ShowUncheckedItems = GetSetting<bool>("ShowUncheckedItems");
@@ -64,14 +66,14 @@ namespace MyDEFCON_UWP.ViewModels
             {
                 case "UseTransparentTile":
                     SetSetting(e.PropertyName, UseTransparentTile);
-                    LiveTileManagement.SetLiveTile(_defconStatus, UseTransparentTile);
+                    _liveTile.DefconTile.SetTile(_defconStatus);
                     break;
                 case "ShowUncheckedItems":
                     SetSetting(e.PropertyName, ShowUncheckedItems);
                     if (ShowUncheckedItems)
                     {
                         int badgeNumber = Convert.ToInt16(GetSetting<string>("badgeNumber", location: StorageStrategies.Roaming));
-                        LiveTileManagement.UpdateTileBadge(badgeNumber);
+                        _liveTile.DefconTile.SetBadge(badgeNumber);
                     }
                     break;
                 case "BackgroundTask":

@@ -6,7 +6,6 @@ using Windows.ApplicationModel.Background;
 using Windows.Networking;
 using Windows.Networking.Sockets;
 using Windows.Storage.Streams;
-using Windows.UI.Core;
 
 namespace Sockets
 {

@@ -1,4 +1,5 @@
-﻿using MyDEFCON_UWP.Activation;
+﻿using LiveTile;
+using MyDEFCON_UWP.Activation;
 using MyDEFCON_UWP.Core.Helpers;
 using Services;
 using System;
@@ -18,14 +19,15 @@ namespace MyDEFCON_UWP.Services
         private readonly App _app;
         private readonly Type _defaultNavItem;
         private Lazy<UIElement> _shell;
-
+        private ILiveTile _liveTile;
         private object _lastActivationArgs;
 
-        public ActivationService(App app, Type defaultNavItem, Lazy<UIElement> shell = null)
+        public ActivationService(App app, Type defaultNavItem, ILiveTile liveTile, Lazy<UIElement> shell = null)
         {
             _app = app;
             _shell = shell;
             _defaultNavItem = defaultNavItem;
+            _liveTile = liveTile; 
         }
 
         public async Task ActivateAsync(object activationArgs)
@@ -68,7 +70,6 @@ namespace MyDEFCON_UWP.Services
 
         private async Task InitializeAsync()
         {
-            await Singleton<LiveTileService>.Instance.EnableQueueAsync().ConfigureAwait(false);
             await ThemeSelectorService.InitializeAsync().ConfigureAwait(false);
         }
 
@@ -95,15 +96,14 @@ namespace MyDEFCON_UWP.Services
         private async Task StartupAsync()
         {
             await ThemeSelectorService.SetRequestedThemeAsync();
-            Singleton<LiveTileService>.Instance.UpdateTile(int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming)), StorageManagement.GetSetting<bool>("UseTransparentTile"));
-            if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) LiveTileManagement.UpdateTileBadge(Convert.ToInt16(StorageManagement.GetSetting<string>("badgeNumber", location: StorageManagement.StorageStrategies.Roaming)));
+            _liveTile.DefconTile.SetTile(int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming)));
+            if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(Convert.ToInt16(StorageManagement.GetSetting<string>("badgeNumber", location: StorageManagement.StorageStrategies.Roaming)));
             await Task.CompletedTask;
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
-            yield return Singleton<ToastNotificationsService>.Instance;
-            yield return Singleton<LiveTileService>.Instance;
+            yield return Singleton<ToastNotificationsService>.Instance;            
             yield return Singleton<SuspendAndResumeService>.Instance;
         }
 

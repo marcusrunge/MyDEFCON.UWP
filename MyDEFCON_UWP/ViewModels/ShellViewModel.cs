@@ -2,7 +2,6 @@
 using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
 using MyDEFCON_UWP.Views;
-using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

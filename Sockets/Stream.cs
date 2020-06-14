@@ -1,7 +1,6 @@
 ﻿using Checklists;
 using Models;
 using Newtonsoft.Json;
-using Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +8,6 @@ using System.Threading.Tasks;
 using Windows.Networking;
 using Windows.Networking.Sockets;
 using Windows.Storage;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 namespace Sockets
