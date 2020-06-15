@@ -126,6 +126,7 @@
     <Compile Include="Storage.cs" />
     <Compile Include="StorageBase.cs" />
     <Compile Include="StorageFactory.cs" />
+    <Compile Include="StorageStrategies.cs" />
     <EmbeddedResource Include="Properties\Storage.rd.xml" />
   </ItemGroup>
   <ItemGroup>
