@@ -8,6 +8,7 @@ using MyDEFCON_UWP.Core.Helpers;
 using MyDEFCON_UWP.Services;
 using MyDEFCON_UWP.ViewModels;
 using Sockets;
+using Storage;
 using System;
 using Unity;
 using Windows.ApplicationModel;
@@ -104,6 +105,7 @@ namespace MyDEFCON_UWP
             Container.RegisterInstance(LiveTileFactory.Create());
             Container.RegisterInstance(SocketsFactory.Create(Container.Resolve<IChecklists>()));
             Container.RegisterInstance(EventAggregatorFactory.Create());
+            Container.RegisterInstance(StorageFactory.Create());
         }
     }
 }
