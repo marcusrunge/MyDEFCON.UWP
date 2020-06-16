@@ -58,7 +58,7 @@ namespace MyDEFCON_UWP
                 await _sockets.Datagram.StartListener();
                 _sockets.Datagram.IncomingMessageReceived += (s, e) =>
                   {
-                      if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) SetSetting("defconStatus", parsedDefconStatus.ToString(), StorageStrategies.Roaming);
+                      if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) SetSetting("defconStatus", parsedDefconStatus.ToString(), global::Services.StorageManagement.StorageStrategies.Roaming);
                   };
             }
             if (GetSetting<bool>("LanMulticastIsOn")) await _sockets.Stream.StartListener();
