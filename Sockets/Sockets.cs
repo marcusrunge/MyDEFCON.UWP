@@ -1,6 +1,4 @@
-﻿using Checklists;
-
-namespace Sockets
+﻿namespace Sockets
 {
     internal class Sockets : SocketsBase
     {

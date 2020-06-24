@@ -5,7 +5,6 @@ using Models;
 using MyDEFCON_UWP.Core.Eventaggregator;
 using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
-using Services;
 using Sockets;
 using Storage;
 using System;

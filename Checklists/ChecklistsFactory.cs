@@ -1,6 +1,4 @@
-﻿using Storage;
-
-namespace Checklists
+﻿namespace Checklists
 {
     public static class ChecklistsFactory
     {

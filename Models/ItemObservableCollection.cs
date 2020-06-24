@@ -1,10 +1,9 @@
-﻿using Models;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace Services
+namespace Models
 {
     public class ItemObservableCollection<T> : ObservableCollection<T> where T : INotifyPropertyChanged
     {

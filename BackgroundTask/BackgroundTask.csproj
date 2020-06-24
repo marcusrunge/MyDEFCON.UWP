@@ -131,9 +131,9 @@
       <Project>{9AC67919-5AA0-4297-96C4-48C82ADA0C39}</Project>
       <Name>LiveTile</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services\Services.csproj">
+    <ProjectReference Include="..\Models\Models.csproj">
       <Project>{d6950a90-d30c-4c9e-96aa-45feaad1f2c6}</Project>
-      <Name>Services</Name>
+      <Name>Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Storage\Storage.csproj">
       <Project>{5C996928-9315-4FFD-A63F-5D60F6C4B814}</Project>

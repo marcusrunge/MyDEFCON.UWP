@@ -2,7 +2,6 @@
 using LiveTile;
 using Models;
 using Newtonsoft.Json;
-using Storage;
 using System;
 using System.Collections.Generic;
 using System.IO;
