@@ -1,5 +1,6 @@
 ﻿using Models;
 using Services;
+using Storage;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
 
@@ -80,23 +81,23 @@ namespace Checklists
             switch (defcon)
             {
                 case 1:
-                    await StorageManagement.WriteFileAsync("defcon1.json", checkList, StorageManagement.StorageStrategies.Roaming);
+                    await _checklistsBase._storage.File.WriteFileAsync("defcon1.json", checkList, StorageStrategies.Roaming);
                     _checklistsBase._defcon1CheckList = checkList;
                     break;
                 case 2:
-                    await StorageManagement.WriteFileAsync("defcon2.json", checkList, StorageManagement.StorageStrategies.Roaming);
+                    await _checklistsBase._storage.File.WriteFileAsync("defcon2.json", checkList, StorageStrategies.Roaming);
                     _checklistsBase._defcon2CheckList = checkList;
                     break;
                 case 3:
-                    await StorageManagement.WriteFileAsync("defcon3.json", checkList, StorageManagement.StorageStrategies.Roaming);
+                    await _checklistsBase._storage.File.WriteFileAsync("defcon3.json", checkList, StorageStrategies.Roaming);
                     _checklistsBase._defcon3CheckList = checkList;
                     break;
                 case 4:
-                    await StorageManagement.WriteFileAsync("defcon4.json", checkList, StorageManagement.StorageStrategies.Roaming);
+                    await _checklistsBase._storage.File.WriteFileAsync("defcon4.json", checkList, StorageStrategies.Roaming);
                     _checklistsBase._defcon4CheckList = checkList;
                     break;
                 case 5:
-                    await StorageManagement.WriteFileAsync("defcon5.json", checkList, StorageManagement.StorageStrategies.Roaming);
+                    await _checklistsBase._storage.File.WriteFileAsync("defcon5.json", checkList, StorageStrategies.Roaming);
                     _checklistsBase._defcon5CheckList = checkList;
                     break;
                 default:
@@ -107,7 +108,7 @@ namespace Checklists
         public async Task SetDefconStatus(int status)
         {
             if (_checklistsBase._activeDefconCheckList != null) _checklistsBase._activeDefconCheckList.CollectionChanged -= CollectionChanged;
-            _checklistsBase._activeDefconCheckList = await StorageManagement.ReadFileAsync<ItemObservableCollection<CheckListItem>>($"defcon{status}.json", StorageManagement.StorageStrategies.Roaming);
+            _checklistsBase._activeDefconCheckList = await _checklistsBase._storage.File.ReadFileAsync<ItemObservableCollection<CheckListItem>>($"defcon{status}.json", StorageStrategies.Roaming);
             if (_checklistsBase._activeDefconCheckList == null) _checklistsBase._activeDefconCheckList = new ItemObservableCollection<CheckListItem>();
             _checklistsBase._defconStatus = status;
             //_activeDefconCheckList.CollectionChanged += CollectionChanged;
@@ -115,7 +116,7 @@ namespace Checklists
 
         private async void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            await StorageManagement.WriteFileAsync($"defcon{_checklistsBase._defconStatus}.json", _checklistsBase._activeDefconCheckList, StorageManagement.StorageStrategies.Roaming);
+            await _checklistsBase._storage.File.WriteFileAsync($"defcon{_checklistsBase._defconStatus}.json", _checklistsBase._activeDefconCheckList, StorageStrategies.Roaming);
             switch (_checklistsBase._defconStatus)
             {
                 case 1:

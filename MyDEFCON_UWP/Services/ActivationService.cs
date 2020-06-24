@@ -1,7 +1,7 @@
 ﻿using LiveTile;
 using MyDEFCON_UWP.Activation;
 using MyDEFCON_UWP.Core.Helpers;
-using Services;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +21,15 @@ namespace MyDEFCON_UWP.Services
         private Lazy<UIElement> _shell;
         private ILiveTile _liveTile;
         private object _lastActivationArgs;
+        private IStorage _storage;
 
-        public ActivationService(App app, Type defaultNavItem, ILiveTile liveTile, Lazy<UIElement> shell = null)
+        public ActivationService(App app, Type defaultNavItem, ILiveTile liveTile, IStorage storage, Lazy<UIElement> shell = null)
         {
             _app = app;
             _shell = shell;
             _defaultNavItem = defaultNavItem;
-            _liveTile = liveTile; 
+            _liveTile = liveTile;
+            _storage = storage;
         }
 
         public async Task ActivateAsync(object activationArgs)
@@ -96,14 +98,14 @@ namespace MyDEFCON_UWP.Services
         private async Task StartupAsync()
         {
             await ThemeSelectorService.SetRequestedThemeAsync();
-            _liveTile.DefconTile.SetTile(int.Parse(StorageManagement.GetSetting("defconStatus", "5", StorageManagement.StorageStrategies.Roaming)));
-            if (StorageManagement.GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(Convert.ToInt16(StorageManagement.GetSetting<string>("badgeNumber", location: StorageManagement.StorageStrategies.Roaming)));
+            _liveTile.DefconTile.SetTile(int.Parse(_storage.Setting.GetSetting("defconStatus", "5", StorageStrategies.Roaming)));
+            if (_storage.Setting.GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(Convert.ToInt16(_storage.Setting.GetSetting<string>("badgeNumber", location: StorageStrategies.Roaming)));
             await Task.CompletedTask;
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
-            yield return Singleton<ToastNotificationsService>.Instance;            
+            yield return Singleton<ToastNotificationsService>.Instance;
             yield return Singleton<SuspendAndResumeService>.Instance;
         }
 

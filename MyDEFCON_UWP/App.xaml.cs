@@ -14,7 +14,6 @@ using Unity;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using static Services.StorageManagement;
 
 namespace MyDEFCON_UWP
 {
@@ -23,6 +22,7 @@ namespace MyDEFCON_UWP
         public IUnityContainer Container { get; set; }
         private Lazy<ActivationService> _activationService;
         private ISockets _sockets;
+        private IStorage _storage;
 
         private ActivationService ActivationService
         {
@@ -53,15 +53,16 @@ namespace MyDEFCON_UWP
             }
             await Container.Resolve<IChecklists>().Initialize();
             _sockets = Container.Resolve<ISockets>();
-            if (GetSetting<bool>("LanBroadcastIsOn"))
+            _storage = Container.Resolve<IStorage>();
+            if (_storage.Setting.GetSetting<bool>("LanBroadcastIsOn"))
             {
                 await _sockets.Datagram.StartListener();
                 _sockets.Datagram.IncomingMessageReceived += (s, e) =>
                   {
-                      if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) SetSetting("defconStatus", parsedDefconStatus.ToString(), global::Services.StorageManagement.StorageStrategies.Roaming);
+                      if (int.TryParse(e, out int parsedDefconStatus) && parsedDefconStatus > 0 && parsedDefconStatus < 6) _storage.Setting.SetSetting("defconStatus", parsedDefconStatus.ToString(), StorageStrategies.Roaming);
                   };
             }
-            if (GetSetting<bool>("LanMulticastIsOn")) await _sockets.Stream.StartListener();
+            if (_storage.Setting.GetSetting<bool>("LanMulticastIsOn")) await _sockets.Stream.StartListener();
         }
 
         protected override async void OnActivated(IActivatedEventArgs args)
@@ -71,7 +72,7 @@ namespace MyDEFCON_UWP
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(Views.MainPage), Container.Resolve<ILiveTile>(), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, typeof(Views.MainPage), Container.Resolve<ILiveTile>(), Container.Resolve<IStorage>(), new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()
@@ -101,11 +102,11 @@ namespace MyDEFCON_UWP
             Container.RegisterType<FullScreenViewModel>();
             Container.RegisterType<AboutPivotViewModel>();
             Container.RegisterType<SettingsPivotViewModel>();
-            Container.RegisterInstance(ChecklistsFactory.Create());
-            Container.RegisterInstance(LiveTileFactory.Create());
-            Container.RegisterInstance(SocketsFactory.Create(Container.Resolve<IChecklists>()));
-            Container.RegisterInstance(EventAggregatorFactory.Create());
             Container.RegisterInstance(StorageFactory.Create());
+            Container.RegisterInstance(ChecklistsFactory.Create(/*Container.Resolve<IStorage>()*/));
+            Container.RegisterInstance(LiveTileFactory.Create());
+            Container.RegisterInstance(SocketsFactory.Create(/*Container.Resolve<IChecklists>()*/));
+            Container.RegisterInstance(EventAggregatorFactory.Create());            
         }
     }
 }

@@ -2,6 +2,7 @@
 using LiveTile;
 using MyDEFCON_UWP.Helpers;
 using Sockets;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -9,7 +10,6 @@ using Windows.ApplicationModel.Background;
 using Windows.System;
 using Windows.System.Profile;
 using Windows.UI.Xaml;
-using static Services.StorageManagement;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -18,6 +18,7 @@ namespace MyDEFCON_UWP.ViewModels
         private int _defconStatus;
         private ISockets _sockets;
         private ILiveTile _liveTile;
+        private IStorage _storage;
 
         bool _useTransparentTile = default;
         public bool UseTransparentTile { get { return _useTransparentTile; } set { Set(ref _useTransparentTile, value); } }
@@ -43,20 +44,21 @@ namespace MyDEFCON_UWP.ViewModels
         Visibility _iotVisibility = default;
         public Visibility IotVisibility { get { return _iotVisibility; } set { Set(ref _iotVisibility, value); } }
 
-        public SettingsPivotViewModel(ISockets sockets, ILiveTile liveTile)
+        public SettingsPivotViewModel(ISockets sockets, ILiveTile liveTile, IStorage storage)
         {
             _sockets = sockets;
             _liveTile = liveTile;
+            _storage = storage;
             Intervall = new List<string> { "15min", "30min", "1hour", "3hours", "6hours", "12hours", "daily" };
-            UseTransparentTile = GetSetting<bool>("UseTransparentTile");
-            ShowUncheckedItems = GetSetting<bool>("ShowUncheckedItems");
-            BackgroundTask = GetSetting<bool>("BackgroundTask");
-            LanBroadcastIsOn = GetSetting<bool>("LanBroadcastIsOn");
-            LanMulticastIsOn = GetSetting<bool>("LanMulticastIsOn");
-            BackgroundTask = GetSetting<bool>("BackgroundTask");
-            SelectedTimeIntervallIndex = GetSetting<int>("SelectedTimeIntervallIndex");
+            UseTransparentTile = _storage.Setting.GetSetting<bool>("UseTransparentTile");
+            ShowUncheckedItems = _storage.Setting.GetSetting<bool>("ShowUncheckedItems");
+            BackgroundTask = _storage.Setting.GetSetting<bool>("BackgroundTask");
+            LanBroadcastIsOn = _storage.Setting.GetSetting<bool>("LanBroadcastIsOn");
+            LanMulticastIsOn = _storage.Setting.GetSetting<bool>("LanMulticastIsOn");
+            BackgroundTask = _storage.Setting.GetSetting<bool>("BackgroundTask");
+            SelectedTimeIntervallIndex = _storage.Setting.GetSetting<int>("SelectedTimeIntervallIndex");
             IotVisibility = AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.IoT") ? Visibility.Visible : Visibility.Collapsed;
-            _defconStatus = int.Parse(GetSetting("defconStatus", "5", StorageStrategies.Roaming));
+            _defconStatus = int.Parse(_storage.Setting.GetSetting("defconStatus", "5", StorageStrategies.Roaming));
             PropertyChanged += SettingsPivotViewModel_PropertyChanged;
         }
 
@@ -65,34 +67,34 @@ namespace MyDEFCON_UWP.ViewModels
             switch (e.PropertyName)
             {
                 case "UseTransparentTile":
-                    SetSetting(e.PropertyName, UseTransparentTile);
+                    _storage.Setting.SetSetting(e.PropertyName, UseTransparentTile);
                     _liveTile.DefconTile.SetTile(_defconStatus);
                     break;
                 case "ShowUncheckedItems":
-                    SetSetting(e.PropertyName, ShowUncheckedItems);
+                    _storage.Setting.SetSetting(e.PropertyName, ShowUncheckedItems);
                     if (ShowUncheckedItems)
                     {
-                        int badgeNumber = Convert.ToInt16(GetSetting<string>("badgeNumber", location: StorageStrategies.Roaming));
+                        int badgeNumber = Convert.ToInt16(_storage.Setting.GetSetting<string>("badgeNumber", location: StorageStrategies.Roaming));
                         _liveTile.DefconTile.SetBadge(badgeNumber);
                     }
                     break;
                 case "BackgroundTask":
-                    SetSetting(e.PropertyName, BackgroundTask);
+                    _storage.Setting.SetSetting(e.PropertyName, BackgroundTask);
                     if (BackgroundTask) await BackgroundTaskManagement.Register<TileUpdateBackgroundTask>(new TimeTrigger(IntervallInMinutes(), false));
                     else await BackgroundTaskManagement.Unregister<BroadcastListenerBackgroundTask>();
                     break;
                 case "LanBroadcastIsOn":
-                    SetSetting(e.PropertyName, LanBroadcastIsOn);
+                    _storage.Setting.SetSetting(e.PropertyName, LanBroadcastIsOn);
                     if (LanBroadcastIsOn) await _sockets.Datagram.StartListener();
                     else await _sockets.Datagram.StopListener();
                     break;
                 case "LanMulticastIsOn":
-                    SetSetting(e.PropertyName, LanMulticastIsOn);
+                    _storage.Setting.SetSetting(e.PropertyName, LanMulticastIsOn);
                     if (LanMulticastIsOn) await _sockets.Stream.StartListener();
                     else await _sockets.Stream.StopListener();
                     break;
                 case "SelectedTimeIntervallIndex":
-                    SetSetting(e.PropertyName, SelectedTimeIntervallIndex);
+                    _storage.Setting.SetSetting(e.PropertyName, SelectedTimeIntervallIndex);
                     break;
                 default:
                     break;

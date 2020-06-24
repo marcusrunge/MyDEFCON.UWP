@@ -142,6 +142,10 @@
       <Project>{D6950A90-D30C-4C9E-96AA-45FEAAD1F2C6}</Project>
       <Name>Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Storage\Storage.csproj">
+      <Project>{5C996928-9315-4FFD-A63F-5D60F6C4B814}</Project>
+      <Name>Storage</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

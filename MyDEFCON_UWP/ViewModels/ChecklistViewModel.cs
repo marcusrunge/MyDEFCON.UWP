@@ -7,6 +7,7 @@ using MyDEFCON_UWP.Helpers;
 using MyDEFCON_UWP.Services;
 using Services;
 using Sockets;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -15,7 +16,6 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using static Services.StorageManagement;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -30,6 +30,7 @@ namespace MyDEFCON_UWP.ViewModels
         private bool _deleteInProgress;
         private ISockets _sockets;
         private CoreDispatcher _coreDispatcher;
+        private IStorage _storage;
 
         private int _pageDefconStatus;
         public int PageDefconStatus { get => _pageDefconStatus; set => Set(ref _pageDefconStatus, value); }
@@ -66,17 +67,18 @@ namespace MyDEFCON_UWP.ViewModels
         int _defcon5UnCheckedItems;
         public int Defcon5UnCheckedItems { get { return _defcon5UnCheckedItems; } set { Set(ref _defcon5UnCheckedItems, value); } }
 
-        public ChecklistViewModel(IEventAggregator eventAggregator, IChecklists checkLists, ILiveTile liveTile, ISockets sockets)
+        public ChecklistViewModel(IEventAggregator eventAggregator, IChecklists checkLists, ILiveTile liveTile, ISockets sockets, IStorage storage)
         {
             _eventAggregator = eventAggregator;
             _checkLists = checkLists;
             _liveTile = liveTile;
             _sockets = sockets;
+            _storage = storage;
             _deleteInProgress = false;
-            _appDefconStatus = int.Parse(GetSetting("defconStatus", "5", StorageStrategies.Roaming));
+            _appDefconStatus = int.Parse(_storage.Setting.GetSetting("defconStatus", "5", StorageStrategies.Roaming));
             PageDefconStatus = _appDefconStatus;
             SelectedItemsUnixTimeStampCreated = new List<long>();
-            if (GetSetting<bool>("LanMulticastIsOn"))
+            if (_storage.Setting.GetSetting<bool>("LanMulticastIsOn"))
             {
                 _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
                 _sockets.Stream.IncomingChecklistReceived += Stream_IncomingChecklistReceived;
@@ -224,8 +226,8 @@ namespace MyDEFCON_UWP.ViewModels
         private void UpdateTileBadge()
         {
             int badgeNumber = UncheckedItemsService.CountBadgeNumber(_appDefconStatus, _checkLists.Collection.Defcon1Checklist, _checkLists.Collection.Defcon2Checklist, _checkLists.Collection.Defcon3Checklist, _checkLists.Collection.Defcon4Checklist, _checkLists.Collection.Defcon5Checklist);
-            SetSetting("badgeNumber", badgeNumber.ToString(), StorageStrategies.Roaming);
-            if (GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
+            _storage.Setting.SetSetting("badgeNumber", badgeNumber.ToString(), StorageStrategies.Roaming);
+            if (_storage.Setting.GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
         }
     }
 }

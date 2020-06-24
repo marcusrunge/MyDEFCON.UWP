@@ -2,6 +2,7 @@
 using LiveTile;
 using Models;
 using Newtonsoft.Json;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,7 @@ namespace BackgroundTask
     {
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            var checklists = ChecklistsFactory.Create();
+            var checklists = ChecklistsFactory.Create(/*storage*/);
             var liveTile = LiveTileFactory.Create();
             var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
             if (backgroundWorkCost == BackgroundWorkCostValue.High) return;

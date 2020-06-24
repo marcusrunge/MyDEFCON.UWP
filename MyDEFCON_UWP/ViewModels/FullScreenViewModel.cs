@@ -1,6 +1,7 @@
 ﻿using MyDEFCON_UWP.Core.Eventaggregator;
 using MyDEFCON_UWP.Helpers;
 using Sockets;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +11,6 @@ using Windows.Devices.I2c;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
-using static Services.StorageManagement;
 
 namespace MyDEFCON_UWP.ViewModels
 {
@@ -23,6 +23,7 @@ namespace MyDEFCON_UWP.ViewModels
         private CoreDispatcher _coreDispatcher;
         double _onPointerPressedY, _onPointerReleasedY;
         bool _isFullScreen = default(bool);
+        private IStorage _storage;
 
         private string _defconVisualState;
         public string DefconVisualState { get => _defconVisualState; set => Set(ref _defconVisualState, value); }
@@ -31,9 +32,9 @@ namespace MyDEFCON_UWP.ViewModels
         {
             _sockets = sockets;
             _eventAggregator = eventAggregator;
-            if (GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
+            if (_storage.Setting.GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
             _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-            ApplicationDataChanged += async (s, e) =>
+            _storage.Setting.ApplicationDataChanged += async (s, e) =>
             {
                 await SetDefconVisualState(int.Parse((string)s.RoamingSettings.Values["defconStatus"]));
             };
@@ -47,7 +48,7 @@ namespace MyDEFCON_UWP.ViewModels
         private ICommand _loadedCommand;
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
         {
-            await SetDefconVisualState(int.Parse(GetSetting("defconStatus", "5", StorageStrategies.Roaming)));
+            await SetDefconVisualState(int.Parse(_storage.Setting.GetSetting("defconStatus", "5", StorageStrategies.Roaming)));
             _isFullScreen = true;            
             string i2cDeviceSelector = I2cDevice.GetDeviceSelector();
             I2cConnectionSettings i2CConnectionSettings = new I2cConnectionSettings(0x45);
