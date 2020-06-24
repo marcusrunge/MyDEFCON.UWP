@@ -26,7 +26,7 @@ namespace MyDEFCON_UWP.ViewModels
         private WinUI.NavigationViewItem _selected;
         private ICommand _loadedCommand;
         private ICommand _itemInvokedCommand;
-        private IEventAggregator _eventAggregator;
+        private readonly IEventAggregator _eventAggregator;
 
         private string _visualState;
         public string VisualState { get => _visualState; set => Set(ref _visualState, value); }

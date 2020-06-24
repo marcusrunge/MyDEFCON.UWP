@@ -5,7 +5,7 @@ namespace MyDEFCON_UWP.Helpers
 {
     internal static class ResourceExtensions
     {
-        private static ResourceLoader _resLoader = new ResourceLoader();
+        private static readonly ResourceLoader _resLoader = new ResourceLoader();
 
         public static string GetLocalized(this string resourceKey)
         {

@@ -5,7 +5,7 @@ namespace MyDEFCON_UWP.Core.Eventaggregator
     internal class Publish : IPublish
     {
         private static IPublish _publish;
-        private SubscribeBase _subscribeBase;
+        private readonly SubscribeBase _subscribeBase;
 
         public Publish(SubscribeBase subscribeBase)
         {

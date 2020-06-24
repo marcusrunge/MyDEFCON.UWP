@@ -28,7 +28,7 @@ namespace Sockets
         private StreamSocketListener _streamSocketListener;
 
         private static IStream _stream;
-        private IChecklists _checklists;
+        private readonly IChecklists _checklists;
 
         public Stream(IChecklists checklists)
         {

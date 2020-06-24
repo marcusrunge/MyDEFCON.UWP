@@ -11,8 +11,8 @@ namespace LiveTile
     }
     internal class DefconImagePaths : IDefconImagePaths
     {
-        private int _status = 5;
-        private bool _transparent = false;
+        private readonly int _status = 5;
+        private readonly bool _transparent = false;
 
         public string Small => _transparent ? string.Format("TransparentTileImages/Defcon{0}SmallTile.png", _status.ToString()) : string.Format("TileImages/Defcon{0}SmallTile.png", _status.ToString());
 

@@ -8,7 +8,7 @@ namespace Checklists
 {
     internal class CheckListOperations : ICheckListOperations
     {
-        private ChecklistsBase _checklistsBase;
+        private readonly ChecklistsBase _checklistsBase;
 
         private static ICheckListOperations _checkListOperations;
         internal static ICheckListOperations Create(ChecklistsBase checklistsBase) => _checkListOperations ?? (_checkListOperations = new CheckListOperations(checklistsBase));

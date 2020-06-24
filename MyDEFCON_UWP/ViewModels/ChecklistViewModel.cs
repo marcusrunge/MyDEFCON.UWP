@@ -21,16 +21,16 @@ namespace MyDEFCON_UWP.ViewModels
 {
     public class ChecklistViewModel : Observable
     {
-        private IEventAggregator _eventAggregator;
-        private IChecklists _checkLists;
-        private ILiveTile _liveTile;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IChecklists _checkLists;
+        private readonly ILiveTile _liveTile;
         private long[] selectedItemsUnixTimeStampCreated;
         private double _gridWidth;
-        private int _appDefconStatus;
+        private readonly int _appDefconStatus;
         private bool _deleteInProgress;
-        private ISockets _sockets;
-        private CoreDispatcher _coreDispatcher;
-        private IStorage _storage;
+        private readonly ISockets _sockets;
+        private readonly CoreDispatcher _coreDispatcher;
+        private readonly IStorage _storage;
 
         private int _pageDefconStatus;
         public int PageDefconStatus { get => _pageDefconStatus; set => Set(ref _pageDefconStatus, value); }

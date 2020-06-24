@@ -9,7 +9,7 @@ namespace LiveTile
     }
     internal class DefconTile : IDefconTile
     {
-        private DefconTileBase _defconTileBase;
+        private readonly DefconTileBase _defconTileBase;
 
         private static IDefconTile _defconTile;
         public static IDefconTile Create(DefconTileBase defconTileBase) => _defconTile ?? (_defconTile = new DefconTile(defconTileBase));

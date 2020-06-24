@@ -18,10 +18,10 @@ namespace MyDEFCON_UWP.Services
     {
         private readonly App _app;
         private readonly Type _defaultNavItem;
-        private Lazy<UIElement> _shell;
-        private ILiveTile _liveTile;
+        private readonly Lazy<UIElement> _shell;
+        private readonly ILiveTile _liveTile;
         private object _lastActivationArgs;
-        private IStorage _storage;
+        private readonly IStorage _storage;
 
         public ActivationService(App app, Type defaultNavItem, ILiveTile liveTile, IStorage storage, Lazy<UIElement> shell = null)
         {

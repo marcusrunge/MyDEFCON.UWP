@@ -18,20 +18,21 @@ namespace MyDEFCON_UWP.ViewModels
     {
         private UIElement _uIElement;
         private I2cDevice _i2CDevice;
-        private ISockets _sockets;
-        private IEventAggregator _eventAggregator;
-        private CoreDispatcher _coreDispatcher;
+        private readonly ISockets _sockets;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly CoreDispatcher _coreDispatcher;
         double _onPointerPressedY, _onPointerReleasedY;
         bool _isFullScreen = default(bool);
-        private IStorage _storage;
+        private readonly IStorage _storage;
 
         private string _defconVisualState;
         public string DefconVisualState { get => _defconVisualState; set => Set(ref _defconVisualState, value); }
                 
-        public FullScreenViewModel(ISockets sockets, IEventAggregator eventAggregator)
+        public FullScreenViewModel(ISockets sockets, IEventAggregator eventAggregator, IStorage storage)
         {
             _sockets = sockets;
             _eventAggregator = eventAggregator;
+            _storage = storage;
             if (_storage.Setting.GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
             _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
             _storage.Setting.ApplicationDataChanged += async (s, e) =>

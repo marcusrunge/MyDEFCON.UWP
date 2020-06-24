@@ -17,12 +17,12 @@ namespace MyDEFCON_UWP.ViewModels
 {
     public class MainViewModel : Observable
     {
-        private IEventAggregator _eventAggregator;
-        private IChecklists _checkLists;
-        private ILiveTile _liveTile;
-        private ISockets _sockets;
-        private CoreDispatcher _coreDispatcher;
-        private IStorage _storage;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IChecklists _checkLists;
+        private readonly ILiveTile _liveTile;
+        private readonly ISockets _sockets;
+        private readonly CoreDispatcher _coreDispatcher;
+        private readonly IStorage _storage;
 
         private int _defconStatus;
         public int DefconStatus { get => _defconStatus; set => Set(ref _defconStatus, value); }

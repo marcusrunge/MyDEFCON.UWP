@@ -20,7 +20,7 @@ namespace MyDEFCON_UWP
     public sealed partial class App : Application
     {
         public IUnityContainer Container { get; set; }
-        private Lazy<ActivationService> _activationService;
+        private readonly Lazy<ActivationService> _activationService;
         private ISockets _sockets;
         private IStorage _storage;
 

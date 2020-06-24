@@ -15,10 +15,10 @@ namespace MyDEFCON_UWP.ViewModels
 {
     public class SettingsPivotViewModel : Observable
     {
-        private int _defconStatus;
-        private ISockets _sockets;
-        private ILiveTile _liveTile;
-        private IStorage _storage;
+        private readonly int _defconStatus;
+        private readonly ISockets _sockets;
+        private readonly ILiveTile _liveTile;
+        private readonly IStorage _storage;
 
         bool _useTransparentTile = default;
         public bool UseTransparentTile { get { return _useTransparentTile; } set { Set(ref _useTransparentTile, value); } }
