@@ -10,6 +10,7 @@ using MyDEFCON_UWP.ViewModels;
 using Sockets;
 using Storage;
 using System;
+using ToastNotifications;
 using Unity;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -106,7 +107,8 @@ namespace MyDEFCON_UWP
             Container.RegisterInstance(ChecklistsFactory.Create(/*Container.Resolve<IStorage>()*/));
             Container.RegisterInstance(LiveTileFactory.Create());
             Container.RegisterInstance(SocketsFactory.Create(/*Container.Resolve<IChecklists>()*/));
-            Container.RegisterInstance(EventAggregatorFactory.Create());            
+            Container.RegisterInstance(EventAggregatorFactory.Create());
+            Container.RegisterInstance(ToastNotificationsFactory.Create());
         }
     }
 }

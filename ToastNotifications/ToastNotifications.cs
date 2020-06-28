@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ToastNotifications
+﻿namespace ToastNotifications
 {
 
     public interface IToastNotifications
     {
-
+        IInfo Info { get; }
     }
 
     internal class ToastNotifications : ToastNotificationsBase
     {
+        internal ToastNotifications():base()
+        {
+            _info = global::ToastNotifications.Info.Create(this);
+        }
     }
 }

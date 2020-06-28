@@ -9,6 +9,7 @@ using Storage;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ToastNotifications;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
@@ -23,17 +24,19 @@ namespace MyDEFCON_UWP.ViewModels
         private readonly ISockets _sockets;
         private readonly CoreDispatcher _coreDispatcher;
         private readonly IStorage _storage;
+        private readonly IToastNotifications _toastNotifications;
 
         private int _defconStatus;
         public int DefconStatus { get => _defconStatus; set => Set(ref _defconStatus, value); }
 
-        public MainViewModel(IEventAggregator eventAggregator, IChecklists checkLists, ILiveTile liveTile, ISockets sockets, IStorage storage)
+        public MainViewModel(IEventAggregator eventAggregator, IChecklists checkLists, ILiveTile liveTile, ISockets sockets, IStorage storage, IToastNotifications toastNotifications)
         {
             _eventAggregator = eventAggregator;
             _checkLists = checkLists;
             _liveTile = liveTile;
             _sockets = sockets;
             _storage = storage;
+            _toastNotifications = toastNotifications;
             DefconStatus = int.Parse(_storage.Setting.GetSetting("defconStatus", "5", StorageStrategies.Roaming));
             if (_storage.Setting.GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
             _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
@@ -57,6 +60,7 @@ namespace MyDEFCON_UWP.ViewModels
         {
             _storage.Setting.SetSetting("defconStatus", (string)param, StorageStrategies.Roaming);
             DefconStatus = int.Parse(param as string);
+            _toastNotifications.Info.Show($"DEFCON {param as string}");
             await UpdateDefconStatus();
         }));
 

@@ -105,7 +105,6 @@ namespace MyDEFCON_UWP.Services
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
-            yield return Singleton<ToastNotificationsService>.Instance;
             yield return Singleton<SuspendAndResumeService>.Instance;
         }
 

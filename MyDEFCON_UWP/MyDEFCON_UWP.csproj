@@ -175,8 +175,6 @@
     <Compile Include="Services\SuspendAndResumeService.cs" />
     <Compile Include="Services\SuspensionState.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
-    <Compile Include="Services\ToastNotificationsService.cs" />
-    <Compile Include="Services\ToastNotificationsService.Samples.cs" />
     <Compile Include="Services\UncheckedItemsService.cs" />
     <Compile Include="UserControls\DeletedItemsAwareListView.cs" />
     <Compile Include="ViewModels\AboutPivotViewModel.cs" />
@@ -422,6 +420,10 @@
     <ProjectReference Include="..\Storage\Storage.csproj">
       <Project>{5C996928-9315-4FFD-A63F-5D60F6C4B814}</Project>
       <Name>Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToastNotifications\ToastNotifications.csproj">
+      <Project>{188FF775-0187-4295-B0E4-F063EE05025E}</Project>
+      <Name>ToastNotifications</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -25,11 +25,7 @@ namespace MyDEFCON_UWP.Activation
                 arguments = launchArgs.Arguments;
             }
 
-            NavigationService.Navigate(_navElement, arguments);
-
-            // TODO WTS: Remove or change this sample which shows a toast notification when the app is launched.
-            // You can use this sample to create toast notifications where needed in your app.
-            Singleton<ToastNotificationsService>.Instance.ShowToastNotificationSample();
+            NavigationService.Navigate(_navElement, arguments);                        
             await Task.CompletedTask;
         }
 
