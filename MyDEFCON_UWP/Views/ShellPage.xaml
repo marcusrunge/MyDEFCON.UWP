@@ -115,7 +115,7 @@
             -->
                 <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Home" helpers:NavHelper.NavigateTo="views:MainPage" />
                 <winui:NavigationViewItem x:Uid="Shell_Checklist" Icon="List" helpers:NavHelper.NavigateTo="views:ChecklistPage" />
-                <winui:NavigationViewItem x:Uid="Shell_Messages" Icon="Message" helpers:NavHelper.NavigateTo="views:MessagesPage" />
+                <!--<winui:NavigationViewItem x:Uid="Shell_Messages" Icon="Message" helpers:NavHelper.NavigateTo="views:MessagesPage" />-->
                 <winui:NavigationViewItem x:Uid="Shell_FullScreen" Icon="FullScreen" helpers:NavHelper.NavigateTo="views:FullScreenPage" />
             </winui:NavigationView.MenuItems>
             <i:Interaction.Behaviors>
