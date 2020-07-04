@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="using:MyDEFCON_UWP.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     Style="{StaticResource PageStyle}"
     xmlns:xaml="using:Windows.UI.Xaml"
     mc:Ignorable="d">
@@ -163,6 +165,11 @@
                     </Style>
                 </Pivot.Resources>
                 <PivotItem DataContext="{Binding SettingsPivotViewModel}" Header="General" >
+                    <interactivity:Interaction.Behaviors>                        
+                        <core:EventTriggerBehavior EventName="Unloaded">
+                            <core:InvokeCommandAction Command="{Binding UnloadedCommand}"/>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
                     <ScrollViewer Margin="0,12,-12,0" HorizontalContentAlignment="Left"
                               VerticalScrollBarVisibility="Auto">
                         <RelativePanel HorizontalAlignment="Left" Margin="12,0,0,0">

@@ -12,6 +12,7 @@ using Storage;
 using System;
 using ToastNotifications;
 using Unity;
+using Unity.Lifetime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -95,20 +96,20 @@ namespace MyDEFCON_UWP
 
         private void RegisterContainer()
         {            
-            Container.RegisterType<MainViewModel>();
-            Container.RegisterType<ChecklistViewModel>();
-            Container.RegisterType<MessagesViewModel>();
-            Container.RegisterType<SettingsViewModel>();
-            Container.RegisterType<ShellViewModel>();
-            Container.RegisterType<FullScreenViewModel>();
-            Container.RegisterType<AboutPivotViewModel>();
-            Container.RegisterType<SettingsPivotViewModel>();
-            Container.RegisterInstance(StorageFactory.Create());
-            Container.RegisterInstance(ChecklistsFactory.Create(/*Container.Resolve<IStorage>()*/));
-            Container.RegisterInstance(LiveTileFactory.Create());
-            Container.RegisterInstance(SocketsFactory.Create(/*Container.Resolve<IChecklists>()*/));
-            Container.RegisterInstance(EventAggregatorFactory.Create());
-            Container.RegisterInstance(ToastNotificationsFactory.Create());
+            Container.RegisterType<MainViewModel>(TypeLifetime.Singleton);
+            Container.RegisterType<ChecklistViewModel>(TypeLifetime.Singleton);
+            Container.RegisterType<MessagesViewModel>(TypeLifetime.Singleton);
+            Container.RegisterType<SettingsViewModel>(TypeLifetime.Singleton);
+            Container.RegisterType<ShellViewModel>(TypeLifetime.Singleton);
+            Container.RegisterType<FullScreenViewModel>(TypeLifetime.Singleton);
+            Container.RegisterType<AboutPivotViewModel>(TypeLifetime.Singleton);
+            Container.RegisterType<SettingsPivotViewModel>(TypeLifetime.Singleton);
+            Container.RegisterInstance(StorageFactory.Create(), InstanceLifetime.Singleton);
+            Container.RegisterInstance(ChecklistsFactory.Create(/*Container.Resolve<IStorage>()*/), InstanceLifetime.Singleton);
+            Container.RegisterInstance(LiveTileFactory.Create(), InstanceLifetime.Singleton);
+            Container.RegisterInstance(SocketsFactory.Create(/*Container.Resolve<IChecklists>()*/), InstanceLifetime.Singleton);
+            Container.RegisterInstance(EventAggregatorFactory.Create(), InstanceLifetime.Singleton);
+            Container.RegisterInstance(ToastNotificationsFactory.Create(), InstanceLifetime.Singleton);
         }
     }
 }

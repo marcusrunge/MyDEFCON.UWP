@@ -40,11 +40,13 @@ namespace MyDEFCON_UWP.ViewModels
             DefconStatus = int.Parse(_storage.Setting.GetSetting("defconStatus", "5", StorageStrategies.Roaming));
             if (_storage.Setting.GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
             _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-            _storage.Setting.ApplicationDataChanged += async (s, e) =>
-            {
-                DefconStatus=int.Parse((string)s.RoamingSettings.Values["defconStatus"]);
-                await UpdateDefconStatus();
-            };
+            _storage.Setting.ApplicationDataChanged += Setting_ApplicationDataChanged;
+        }
+
+        private async void Setting_ApplicationDataChanged(Windows.Storage.ApplicationData sender, object args)
+        {
+            DefconStatus = int.Parse((string)sender.RoamingSettings.Values["defconStatus"]);
+            await UpdateDefconStatus();
         }
 
         private async void Datagram_IncomingMessageReceived(object sender, string e)
@@ -68,11 +70,13 @@ namespace MyDEFCON_UWP.ViewModels
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>((param) =>
         {
             DataTransferManager.GetForCurrentView().DataRequested += MainViewModel_DataRequested;
-            _eventAggregator.Subscribe.AppBarButtonClicked += (s, e) =>
-            {
-                if (e.Button.Equals("Share")) DataTransferManager.ShowShareUI();
-            };
+            _eventAggregator.Subscribe.AppBarButtonClicked += Subscribe_AppBarButtonClicked;
         }));
+
+        private void Subscribe_AppBarButtonClicked(object sender, IAppBarButtonClickedEventArgs e)
+        {
+            if (e.Button.Equals("Share")) DataTransferManager.ShowShareUI();
+        }
 
         private void MainViewModel_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
         {
@@ -88,17 +92,20 @@ namespace MyDEFCON_UWP.ViewModels
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
         {
             DataTransferManager.GetForCurrentView().DataRequested -= MainViewModel_DataRequested;
+            _sockets.Datagram.IncomingMessageReceived -= Datagram_IncomingMessageReceived;
+            _storage.Setting.ApplicationDataChanged -= Setting_ApplicationDataChanged;
+            DataTransferManager.GetForCurrentView().DataRequested -= MainViewModel_DataRequested;
         }));
 
         private void UpdateTileBadge()
-        {            
+        {
             int badgeNumber = UncheckedItemsService.CountBadgeNumber(DefconStatus, _checkLists.Collection.Defcon1Checklist, _checkLists.Collection.Defcon2Checklist, _checkLists.Collection.Defcon3Checklist, _checkLists.Collection.Defcon4Checklist, _checkLists.Collection.Defcon5Checklist);
             _storage.Setting.SetSetting("badgeNumber", badgeNumber.ToString(), StorageStrategies.Roaming);
             if (_storage.Setting.GetSetting<bool>("ShowUncheckedItems")) _liveTile.DefconTile.SetBadge(badgeNumber);
         }
 
         private async Task UpdateDefconStatus()
-        {            
+        {
             _liveTile.DefconTile.SetTile(DefconStatus);
             await _checkLists.Operations.ReverseUncheck(DefconStatus);
             UpdateTileBadge();

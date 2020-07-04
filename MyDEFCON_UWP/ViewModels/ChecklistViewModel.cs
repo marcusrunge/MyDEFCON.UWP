@@ -220,6 +220,10 @@ namespace MyDEFCON_UWP.ViewModels
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
         {
             _checkLists.Operations.SaveCheckList(DefconCheckList, PageDefconStatus);
+            _eventAggregator.Subscribe.AppBarButtonClicked -= AppBarButtonClicked;
+            _sockets.Datagram.IncomingMessageReceived -= Datagram_IncomingMessageReceived;
+            _sockets.Stream.IncomingChecklistReceived -= Stream_IncomingChecklistReceived;
+            _checkLists.Collection.ActiveDefconCheckList.CollectionChanged -= DefconCheckList_CollectionChanged;
         }));
 
         private void UpdateTileBadge()

@@ -35,10 +35,12 @@ namespace MyDEFCON_UWP.ViewModels
             _storage = storage;
             if (_storage.Setting.GetSetting<bool>("LanBroadcastIsOn")) _sockets.Datagram.IncomingMessageReceived += Datagram_IncomingMessageReceived;
             _coreDispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-            _storage.Setting.ApplicationDataChanged += async (s, e) =>
-            {
-                await SetDefconVisualState(int.Parse((string)s.RoamingSettings.Values["defconStatus"]));
-            };
+            _storage.Setting.ApplicationDataChanged += Setting_ApplicationDataChanged;
+        }
+
+        private async void Setting_ApplicationDataChanged(Windows.Storage.ApplicationData sender, object args)
+        {
+            await SetDefconVisualState(int.Parse((string)sender.RoamingSettings.Values["defconStatus"]));
         }
 
         private async void Datagram_IncomingMessageReceived(object sender, string e)
@@ -66,6 +68,8 @@ namespace MyDEFCON_UWP.ViewModels
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
         {
             _eventAggregator.Publish.OnPaneDisplayModeChangeChanged(EventArgsFactory.CreateEventArgs<IPaneDisplayModeChangedEventArgs>(3));
+            _storage.Setting.ApplicationDataChanged -= Setting_ApplicationDataChanged;
+            _sockets.Datagram.IncomingMessageReceived -= Datagram_IncomingMessageReceived;
         }));
 
         private ICommand _fullScreenCommand;

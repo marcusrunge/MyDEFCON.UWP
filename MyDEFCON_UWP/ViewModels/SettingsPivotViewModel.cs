@@ -122,6 +122,12 @@ namespace MyDEFCON_UWP.ViewModels
             ShutdownManager.BeginShutdown(ShutdownKind.Shutdown, TimeSpan.FromSeconds(0));
         }));
 
+        private ICommand _unloadedCommand;
+        public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
+        {
+            PropertyChanged -= SettingsPivotViewModel_PropertyChanged;
+        }));
+
         private uint IntervallInMinutes()
         {
             switch (SelectedTimeIntervallIndex)
