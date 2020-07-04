@@ -194,7 +194,7 @@ namespace MyDEFCON_UWP.ViewModels
         private ICommand _loadDefconChecklistCommand;
         public ICommand LoadDefconChecklistCommand => _loadDefconChecklistCommand ?? (_loadDefconChecklistCommand = new RelayCommand<object>(async (param) =>
         {
-            CheckistSelectionMode = ListViewSelectionMode.None;            
+            CheckistSelectionMode = ListViewSelectionMode.None;
             _eventAggregator.Publish.OnChecklistChanged(null);
             _checkLists.Collection.ActiveDefconCheckList.CollectionChanged -= DefconCheckList_CollectionChanged;
             PageDefconStatus = int.Parse(param as string);

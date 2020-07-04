@@ -42,7 +42,7 @@ namespace ToastNotifications
                         }
                     }
                 },
-                Duration= ToastDuration.Short               
+                Duration = ToastDuration.Short
             };
 
             var toast = new ToastNotification(toastContent.GetXml())

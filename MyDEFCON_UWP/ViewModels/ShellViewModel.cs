@@ -74,7 +74,7 @@ namespace MyDEFCON_UWP.ViewModels
             // More info on tracking issue https://github.com/Microsoft/microsoft-ui-xaml/issues/8
             _keyboardAccelerators.Add(_altLeftKeyboardAccelerator);
             _keyboardAccelerators.Add(_backKeyboardAccelerator);
-            _eventAggregator.Subscribe.ChecklistChanged+= (s, e) => { VisualState = "AddItemState"; };
+            _eventAggregator.Subscribe.ChecklistChanged += (s, e) => { VisualState = "AddItemState"; };
             await Task.CompletedTask;
         }
 

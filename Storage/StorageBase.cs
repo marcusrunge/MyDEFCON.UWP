@@ -2,7 +2,7 @@
 {
     internal class StorageBase : IStorage
     {
-        protected ISetting _setting; 
+        protected ISetting _setting;
         public ISetting Setting => _setting;
 
         protected IFile _file;

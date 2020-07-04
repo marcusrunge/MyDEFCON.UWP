@@ -8,7 +8,7 @@
 
     internal class ToastNotifications : ToastNotificationsBase
     {
-        internal ToastNotifications():base()
+        internal ToastNotifications() : base()
         {
             _info = global::ToastNotifications.Info.Create(this);
         }

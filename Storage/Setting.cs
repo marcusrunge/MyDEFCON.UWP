@@ -8,7 +8,7 @@ namespace Storage
     {
         /// <summary>Register for DataChanged Event</summary>
         event TypedEventHandler<ApplicationData, object> ApplicationDataChanged;
-        
+
         /// <summary>Returns if a setting is found in the specified storage strategy</summary>
         /// <param name="key">Key of the setting in storage</param>
         /// <param name="location">Location storage strategy</param>

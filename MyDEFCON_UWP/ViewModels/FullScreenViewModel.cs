@@ -27,7 +27,7 @@ namespace MyDEFCON_UWP.ViewModels
 
         private string _defconVisualState;
         public string DefconVisualState { get => _defconVisualState; set => Set(ref _defconVisualState, value); }
-                
+
         public FullScreenViewModel(ISockets sockets, IEventAggregator eventAggregator, IStorage storage)
         {
             _sockets = sockets;
@@ -52,7 +52,7 @@ namespace MyDEFCON_UWP.ViewModels
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
         {
             await SetDefconVisualState(int.Parse(_storage.Setting.GetSetting("defconStatus", "5", StorageStrategies.Roaming)));
-            _isFullScreen = true;            
+            _isFullScreen = true;
             string i2cDeviceSelector = I2cDevice.GetDeviceSelector();
             I2cConnectionSettings i2CConnectionSettings = new I2cConnectionSettings(0x45);
             IReadOnlyList<DeviceInformation> deviceInformationCollection = await DeviceInformation.FindAllAsync(i2cDeviceSelector);
@@ -61,7 +61,7 @@ namespace MyDEFCON_UWP.ViewModels
                 var i2CDevice = await I2cDevice.FromIdAsync(deviceInformationCollection[0].Id, i2CConnectionSettings);
                 _i2CDevice = i2CDevice;
             }
-            _eventAggregator.Publish.OnPaneDisplayModeChangeChanged(EventArgsFactory.CreateEventArgs<IPaneDisplayModeChangedEventArgs>(4));           
+            _eventAggregator.Publish.OnPaneDisplayModeChangeChanged(EventArgsFactory.CreateEventArgs<IPaneDisplayModeChangedEventArgs>(4));
         }));
 
         private ICommand _unloadedCommand;

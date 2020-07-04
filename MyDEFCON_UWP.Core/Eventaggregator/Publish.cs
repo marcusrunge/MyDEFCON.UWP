@@ -13,7 +13,7 @@ namespace MyDEFCON_UWP.Core.Eventaggregator
         }
 
         internal static IPublish Create(SubscribeBase subscribeBase) => _publish ?? (_publish = new Publish(subscribeBase));
-                
+
         public void OnAppBarButtonClicked(IAppBarButtonClickedEventArgs appBarButtonClickedEventArgs) => _subscribeBase._onAppBarButtonClickedDelegate(this, appBarButtonClickedEventArgs);
 
         public void OnChecklistChanged(EventArgs eventArgs) => _subscribeBase._onChecklistChangedDelegate(this, eventArgs);

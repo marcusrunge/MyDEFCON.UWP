@@ -12,7 +12,6 @@ using Storage;
 using System;
 using ToastNotifications;
 using Unity;
-using Unity.Lifetime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -48,7 +47,7 @@ namespace MyDEFCON_UWP
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
-        {            
+        {
             if (!args.PrelaunchActivated)
             {
                 await ActivationService.ActivateAsync(args);
@@ -95,7 +94,7 @@ namespace MyDEFCON_UWP
         }
 
         private void RegisterContainer()
-        {            
+        {
             Container.RegisterType<MainViewModel>(TypeLifetime.Singleton);
             Container.RegisterType<ChecklistViewModel>(TypeLifetime.Singleton);
             Container.RegisterType<MessagesViewModel>(TypeLifetime.Singleton);

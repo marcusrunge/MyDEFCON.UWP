@@ -45,8 +45,8 @@ namespace Sockets
         }
 
         private void DatagramSocket_MessageReceived(DatagramSocket sender, DatagramSocketMessageReceivedEventArgs args)
-        {            
-            if (sender.Information.LocalPort!=args.RemotePort)
+        {
+            if (sender.Information.LocalPort != args.RemotePort)
             {
                 try
                 {
