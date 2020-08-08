@@ -270,12 +270,14 @@
                         		FontSize="20"
                         		FontWeight="SemiBold" Command="{x:Bind ViewModel.AboutPivotViewModel.RateCommand}"/>
                             <Image Grid.Row="4" Height="100" Source="ms-appx:///Assets/TET_Logo.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0"/>
-                            <Grid Grid.Row="5" Margin="12" VerticalAlignment="Bottom">
+                            <Grid Grid.Row="5"  VerticalAlignment="Bottom">
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image Height="{Binding ElementName=Copyright, Path=ActualHeight}" Source="/Assets/MR.png" HorizontalAlignment="Center" />
+                                <StackPanel x:Name="Copyright" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12,0,0,0">
                                     <TextBlock Text="Copyright (c) 2020"
                         				FontFamily="Segoe WP"
                         				FontSize="20"/>
