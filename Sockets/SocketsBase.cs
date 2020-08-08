@@ -10,9 +10,6 @@ namespace Sockets
         protected IDatagram _datagram;
         public IDatagram Datagram => _datagram;
 
-        public SocketsBase(/*IChecklists checklists*/)
-        {
-            _checklists = ChecklistsFactory.Create();
-        }
+        public SocketsBase(IChecklists checklists) => _checklists = checklists;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Checklists;
+using CommonServiceLocator;
 using LiveTile;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
@@ -12,6 +13,7 @@ using Storage;
 using System;
 using ToastNotifications;
 using Unity;
+using Unity.ServiceLocation;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -103,12 +105,20 @@ namespace MyDEFCON_UWP
             Container.RegisterType<FullScreenViewModel>(TypeLifetime.Singleton);
             Container.RegisterType<AboutPivotViewModel>(TypeLifetime.Singleton);
             Container.RegisterType<SettingsPivotViewModel>(TypeLifetime.Singleton);
-            Container.RegisterInstance(StorageFactory.Create(), InstanceLifetime.Singleton);
-            Container.RegisterInstance(ChecklistsFactory.Create(/*Container.Resolve<IStorage>()*/), InstanceLifetime.Singleton);
-            Container.RegisterInstance(LiveTileFactory.Create(), InstanceLifetime.Singleton);
-            Container.RegisterInstance(SocketsFactory.Create(/*Container.Resolve<IChecklists>()*/), InstanceLifetime.Singleton);
-            Container.RegisterInstance(EventAggregatorFactory.Create(), InstanceLifetime.Singleton);
-            Container.RegisterInstance(ToastNotificationsFactory.Create(), InstanceLifetime.Singleton);
+            Container.RegisterType<IStorageFactory, StorageFactory>();
+            Container.RegisterFactory<IStorage>((c) => c.Resolve<IStorageFactory>().Create(), FactoryLifetime.Singleton);
+            Container.RegisterType<IChecklistsFactory, ChecklistsFactory>();
+            Container.RegisterFactory<IChecklists>((c) => c.Resolve<IChecklistsFactory>().Create(), FactoryLifetime.Singleton);
+            Container.RegisterType<ILiveTileFactory, LiveTileFactory>();
+            Container.RegisterFactory<ILiveTile>((c) => c.Resolve<ILiveTileFactory>().Create(), FactoryLifetime.Singleton);
+            Container.RegisterType<ISocketsFactory, SocketsFactory>();
+            Container.RegisterFactory<ISockets>((c) => c.Resolve<ISocketsFactory>().Create(), FactoryLifetime.Singleton);
+            Container.RegisterType<IEventAggregatorFactory, EventAggregatorFactory>();
+            Container.RegisterFactory<IEventAggregator>((c) => c.Resolve<IEventAggregatorFactory>().Create(), FactoryLifetime.Singleton);
+            Container.RegisterType<IToastNotificationsFactory, ToastNotificationsFactory>();
+            Container.RegisterFactory<IToastNotifications>((c) => c.Resolve<IToastNotificationsFactory>().Create(), FactoryLifetime.Singleton);
+            UnityServiceLocator unityServiceLocator = new UnityServiceLocator(Container);
+            ServiceLocator.SetLocatorProvider(() => unityServiceLocator);
         }
     }
 }

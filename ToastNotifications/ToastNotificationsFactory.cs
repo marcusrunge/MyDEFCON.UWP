@@ -1,8 +1,13 @@
 ﻿namespace ToastNotifications
 {
-    public class ToastNotificationsFactory
+    public interface IToastNotificationsFactory
+    {
+        IToastNotifications Create();
+    }
+
+    public class ToastNotificationsFactory : IToastNotificationsFactory
     {
         private static IToastNotifications _toastNotifications;
-        public static IToastNotifications Create() => _toastNotifications ?? (_toastNotifications = new ToastNotifications());
+        public IToastNotifications Create() => _toastNotifications ?? (_toastNotifications = new ToastNotifications());
     }
 }

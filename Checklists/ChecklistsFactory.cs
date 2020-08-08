@@ -1,8 +1,17 @@
-﻿namespace Checklists
+﻿using Storage;
+
+namespace Checklists
 {
-    public static class ChecklistsFactory
+    public interface IChecklistsFactory
     {
+        IChecklists Create();
+    }
+
+    public class ChecklistsFactory : IChecklistsFactory
+    {
+        private IStorage _storage;
+        public ChecklistsFactory(IStorage storage) => _storage = storage;
         private static IChecklists _checklists;
-        public static IChecklists Create(/*IStorage storage*/) => _checklists ?? (_checklists = new Checklists(/*storage*/));
+        public IChecklists Create() => _checklists ?? (_checklists = new Checklists(_storage));
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Checklists;
+using CommonServiceLocator;
 using LiveTile;
 using Models;
 using Newtonsoft.Json;
@@ -18,8 +19,10 @@ namespace BackgroundTask
     {
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            var checklists = ChecklistsFactory.Create(/*storage*/);
-            var liveTile = LiveTileFactory.Create();
+            var checklistsFactory =ServiceLocator.Current.GetInstance<IChecklistsFactory>();
+            var liveTileFactory= ServiceLocator.Current.GetInstance<ILiveTileFactory>();
+            var checklists = checklistsFactory.Create();
+            var liveTile = liveTileFactory.Create();
             var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
             if (backgroundWorkCost == BackgroundWorkCostValue.High) return;
             else

@@ -22,10 +22,7 @@ namespace Checklists
         protected ICheckListOperations _checkListOperations;
         public ICheckListOperations Operations => _checkListOperations;
 
-        public ChecklistsBase(/*IStorage storage*/)
-        {
-            _storage = StorageFactory.Create();
-        }
+        public ChecklistsBase(IStorage storage) => _storage = storage;
 
         public async Task Initialize()
         {

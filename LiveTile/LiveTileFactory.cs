@@ -1,8 +1,13 @@
 ﻿namespace LiveTile
 {
-    public static class LiveTileFactory
+    public interface ILiveTileFactory
+    {
+        ILiveTile Create();
+    }
+
+    public class LiveTileFactory : ILiveTileFactory
     {
         private static ILiveTile _liveTile;
-        public static ILiveTile Create() => _liveTile ?? (_liveTile = new LiveTile());
+        public ILiveTile Create() => _liveTile ?? (_liveTile = new LiveTile());
     }
 }

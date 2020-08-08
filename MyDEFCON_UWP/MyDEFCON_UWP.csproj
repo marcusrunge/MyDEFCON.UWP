@@ -17,9 +17,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>
-    </PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>2CE5C508EEA22AC634BDBB034521437F4B0ECC3E</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>MyDEFCON_UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>978B409AA45F825849B47A2464672AD8D1AFEE94</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
@@ -127,6 +126,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="CommonServiceLocator">
+      <Version>2.0.5</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>3.4.0</Version>
     </PackageReference>
@@ -150,6 +152,9 @@
     </PackageReference>
     <PackageReference Include="Unity">
       <Version>5.11.7</Version>
+    </PackageReference>
+    <PackageReference Include="Unity.ServiceLocation">
+      <Version>5.11.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -366,6 +371,7 @@
     <Content Include="TransparentTileImages\Defcon5MediumTile.png" />
     <Content Include="TransparentTileImages\Defcon5SmallTile.png" />
     <Content Include="TransparentTileImages\Defcon5WideTile.png" />
+    <None Include="MyDEFCON_UWP_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
@@ -406,7 +412,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
-    <None Include="MyDEFCON_UWP_TemporaryKey.pfx" />
     <None Include="Settings.XamlStyler" />
   </ItemGroup>
   <ItemGroup>

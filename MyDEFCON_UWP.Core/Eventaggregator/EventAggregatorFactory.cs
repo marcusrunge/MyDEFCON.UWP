@@ -1,8 +1,13 @@
 ﻿namespace MyDEFCON_UWP.Core.Eventaggregator
 {
-    public static class EventAggregatorFactory
+    public interface IEventAggregatorFactory
+    {
+        IEventAggregator Create();
+    }
+
+    public class EventAggregatorFactory : IEventAggregatorFactory
     {
         private static IEventAggregator _eventAggregator;
-        public static IEventAggregator Create() => _eventAggregator ?? (_eventAggregator = new EventAggregator());
+        public IEventAggregator Create() => _eventAggregator ?? (_eventAggregator = new EventAggregator());
     }
 }

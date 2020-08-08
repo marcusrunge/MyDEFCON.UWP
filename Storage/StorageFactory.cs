@@ -1,8 +1,13 @@
 ﻿namespace Storage
 {
-    public class StorageFactory
+    public interface IStorageFactory
+    {
+        IStorage Create();
+    }
+
+    public class StorageFactory : IStorageFactory
     {
         private static IStorage _storage;
-        public static IStorage Create() => _storage ?? (_storage = new Storage());
+        public IStorage Create() => _storage ?? (_storage = new Storage());
     }
 }

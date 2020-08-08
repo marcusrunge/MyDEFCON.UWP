@@ -1,4 +1,5 @@
-﻿using LiveTile;
+﻿using CommonServiceLocator;
+using LiveTile;
 using System;
 using Windows.ApplicationModel.Background;
 
@@ -8,7 +9,8 @@ namespace BackgroundTask
     {
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            var liveTile = LiveTileFactory.Create();
+            var liveTileFactory = ServiceLocator.Current.GetInstance<ILiveTileFactory>();
+            var liveTile = liveTileFactory.Create();
             var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
             if (backgroundWorkCost == BackgroundWorkCostValue.High)
             {
