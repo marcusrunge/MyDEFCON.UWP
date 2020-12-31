@@ -9,19 +9,30 @@ namespace BackgroundTask
     {
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            var liveTileFactory = ServiceLocator.Current.GetInstance<ILiveTileFactory>();
-            var liveTile = liveTileFactory.Create();
-            var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
-            if (backgroundWorkCost == BackgroundWorkCostValue.High)
+            ILiveTileFactory liveTileFactory;
+            try
             {
-                return;
+                liveTileFactory = ServiceLocator.Current.GetInstance<ILiveTileFactory>();
             }
-            else
+            catch (Exception)
             {
-                var deferral = taskInstance.GetDeferral();
-                liveTile.DefconTile.SetTile(LoadDefconStatusFromRoamingSettings());
-                liveTile.DefconTile.SetBadge(BadgeNumber());
-                deferral.Complete();
+                liveTileFactory = new LiveTileFactory();
+            }
+            if (liveTileFactory != null)
+            {
+                var liveTile = liveTileFactory.Create();
+                var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
+                if (backgroundWorkCost == BackgroundWorkCostValue.High)
+                {
+                    return;
+                }
+                else
+                {
+                    var deferral = taskInstance.GetDeferral();
+                    liveTile.DefconTile.SetTile(LoadDefconStatusFromRoamingSettings());
+                    liveTile.DefconTile.SetBadge(BadgeNumber());
+                    deferral.Complete();
+                }
             }
         }
 
