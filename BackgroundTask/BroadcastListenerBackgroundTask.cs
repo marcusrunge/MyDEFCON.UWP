@@ -19,8 +19,8 @@ namespace BackgroundTask
     {
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            var checklistsFactory =ServiceLocator.Current.GetInstance<IChecklistsFactory>();
-            var liveTileFactory= ServiceLocator.Current.GetInstance<ILiveTileFactory>();
+            var checklistsFactory = ServiceLocator.Current.GetInstance<IChecklistsFactory>();
+            var liveTileFactory = ServiceLocator.Current.GetInstance<ILiveTileFactory>();
             var checklists = checklistsFactory.Create();
             var liveTile = liveTileFactory.Create();
             var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;

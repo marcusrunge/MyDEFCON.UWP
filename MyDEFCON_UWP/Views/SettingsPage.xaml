@@ -10,10 +10,10 @@
     Style="{StaticResource PageStyle}"
     xmlns:xaml="using:Windows.UI.Xaml"
     mc:Ignorable="d">
-    <Page.Resources>        
+    <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Styles/RedTransparentButtonStyle.xaml"/>                
+                <ResourceDictionary Source="/Styles/RedTransparentButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
         </ResourceDictionary>
@@ -165,7 +165,7 @@
                     </Style>
                 </Pivot.Resources>
                 <PivotItem DataContext="{Binding SettingsPivotViewModel}" Header="General" >
-                    <interactivity:Interaction.Behaviors>                        
+                    <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Unloaded">
                             <core:InvokeCommandAction Command="{Binding UnloadedCommand}"/>
                         </core:EventTriggerBehavior>
@@ -250,7 +250,7 @@
                                 <TextBlock Margin="12,0,12,0" FontFamily="Segoe WP" FontSize="20" Text="2.7.4.0" />
                                 <TextBlock Margin="12,0,12,0" FontFamily="Segoe WP" FontSize="13.333" Text="Made in Germany with Template 10" FontStyle="Italic" />-->
                             </StackPanel>
-                            
+
                             <HyperlinkButton x:Name="EmailButton"
                         		Grid.Row="2" 
                         		Content="technical support/feedback email" 
@@ -270,27 +270,14 @@
                         		FontSize="20"
                         		FontWeight="SemiBold" Command="{x:Bind ViewModel.AboutPivotViewModel.RateCommand}"/>
                             <Image Grid.Row="4" Height="100" Source="ms-appx:///Assets/TET_Logo.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0"/>
-                            <Grid Grid.Row="5"  VerticalAlignment="Bottom">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Image Height="{Binding ElementName=Copyright, Path=ActualHeight}" Source="/Assets/MR.png" HorizontalAlignment="Center" />
-                                <StackPanel x:Name="Copyright" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12,0,0,0">
-                                    <TextBlock Text="Copyright (c) 2020"
-                        				FontFamily="Segoe WP"
-                        				FontSize="20"/>
-                                    <TextBlock Text="Marcus Runge"
-                        				FontFamily="Segoe WP"
-                        				FontSize="20"/>
-                                </StackPanel>
-                                <Image Grid.Column="1" Height="100" Source="ms-appx:///Assets/Marcus_07.2014_gr.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,0"/>
-                            </Grid>
+                            <StackPanel Grid.Row="5"  VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                <Image Height="100" Source="/Assets/MR.png" HorizontalAlignment="Center" />
+                                <TextBlock Text="SOFTWAREENGINEERING" FontFamily="Segoe UI Light" FontSize="16" Foreground="#FF606165"/>
+                            </StackPanel>
                         </Grid>
                     </Grid>
                 </PivotItem>
-            </Pivot> 
+            </Pivot>
         </StackPanel>
-    </Grid>    
+    </Grid>
 </Page>
