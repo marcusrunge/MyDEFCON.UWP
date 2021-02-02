@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media">
     <media:BackdropBlurBrush x:Key="NavigationViewExpandedPaneBackground" Amount="10" />
+    <media:BackdropBlurBrush x:Key="NavigationViewDefaultPaneBackground" Amount="10" />
     <SolidColorBrush x:Key="NavigationViewItemForegroundPointerOver" Color="Red"/>
     <SolidColorBrush x:Key="NavigationViewItemForegroundSelected" Color="Red"/>
     <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPointerOver" Color="Red"/>

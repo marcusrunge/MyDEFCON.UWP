@@ -99,20 +99,14 @@
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
                         <ResourceDictionary Source="/Styles/SolidColorBrushes.xaml"/>
-                        <ResourceDictionary Source="/Styles/CustomNavigationView.xaml"/>
+                        <ResourceDictionary Source="/Styles/RedNavigationViewStyle.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </winui:NavigationView.Resources>
             <winui:NavigationView.Style>
-                <StaticResource ResourceKey="CustomNavigationViewStyle"/>
+                <StaticResource ResourceKey="RedNavigationViewStyle"/>
             </winui:NavigationView.Style>
-            <winui:NavigationView.MenuItems>
-                <!--
-            TODO WTS: Change the symbols for each item as appropriate for your app
-            More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
-            Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/projectTypes/navigationpane.md
-            Edit String/en-US/Resources.resw: Add a menu item title for each page
-            -->
+            <winui:NavigationView.MenuItems>            
                 <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Home" helpers:NavHelper.NavigateTo="views:MainPage" />
                 <winui:NavigationViewItem x:Uid="Shell_Checklist" Icon="List" helpers:NavHelper.NavigateTo="views:ChecklistPage" />
                 <!--<winui:NavigationViewItem x:Uid="Shell_Messages" Icon="Message" helpers:NavHelper.NavigateTo="views:MessagesPage" />-->

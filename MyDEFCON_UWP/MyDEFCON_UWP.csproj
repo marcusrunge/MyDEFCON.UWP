@@ -24,7 +24,7 @@
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <AppxPackageDir>C:\Users\Marcus Runge\Austausch\</AppxPackageDir>
+    <AppxPackageDir>C:\Users\mru\Austausch\</AppxPackageDir>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
@@ -139,9 +139,6 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.11</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
-      <Version>6.1.1</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Media">
       <Version>6.1.1</Version>
     </PackageReference>
@@ -237,9 +234,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\CustomNavigationView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Styles\RedNavigationViewStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Page.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -328,6 +325,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="ShareImages\Defcon1.png" />
     <Content Include="ShareImages\Defcon2.png" />
     <Content Include="ShareImages\Defcon3.png" />
@@ -374,7 +372,6 @@
     <Content Include="TransparentTileImages\Defcon5SmallTile.png" />
     <Content Include="TransparentTileImages\Defcon5WideTile.png" />
     <None Include="MyDEFCON_UWP_TemporaryKey.pfx" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
