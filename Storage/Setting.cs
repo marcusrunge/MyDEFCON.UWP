@@ -21,7 +21,7 @@ namespace Storage
         /// <param name="otherwise">Return value if key is not found or convert fails</param>
         /// <param name="location">Location storage strategy</param>
         /// <returns>Specified type T</returns>
-        T GetSetting<T>(string key, T otherwise = default(T), StorageStrategies location = StorageStrategies.Local);
+        T GetSetting<T>(string key, T otherwise = default, StorageStrategies location = StorageStrategies.Local);
 
         /// <summary>Sets a setting in specified storage strategy</summary>
         /// <typeparam name="T">Specified type of object to serialize</typeparam>

@@ -25,7 +25,7 @@ namespace LiveTile
         internal DefconImagePaths(int status)
         {
             _status = status;
-            _transparent = ApplicationData.Current.LocalSettings.Values.ContainsKey("useTransparentTile") ? (bool)ApplicationData.Current.LocalSettings.Values["useTransparentTile"] : false;
+            _transparent = ApplicationData.Current.LocalSettings.Values.ContainsKey("useTransparentTile") && (bool)ApplicationData.Current.LocalSettings.Values["useTransparentTile"];
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ToastNotifications
     {
         private static IInfo _info;
         internal static IInfo Create(ToastNotificationsBase toastNotificationsBase) => _info ?? (_info = new Info(toastNotificationsBase));
-        private ToastNotificationsBase _toastNotificationsBase;
+        private readonly ToastNotificationsBase _toastNotificationsBase;
 
         public Info(ToastNotificationsBase toastNotificationsBase)
         {

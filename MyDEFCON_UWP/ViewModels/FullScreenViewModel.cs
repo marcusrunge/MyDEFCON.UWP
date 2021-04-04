@@ -22,7 +22,7 @@ namespace MyDEFCON_UWP.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly CoreDispatcher _coreDispatcher;
         double _onPointerPressedY, _onPointerReleasedY;
-        bool _isFullScreen = default(bool);
+        bool _isFullScreen = default;
         private readonly IStorage _storage;
 
         private string _defconVisualState;

@@ -1,38 +1,33 @@
-﻿using CommonServiceLocator;
-using LiveTile;
+﻿using LiveTile;
 using System;
+using Unity;
 using Windows.ApplicationModel.Background;
 
 namespace BackgroundTask
 {
     public sealed class TileUpdateBackgroundTask : IBackgroundTask
     {
+        private IUnityContainer _container;
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            ILiveTileFactory liveTileFactory;
-            try
+            if (_container == null)
             {
-                liveTileFactory = ServiceLocator.Current.GetInstance<ILiveTileFactory>();
+                _container = new UnityContainer();
+                _container.RegisterType<ILiveTileFactory, LiveTileFactory>();
+                _container.RegisterFactory<ILiveTile>((c) => c.Resolve<ILiveTileFactory>().Create(), FactoryLifetime.Singleton);
             }
-            catch (Exception)
+            var liveTile = _container.Resolve<ILiveTile>();
+            var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
+            if (backgroundWorkCost == BackgroundWorkCostValue.High)
             {
-                liveTileFactory = new LiveTileFactory();
+                return;
             }
-            if (liveTileFactory != null)
+            else
             {
-                var liveTile = liveTileFactory.Create();
-                var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
-                if (backgroundWorkCost == BackgroundWorkCostValue.High)
-                {
-                    return;
-                }
-                else
-                {
-                    var deferral = taskInstance.GetDeferral();
-                    liveTile.DefconTile.SetTile(LoadDefconStatusFromRoamingSettings());
-                    liveTile.DefconTile.SetBadge(BadgeNumber());
-                    deferral.Complete();
-                }
+                var deferral = taskInstance.GetDeferral();
+                liveTile.DefconTile.SetTile(LoadDefconStatusFromRoamingSettings());
+                liveTile.DefconTile.SetBadge(BadgeNumber());
+                deferral.Complete();
             }
         }
 

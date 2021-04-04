@@ -1,12 +1,13 @@
 ﻿using Checklists;
-using CommonServiceLocator;
 using LiveTile;
 using Models;
 using Newtonsoft.Json;
+using Storage;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity;
 using Windows.ApplicationModel.Background;
 using Windows.Networking.Sockets;
 using Windows.Storage;
@@ -17,12 +18,21 @@ namespace BackgroundTask
 {
     public sealed class BroadcastListenerBackgroundTask : IBackgroundTask
     {
+        private IUnityContainer _container;
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
-            var checklistsFactory = ServiceLocator.Current.GetInstance<IChecklistsFactory>();
-            var liveTileFactory = ServiceLocator.Current.GetInstance<ILiveTileFactory>();
-            var checklists = checklistsFactory.Create();
-            var liveTile = liveTileFactory.Create();
+            if (_container == null)
+            {
+                _container = new UnityContainer();
+                _container.RegisterType<IStorageFactory, StorageFactory>();
+                _container.RegisterFactory<IStorage>((c) => c.Resolve<IStorageFactory>().Create(), FactoryLifetime.Singleton);
+                _container.RegisterType<IChecklistsFactory, ChecklistsFactory>();
+                _container.RegisterFactory<IChecklists>((c) => c.Resolve<IChecklistsFactory>().Create(), FactoryLifetime.Singleton);
+                _container.RegisterType<ILiveTileFactory, LiveTileFactory>();
+                _container.RegisterFactory<ILiveTile>((c) => c.Resolve<ILiveTileFactory>().Create(), FactoryLifetime.Singleton);
+            }
+            var checklists = _container.Resolve<IChecklists>();
+            var liveTile = _container.Resolve<ILiveTile>();
             var backgroundWorkCost = BackgroundWorkCost.CurrentBackgroundWorkCost;
             if (backgroundWorkCost == BackgroundWorkCostValue.High) return;
             else
@@ -238,7 +248,6 @@ namespace BackgroundTask
             var toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText02);
             var textNodes = toastXml.GetElementsByTagName("text");
             textNodes.First().AppendChild(toastXml.CreateTextNode(text));
-            var toastNotification = new ToastNotification(toastXml);
             toastNotifier.Show(new ToastNotification(toastXml));
         }
 

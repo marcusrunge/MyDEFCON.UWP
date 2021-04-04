@@ -43,7 +43,7 @@ namespace Sockets
             try
             {
                 _streamSocketListener = new StreamSocketListener();
-                _streamSocketListener.ConnectionReceived += _streamSocketListener_ConnectionReceived;
+                _streamSocketListener.ConnectionReceived += StreamSocketListener_ConnectionReceived;
 
                 await _streamSocketListener.BindServiceNameAsync("4537");
             }
@@ -53,7 +53,7 @@ namespace Sockets
             }
         }
 
-        private async void _streamSocketListener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
+        private async void StreamSocketListener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
         {
             using (var streamWriter = new StreamWriter(args.Socket.OutputStream.AsStreamForWrite()))
             {
@@ -64,7 +64,7 @@ namespace Sockets
 
         public async Task StopListener()
         {
-            _streamSocketListener.ConnectionReceived -= _streamSocketListener_ConnectionReceived;
+            _streamSocketListener.ConnectionReceived -= StreamSocketListener_ConnectionReceived;
             await _streamSocketListener.CancelIOAsync();
             _streamSocketListener = null;
         }
@@ -90,7 +90,7 @@ namespace Sockets
             }
             catch (Exception ex)
             {
-                SocketErrorStatus webErrorStatus = SocketError.GetStatus(ex.GetBaseException().HResult);
+                _ = SocketError.GetStatus(ex.GetBaseException().HResult);
             }
         }
 
@@ -264,7 +264,7 @@ namespace Sockets
             }
             catch (Exception ex)
             {
-                SocketErrorStatus webErrorStatus = SocketError.GetStatus(ex.GetBaseException().HResult);
+                _ = SocketError.GetStatus(ex.GetBaseException().HResult);
             }
             OnIncomingChecklistReceived();
             return response;

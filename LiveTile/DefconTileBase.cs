@@ -41,6 +41,6 @@ namespace LiveTile
             return xmlDocument;
         }
 
-        internal protected bool LoadShowUncheckedItemsSetting() => ApplicationData.Current.LocalSettings.Values.ContainsKey("showUncheckedItems") ? (bool)ApplicationData.Current.LocalSettings.Values["showUncheckedItems"] : false;
+        internal protected bool LoadShowUncheckedItemsSetting() => ApplicationData.Current.LocalSettings.Values.ContainsKey("showUncheckedItems") && (bool)ApplicationData.Current.LocalSettings.Values["showUncheckedItems"];
     }
 }

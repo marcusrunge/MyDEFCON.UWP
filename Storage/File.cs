@@ -65,7 +65,7 @@ namespace Storage
                 // fetch file
                 var _File = await GetIfFileExistsAsync(key, location);
                 if (_File == null)
-                    return default(T);
+                    return default;
                 // read content
                 var _String = await FileIO.ReadTextAsync(_File);
                 // convert to obj

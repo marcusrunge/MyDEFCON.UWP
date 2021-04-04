@@ -8,11 +8,11 @@ namespace Models
     public class CheckListItem : INotifyPropertyChanged
     {
         #region Fields
-        string _item = default(string);
-        bool _checked = default(bool);
-        bool _deleted = default(bool);
-        double _fontSize = default(double);
-        double _width = default(double);
+        string _item = default;
+        bool _checked = default;
+        bool _deleted = default;
+        double _fontSize = default;
+        double _width = default;
         long _unixTimeStampCreated;
         long _unixTimeStampUpdated;
         short _defconStatus;

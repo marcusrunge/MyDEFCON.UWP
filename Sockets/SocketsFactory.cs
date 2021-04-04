@@ -9,7 +9,7 @@ namespace Sockets
 
     public class SocketsFactory : ISocketsFactory
     {
-        private IChecklists _checklists;
+        private readonly IChecklists _checklists;
         public SocketsFactory(IChecklists checklists) => _checklists = checklists;
         private static ISockets _sockets;
         public ISockets Create() => _sockets ?? (_sockets = new Sockets(_checklists));

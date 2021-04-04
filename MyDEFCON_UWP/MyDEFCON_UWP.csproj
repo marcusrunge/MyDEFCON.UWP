@@ -17,9 +17,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>
-    </PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>5AED564AC333EC5FF263AB2FF238A3220E531E88</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>MyDEFCON_UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>052F64F85D4EB9B885B0CD5A1337F36BD0808F5A</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
@@ -140,7 +139,7 @@
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Media">
-      <Version>7.0.0</Version>
+      <Version>7.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.5.0</Version>
@@ -325,6 +324,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <None Include="MyDEFCON_UWP_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="ShareImages\Defcon1.png" />
     <Content Include="ShareImages\Defcon2.png" />
@@ -371,7 +371,6 @@
     <Content Include="TransparentTileImages\Defcon5MediumTile.png" />
     <Content Include="TransparentTileImages\Defcon5SmallTile.png" />
     <Content Include="TransparentTileImages\Defcon5WideTile.png" />
-    <None Include="MyDEFCON_UWP_TemporaryKey.pfx" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
