@@ -15,16 +15,24 @@ namespace Sockets
     public interface IStream
     {
         event EventHandler IncomingChecklistReceived;
+
         Task StartListener();
+
         Task StopListener();
+
         Task SendStringData(HostName hostName, string data);
+
         Task<string> ReceiveStringData(HostName hostName);
+
         string GetJsonSerializedChecklistItems();
+
         Task TransferOwnership();
     }
+
     public class Stream : IStream
     {
         public event EventHandler IncomingChecklistReceived;
+
         private StreamSocketListener _streamSocketListener;
 
         private static IStream _stream;
@@ -36,7 +44,6 @@ namespace Sockets
         }
 
         internal static IStream Create(IChecklists checklists) => _stream ?? (_stream = new Stream(checklists));
-
 
         public async Task StartListener()
         {
@@ -146,7 +153,6 @@ namespace Sockets
                                         defcon1CheckListItems.Add(item);
                                     }
                                 }
-
                                 else if (item.DefconStatus == 2)
                                 {
                                     for (int i = 0; i < defcon2CheckListItems.Count; i++)
@@ -172,7 +178,6 @@ namespace Sockets
                                         defcon2CheckListItems.Add(item);
                                     }
                                 }
-
                                 else if (item.DefconStatus == 3)
                                 {
                                     for (int i = 0; i < defcon3CheckListItems.Count; i++)
@@ -198,7 +203,6 @@ namespace Sockets
                                         defcon3CheckListItems.Add(item);
                                     }
                                 }
-
                                 else if (item.DefconStatus == 4)
                                 {
                                     for (int i = 0; i < defcon4CheckListItems.Count; i++)
@@ -224,7 +228,6 @@ namespace Sockets
                                         defcon4CheckListItems.Add(item);
                                     }
                                 }
-
                                 else if (item.DefconStatus == 5)
                                 {
                                     for (int i = 0; i < defcon5CheckListItems.Count; i++)

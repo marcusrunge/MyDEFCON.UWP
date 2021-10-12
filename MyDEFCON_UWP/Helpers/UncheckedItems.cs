@@ -82,18 +82,23 @@ namespace MyDEFCON_UWP.Helpers
                 case 1:
                     badgeNumber = defcon1UncheckedItems + defcon2UncheckedItems + defcon3UncheckedItems + defcon4UncheckedItems + defcon5UncheckedItems;
                     break;
+
                 case 2:
                     badgeNumber = defcon2UncheckedItems + defcon3UncheckedItems + defcon4UncheckedItems + defcon5UncheckedItems;
                     break;
+
                 case 3:
                     badgeNumber = defcon3UncheckedItems + defcon4UncheckedItems + defcon5UncheckedItems;
                     break;
+
                 case 4:
                     badgeNumber = defcon4UncheckedItems + defcon5UncheckedItems;
                     break;
+
                 case 5:
                     badgeNumber = defcon5UncheckedItems;
                     break;
+
                 default:
                     break;
             }
@@ -123,7 +128,6 @@ namespace MyDEFCON_UWP.Helpers
                         return new SolidColorBrush(Colors.Orange);
                     }
                 }
-
                 catch (Exception)
                 {
                     return new SolidColorBrush(Colors.Green);

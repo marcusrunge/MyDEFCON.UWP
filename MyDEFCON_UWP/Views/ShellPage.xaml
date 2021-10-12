@@ -9,14 +9,14 @@
     xmlns:helpers="using:MyDEFCON_UWP.Helpers"
     xmlns:views="using:MyDEFCON_UWP.Views"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:i="using:Microsoft.Xaml.Interactivity"    
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
     mc:Ignorable="d">
 
     <i:Interaction.Behaviors>
         <ic:EventTriggerBehavior EventName="Loaded">
             <ic:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
         </ic:EventTriggerBehavior>
-        <behaviors:VisualStateBehavior VisualState="{x:Bind ViewModel.VisualState, Mode=TwoWay}"/>
+        <behaviors:VisualStateBehavior VisualState="{x:Bind ViewModel.VisualState, Mode=TwoWay}" />
     </i:Interaction.Behaviors>
     <Grid x:Name="shellGrid">
         <VisualStateManager.VisualStateGroups>
@@ -28,64 +28,64 @@
                 </i:Interaction.Behaviors>
                 <VisualState x:Name="ClearState">
                     <VisualState.Setters>
-                        <Setter Target="Sync.(UIElement.Visibility)" Value="Collapsed"/>
-                        <Setter Target="Delete.(UIElement.Visibility)" Value="Collapsed"/>
-                        <Setter Target="Add.(UIElement.Visibility)" Value="Collapsed"/>
-                        <Setter Target="Share.(UIElement.Visibility)" Value="Collapsed"/>
-                        <Setter Target="List.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="Sync.(UIElement.Visibility)" Value="Collapsed" />
+                        <Setter Target="Delete.(UIElement.Visibility)" Value="Collapsed" />
+                        <Setter Target="Add.(UIElement.Visibility)" Value="Collapsed" />
+                        <Setter Target="Share.(UIElement.Visibility)" Value="Collapsed" />
+                        <Setter Target="List.(UIElement.Visibility)" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="ShareDefconState">
                     <VisualState.Setters>
-                        <Setter Target="Share.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="Share.(UIElement.Visibility)" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="AddItemState">
                     <VisualState.Setters>
-                        <Setter Target="Sync.(UIElement.Visibility)" Value="Visible"/>
-                        <Setter Target="Add.(UIElement.Visibility)" Value="Visible"/>
-                        <Setter Target="List.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="Sync.(UIElement.Visibility)" Value="Visible" />
+                        <Setter Target="Add.(UIElement.Visibility)" Value="Visible" />
+                        <Setter Target="List.(UIElement.Visibility)" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DeleteItemsState">
                     <VisualState.Setters>
-                        <Setter Target="Sync.(UIElement.Visibility)" Value="Visible"/>
-                        <Setter Target="List.(UIElement.Visibility)" Value="Visible"/>
-                        <Setter Target="Delete.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="Sync.(UIElement.Visibility)" Value="Visible" />
+                        <Setter Target="List.(UIElement.Visibility)" Value="Visible" />
+                        <Setter Target="Delete.(UIElement.Visibility)" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <Grid x:Name="backgroundGrid">
             <Grid.RenderTransform>
-                <CompositeTransform SkewX="-45"/>
+                <CompositeTransform SkewX="-45" />
             </Grid.RenderTransform>
             <Grid Background="Black" Margin="0,0,-1134,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Background="#FFE8FF00"/>
-                <StackPanel Grid.Column="2" Background="#FFE8FF00"/>
-                <StackPanel Grid.Column="4" Background="#FFE8FF00"/>
-                <StackPanel Grid.Column="6" Background="#FFE8FF00"/>
-                <StackPanel Grid.Column="8" Background="#FFE8FF00"/>
-                <StackPanel Grid.Column="10" Background="#FFE8FF00"/>
-                <StackPanel Grid.Column="12" Background="#FFE8FF00"/>
-                <StackPanel Grid.Column="14" Background="#FFE8FF00"/>
+                <StackPanel Background="#FFE8FF00" />
+                <StackPanel Grid.Column="2" Background="#FFE8FF00" />
+                <StackPanel Grid.Column="4" Background="#FFE8FF00" />
+                <StackPanel Grid.Column="6" Background="#FFE8FF00" />
+                <StackPanel Grid.Column="8" Background="#FFE8FF00" />
+                <StackPanel Grid.Column="10" Background="#FFE8FF00" />
+                <StackPanel Grid.Column="12" Background="#FFE8FF00" />
+                <StackPanel Grid.Column="14" Background="#FFE8FF00" />
             </Grid>
         </Grid>
 
@@ -99,13 +99,13 @@
             <winui:NavigationView.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="/Styles/SolidColorBrushes.xaml"/>
-                        <ResourceDictionary Source="/Styles/RedNavigationViewStyle.xaml"/>
+                        <ResourceDictionary Source="/Styles/SolidColorBrushes.xaml" />
+                        <ResourceDictionary Source="/Styles/RedNavigationViewStyle.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </winui:NavigationView.Resources>
             <winui:NavigationView.Style>
-                <StaticResource ResourceKey="RedNavigationViewStyle"/>
+                <StaticResource ResourceKey="RedNavigationViewStyle" />
             </winui:NavigationView.Style>
             <winui:NavigationView.MenuItems>
                 <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Home" helpers:NavHelper.NavigateTo="views:MainPage" />
@@ -114,7 +114,7 @@
                 <winui:NavigationViewItem x:Uid="Shell_FullScreen" Icon="FullScreen" helpers:NavHelper.NavigateTo="views:FullScreenPage" />
             </winui:NavigationView.MenuItems>
             <i:Interaction.Behaviors>
-                <behaviors:CommandBarBehavior/>
+                <behaviors:CommandBarBehavior />
                 <!--<behaviors:NavigationViewHeaderBehavior
                 DefaultHeader="{x:Bind ViewModel.Selected.Content, Mode=OneWay}">
                 <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>
@@ -141,7 +141,7 @@
             <CommandBar.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="/Styles/RedAppBarButtonStyle.xaml"/>
+                        <ResourceDictionary Source="/Styles/RedAppBarButtonStyle.xaml" />
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </CommandBar.Resources>
@@ -152,23 +152,23 @@
                                 Style="{ThemeResource TitleTextBlockStyle}"
                                 Margin="{StaticResource SmallLeftRightMargin}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             </CommandBar.Content>
-            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Share" Icon="Share" Content="Share" Label="Share" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Share"/>
+            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Share" Icon="Share" Content="Share" Label="Share" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Share" />
             <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="List" Icon="List" Content="Select" Label="Select" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="List">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="Click">
-                        <ic:GoToStateAction TargetObject="{Binding ElementName=shellPage}" StateName="DeleteItemsState"/>
+                        <ic:GoToStateAction TargetObject="{Binding ElementName=shellPage}" StateName="DeleteItemsState" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </AppBarButton>
             <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Delete" Icon="Delete" Content="Delete" Label="Delete" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Delete">
                 <i:Interaction.Behaviors>
                     <ic:EventTriggerBehavior EventName="Click">
-                        <ic:GoToStateAction TargetObject="{Binding ElementName=shellPage}" StateName="AddItemState"/>
+                        <ic:GoToStateAction TargetObject="{Binding ElementName=shellPage}" StateName="AddItemState" />
                     </ic:EventTriggerBehavior>
                 </i:Interaction.Behaviors>
             </AppBarButton>
-            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Add" Icon="Add" Content="Add" Label="Add" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Add"/>
-            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Sync" Icon="Sync" Content="Sync" Label="Sync" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Sync"/>
+            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Add" Icon="Add" Content="Add" Label="Add" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Add" />
+            <AppBarButton Style="{StaticResource RedAppBarButtonStyle}" x:Name="Sync" Icon="Sync" Content="Sync" Label="Sync" Foreground="Red" Visibility="Collapsed" Command="{x:Bind ViewModel.AppBarButtonClickedCommand}" CommandParameter="Sync" />
         </CommandBar>
     </Grid>
 </Page>

@@ -25,6 +25,7 @@ namespace MyDEFCON_UWP.Helpers
                 case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
                 case BackgroundAccessStatus.AlwaysAllowed:
                     break;
+
                 case BackgroundAccessStatus.Unspecified:
                 case BackgroundAccessStatus.DeniedBySystemPolicy:
                 case BackgroundAccessStatus.DeniedByUser:
@@ -60,6 +61,7 @@ namespace MyDEFCON_UWP.Helpers
                 case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
                 case BackgroundAccessStatus.AlwaysAllowed:
                     break;
+
                 case BackgroundAccessStatus.DeniedBySystemPolicy:
                 case BackgroundAccessStatus.DeniedByUser:
                     return false;
@@ -80,6 +82,7 @@ namespace MyDEFCON_UWP.Helpers
                 case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
                 case BackgroundAccessStatus.AlwaysAllowed:
                     break;
+
                 case BackgroundAccessStatus.DeniedBySystemPolicy:
                 case BackgroundAccessStatus.DeniedByUser:
                     return false;

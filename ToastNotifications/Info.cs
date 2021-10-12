@@ -7,10 +7,13 @@ namespace ToastNotifications
     {
         void Show(string title, string content = null);
     }
+
     internal class Info : IInfo
     {
         private static IInfo _info;
+
         internal static IInfo Create(ToastNotificationsBase toastNotificationsBase) => _info ?? (_info = new Info(toastNotificationsBase));
+
         private readonly ToastNotificationsBase _toastNotificationsBase;
 
         public Info(ToastNotificationsBase toastNotificationsBase)

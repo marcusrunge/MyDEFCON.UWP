@@ -8,19 +8,23 @@ namespace Models
     public class CheckListItem : INotifyPropertyChanged
     {
         #region Fields
-        string _item = default;
-        bool _checked = default;
-        bool _deleted = default;
-        double _fontSize = default;
-        double _width = default;
-        long _unixTimeStampCreated;
-        long _unixTimeStampUpdated;
-        short _defconStatus;
-        int _id;
-        Visibility _visibility;
-        #endregion        
+
+        private string _item = default;
+        private bool _checked = default;
+        private bool _deleted = default;
+        private double _fontSize = default;
+        private double _width = default;
+        private long _unixTimeStampCreated;
+        private long _unixTimeStampUpdated;
+        private short _defconStatus;
+        private int _id;
+        private Visibility _visibility;
+        #endregion Fields
+
+
 
         #region Properties
+
         public int Id { get { return _id; } set { Set(ref _id, value); } }
         public long UnixTimeStampCreated { get { return _unixTimeStampCreated; } set { Set(ref _unixTimeStampCreated, value); } }
         public long UnixTimeStampUpdated { get { return _unixTimeStampUpdated; } set { Set(ref _unixTimeStampUpdated, value); } }
@@ -31,9 +35,11 @@ namespace Models
         public Visibility Visibility { get { return _visibility; } set { Set(ref _visibility, value); } }
         public double FontSize { get { return _fontSize; } set { Set(ref _fontSize, value); } }
         public double Width { get { return _width; } set { Set(ref _width, value); } }
-        #endregion
+
+        #endregion Properties
 
         #region NotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void RaisePropertyChanged([CallerMemberName] string propertyName = null)
@@ -49,6 +55,7 @@ namespace Models
             RaisePropertyChanged(propertyName);
             return true;
         }
-        #endregion
+
+        #endregion NotifyPropertyChanged
     }
 }

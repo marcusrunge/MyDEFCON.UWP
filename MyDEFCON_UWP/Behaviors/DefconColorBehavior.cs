@@ -14,6 +14,7 @@ namespace MyDEFCON_UWP.Behaviors
             get => (string)GetValue(ActiveForegroundProperty);
             set => SetValue(ActiveForegroundProperty, value);
         }
+
         public static readonly DependencyProperty ActiveForegroundProperty = DependencyProperty.Register("ActiveForeground", typeof(string), typeof(DefconColorBehavior), new PropertyMetadata(0));
 
         public string ActiveBackground
@@ -21,6 +22,7 @@ namespace MyDEFCON_UWP.Behaviors
             get => (string)GetValue(ActiveBackgroundProperty);
             set => SetValue(ActiveBackgroundProperty, value);
         }
+
         public static readonly DependencyProperty ActiveBackgroundProperty = DependencyProperty.Register("ActiveBackground", typeof(string), typeof(DefconColorBehavior), new PropertyMetadata(0));
 
         public string PassiveForeground
@@ -28,6 +30,7 @@ namespace MyDEFCON_UWP.Behaviors
             get => (string)GetValue(PassiveForegroundProperty);
             set => SetValue(PassiveForegroundProperty, value);
         }
+
         public static readonly DependencyProperty PassiveForegroundProperty = DependencyProperty.Register("PassiveForeground", typeof(string), typeof(DefconColorBehavior), new PropertyMetadata(0));
 
         public string PassiveBackground
@@ -35,8 +38,8 @@ namespace MyDEFCON_UWP.Behaviors
             get => (string)GetValue(PassiveBackgroundProperty);
             set => SetValue(PassiveBackgroundProperty, value);
         }
-        public static readonly DependencyProperty PassiveBackgroundProperty = DependencyProperty.Register("PassiveBackground", typeof(string), typeof(DefconColorBehavior), new PropertyMetadata(0));
 
+        public static readonly DependencyProperty PassiveBackgroundProperty = DependencyProperty.Register("PassiveBackground", typeof(string), typeof(DefconColorBehavior), new PropertyMetadata(0));
 
         protected override void OnAttached()
         {
@@ -63,7 +66,7 @@ namespace MyDEFCON_UWP.Behaviors
             };
         }
 
-        SolidColorBrush GetSolidColorBrush(string hex)
+        private SolidColorBrush GetSolidColorBrush(string hex)
         {
             hex = hex.Replace("#", string.Empty);
             byte a = (byte)(Convert.ToUInt32(hex.Substring(0, 2), 16));

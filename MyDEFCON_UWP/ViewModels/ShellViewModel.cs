@@ -142,6 +142,7 @@ namespace MyDEFCON_UWP.ViewModels
         }
 
         private ICommand _appBarButtonClickedCommand;
+
         public ICommand AppBarButtonClickedCommand => _appBarButtonClickedCommand ?? (_appBarButtonClickedCommand = new RelayCommand<object>((param) =>
         {
             _eventAggregator.Publish.OnAppBarButtonClicked(EventArgsFactory.CreateEventArgs<IAppBarButtonClickedEventArgs>((string)param));
@@ -149,6 +150,7 @@ namespace MyDEFCON_UWP.ViewModels
         }));
 
         private ICommand _currentStateChangedCommand;
+
         public ICommand CurrentStateChangedCommand => _currentStateChangedCommand ?? (_currentStateChangedCommand = new RelayCommand<object>((param) =>
         {
             var newState = (param as VisualStateChangedEventArgs).NewState.Name;

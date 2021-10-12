@@ -4,6 +4,7 @@
     {
         IDefconTile DefconTile { get; }
     }
+
     internal class LiveTile : DefconTileBase
     {
         internal LiveTile()

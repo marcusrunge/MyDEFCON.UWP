@@ -1,5 +1,4 @@
-﻿
-using Windows.ApplicationModel.Resources;
+﻿using Windows.ApplicationModel.Resources;
 
 namespace MyDEFCON_UWP.Helpers
 {

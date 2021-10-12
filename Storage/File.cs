@@ -14,6 +14,7 @@ namespace Storage
         /// <param name="location">Location storage strategy</param>
         /// <returns>Boolean: true if found, false if not found</returns>
         Task<bool> FileExistsAsync(string key, StorageStrategies location = StorageStrategies.Local);
+
         Task<bool> FileExistsAsync(string key, StorageFolder folder);
 
         /// <summary>Deletes a file in the specified storage strategy</summary>
@@ -35,9 +36,11 @@ namespace Storage
         /// <param name="location">Location storage strategy</param>
         Task<bool> WriteFileAsync<T>(string key, T value, StorageStrategies location = StorageStrategies.Local);
     }
+
     internal class File : IFile
     {
         private static IFile _file;
+
         internal static IFile Create() => _file ?? (_file = new File());
 
         public async Task<bool> DeleteFileAsync(string key, StorageStrategies location = StorageStrategies.Local)
@@ -100,12 +103,15 @@ namespace Storage
                     case StorageStrategies.Local:
                         retval = await ApplicationData.Current.LocalFolder.GetFileAsync(key);
                         break;
+
                     case StorageStrategies.Roaming:
                         retval = await ApplicationData.Current.RoamingFolder.GetFileAsync(key);
                         break;
+
                     case StorageStrategies.Temporary:
                         retval = await ApplicationData.Current.TemporaryFolder.GetFileAsync(key);
                         break;
+
                     default:
                         throw new NotSupportedException(location.ToString());
                 }
@@ -140,10 +146,13 @@ namespace Storage
             {
                 case StorageStrategies.Local:
                     return await ApplicationData.Current.LocalFolder.CreateFileAsync(key, option);
+
                 case StorageStrategies.Roaming:
                     return await ApplicationData.Current.RoamingFolder.CreateFileAsync(key, option);
+
                 case StorageStrategies.Temporary:
                     return await ApplicationData.Current.TemporaryFolder.CreateFileAsync(key, option);
+
                 default:
                     throw new NotSupportedException(location.ToString());
             }

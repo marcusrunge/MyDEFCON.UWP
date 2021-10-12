@@ -8,6 +8,7 @@ namespace BackgroundTask
     public sealed class TileUpdateBackgroundTask : IBackgroundTask
     {
         private IUnityContainer _container;
+
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             if (_container == null)

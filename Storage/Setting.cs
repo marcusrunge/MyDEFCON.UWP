@@ -30,11 +30,12 @@ namespace Storage
         /// <param name="location">Location storage strategy</param>
         void SetSetting<T>(string key, T value, StorageStrategies location = StorageStrategies.Local);
 
-        /// <summary>Deletes a setting in specified storage strategy</summary>        
-        /// <param name="key">Path to the file in storage</param>        
+        /// <summary>Deletes a setting in specified storage strategy</summary>
+        /// <param name="key">Path to the file in storage</param>
         /// <param name="location">Location storage strategy</param>
         void DeleteSetting(string key, StorageStrategies location = StorageStrategies.Local);
     }
+
     internal class Setting : ISetting
     {
         private static ISetting _setting;
@@ -54,9 +55,11 @@ namespace Storage
                 case StorageStrategies.Local:
                     ApplicationData.Current.LocalSettings.Values.Remove(key);
                     break;
+
                 case StorageStrategies.Roaming:
                     ApplicationData.Current.RoamingSettings.Values.Remove(key);
                     break;
+
                 default:
                     throw new NotSupportedException(location.ToString());
             }
@@ -72,8 +75,10 @@ namespace Storage
                 {
                     case StorageStrategies.Local:
                         return (T)ApplicationData.Current.LocalSettings.Values[key.ToString()];
+
                     case StorageStrategies.Roaming:
                         return (T)ApplicationData.Current.RoamingSettings.Values[key.ToString()];
+
                     default:
                         throw new NotSupportedException(location.ToString());
                 }
@@ -88,9 +93,11 @@ namespace Storage
                 case StorageStrategies.Local:
                     ApplicationData.Current.LocalSettings.Values[key.ToString()] = value;
                     break;
+
                 case StorageStrategies.Roaming:
                     ApplicationData.Current.RoamingSettings.Values[key.ToString()] = value;
                     break;
+
                 default:
                     throw new NotSupportedException(location.ToString());
             }
@@ -102,8 +109,10 @@ namespace Storage
             {
                 case StorageStrategies.Local:
                     return ApplicationData.Current.LocalSettings.Values.ContainsKey(key);
+
                 case StorageStrategies.Roaming:
                     return ApplicationData.Current.RoamingSettings.Values.ContainsKey(key);
+
                 default:
                     throw new NotSupportedException(location.ToString());
             }

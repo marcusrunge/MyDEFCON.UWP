@@ -9,6 +9,7 @@ namespace LiveTile
         string Wide { get; }
         string Large { get; }
     }
+
     internal class DefconImagePaths : IDefconImagePaths
     {
         private readonly int _status = 5;

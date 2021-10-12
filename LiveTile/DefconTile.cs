@@ -5,13 +5,16 @@ namespace LiveTile
     public interface IDefconTile
     {
         void SetBadge(int number);
+
         void SetTile(int status);
     }
+
     internal class DefconTile : IDefconTile
     {
         private readonly DefconTileBase _defconTileBase;
 
         private static IDefconTile _defconTile;
+
         public static IDefconTile Create(DefconTileBase defconTileBase) => _defconTile ?? (_defconTile = new DefconTile(defconTileBase));
 
         internal DefconTile(DefconTileBase defconTileBase) => _defconTileBase = defconTileBase;

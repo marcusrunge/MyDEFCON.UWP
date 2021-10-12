@@ -21,8 +21,8 @@ namespace MyDEFCON_UWP.ViewModels
         private readonly ISockets _sockets;
         private readonly IEventAggregator _eventAggregator;
         private readonly CoreDispatcher _coreDispatcher;
-        double _onPointerPressedY, _onPointerReleasedY;
-        bool _isFullScreen = default;
+        private double _onPointerPressedY, _onPointerReleasedY;
+        private bool _isFullScreen = default;
         private readonly IStorage _storage;
 
         private string _defconVisualState;
@@ -49,6 +49,7 @@ namespace MyDEFCON_UWP.ViewModels
         }
 
         private ICommand _loadedCommand;
+
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
         {
             await SetDefconVisualState(int.Parse(_storage.Setting.GetSetting("defconStatus", "5", StorageStrategies.Roaming)));
@@ -65,6 +66,7 @@ namespace MyDEFCON_UWP.ViewModels
         }));
 
         private ICommand _unloadedCommand;
+
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
         {
             _eventAggregator.Publish.OnPaneDisplayModeChangeChanged(EventArgsFactory.CreateEventArgs<IPaneDisplayModeChangedEventArgs>(3));
@@ -73,6 +75,7 @@ namespace MyDEFCON_UWP.ViewModels
         }));
 
         private ICommand _fullScreenCommand;
+
         public ICommand FullScreenCommand => _fullScreenCommand ?? (_fullScreenCommand = new RelayCommand<object>((param) =>
         {
             if (_isFullScreen)
@@ -88,6 +91,7 @@ namespace MyDEFCON_UWP.ViewModels
         }));
 
         private ICommand _onPointerPressedCommand;
+
         public ICommand OnPointerPressedCommand => _onPointerPressedCommand ?? (_onPointerPressedCommand = new RelayCommand<object>((param) =>
         {
             _uIElement = ((PointerRoutedEventArgs)param).OriginalSource as UIElement;
@@ -95,6 +99,7 @@ namespace MyDEFCON_UWP.ViewModels
         }));
 
         private ICommand _onPointerReleasedCommand;
+
         public ICommand OnPointerReleasedCommand => _onPointerReleasedCommand ?? (_onPointerReleasedCommand = new RelayCommand<object>((param) =>
         {
             _onPointerReleasedY = ((PointerRoutedEventArgs)param).GetCurrentPoint(_uIElement).Position.Y;
@@ -122,15 +127,19 @@ namespace MyDEFCON_UWP.ViewModels
                     case 1:
                         DefconVisualState = "Defcon1VisualState";
                         break;
+
                     case 2:
                         DefconVisualState = "Defcon2VisualState";
                         break;
+
                     case 3:
                         DefconVisualState = "Defcon3VisualState";
                         break;
+
                     case 4:
                         DefconVisualState = "Defcon4VisualState";
                         break;
+
                     default:
                         DefconVisualState = "Defcon5VisualState";
                         break;

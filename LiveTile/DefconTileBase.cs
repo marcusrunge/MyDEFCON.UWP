@@ -9,12 +9,12 @@ namespace LiveTile
         protected IDefconTile _defconTile;
         public IDefconTile DefconTile => _defconTile;
 
-        internal protected XmlDocument CreateTiles(IDefconImagePaths defconImagePaths)
+        protected internal XmlDocument CreateTiles(IDefconImagePaths defconImagePaths)
         {
             XDocument xDocument = new XDocument(
                 new XElement("tile", new XAttribute("version", 3),
                     new XElement("visual",
-                        // Small Tile  
+                        // Small Tile
                         new XElement("binding", new XAttribute("template", "TileSmall"),
                             new XElement("image", new XAttribute("src", defconImagePaths.Small), new XAttribute("placement", "background"))
                         ),
@@ -24,12 +24,12 @@ namespace LiveTile
                                 new XElement("image", new XAttribute("src", defconImagePaths.Medium), new XAttribute("placement", "background"))
                                 ),
 
-                        // Wide Tile  
+                        // Wide Tile
                         new XElement("binding", new XAttribute("template", "TileWide"),
                             new XElement("image", new XAttribute("src", defconImagePaths.Wide), new XAttribute("placement", "background"))
                         ),
 
-                        //Large Tile  
+                        //Large Tile
                         new XElement("binding", new XAttribute("template", "TileLarge"),
                             new XElement("image", new XAttribute("src", defconImagePaths.Large), new XAttribute("placement", "background"))
                         )
@@ -41,6 +41,6 @@ namespace LiveTile
             return xmlDocument;
         }
 
-        internal protected bool LoadShowUncheckedItemsSetting() => ApplicationData.Current.LocalSettings.Values.ContainsKey("showUncheckedItems") && (bool)ApplicationData.Current.LocalSettings.Values["showUncheckedItems"];
+        protected internal bool LoadShowUncheckedItemsSetting() => ApplicationData.Current.LocalSettings.Values.ContainsKey("showUncheckedItems") && (bool)ApplicationData.Current.LocalSettings.Values["showUncheckedItems"];
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using Checklists;
+﻿using Checklists;
 using LiveTile;
 using MyDEFCON_UWP.Core.Eventaggregator;
 using MyDEFCON_UWP.Helpers;
@@ -58,6 +57,7 @@ namespace MyDEFCON_UWP.ViewModels
         }
 
         private ICommand _setDefconStatusCommand;
+
         public ICommand SetDefconStatusCommand => _setDefconStatusCommand ?? (_setDefconStatusCommand = new RelayCommand<object>(async (param) =>
         {
             _storage.Setting.SetSetting("defconStatus", (string)param, StorageStrategies.Roaming);
@@ -67,6 +67,7 @@ namespace MyDEFCON_UWP.ViewModels
         }));
 
         private ICommand _loadedCommand;
+
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>((param) =>
         {
             DataTransferManager.GetForCurrentView().DataRequested += MainViewModel_DataRequested;
@@ -89,6 +90,7 @@ namespace MyDEFCON_UWP.ViewModels
         }
 
         private ICommand _unloadedCommand;
+
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
         {
             DataTransferManager.GetForCurrentView().DataRequested -= MainViewModel_DataRequested;

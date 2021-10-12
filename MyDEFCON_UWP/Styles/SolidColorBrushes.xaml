@@ -1,14 +1,14 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media">
     <media:BackdropBlurBrush x:Key="NavigationViewExpandedPaneBackground" Amount="10" />
     <media:BackdropBlurBrush x:Key="NavigationViewDefaultPaneBackground" Amount="10" />
-    <SolidColorBrush x:Key="NavigationViewItemForegroundPointerOver" Color="Red"/>
-    <SolidColorBrush x:Key="NavigationViewItemForegroundSelected" Color="Red"/>
-    <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPointerOver" Color="Red"/>
-    <SolidColorBrush x:Key="NavigationViewItemForegroundPressed" Color="Red"/>
-    <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPressed" Color="Red"/>
-    <SolidColorBrush x:Key="NavigationViewItemForeground" Color="Red"/>
-    <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground" Color="Red"/>
+    <SolidColorBrush x:Key="NavigationViewItemForegroundPointerOver" Color="Red" />
+    <SolidColorBrush x:Key="NavigationViewItemForegroundSelected" Color="Red" />
+    <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPointerOver" Color="Red" />
+    <SolidColorBrush x:Key="NavigationViewItemForegroundPressed" Color="Red" />
+    <SolidColorBrush x:Key="NavigationViewItemForegroundSelectedPressed" Color="Red" />
+    <SolidColorBrush x:Key="NavigationViewItemForeground" Color="Red" />
+    <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground" Color="Red" />
 </ResourceDictionary>

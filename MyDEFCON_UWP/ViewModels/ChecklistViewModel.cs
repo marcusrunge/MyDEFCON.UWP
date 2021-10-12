@@ -1,5 +1,4 @@
-﻿
-using Checklists;
+﻿using Checklists;
 using LiveTile;
 using Models;
 using MyDEFCON_UWP.Core.Eventaggregator;
@@ -34,36 +33,36 @@ namespace MyDEFCON_UWP.ViewModels
         private int _pageDefconStatus;
         public int PageDefconStatus { get => _pageDefconStatus; set => Set(ref _pageDefconStatus, value); }
 
-        ItemObservableCollection<CheckListItem> _defconCheckList;
+        private ItemObservableCollection<CheckListItem> _defconCheckList;
         public ItemObservableCollection<CheckListItem> DefconCheckList { get { return _defconCheckList; } set { Set(ref _defconCheckList, value); } }
 
-        ListViewSelectionMode _checklistSelectionMode;
+        private ListViewSelectionMode _checklistSelectionMode;
         public ListViewSelectionMode CheckistSelectionMode { get { return _checklistSelectionMode; } set { Set(ref _checklistSelectionMode, value); } }
 
-        List<long> _selectedItemsUnixTimeStampCreated;
+        private List<long> _selectedItemsUnixTimeStampCreated;
         public List<long> SelectedItemsUnixTimeStampCreated { get => _selectedItemsUnixTimeStampCreated; set => Set(ref _selectedItemsUnixTimeStampCreated, value); }
 
-        SolidColorBrush _defcon1RectangleFill;
+        private SolidColorBrush _defcon1RectangleFill;
         public SolidColorBrush Defcon1RectangleFill { get { return _defcon1RectangleFill; } set { Set(ref _defcon1RectangleFill, value); } }
-        SolidColorBrush _defcon2RectangleFill;
+        private SolidColorBrush _defcon2RectangleFill;
         public SolidColorBrush Defcon2RectangleFill { get { return _defcon2RectangleFill; } set { Set(ref _defcon2RectangleFill, value); } }
-        SolidColorBrush _defcon3RectangleFill;
+        private SolidColorBrush _defcon3RectangleFill;
         public SolidColorBrush Defcon3RectangleFill { get { return _defcon3RectangleFill; } set { Set(ref _defcon3RectangleFill, value); } }
-        SolidColorBrush _defcon4RectangleFill;
+        private SolidColorBrush _defcon4RectangleFill;
         public SolidColorBrush Defcon4RectangleFill { get { return _defcon4RectangleFill; } set { Set(ref _defcon4RectangleFill, value); } }
-        SolidColorBrush _defcon5RectangleFill;
+        private SolidColorBrush _defcon5RectangleFill;
         public SolidColorBrush Defcon5RectangleFill { get { return _defcon5RectangleFill; } set { Set(ref _defcon5RectangleFill, value); } }
 
-        int _defcon1UnCheckedItems;
+        private int _defcon1UnCheckedItems;
         public int Defcon1UnCheckedItems { get { return _defcon1UnCheckedItems; } set { Set(ref _defcon1UnCheckedItems, value); } }
 
-        int _defcon2UnCheckedItems;
+        private int _defcon2UnCheckedItems;
         public int Defcon2UnCheckedItems { get { return _defcon2UnCheckedItems; } set { Set(ref _defcon2UnCheckedItems, value); } }
-        int _defcon3UnCheckedItems;
+        private int _defcon3UnCheckedItems;
         public int Defcon3UnCheckedItems { get { return _defcon3UnCheckedItems; } set { Set(ref _defcon3UnCheckedItems, value); } }
-        int _defcon4UnCheckedItems;
+        private int _defcon4UnCheckedItems;
         public int Defcon4UnCheckedItems { get { return _defcon4UnCheckedItems; } set { Set(ref _defcon4UnCheckedItems, value); } }
-        int _defcon5UnCheckedItems;
+        private int _defcon5UnCheckedItems;
         public int Defcon5UnCheckedItems { get { return _defcon5UnCheckedItems; } set { Set(ref _defcon5UnCheckedItems, value); } }
 
         public ChecklistViewModel(IEventAggregator eventAggregator, IChecklists checkLists, ILiveTile liveTile, ISockets sockets, IStorage storage)
@@ -94,6 +93,7 @@ namespace MyDEFCON_UWP.ViewModels
         }
 
         private ICommand _loadedCommand;
+
         public ICommand LoadedCommand => _loadedCommand ?? (_loadedCommand = new RelayCommand<object>(async (param) =>
         {
             await _checkLists.Operations.SetDefconStatus(_pageDefconStatus);
@@ -121,22 +121,27 @@ namespace MyDEFCON_UWP.ViewModels
                     Defcon1UnCheckedItems = UncheckedItems.Count(_checkLists.Collection.ActiveDefconCheckList, 1, _appDefconStatus);
                     Defcon1RectangleFill = UncheckedItems.RectangleFill(_checkLists.Collection.ActiveDefconCheckList, 1, Defcon1UnCheckedItems, _appDefconStatus);
                     break;
+
                 case 2:
                     Defcon2UnCheckedItems = UncheckedItems.Count(_checkLists.Collection.ActiveDefconCheckList, 2, _appDefconStatus);
                     Defcon2RectangleFill = UncheckedItems.RectangleFill(_checkLists.Collection.ActiveDefconCheckList, 2, Defcon2UnCheckedItems, _appDefconStatus);
                     break;
+
                 case 3:
                     Defcon3UnCheckedItems = UncheckedItems.Count(_checkLists.Collection.ActiveDefconCheckList, 3, _appDefconStatus);
                     Defcon3RectangleFill = UncheckedItems.RectangleFill(_checkLists.Collection.ActiveDefconCheckList, 3, Defcon3UnCheckedItems, _appDefconStatus);
                     break;
+
                 case 4:
                     Defcon4UnCheckedItems = UncheckedItems.Count(_checkLists.Collection.ActiveDefconCheckList, 4, _appDefconStatus);
                     Defcon4RectangleFill = UncheckedItems.RectangleFill(_checkLists.Collection.ActiveDefconCheckList, 4, Defcon4UnCheckedItems, _appDefconStatus);
                     break;
+
                 case 5:
                     Defcon5UnCheckedItems = UncheckedItems.Count(_checkLists.Collection.ActiveDefconCheckList, 5, _appDefconStatus);
                     Defcon5RectangleFill = UncheckedItems.RectangleFill(_checkLists.Collection.ActiveDefconCheckList, 5, Defcon5UnCheckedItems, PageDefconStatus);
                     break;
+
                 default:
                     break;
             }
@@ -151,16 +156,20 @@ namespace MyDEFCON_UWP.ViewModels
                 case "Add":
                     AddItemToChecklist();
                     break;
+
                 case "List":
                     CheckistSelectionMode = CheckistSelectionMode == ListViewSelectionMode.Multiple ? ListViewSelectionMode.None : ListViewSelectionMode.Multiple;
                     break;
+
                 case "Delete":
                     if (SelectedItemsUnixTimeStampCreated.Count > 0) DeleteSelectedItems();
                     else CheckistSelectionMode = ListViewSelectionMode.None;
                     break;
+
                 case "Sync":
                     await _sockets.Datagram.SendMessage("0");
                     break;
+
                 default:
                     break;
             }
@@ -192,6 +201,7 @@ namespace MyDEFCON_UWP.ViewModels
         private void AddItemToChecklist() => _checkLists.Collection.ActiveDefconCheckList.Add(new CheckListItem() { Item = string.Empty, Checked = false, DefconStatus = (short)PageDefconStatus, FontSize = 14, UnixTimeStampCreated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), UnixTimeStampUpdated = DateTimeOffset.Now.ToUnixTimeMilliseconds(), Deleted = false, Visibility = Visibility.Visible, Width = _gridWidth - 52 });
 
         private ICommand _loadDefconChecklistCommand;
+
         public ICommand LoadDefconChecklistCommand => _loadDefconChecklistCommand ?? (_loadDefconChecklistCommand = new RelayCommand<object>(async (param) =>
         {
             CheckistSelectionMode = ListViewSelectionMode.None;
@@ -205,6 +215,7 @@ namespace MyDEFCON_UWP.ViewModels
         }));
 
         private ICommand _windowSizeChangedCommand;
+
         public ICommand WindowSizeChangedCommand => _windowSizeChangedCommand ?? (_windowSizeChangedCommand = new RelayCommand<object>((param) =>
         {
             SetTextBoxWidth(((SizeChangedEventArgs)param).NewSize.Width - 52);
@@ -217,6 +228,7 @@ namespace MyDEFCON_UWP.ViewModels
         }
 
         private ICommand _unloadedCommand;
+
         public ICommand UnloadedCommand => _unloadedCommand ?? (_unloadedCommand = new RelayCommand<object>((param) =>
         {
             _checkLists.Operations.SaveCheckList(DefconCheckList, PageDefconStatus);

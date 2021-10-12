@@ -13,7 +13,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Styles/RedTransparentButtonStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/RedTransparentButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
         </ResourceDictionary>
@@ -22,7 +22,7 @@
     <Grid Margin="{StaticResource MediumLeftRightMargin}">
         <StackPanel
             x:Name="ContentArea" Background="#80000000">
-            <Pivot x:Name="MyPivot" Grid.Row="1" RequestedTheme="Dark" BorderThickness="0" >
+            <Pivot x:Name="MyPivot" Grid.Row="1" RequestedTheme="Dark" BorderThickness="0">
                 <Pivot.Resources>
                     <Style TargetType="PivotHeaderItem">
                         <Setter Property="FontSize" Value="{ThemeResource PivotHeaderItemFontSize}" />
@@ -43,18 +43,18 @@
                                     Background="{TemplateBinding Background}">
                                         <Grid.Resources>
                                             <Style x:Key="BaseContentPresenterStyle" TargetType="ContentPresenter">
-                                                <Setter Property="FontFamily" Value="XamlAutoFontFamily"/>
-                                                <Setter Property="FontWeight" Value="SemiBold"/>
-                                                <Setter Property="FontSize" Value="15"/>
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                                <Setter Property="LineStackingStrategy" Value="MaxHeight"/>
-                                                <Setter Property="TextLineBounds" Value="Full"/>
-                                                <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
+                                                <Setter Property="FontFamily" Value="XamlAutoFontFamily" />
+                                                <Setter Property="FontWeight" Value="SemiBold" />
+                                                <Setter Property="FontSize" Value="15" />
+                                                <Setter Property="TextWrapping" Value="Wrap" />
+                                                <Setter Property="LineStackingStrategy" Value="MaxHeight" />
+                                                <Setter Property="TextLineBounds" Value="Full" />
+                                                <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings" />
                                             </Style>
                                             <Style x:Key="BodyContentPresenterStyle" TargetType="ContentPresenter" BasedOn="{StaticResource BaseContentPresenterStyle}">
                                                 <Setter Property="FontFamily" Value="{ThemeResource PivotHeaderItemFontFamily}" />
-                                                <Setter Property="FontWeight" Value="{ThemeResource PivotHeaderItemThemeFontWeight}"/>
-                                                <Setter Property="FontSize" Value="{ThemeResource PivotHeaderItemFontSize}"/>
+                                                <Setter Property="FontWeight" Value="{ThemeResource PivotHeaderItemThemeFontWeight}" />
+                                                <Setter Property="FontSize" Value="{ThemeResource PivotHeaderItemFontSize}" />
                                             </Style>
                                         </Grid.Resources>
                                         <VisualStateManager.VisualStateGroups>
@@ -66,7 +66,7 @@
                                                 <VisualState x:Name="Disabled">
                                                     <Storyboard>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                               Storyboard.TargetProperty="Foreground" >
+                                               Storyboard.TargetProperty="Foreground">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                     </Storyboard>
@@ -85,11 +85,11 @@
                                                 <VisualState x:Name="Selected">
                                                     <Storyboard>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                                                   Storyboard.TargetProperty="Foreground" >
+                                                                                   Storyboard.TargetProperty="Foreground">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="Red" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid"
-                                                                                   Storyboard.TargetProperty="Background" >
+                                                                                   Storyboard.TargetProperty="Background">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                     </Storyboard>
@@ -97,11 +97,11 @@
                                                 <VisualState x:Name="UnselectedPointerOver">
                                                     <Storyboard>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                                                   Storyboard.TargetProperty="Foreground" >
+                                                                                   Storyboard.TargetProperty="Foreground">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="#FFE8FF00" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid"
-                                                                                   Storyboard.TargetProperty="Background" >
+                                                                                   Storyboard.TargetProperty="Background">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="Red" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                     </Storyboard>
@@ -109,11 +109,11 @@
                                                 <VisualState x:Name="SelectedPointerOver">
                                                     <Storyboard>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                                                   Storyboard.TargetProperty="Foreground" >
+                                                                                   Storyboard.TargetProperty="Foreground">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="#FFE8FF00" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid"
-                                                                                   Storyboard.TargetProperty="Background" >
+                                                                                   Storyboard.TargetProperty="Background">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="Red" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                     </Storyboard>
@@ -121,11 +121,11 @@
                                                 <VisualState x:Name="UnselectedPressed">
                                                     <Storyboard>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                                                   Storyboard.TargetProperty="Foreground" >
+                                                                                   Storyboard.TargetProperty="Foreground">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="Red" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid"
-                                                                                   Storyboard.TargetProperty="Background" >
+                                                                                   Storyboard.TargetProperty="Background">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                     </Storyboard>
@@ -133,11 +133,11 @@
                                                 <VisualState x:Name="SelectedPressed">
                                                     <Storyboard>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                                                                                   Storyboard.TargetProperty="Foreground" >
+                                                                                   Storyboard.TargetProperty="Foreground">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="Red" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid"
-                                                                                   Storyboard.TargetProperty="Background" >
+                                                                                   Storyboard.TargetProperty="Background">
                                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
                                                         </ObjectAnimationUsingKeyFrames>
                                                     </Storyboard>
@@ -164,17 +164,17 @@
                         </Setter>
                     </Style>
                 </Pivot.Resources>
-                <PivotItem DataContext="{Binding SettingsPivotViewModel}" Header="General" >
+                <PivotItem DataContext="{Binding SettingsPivotViewModel}" Header="General">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Unloaded">
-                            <core:InvokeCommandAction Command="{Binding UnloadedCommand}"/>
+                            <core:InvokeCommandAction Command="{Binding UnloadedCommand}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                     <ScrollViewer Margin="0,12,-12,0" HorizontalContentAlignment="Left"
                               VerticalScrollBarVisibility="Auto">
                         <RelativePanel HorizontalAlignment="Left" Margin="12,0,0,0">
                             <ToggleSwitch x:Name="UseTransparentTileToggleSwtich"
-                                      Header="Use transparent tile"                                      
+                                      Header="Use transparent tile"
                                       OffContent="Disabled"
                                       OnContent="Enabled" IsOn="{Binding UseTransparentTile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <ToggleSwitch x:Name="ShowUncheckedItemsToggleSwitch"
@@ -182,20 +182,20 @@
                                       OffContent="Disabled"
                                       OnContent="Enabled"
                                       RelativePanel.Below="UseTransparentTileToggleSwtich" IsOn="{Binding ShowUncheckedItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            <ToggleSwitch x:Name="BackgroundTaskToggleSwitch" 
+                            <ToggleSwitch x:Name="BackgroundTaskToggleSwitch"
                                       Header="Background tile update"
                                       OffContent="Disabled"
                                       OnContent="Enabled"
                                       RelativePanel.Below="ShowUncheckedItemsToggleSwitch" IsOn="{Binding BackgroundTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <ComboBox x:Name="IntervallComboBox"
                                   Header="Update intervall"
-                                  RelativePanel.Below="BackgroundTaskToggleSwitch" ItemsSource="{Binding Intervall, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedTimeIntervallIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <ToggleSwitch x:Name="BroadcastToggleSwitch" 
+                                  RelativePanel.Below="BackgroundTaskToggleSwitch" ItemsSource="{Binding Intervall, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding SelectedTimeIntervallIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <ToggleSwitch x:Name="BroadcastToggleSwitch"
                                       Header="DEFCON Broadcast on LAN UDP Port 4536"
                                       OffContent="Disabled"
                                       OnContent="Enabled"
                                       RelativePanel.Below="IntervallComboBox" IsOn="{Binding LanBroadcastIsOn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,12,0,0" />
-                            <ToggleSwitch x:Name="MulticastToggleSwitch" 
+                            <ToggleSwitch x:Name="MulticastToggleSwitch"
                                       Header="Checklist Multicast on LAN TCP Port 4537"
                                       OffContent="Disabled"
                                       OnContent="Enabled"
@@ -204,33 +204,33 @@
                                 Style="{StaticResource RedTransparentButtonStyle}"
                                 Content="Remove Background Tasks"
                                 RelativePanel.Below="MulticastToggleSwitch" Margin="0,6,0,0"
-                                Command="{x:Bind ViewModel.SettingsPivotViewModel.RemoveBackgroundTasksCommand}"/>
+                                Command="{x:Bind ViewModel.SettingsPivotViewModel.RemoveBackgroundTasksCommand}" />
                             <Button x:Name="DeviceRestartButton"
                                 Style="{StaticResource RedTransparentButtonStyle}"
                                 Content="Device Restart"
                                 Width="{Binding ElementName=BackgroundTasksRemovalButton, Path=ActualWidth}"
                                 RelativePanel.Below="BackgroundTasksRemovalButton" Margin="0,24,0,0" RelativePanel.AlignHorizontalCenterWith="BackgroundTasksRemovalButton"
                                 Command="{x:Bind ViewModel.SettingsPivotViewModel.RestartCommand}"
-                                Visibility="{x:Bind ViewModel.SettingsPivotViewModel.IotVisibility, Mode=OneWay}"/>
+                                Visibility="{x:Bind ViewModel.SettingsPivotViewModel.IotVisibility, Mode=OneWay}" />
                             <Button x:Name="DeviceShutdownButton"
                                 Width="{Binding ElementName=BackgroundTasksRemovalButton, Path=ActualWidth}"
                                 Style="{StaticResource RedTransparentButtonStyle}"
                                 Content="Device Shutdown"
                                 RelativePanel.Below="DeviceRestartButton" Margin="0,6,0,0" RelativePanel.AlignHorizontalCenterWith="DeviceRestartButton"
                                 Command="{x:Bind ViewModel.SettingsPivotViewModel.ShutdownCommand}"
-                                Visibility="{x:Bind ViewModel.SettingsPivotViewModel.IotVisibility, Mode=OneWay}"/>
+                                Visibility="{x:Bind ViewModel.SettingsPivotViewModel.IotVisibility, Mode=OneWay}" />
                         </RelativePanel>
                     </ScrollViewer>
                 </PivotItem>
                 <PivotItem Header="About">
                     <Grid DataContext="{Binding AboutPivotViewModel}">
-                        <Grid x:Name="ContentPanel" >
+                        <Grid x:Name="ContentPanel">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
 
@@ -246,32 +246,32 @@
                                     <HyperlinkButton x:Uid="Settings_PrivacyTermsLink" Margin="{StaticResource XSmallTopMargin}" />
                                 </StackPanel>
 
-                                <!--<TextBlock Margin="12,0,12,0" Text="MyDEFCON" FontFamily="Segoe WP Semibold" FontSize="32"/>
+                                <!--<TextBlock Margin="12,0,12,0" Text="MyDEFCON" FontFamily="Segoe WP Semibold" FontSize="32" />
                                 <TextBlock Margin="12,0,12,0" FontFamily="Segoe WP" FontSize="20" Text="2.7.4.0" />
                                 <TextBlock Margin="12,0,12,0" FontFamily="Segoe WP" FontSize="13.333" Text="Made in Germany with Template 10" FontStyle="Italic" />-->
                             </StackPanel>
 
                             <HyperlinkButton x:Name="EmailButton"
-                        		Grid.Row="2" 
-                        		Content="technical support/feedback email" 
-                        		Margin="12,0,0,0" 
-                        		HorizontalAlignment="Left" 
+                        		Grid.Row="2"
+                        		Content="technical support/feedback email"
+                        		Margin="12,0,0,0"
+                        		HorizontalAlignment="Left"
                         		Foreground="White"
                         		FontFamily="Segoe WP"
                         		FontSize="20"
-                        		FontWeight="SemiBold" Command="{x:Bind ViewModel.AboutPivotViewModel.EmailCommand}"/>
-                            <HyperlinkButton x:Name="RateButton" 
+                        		FontWeight="SemiBold" Command="{x:Bind ViewModel.AboutPivotViewModel.EmailCommand}" />
+                            <HyperlinkButton x:Name="RateButton"
                         		Grid.Row="3"
-                        		Content="rate this app" 
-                        		Margin="12,0,0,0" 
-                        		HorizontalAlignment="Left" 
+                        		Content="rate this app"
+                        		Margin="12,0,0,0"
+                        		HorizontalAlignment="Left"
                         		Foreground="White"
                         		FontFamily="Segoe WP"
                         		FontSize="20"
-                        		FontWeight="SemiBold" Command="{x:Bind ViewModel.AboutPivotViewModel.RateCommand}"/>                            
+                        		FontWeight="SemiBold" Command="{x:Bind ViewModel.AboutPivotViewModel.RateCommand}" />
                             <StackPanel Grid.Row="5"  VerticalAlignment="Bottom" HorizontalAlignment="Left">
                                 <Image Height="100" Source="/Assets/MR.png" HorizontalAlignment="Center" />
-                                <TextBlock Text="SOFTWAREENGINEERING" FontFamily="Segoe UI Light" FontSize="16" Foreground="#FF606165"/>
+                                <TextBlock Text="SOFTWARETECHNIK" FontFamily="Segoe UI Light" FontSize="16" Foreground="#FF606165" />
                             </StackPanel>
                         </Grid>
                     </Grid>

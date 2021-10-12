@@ -1,6 +1,5 @@
 ﻿namespace ToastNotifications
 {
-
     public interface IToastNotifications
     {
         IInfo Info { get; }

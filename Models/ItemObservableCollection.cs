@@ -8,13 +8,16 @@ namespace Models
     public class ItemObservableCollection<T> : ObservableCollection<T> where T : INotifyPropertyChanged
     {
         #region Constructor
+
         public ItemObservableCollection()
         {
             CollectionChanged += ItemObservableCollection_CollectionChanged;
         }
-        #endregion
+
+        #endregion Constructor
 
         #region Eventhandler
+
         private void ItemObservableCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
@@ -43,6 +46,7 @@ namespace Models
         {
             throw new NotImplementedException();
         }
-        #endregion
+
+        #endregion Eventhandler
     }
 }

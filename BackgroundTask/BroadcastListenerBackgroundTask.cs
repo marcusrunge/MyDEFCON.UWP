@@ -19,6 +19,7 @@ namespace BackgroundTask
     public sealed class BroadcastListenerBackgroundTask : IBackgroundTask
     {
         private IUnityContainer _container;
+
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             if (_container == null)
@@ -106,7 +107,6 @@ namespace BackgroundTask
                                                                 }
                                                                 if (!itemFound) defcon1CheckListItems.Add(item);
                                                             }
-
                                                             else if (item.DefconStatus == 2)
                                                             {
                                                                 for (int i = 0; i < defcon2CheckListItems.Count; i++)
@@ -128,7 +128,6 @@ namespace BackgroundTask
                                                                 }
                                                                 if (!itemFound) defcon2CheckListItems.Add(item);
                                                             }
-
                                                             else if (item.DefconStatus == 3)
                                                             {
                                                                 for (int i = 0; i < defcon3CheckListItems.Count; i++)
@@ -150,7 +149,6 @@ namespace BackgroundTask
                                                                 }
                                                                 if (!itemFound) defcon3CheckListItems.Add(item);
                                                             }
-
                                                             else if (item.DefconStatus == 4)
                                                             {
                                                                 for (int i = 0; i < defcon4CheckListItems.Count; i++)
@@ -172,7 +170,6 @@ namespace BackgroundTask
                                                                 }
                                                                 if (!itemFound) defcon4CheckListItems.Add(item);
                                                             }
-
                                                             else if (item.DefconStatus == 5)
                                                             {
                                                                 for (int i = 0; i < defcon5CheckListItems.Count; i++)
@@ -215,6 +212,7 @@ namespace BackgroundTask
                             await datagramSocket.CancelIOAsync();
                             datagramSocket.TransferOwnership("myDefconDatagramSocket");
                             break;
+
                         case SocketActivityTriggerReason.SocketClosed:
                             DatagramSocket newDatagramSocket = new DatagramSocket();
                             newDatagramSocket.EnableTransferOwnership(taskInstance.Task.TaskId, SocketActivityConnectedStandbyAction.DoNotWake);
@@ -222,6 +220,7 @@ namespace BackgroundTask
                             await newDatagramSocket.CancelIOAsync();
                             newDatagramSocket.TransferOwnership("myDefconDatagramSocket");
                             break;
+
                         default:
                             break;
                     }

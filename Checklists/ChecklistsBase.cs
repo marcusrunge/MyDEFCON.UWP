@@ -7,14 +7,14 @@ namespace Checklists
 {
     internal abstract class ChecklistsBase : BindableBase, IChecklists, INotifyPropertyChanged
     {
-        internal protected ItemObservableCollection<CheckListItem> _defcon1CheckList;
-        internal protected ItemObservableCollection<CheckListItem> _defcon2CheckList;
-        internal protected ItemObservableCollection<CheckListItem> _defcon3CheckList;
-        internal protected ItemObservableCollection<CheckListItem> _defcon4CheckList;
-        internal protected ItemObservableCollection<CheckListItem> _defcon5CheckList;
-        internal protected ItemObservableCollection<CheckListItem> _activeDefconCheckList;
-        internal protected int _defconStatus;
-        internal protected IStorage _storage;
+        protected internal ItemObservableCollection<CheckListItem> _defcon1CheckList;
+        protected internal ItemObservableCollection<CheckListItem> _defcon2CheckList;
+        protected internal ItemObservableCollection<CheckListItem> _defcon3CheckList;
+        protected internal ItemObservableCollection<CheckListItem> _defcon4CheckList;
+        protected internal ItemObservableCollection<CheckListItem> _defcon5CheckList;
+        protected internal ItemObservableCollection<CheckListItem> _activeDefconCheckList;
+        protected internal int _defconStatus;
+        protected internal IStorage _storage;
 
         protected IChecklistCollection _checklistCollection;
         public IChecklistCollection Collection => _checklistCollection;

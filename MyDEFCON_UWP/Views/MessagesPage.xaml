@@ -9,7 +9,7 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid>
             <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content.
                 Place your content here.
             -->
         </Grid>

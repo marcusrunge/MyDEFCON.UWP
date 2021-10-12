@@ -39,22 +39,28 @@ namespace MyDEFCON_UWP.Helpers
                         case ShareSourceItemType.Text:
                             requestData.SetText(dataItem.Text);
                             break;
+
                         case ShareSourceItemType.WebLink:
                             requestData.SetWebLink(dataItem.WebLink);
                             break;
+
                         case ShareSourceItemType.ApplicationLink:
                             requestData.SetApplicationLink(dataItem.ApplicationLink);
                             break;
+
                         case ShareSourceItemType.Html:
                             var htmlFormat = HtmlFormatHelper.CreateHtmlFormat(dataItem.Html);
                             requestData.SetHtmlFormat(htmlFormat);
                             break;
+
                         case ShareSourceItemType.Image:
                             requestData.FillImage(dataItem.Image, storageItems);
                             break;
+
                         case ShareSourceItemType.StorageItems:
                             requestData.FillStorageItems(dataItem.StorageItems, storageItems);
                             break;
+
                         case ShareSourceItemType.DeferredContent:
                             requestData.FillDeferredContent(dataItem.DeferredDataFormatId, dataItem.GetDeferredDataAsyncFunc);
                             break;

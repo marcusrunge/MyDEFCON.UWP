@@ -6,6 +6,7 @@ namespace Checklists
     internal abstract class BindableBase : INotifyPropertyChanged
     {
         #region NotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void RaisePropertyChanged([CallerMemberName] string propertyName = null)
@@ -21,6 +22,7 @@ namespace Checklists
             RaisePropertyChanged(propertyName);
             return true;
         }
-        #endregion
+
+        #endregion NotifyPropertyChanged
     }
 }

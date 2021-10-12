@@ -51,7 +51,6 @@ namespace MyDEFCON_UWP.Helpers
 
         public static async Task<T> ReadAsync<T>(this ApplicationDataContainer settings, string key)
         {
-
             if (settings.Values.TryGetValue(key, out object obj))
             {
                 return await Json.ToObjectAsync<T>((string)obj);

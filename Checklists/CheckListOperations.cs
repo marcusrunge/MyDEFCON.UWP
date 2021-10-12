@@ -10,6 +10,7 @@ namespace Checklists
         private readonly ChecklistsBase _checklistsBase;
 
         private static ICheckListOperations _checkListOperations;
+
         internal static ICheckListOperations Create(ChecklistsBase checklistsBase) => _checkListOperations ?? (_checkListOperations = new CheckListOperations(checklistsBase));
 
         internal CheckListOperations(ChecklistsBase checklistsBase)
@@ -29,6 +30,7 @@ namespace Checklists
                     }
 
                     break;
+
                 case 3:
                     if (_checklistsBase._defconStatus != 3)
                     {
@@ -39,6 +41,7 @@ namespace Checklists
                     }
 
                     break;
+
                 case 4:
                     if (_checklistsBase._defconStatus != 4)
                     {
@@ -51,6 +54,7 @@ namespace Checklists
                     }
 
                     break;
+
                 case 5:
                     if (_checklistsBase._defconStatus != 5)
                     {
@@ -64,6 +68,7 @@ namespace Checklists
                         await SaveCheckList(_checklistsBase._defcon4CheckList, 4);
                     }
                     break;
+
                 default:
                     break;
             }
@@ -83,22 +88,27 @@ namespace Checklists
                     await _checklistsBase._storage.File.WriteFileAsync("defcon1.json", checkList, StorageStrategies.Roaming);
                     _checklistsBase._defcon1CheckList = checkList;
                     break;
+
                 case 2:
                     await _checklistsBase._storage.File.WriteFileAsync("defcon2.json", checkList, StorageStrategies.Roaming);
                     _checklistsBase._defcon2CheckList = checkList;
                     break;
+
                 case 3:
                     await _checklistsBase._storage.File.WriteFileAsync("defcon3.json", checkList, StorageStrategies.Roaming);
                     _checklistsBase._defcon3CheckList = checkList;
                     break;
+
                 case 4:
                     await _checklistsBase._storage.File.WriteFileAsync("defcon4.json", checkList, StorageStrategies.Roaming);
                     _checklistsBase._defcon4CheckList = checkList;
                     break;
+
                 case 5:
                     await _checklistsBase._storage.File.WriteFileAsync("defcon5.json", checkList, StorageStrategies.Roaming);
                     _checklistsBase._defcon5CheckList = checkList;
                     break;
+
                 default:
                     break;
             }
@@ -121,18 +131,23 @@ namespace Checklists
                 case 1:
                     _checklistsBase._defcon1CheckList = _checklistsBase._activeDefconCheckList;
                     break;
+
                 case 2:
                     _checklistsBase._defcon2CheckList = _checklistsBase._activeDefconCheckList;
                     break;
+
                 case 3:
                     _checklistsBase._defcon3CheckList = _checklistsBase._activeDefconCheckList;
                     break;
+
                 case 4:
                     _checklistsBase._defcon4CheckList = _checklistsBase._activeDefconCheckList;
                     break;
+
                 case 5:
                     _checklistsBase._defcon5CheckList = _checklistsBase._activeDefconCheckList;
                     break;
+
                 default:
                     break;
             }

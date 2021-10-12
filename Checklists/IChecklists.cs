@@ -6,6 +6,7 @@ namespace Checklists
     {
         IChecklistCollection Collection { get; }
         ICheckListOperations Operations { get; }
+
         Task Initialize();
     }
 }

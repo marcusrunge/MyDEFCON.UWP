@@ -1,5 +1,4 @@
-﻿
-using MyDEFCON_UWP.Helpers;
+﻿using MyDEFCON_UWP.Helpers;
 
 namespace MyDEFCON_UWP.ViewModels
 {

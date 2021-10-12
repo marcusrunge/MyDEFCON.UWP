@@ -5,6 +5,7 @@
         ISetting Setting { get; }
         IFile File { get; }
     }
+
     internal class Storage : StorageBase
     {
         public Storage()

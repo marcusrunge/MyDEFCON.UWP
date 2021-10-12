@@ -13,6 +13,7 @@ namespace MyDEFCON_UWP.Views
     public sealed partial class FullScreenPage : Page
     {
         public FullScreenViewModel ViewModel { get; } = (Application.Current as App).Container.Resolve<FullScreenViewModel>();
+
         public FullScreenPage()
         {
             this.InitializeComponent();

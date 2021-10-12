@@ -6,7 +6,8 @@ namespace ToastNotifications
     {
         protected IInfo _info;
         public IInfo Info => _info;
-        internal protected void ShowToastNotification(ToastNotification toastNotification)
+
+        protected internal void ShowToastNotification(ToastNotification toastNotification)
         {
             try
             {

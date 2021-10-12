@@ -9,10 +9,10 @@
 
   <Identity
     Name="27242DAEDALUS737.MYDEFCON"
-    Publisher="CN=MR Softwaretechnik"
-    Version="3.0.5.0" />
+    Publisher="CN=34360351-E0A4-43A5-99AE-0840493AC494"
+    Version="3.0.6.0" />
 
-  <mp:PhoneIdentity PhoneProductId="3044d2c7-d9f0-46d0-a563-5dc6d11991f1" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="9234f24b-7639-4031-87ae-e6a4fb8420f1" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MyDEFCON</DisplayName>

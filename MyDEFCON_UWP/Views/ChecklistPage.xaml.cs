@@ -1,5 +1,4 @@
-﻿
-using MyDEFCON_UWP.ViewModels;
+﻿using MyDEFCON_UWP.ViewModels;
 using Unity;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

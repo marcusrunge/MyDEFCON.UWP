@@ -18,9 +18,11 @@ namespace MyDEFCON_UWP.Behaviors
                         case "Main":
                             VisualStateManager.GoToState((AssociatedObject.Parent as Grid).Parent as Control, "ShareDefconState", true);
                             break;
+
                         case "Checklist":
                             VisualStateManager.GoToState((AssociatedObject.Parent as Grid).Parent as Control, "AddItemState", true);
                             break;
+
                         default:
                             VisualStateManager.GoToState((AssociatedObject.Parent as Grid).Parent as Control, "ClearState", true);
                             break;

@@ -8,6 +8,7 @@ namespace Checklists
         private readonly ChecklistsBase _checklistsBase;
 
         private static IChecklistCollection _checklistCollection;
+
         internal static IChecklistCollection Create(ChecklistsBase checklistsBase) => _checklistCollection ?? (_checklistCollection = new ChecklistCollection(checklistsBase));
 
         public ChecklistCollection(ChecklistsBase checklistsBase)
